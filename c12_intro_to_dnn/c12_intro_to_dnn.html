@@ -1757,7 +1757,7 @@ Where <span class="math inline">\(x_i\)</span> is the <span class="math inline">
 <h3 id="keras-is-an-api">Keras is an API</h3>
 <ul>
 <li><a href="https://keras.io/">Keras</a> is a high-level API “designed for human beings, not machines” developed by <a href="https://twitter.com/fchollet">François Chollet</a></li>
-<li>It sits upon a popular DL backend named <a href="https://www.tensorflow.org/">Tensorflow</a>, also by Google.</li>
+<li>It sits upon a popular DL backends such as <a href="https://www.tensorflow.org/">Tensorflow</a>, also by Google, and <a href="https://pytorch.org/">PyTorch</a> by Meta</li>
 </ul>
 <div class="cell" data-execution_count="34">
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> tensorflow <span class="im">as</span> tf</span>
@@ -1766,14 +1766,13 @@ Where <span class="math inline">\(x_i\)</span> is the <span class="math inline">
 <ul>
 <li>“ease of use does not come at the cost of reduced flexibility”</li>
 <li>Seamless integration with the Pandasverse</li>
-<li>You should know the competition by Meta: <a href="https://pytorch.org/">PyTorch</a></li>
 </ul>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
 <p>כעת נרחיב קצת יותר על היכולות של קראס, עם נתונים אמיתיים.</p>
-<p>קראס הוא בעצמו API, שנכתב על ידי מהנדס מגוגל בשם פרנסואה שולה. קראס עוטפת תוכנה פופולרית ללמידה עמוקה בשם טנסורפלואו, גם כן נכתבה על ידי מהנדסי גוגל.</p>
+<p>קראס הוא בעצמו API, שנכתב על ידי מהנדס מגוגל בשם פרנסואה שולה. קראס עוטפת תוכנות פופולריות ללמידה עמוקה כמו טנסורפלואו, גם כן נכתבה על ידי מהנדסי גוגל, או פייטורץ’ שמגיעה מחברת מטא.</p>
 <p>קראס מאפשרת כפי שראינו להגדיר רשתות מורכבות מבלי להיכנס לברזלים של תהליך האופטימיזציה, ואם רוצים יותר גמישות בארכיטקטורה תמיד אפשר לעבור לכתוב בטנזורפלואו.</p>
-<p>קראס מתכתבת באופן ישיר עם החבילות המוכרות שלנו של נאמפיי ופנדאס. כדאי להכיר גם את המתחרה הגדול של טנזורפלואו, הוא פייטורץ’ מבית מטא, שגם לו יש API שמקילים על משתמשים מתחילים לכתוב רשתות מורכבות.</p>
+<p>קראס מתכתבת באופן ישיר עם החבילות המוכרות שלנו של נאמפיי ופנדאס.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -2048,10 +2047,10 @@ Where <span class="math inline">\(x_i\)</span> is the <span class="math inline">
 <div class="cell" data-execution_count="42">
 <div class="sourceCode cell-code" id="cb54"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>model.layers</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="14">
-<pre><code>[&lt;keras.layers.core.dense.Dense at 0x1be743a82b0&gt;,
- &lt;keras.layers.core.dense.Dense at 0x1be743a82e0&gt;,
- &lt;keras.layers.core.dense.Dense at 0x1be74392fa0&gt;,
- &lt;keras.layers.core.dense.Dense at 0x1be743a8580&gt;]</code></pre>
+<pre><code>[&lt;keras.layers.core.dense.Dense at 0x1c8cb9c22b0&gt;,
+ &lt;keras.layers.core.dense.Dense at 0x1c88bc27940&gt;,
+ &lt;keras.layers.core.dense.Dense at 0x1c99f1de190&gt;,
+ &lt;keras.layers.core.dense.Dense at 0x1c8a5f61a90&gt;]</code></pre>
 </div>
 </div>
 <div class="cell" data-execution_count="43">
@@ -2069,19 +2068,19 @@ Where <span class="math inline">\(x_i\)</span> is the <span class="math inline">
 <pre><code>(30000, 300)</code></pre>
 </div>
 <div class="cell-output cell-output-display" data-execution_count="16">
-<pre><code>array([[ 0.00329341,  0.00796097, -0.00101876, ..., -0.01345558,
-         0.0120745 ,  0.01054169],
-       [-0.00942108,  0.01161212, -0.00054876, ...,  0.01171695,
-         0.0039203 ,  0.00543473],
-       [ 0.00698479,  0.01116556, -0.01003419, ..., -0.00289776,
-        -0.00157091,  0.01196031],
+<pre><code>array([[-1.13830371e-02,  7.78465346e-03, -7.35715777e-03, ...,
+         1.00976881e-03,  1.46864448e-03,  4.35163453e-03],
+       [ 7.89240003e-04,  1.02443825e-02, -5.73266298e-03, ...,
+        -1.20754922e-02,  3.28857452e-03, -7.43750343e-03],
+       [-8.24765582e-03,  4.23339009e-03, -5.44310827e-03, ...,
+         1.01240575e-02,  1.36107337e-02,  6.78374618e-03],
        ...,
-       [-0.00092131, -0.00186168,  0.00388671, ..., -0.01376295,
-        -0.00506934,  0.00319551],
-       [-0.00112489,  0.00126752,  0.01014688, ..., -0.00056004,
-        -0.01180126,  0.0099086 ],
-       [ 0.00029083,  0.01039155, -0.01241545, ..., -0.00931325,
-        -0.01134801, -0.01271594]], dtype=float32)</code></pre>
+       [-1.30265011e-02,  1.36442874e-02,  2.33473815e-03, ...,
+         1.07872337e-02,  7.84278661e-03,  8.28148052e-03],
+       [-9.09785647e-03,  9.59079154e-03, -3.70273832e-03, ...,
+         1.32227857e-02, -2.93281302e-03,  3.47271189e-03],
+       [ 6.11092709e-03, -8.58651847e-03, -9.20949504e-03, ...,
+         8.77743214e-03,  7.99531117e-05,  8.66886787e-03]], dtype=float32)</code></pre>
 </div>
 </div>
 <aside class="notes">
@@ -2203,7 +2202,7 @@ Where <span class="math inline">\(x_i\)</span> is the <span class="math inline">
 <div class="sourceCode cell-code" id="cb64"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a>test_loss, test_acc <span class="op">=</span> model.evaluate(X_test, y_test, verbose<span class="op">=</span><span class="va">False</span>)</span>
 <span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Test accuracy for NN: </span><span class="sc">{</span>test_acc<span class="sc">:.3f}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Test accuracy for NN: 0.630</code></pre>
+<pre><code>Test accuracy for NN: 0.628</code></pre>
 </div>
 </div>
 <div class="cell" data-execution_count="49">
@@ -2242,13 +2241,13 @@ Where <span class="math inline">\(x_i\)</span> is the <span class="math inline">
   <tbody>
     <tr>
       <th>true:yes</th>
-      <td>159</td>
-      <td>103</td>
+      <td>145</td>
+      <td>117</td>
     </tr>
     <tr>
       <th>true:no</th>
-      <td>82</td>
-      <td>156</td>
+      <td>69</td>
+      <td>169</td>
     </tr>
   </tbody>
 </table>
@@ -2379,9 +2378,9 @@ Best params: {'lrt': 0.0004918307063493132, 'n_hidden': 3, 'n_neurons': 17}</cod
 <div class="sourceCode cell-code" id="cb71"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> keras.models.load_model(<span class="st">'malaria.h5'</span>)</span>
 <span id="cb71-2"><a href="#cb71-2" aria-hidden="true" tabindex="-1"></a>model.predict(X_test[:<span class="dv">3</span>], verbose<span class="op">=</span><span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="24">
-<pre><code>array([[0.52443355],
-       [0.75541663],
-       [0.35511082]], dtype=float32)</code></pre>
+<pre><code>array([[0.43842962],
+       [0.81921285],
+       [0.3252244 ]], dtype=float32)</code></pre>
 </div>
 </div>
 <p>The HDF5 model saves the model’s architecture and hyperparameters, and all weights matrices and biases.</p>

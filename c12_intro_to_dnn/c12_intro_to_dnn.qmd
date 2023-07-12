@@ -1327,7 +1327,7 @@ model.fit(X, y_categorical, batch_size=100, epochs=50,
 ### Keras is an API
 
 - [Keras](https://keras.io/) is a high-level API "designed for human beings, not machines" developed by [François Chollet](https://twitter.com/fchollet)
-- It sits upon a popular DL backend named [Tensorflow](https://www.tensorflow.org/), also by Google.
+- It sits upon a popular DL backends such as [Tensorflow](https://www.tensorflow.org/), also by Google, and [PyTorch](https://pytorch.org/) by Meta
 
 ```{python}
 #| echo: true
@@ -1338,17 +1338,16 @@ from tensorflow import keras
 
 - "ease of use does not come at the cost of reduced flexibility"
 - Seamless integration with the Pandasverse
-- You should know the competition by Meta: [PyTorch](https://pytorch.org/)
 
 ::: {.notes}
 ::: {style="direction:rtl; font-size:16px"}
 כעת נרחיב קצת יותר על היכולות של קראס, עם נתונים אמיתיים.
 
-קראס הוא בעצמו API, שנכתב על ידי מהנדס מגוגל בשם פרנסואה שולה. קראס עוטפת תוכנה פופולרית ללמידה עמוקה בשם טנסורפלואו, גם כן נכתבה על ידי מהנדסי גוגל.
+קראס הוא בעצמו API, שנכתב על ידי מהנדס מגוגל בשם פרנסואה שולה. קראס עוטפת תוכנות פופולריות ללמידה עמוקה כמו טנסורפלואו, גם כן נכתבה על ידי מהנדסי גוגל, או פייטורץ' שמגיעה מחברת מטא.
 
 קראס מאפשרת כפי שראינו להגדיר רשתות מורכבות מבלי להיכנס לברזלים של תהליך האופטימיזציה, ואם רוצים יותר גמישות בארכיטקטורה תמיד אפשר לעבור לכתוב בטנזורפלואו.
 
-קראס מתכתבת באופן ישיר עם החבילות המוכרות שלנו של נאמפיי ופנדאס. כדאי להכיר גם את המתחרה הגדול של טנזורפלואו, הוא פייטורץ' מבית מטא, שגם לו יש API שמקילים על משתמשים מתחילים לכתוב רשתות מורכבות.
+קראס מתכתבת באופן ישיר עם החבילות המוכרות שלנו של נאמפיי ופנדאס.
 :::
 :::
 
