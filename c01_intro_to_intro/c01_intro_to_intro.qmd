@@ -1,0 +1,393 @@
+---
+format:
+  revealjs:
+    slide-number: true
+    chalkboard: true
+    fig-width: 6
+    fig-asp: 0.618
+css: "../slides_quarto.css"
+standalone: false
+include-in-header: "../header_quarto.html"
+logo: "../Intro2DS_logo_white.jpg"
+pagetitle: "Intro. to Data Science"
+callout-appearance: simple
+smaller: true
+execute:
+  eval: false
+  echo: false
+code-line-numbers: false
+code-block-border-left: true
+highlight-style: github
+footer: "[Intro to Data Science](https://intro2ds2023.github.io/mooc/){target='_blank'}"
+---
+
+## {.logo-slide}
+
+## Introduction to Data Science {.title-slide}
+
+### Intro to Data Science - Class 1
+
+### Giora Simchoni
+
+#### `gsimchoni@gmail.com` and add `#intro2ds` in subject
+
+### Stat. and OR Department, TAU
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+שלום. וברוכות הבאות לשיעור הראשון בקורס מבוא למדעי הנתונים.
+
+בשיעור זה נלמד ננסה להגדיר מהם מדעי הנתונים או דאטה סיינס.
+
+נלמד מהו פרויקט דאטה סיינס ונראה דוגמאות. ונתחיל ליצור פרויקט דאטא סיינס משלנו, שילווה אותנו לכל אורך הקורס.
+:::
+:::
+---
+
+## What is Data Science? {.title-slide}
+
+---
+
+### What is Data Science?
+
+:::: {.columns}
+::: {.column width="50%"}
+
+::: {.fragment}
+It is an emerging multi-disciplinary paradigm that deals with:
+:::
+
+::: {.incremental}
+- collecting, curating
+- analyzing
+- understanding
+- modeling
+- and using data to address real-world problems.
+:::
+:::
+::: {.column width="50%"}
+![](images/data_science_crossroad.png){width=100%}
+:::
+::::
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+אז מה זה דאטא סיינס? דאטא סיינס הוא פרדיגמה ששואלת רעיונות ממספר תחומים ושמה את הדאטא במרכז.
+
+דאטא סיינס כולל את האופן שבו אנחנו אוספים נתונים, מנתחים אותם, מפיקים מהם תובנות, ממדלים אותם -- והכל במטרה להביא תועלת בבעיות פרקטיות מהעולם האמיתי.
+:::
+:::
+
+---
+
+### The three paradigms of data science
+
+![](images/data_science_crossroad.png){width=100%}
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+לא תמיד ברורים הגבולות בין דאטא סיינס לבעיה סטטיסטית או מתמטית. התרשים שלפנינו הוא הצעה איך בכל זאת להסתכל על תחום הדאטא סיינס:
+
+בבסיס התרשים אנו רואים את הdomain knowledge. בעית דאטא סיינס כמעט תמיד נוגעת לתחום ידע ספציפית ולבעיה אמיתית שמעסיקה אנשים או חברה.
+
+הדרך לטפל בבעיה כזאת היא לנסות להחיל עליה כלים מתמטיים וסטטיסטיים, כפי שהיה במחקר מאז ומתמיד.
+
+כאשר אנו משלבים בנוסף לאלה כלים של למידת מכונה והנדסת תוכנה שמגיעים בעיקר מתחום מדעי המחשב, אנו נמצאים בצומת מרתקת ויחסית חדשה: מדעי הנתונים.
+:::
+:::
+
+---
+
+### Components of a data science project
+
+::: {.incremental}
+1. Defining a problem and understanding where the data to address it will come from
+
+2. Collecting or generating the data
+    - Difference between passive data collection (e.g. downloading from the web) and active collection (e.g. doing surveys)
+
+:::
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+בואו נפרוט פרויקט של דאטא סיינס למרכיבים שלו מול לקוח אפשרי:
+
+בלימודים אנחנו הרבה פעמים מקבלים מוכנה מראש, עם הגדרה מדויקת מאוד של הפתרון אותו אנחנו מחפשים או מה ייחשב פתרון טוב. בפרויקט דאטא סיינס אמיתי לעומת זאת, עצם הגדרת הבעיה ואילו נתונים צריך לאסוף כדי לפתור אותה, יכול להוות אתגר.
+
+בשלב הבא, נרצה לאסוף את הנתונים ואלה לא תמיד יהיו זמינים עבורנו. לפעמים אנחנו פשוט מורידים נתונים מתוך מסד נתונים מסודר של חברה או ממשלה. לפעמים איסוף הנתונים הוא דבר הרבה יותר אקטיבי כמו עריכת סקרים. לפעמים איסוף הנתונים עצמו יכול להיות פרויקט תוכנה מורכב למדי, כמו כתיבת קוד שיוריד נתונים מאלפי דפים באינטרנט.
+:::
+:::
+
+---
+
+### Components of a data science project (II)
+
+::: {.incremental}
+3. Organizing, understanding and presenting the data
+    - Visualization, mathematical modeling, probabilistic thinking
+
+4. Analyzing the data
+    - Statistical analysis (answering questions, performing tests)
+    - Building models, predictive modeling
+
+5. Results and conclusions
+:::
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+בשלב הבא נשאל מה עושים עם כל הדאטא הזה? בפרויקט דאטא סיינס טיפוסי אנו יכולים למצוא את עצמנו עם דאטא עצום, שיש בו מאות אלפי ואולי מיליוני תצפיות, ומאות או אלפי משתנים. יש גם פרויקטים של דאטא סיינס עם מיליוני משתנים! איך אנחנו ניגשים לנתונים כאלה, איך עושים להם ויזואליזציה, איך מפעילים עליהם חשיבה הסתברותית. על כל אלה עוד נדבר.
+
+כעת צריך לנתח את הדאטא. ניתוח נתונים יכול לבוא בצורת בדיקת השערות סטטיסטית או בצורת מידול וחיזוי על דאטאסט שהמודל לא ראה, מתוך מטרה שהמודל ירוץ בסביבה אמיתית, סביבת "פרודקשן" וייתן חיזוי שאנחנו יכולים לכמת מראש מה הטיב שלו. המודל צודק בתשעים אחוז מהדוגמאות שהוא רואה? שמונים?
+
+השלב האחרון של פרויקט דאטא סיינס הוא שלב התוצאה והתוצר. לפעמים התוצאה היא תשובה לשאלה, כמו האם קיים קשר בין משתנה אחד לאחר. לפעמים התוצאה היא מודל, אלגוריתם שאפשר להריץ על נתונים חדשים ולקבל חיזוי. כך או כך, לפרויקט דאטא סיינס טוב צריכות להיות תוצאות שלמישהו יהיה אכפת מהן.
+
+נראה עכשיו כמה דוגמאות לפרויקט דאטא סיינס.
+:::
+:::
+
+---
+
+### Example: The Higgs boson search
+
+![](images/Candidate_Higgs_Events_in_ATLAS_and_CMS.png){width=100%}
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+נראה בעית דאטא סיינס קשה במיוחד, מתחום פיסיקת החלקיקים: החיפוש אחר החלקיק של בוזון היגס.
+
+במשך שנים היה קיומו של החלקיק בגדר השערה בלבד. ב-2012 הודיעה קבוצה של מדענים שעבדה במאיץ החלקיקים בCERN שבשוויץ, כי הם "משוכנעים במידה רבה" שהחלקיק שאת קיומו ניבאו שנים לפני מדענים בשם פיטר היגס ופרנסואה אנגלר - סוף סוף נמצא.
+:::
+:::
+
+---
+
+### Example: The Higgs boson search
+
+::: {.incremental}
+
+- Problem: finding a new particle
+    - The data will come from a huge particle accelator
+- Data collection: measuring particles at different masses
+- Data organization and understanding: need physicists, big computers, data cleaning, visualization
+- Data analysis: looking for peaks in particle counts
+    - A statistical testing problem
+- Results: Nobel prize
+:::
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+אז איך אפשר למסגר את מציאת החלקיק של בוזון היגס כפרויקט דאטא סיינס?
+
+הבעיה: אנו רוצים למצוא את החלקיק
+
+הדאטא שעומד לרשותנו: מדידות של מאסות של חלקיקים מניסויים מהמאיץ. שימו לב ששלב זה אינו דבר של מה בכך. כדי לייצר את הדאטא שברשותנו נבנה מלכתחילה מאיץ החלקיקים בCERN, במנהרה עגולה שאורכה 27 קילומטר, פרויקט שהשתתפו בו יותר מ5000 פיסיקאים ומהנדסים מיותר מ-40 מדינות והושקעו בו מיליארדי דולרים.
+
+ארגון הדאטא והבנה שלו: גם כאן אין זה עניין של מה בכך. מאיץ החלקיקים מייצר כמיליארד אינטראקציות בין חלקיקים בשניה! חשבו על מסד נתונים שבכל שורה מתווספות לו מיליארד שורות! כאן נוצר צורך בסיעור מוחות בין פיסיקאים ומדעני מחשב שיוביל לאופן שבו נשמרים נתונים גדולים כל כך לשם ניתוח.
+
+שלב ניתוח הנתונים: באופן מפתיע אולי, דווקא שלב זה היה מורכב רובו ככולו מאתגר ישן מתחום הסטטיסטיקה: בדיקת השערות, כדי לדעת האם הפיק שאנו רואים בגרף ספירת חלקיקים כלשהו, הוא אכן עדות לקיומו של חלקיק ההיגס בוזון, או לא. כלומר אנחנו מסתכלים על המוני אירועים ומחפשים לגבי כל אחד תשובה של כן, או לא.
+
+ומה היו התוצאות של פרויקט ההיגס בוזון? לא פחות מפרס נובל לפיסיקה, שניתן ב-2013 לפיטר היגס ופרנסואה אנגלר.
+:::
+:::
+
+---
+
+#### Example: Identifying new disease risk factors from medical health records
+
+![](images/Cancer.png){width=100%}
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+#### Example: Identifying new disease risk factors from medical health records
+
+::: {.incremental}
+- Problem
+- Data collection:
+    - Data sources: laboratory tests, doctor visit reports, hospital records, public health statistics, imaging...
+    - Data cleaning: dealing with text, images, different databases, different formats
+- Data organization and understanding:
+    - Exploratory data analysis (EDA): looking for interesting connections
+    - This is where the Asbestos and cancer connection happened!
+- Data analysis: test hypotheses and build models
+    - Is the asbestos-cancer connection statsitically siginificant and consistent?
+    - Can we build more complex models of cancer risk given exposures?
+- Results: affecting health policy
+    - No more asbestos use!
+:::
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+## Class project: Paintings {.title-slide}
+
+---
+
+### Class project: Can we separate impressionist paintings from realist paintings?
+
+:::: {.columns}
+::: {.column width="50%"}
+![Claude Monet, Water Lilies, 1919](images/claude-monet_water-lilies-44.jpg){fig-align="left" width=100%}
+:::
+::: {.column width="50%"}
+![Vladimir Makovsky, Brew Seller, 1879](images/vladimir-makovsky_brew-seller-1879.jpg){fig-align="left" width=60%}
+:::
+::::
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### Getting the data: Crawling and Scraping Amazon.com
+
+::: {.incremental}
+- We want to get from [this](https://www.wikiart.org/en/paintings-by-style/impressionism?select=featured#!#filterName:featured,viewType:masonry)
+
+- To this:
+![](images/impr_vs_real_paintings.png){width=100%}
+:::
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### Organizing and cleaning the data
+
+::: {.incremental}
+- Junk images
+
+::: {.fragment}
+![](images/wikiart_junk_images.png){}
+:::
+
+- How much storage do we need?
+    - For example: 100,000 images x (1000 x 1000 x 3) pixels = 300 Gb, too much for a course like this
+:::
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### Understanding and visualizing the data
+
+RGB plots
+
+![](images/wikiart_color_channels.png){width=50%}
+
+What do we learn from the peaks on the realist histrograms?
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### Building models
+
+::: {.incremental}
+- Predictive modeling framework
+    - Build models on "training set" with known girls-boys division
+    - Apply the models to new data, and see how well they do
+- Approaches to model building
+    - Traditional: Linear and logistic regression, nearest neighbor methods ("most similar image")
+    - Modern: Deep learning (Convolutional Neural Nets), Boosting
+- Example: simplistic logistic regression
+    - Fitting a logistic model to color averages gives:
+    - Predict 'realist' if: $1.28 - 0.012 \cdot \text{red} - 0.001 \cdot \text{green} + 0.004 \cdot \text{blue} > 0$
+    - Accuracy of this model: 56%
+:::
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### How accurate can we get?
+
+::: {.incremental}
+- Our goal in this course will be to build a model with 75-80% accuracy on fresh test data!
+
+- Can you tell whether the following are girls or boys shirts?
+
+::: {.fragment}
+![](images/four_paintings_question.png){}
+:::
+:::
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### How accurate can we get?
+
+::: {.fragment}
+Solution:
+
+![](images/four_paintings_solution.png){}
+:::
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### Course details
+
+::: {.incremental}
+- Philosophy:
+    - Cover all aspects and stages of data science
+    - Combine programming, visualization, probabilistic thinking and statistical modeling
+- Required background:
+    - Some programming experience
+    - A course in (Introduction to) Probability
+    - A course in Calculus: integration, differentiation, finding extrema of functions
+    - A course in Algebra: matrices, vectors, how to do calculations with them
+    - Important topic: Matrix factorization (singular value/eigen decomposition), we will review it
+:::
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### Course details (II)
+
+::: {.incremental}
+- Environment:
+    - Our programming will be done in Python, using Notebooks
+    - Using Google Colab through a browser -- you do not need to install anything on your computer
+    - Alternative: Using Jupyter notebooks for those who have them
+:::
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
