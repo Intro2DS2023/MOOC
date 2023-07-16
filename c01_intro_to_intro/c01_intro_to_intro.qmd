@@ -270,7 +270,7 @@ It is an emerging multi-disciplinary paradigm that deals with:
 ![Claude Monet, Water Lilies, 1919](images/claude-monet_water-lilies-44.jpg){fig-align="left" width=100%}
 :::
 ::: {.column width="50%"}
-![Vladimir Makovsky, Brew Seller, 1879](images/vladimir-makovsky_brew-seller-1879.jpg){fig-align="left" width=60%}
+![Vladimir Makovsky, Brew Seller, 1879](images/vladimir-makovsky_brew-seller-1879.jpg){fig-align="left" width=50%}
 :::
 ::::
 
