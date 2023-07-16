@@ -406,7 +406,7 @@ What do we learn from the peaks on the realist histrograms?
 ::: {.incremental}
 - Our goal in this course will be to build a model with 75-80% accuracy on fresh test data!
 
-- Can you tell whether the following are girls or boys shirts?
+- Can you tell whether the following are impressionist or realist paintings?
 
 ::: {.fragment}
 ![](images/four_paintings_question.png){}
