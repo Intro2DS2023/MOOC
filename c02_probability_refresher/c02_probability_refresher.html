@@ -945,12 +945,35 @@ P(Y = \text{Alive}) &amp;= P(Y = \text{Alive}|X = \text{First})P(X = \text{First
 <h3 id="covariance">Covariance</h3>
 <div>
 <ul>
-<li class="fragment"><p>Covariance is a measure of the joint variability of two RVs <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span></p></li>
-<li class="fragment"><p>Formally: <span class="math display">\[Cov(X, Y) = E_{XY}[(X - E(X))(Y - E(Y))] = E(XY) - E(X)E(Y) \]</span></p></li>
-<li class="fragment"><p>Can think of it as a measure of correlation between <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> (not dependence!)</p></li>
-<li class="fragment"><p>Some properties:</p>
-<ul>
+<li class="fragment">Covariance is a measure of the joint variability of two RVs <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span></li>
+<li class="fragment">Formally: <span class="math display">\[Cov(X, Y) = E_{XY}[(X - E(X))(Y - E(Y))] = E(XY) - E(X)E(Y) \]</span></li>
 <li class="fragment">The expectation is on the joint distribution of <span class="math inline">\((X, Y)\)</span></li>
+<li class="fragment">Can think of it as a measure of correlation between <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> (not dependence!)</li>
+</ul>
+</div>
+<aside class="notes">
+<div style="direction:rtl; font-size:16px">
+
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2">
+
+<h3 id="covariance-1">Covariance</h3>
+<div>
+<ul>
+<li class="fragment">Some properties:
+<ul>
 <li class="fragment">When <span class="math inline">\(X, Y\)</span> are independent: <span class="math inline">\(Cov(X, Y) = 0\)</span> (opposite is not necessarily true!)</li>
 <li class="fragment">If when <span class="math inline">\(X\)</span> gets “high” values so does <span class="math inline">\(Y\)</span> tend to get high values: <span class="math inline">\(Cov(X, Y) &gt; 0\)</span></li>
 <li class="fragment">If when <span class="math inline">\(X\)</span> gets “high” values <span class="math inline">\(Y\)</span> tends to get “low” values: <span class="math inline">\(Cov(X, Y) &lt; 0\)</span></li>
