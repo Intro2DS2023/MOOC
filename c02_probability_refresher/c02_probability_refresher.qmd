@@ -430,3 +430,23 @@ $$Cov(X, Y) = E_{XY}[(X - E(X))(Y - E(Y))] = E(XY) - E(X)E(Y)$$
 :::
 
 ---
+
+### Correlation
+
+::: {.incremental}
+- Since the magnitude of covariance is hard to interpret
+- Let us standardize:
+$$\rho_{XY} = Corr(X, Y) = \frac{Cov(X, Y)}{SD(X)SD(Y)}$$
+- For a sample:
+$$r_{XY} = \frac{\sum_{i=1}^{n} (x_i - \overline{x})(y_i - \overline{y})}
+{\sqrt{\sum_{i=1}^{n} (x_i - \overline{x})^2  \sum_{i=1}^{n}(y_i - \overline{y})^2}}$$
+- $$-1 \leq Corr(X, Y) \leq 1$$
+- Nice geometric interpretation: Cosine similarity between two vectors (samples): $r_{xy} = \cos\theta = \frac{\bf{x}\cdot\bf{y}}{||\bf{x}||||\bf{y}||}$
+:::
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
