@@ -394,3 +394,20 @@ $$P(Y|X) = P(Y)$$
 :::
 
 ---
+
+### Covariance
+
+::: {.incremental}
+- Covariance is a measure of the joint variability of two RVs $X$ and $Y$
+- Formally:
+$$Cov(X, Y) = E_{XY}[(X - E(X))(Y - E(Y))] = E(XY) - E(X)E(Y)$$
+- The expectation is on the joint distribution of $(X, Y)$
+- Can think of it as a measure of correlation between $X$ and $Y$ (not dependence!)
+:::
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
