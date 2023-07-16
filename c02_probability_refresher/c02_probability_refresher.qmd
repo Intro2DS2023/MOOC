@@ -405,7 +405,8 @@ $$Cov(X, Y) = E_{XY}[(X - E(X))(Y - E(Y))] = E(XY) - E(X)E(Y) $$
 
 - Some properties:
     - The expectation is on the joint distribution of $(X, Y)$
-    - When $X, Y$ are independent -- $Cov(X, Y) = 0$ (opposite is not necessarily true!)
+    - When $X, Y$ are independent -- $Cov(X, Y) = 0$
+    - (opposite is not necessarily true!)
     - If when $X$ gets "high" values so does $Y$ tend to get high values -- $Cov(X, Y) > 0$
     - If when $X$ gets "high" values $Y$ tends to get "low" values -- $Cov(X, Y) < 0$
     - What is $Cov(X, X)$?
