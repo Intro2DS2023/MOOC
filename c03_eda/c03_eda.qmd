@@ -1,0 +1,156 @@
+---
+format:
+  revealjs:
+    slide-number: true
+    chalkboard: true
+    fig-width: 6
+    fig-asp: 0.618
+css: "../slides_quarto.css"
+standalone: false
+include-in-header: "../header_quarto.html"
+logo: "../Intro2DS_logo_white.jpg"
+pagetitle: "Collecting, Exploring and Cleaning Data"
+callout-appearance: simple
+smaller: true
+execute:
+  eval: true
+  echo: true
+code-line-numbers: false
+code-block-border-left: true
+highlight-style: github
+footer: "[Intro to Data Science](https://intro2ds2023.github.io/mooc/){target='_blank'}"
+---
+
+## {.logo-slide}
+
+## Introduction to Data Science {.title-slide}
+
+### Collecting, Exploring and Cleaning Data - Class 3
+
+### Giora Simchoni
+
+#### `gsimchoni@gmail.com` and add `#intro2ds` in subject
+
+### Stat. and OR Department, TAU
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+
+:::
+:::
+---
+
+## Common Data Formats in Data Science {.title-slide}
+
+---
+
+### CSV: Comma Separated Values
+
+::: {.fragment}
+<img src = "images/csv.png" style="width: 70%">
+:::
+::: {.fragment}
+```{python}
+#| output-location: fragment
+
+import pandas as pd
+
+df = pd.read_csv('../datasets/drugs.csv')
+
+print(df.head())
+```
+:::
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### JSON: JavaScript Object Notation
+
+::: {.fragment}
+<img src = "images/json.png" width = "50%">
+:::
+
+::: {.fragment}
+```{python}
+#| output-location: fragment
+
+import json
+
+data = dict()
+
+with open('../datasets/test.json') as f:
+    data=json.load(f)
+
+data
+```
+:::
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### Plain Text
+
+::: {.fragment}
+<img src = "images/txt.png">
+:::
+
+::: {.fragment}
+```{python}
+#| output-location: fragment
+
+with open('../datasets/test.txt') as f:
+    lines = f.readlines(1000)
+
+lines
+```
+:::
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### HTML
+
+::: {.r-stack}
+![](images/black_friday_website.png){.fragment .fade-out}
+
+![](images/black_friday_html.png){.fragment width=80%}
+:::
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### HTML
+
+::: {.fragment}
+```{python}
+#| output-location: fragment
+
+from bs4 import BeautifulSoup
+
+with open('../datasets/test.html') as f:
+    soup = BeautifulSoup(f, 'html.parser')
+
+print(soup.prettify())
+```
+:::
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
