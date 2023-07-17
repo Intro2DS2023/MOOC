@@ -154,3 +154,233 @@ print(soup.prettify())
 ::: {style="direction:rtl; font-size:16px"}
 :::
 :::
+
+---
+
+## Collecting Data {.title-slide}
+
+---
+
+### Where do(es) data come from?
+
+- Then: Manual Curation
+- Now: Automatic Curation
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### Then: Manual Curation (I)
+
+If your parents have not taken note, anywhere, of how tall you were at the age of 1 - we may never be able to extract this information.
+
+<img src = "images/height_marks.jpg" width = "70%">
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### Then: Manual Curation (II)
+
+If the US government had not seen fit to estimate and record the level of alcohol consumption of its citizens, we would never have known.
+
+<img src = "images/alcohol-consumption-per-person-us.png" width = "70%">
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### Now: Automatic Curation (I)
+
+Have you ever opened up an Internet browser, searched for "Amazon", clicked on [amazon.com](amazon.com) and scrolled around to check the price of a T-shirt? You don't have to be logged in. You don't have to buy. You are data.
+
+<img src = "images/you_are_data.png">
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### Web Scraping
+
+- Public APIs
+- Beautiful Soup
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### Public APIs (I)
+
+You also have the power to automatically curate data, yourself.
+
+<img src = "images/google_trends01.png">
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### Beautiful Soup
+
+You may not even need an API.  The following code scrapes the Wikipedia page for the [Beatles discography](https://en.wikipedia.org/wiki/The_Beatles_discography){target="_blank"} and creates a table, out of "thin air". See more advanced examples in recitation.
+
+```{python}
+from bs4 import BeautifulSoup
+import requests
+import re
+import pandas as pd
+
+url = 'https://en.wikipedia.org/wiki/The_Beatles_discography'
+r = requests.get(url)
+soup = BeautifulSoup(r.content, 'html.parser')
+```
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+```{python}
+def get_release_details(release_col):
+    release_date = None
+    release_label = None
+    if release_col is not None:
+        release_list = release_col.find('ul')
+        if release_list is not None:
+            release_list_elements = release_list.find_all('li')
+            for element in release_list_elements:
+                element_text = element.get_text()
+                if element_text.startswith('Released: '):
+                    release_date = re.search('Released: ([0-9a-zA-Z ]+)',\
+                                             element_text).group(1)
+                if element_text.startswith('Label: '):
+                    release_label = re.search('Label: ([0-9a-zA-Z,\(\) ]+)', \
+                                              element_text).group(1)
+    return release_date, release_label
+```
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+```{python}
+albums = dict()
+id = 0
+albums[id] = dict()
+tables = soup.find_all('table')
+for table in tables:
+    caption = table.find('caption')
+    if caption is not None:
+        header = caption.get_text()
+        if re.match(re.compile('^List of(.+?)albums'), header):
+            rows = table.find_all('tr')
+            for row in rows:
+                title_col = row.find('th')
+                if title_col is not None and 'scope' in title_col.attrs and\
+                title_col.attrs['scope'] == 'row':            
+                    title_cell = title_col.find('a')
+                    if title_cell is not None and title_cell.attrs is not None and\
+                    'title' in title_cell.attrs:
+                        albums[id]['name'] = title_cell.attrs['title']
+                        release_col = row.find('td')
+                        release_date, release_label = get_release_details(release_col)
+                        if release_date is not None or release_label is not None:
+                            albums[id]['release_date'] = release_date
+                            albums[id]['release_label'] = release_label
+                            id += 1
+                            albums[id] = dict()
+```
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+```{python}
+albums_df = pd.DataFrame.from_dict(albums, orient ='index')
+albums_df.head(5)
+```
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+## Small Data, Big Data {.title-slide}
+
+---
+
+### What's in a name?
+
+::: {.incremental}
+These definitions are constantly changing.
+
+* "Everything processed in Excel is small data." ([Rufus Pollock, The Guardian](https://www.theguardian.com/news/datablog/2013/apr/25/forget-big-data-small-data-revolution))
+* "[Big Data] is data so large it does not fit in main memory" (Leskovec et al., Mining of Massive Datasets)
+
+Or maybe we should define the size of our data according how easy it is to process and understand it?
+
+
+* "[Small Data is] data that has small enough size for human comprehension." ([jWork.ORG](jWork.ORG))
+* "data sets that are too large or complex for traditional data-processing application software to adequately deal with" ([Wikipedia](https://en.wikipedia.org/wiki/Big_data))
+:::
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### What's in a name? (II)
+
+::: {.incremental}
+The actual definition should probably merge both of the above.
+
+* Excel can fit 1M rows, 16K columns of double numbers. Try loading a matrix such as this into Matlab, Python or R, and invert it - you can't. So isn't that Big?
+* Facebook generates 4 Petabytes of data, daily. That's 4K Terabytes or 4M Gigabytes. ([Brandwatch.com](https://www.brandwatch.com/blog/47-facebook-statistics/)) But a Facebook Data Scientist in daily life typically needs only a copy of some of these data, which fits in her PC. Isn't that small?
+:::
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### Web data is Big Data
+
+We can all agree *this* is big: ([Domo.com](https://www.domo.com/data-never-sleeps))
+    
+<img src = "images/domo.png" width = "40%">
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
