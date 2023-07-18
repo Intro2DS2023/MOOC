@@ -1,0 +1,50 @@
+---
+format:
+  revealjs:
+    slide-number: true
+    chalkboard: true
+    fig-width: 6
+    fig-asp: 0.618
+css: "../slides_quarto.css"
+standalone: false
+include-in-header: "../header_quarto.html"
+logo: "../Intro2DS_logo_white.jpg"
+pagetitle: "Case Study: the Netflix Dataset"
+callout-appearance: simple
+smaller: true
+execute:
+  eval: true
+  echo: true
+code-line-numbers: false
+code-block-border-left: true
+highlight-style: github
+footer: "[Intro to Data Science](https://intro2ds2023.github.io/mooc/){target='_blank'}"
+---
+
+## {.logo-slide}
+
+## Introduction to Data Science {.title-slide}
+
+### Case Study: the Netflix Dataset - Class 4
+
+### Giora Simchoni
+
+#### `gsimchoni@gmail.com` and add `#intro2ds` in subject
+
+### Stat. and OR Department, TAU
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+
+:::
+:::
+---
+
+### The Netflix Competition
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
