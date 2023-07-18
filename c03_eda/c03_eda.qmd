@@ -384,3 +384,547 @@ We can all agree *this* is big: ([Domo.com](https://www.domo.com/data-never-slee
 ::: {style="direction:rtl; font-size:16px"}
 :::
 :::
+
+---
+
+## Exploring Data: Basic Plots {.title-slide}
+
+---
+
+### Boxplot
+
+```{python}
+import numpy as np
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+sns.set()
+X = np.random.chisquare(5, 1000)
+```
+
+```{python}
+sns.boxplot(y = X)
+plt.ylabel('X')
+plt.show()
+```
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### Swarmplot
+
+```{python}
+sns.swarmplot(y = X)
+plt.ylabel('X')
+plt.show()
+```
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### Histogram
+
+```{python}
+sns.distplot(X, kde = False)
+plt.ylabel('Frequency')
+plt.xlabel('X')
+plt.show()
+```
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### Histogram
+
+```{python}
+sns.distplot(X, hist = False)
+plt.ylabel('Density')
+plt.xlabel('X')
+plt.show()
+```
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### Density plot: kernel density estimation / convolution
+
+::: {.fragment}
+The way to get a smooth estimate of the distribution in density plot is by defining a kernel which "smoothes" the data. Mathematically we define a kernel weight function $w: \mathbb{R} \to \mathbb{R}^+$ as:
+
+::: {.incremental}
+1. Non-negative and symmetric: $w(x) = w(-x)$
+2. Integrates to 1: $\int_{\mathbb{R}} w(x)dx = 1$
+:::
+:::
+
+::: {.fragment}
+And then the density kernel estimate is: $J(x) = \frac{1}{n} \cdot \sum_{i=1}^n w(x_i - x)$.
+:::
+
+::: {.fragment}
+Nice property: $\int_{\mathbb{R}} J(x)dx = 1$
+
+- Wide $w$: smooth estimate, but it may not reflect the real data
+- Narrow $w$: very non-smooth description
+
+:::
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+For example smoothing this same dataset with too narrow or too wide window:
+
+```{python}
+#| code-fold: true
+
+plt.figure(figsize =(14, 5))
+plt.subplot(1, 3, 1)
+sns.kdeplot(X, bw=0.1)
+plt.ylabel('Density')
+plt.xlabel('X')
+plt.title('Width=0.1: Too narrow')
+plt.subplot(1, 3, 2)
+sns.kdeplot(X, bw=1)
+plt.ylabel('Density')
+plt.xlabel('X')
+plt.title('Width=1: About right')
+plt.subplot(1, 3, 3)
+sns.kdeplot(X, bw=10)
+plt.ylabel('Density')
+plt.xlabel('X')
+plt.title('Width=10: Too wide')
+plt.show()
+```
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### Scatterplot
+
+```{python}
+b0 = 2
+b1 = 3
+Y = X * b1 + b0 + np.random.normal(0, 10, 1000)
+sns.scatterplot(X, Y)
+plt.ylabel('Density')
+plt.xlabel('X')
+plt.show()
+```
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### What can we learn from simple plots?
+
+::: {.fragment}
+Look at outliers:
+
+![](images/Outliers.jpg){width=30%}
+:::
+
+::: {.fragment}
+See the shape and tail direction:
+
+![Age at heart attack (left) and cost of hospitalization (right)](images/Skew.jpg){width=50%}
+:::
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+## Exploring Data: Summary Statistics {.title-slide}
+
+---
+
+### Location
+
+"Where is this X located? Where is the central mass?"
+
+- Mean  of empirical distribution (=average): 
+$$Mean(X) = \frac{1}{N}\sum\limits_{i=1}^N X_i$$
+- Median:
+$$Med(X) = m\space s.t. \space P(X \leq m) = P(X \geq m) = 0.5$$
+- Mode:
+$$Mode(X) = Most \space frequent \space value \space in \space a \space dataset$$
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+```{python}
+mean = np.mean(X)
+median = np.median(X)
+hist, _ = np.histogram(X, bins=range(20))
+mode = list(range(20))[hist.argsort()[::-1][0]]
+sns.distplot(X, bins = range(20), kde = False)
+plt.plot([mean, mean], [0, 160], linewidth=2, color='r')
+plt.plot([median, median], [0, 160], linewidth=2, color='g')
+plt.plot([mode, mode], [0, 160], linewidth=2, color='b')
+plt.legend({'Mean':mean,'Median':median,'Mode':mode})
+plt.xlabel('X')
+plt.ylabel('Frequency')
+plt.show()
+```
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### Dispersion
+
+"Is X widely spread out? Does it concentrate narrowly around the mean?"
+
+- Quantiles/Percentiles:
+$$Q(X, q) = v\space s.t. \space P(X \leq v) = 1-P(X \geq v) = q$$
+- Range:
+$$Range(X) = Max(X) - Min(X)$$
+- Inter-Quartile-Range:
+$$IQR(X) = Q(X, 0.75) - Q(X, 0.25)$$
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### Dispersion
+
+- (Empirical) Variance:
+$$Var(X) = \frac{1}{N}\sum\limits_{i=1}^N (X_i - Mean(X))^2$$
+- Standard Deviation:
+$$STD(X) = \sqrt{Var(X)}$$
+
+::: {.fragment}
+```{python}
+print(f'90th percentile: {np.percentile(X, 90) :.2f}')
+print(f'Range: {np.max(X) - np.min(X) :.2f}')
+print(f'IQR: {np.percentile(X, 75) - np.percentile(X, 25) :.2f}')
+print(f'Variance: {np.var(X) :.2f}')
+print(f'Standard Deviation: {np.std(X) :.2f}')
+```
+:::
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### Shape
+
+"Is X symmetric or not? How 'tailed' is it?"
+
+- Skewness:
+$$Skew(X) = \frac{1}{N}\frac{\sum\limits_{i=1}^N (X_i - Mean(X))^3}{STD(X)^3}$$
+
+::: {.fragment}
+```{python}
+from scipy import stats
+
+print(f'Skewness: {stats.skew(X) :.2f}')
+```
+:::
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+## Advanced Visualization {.title-slide}
+
+---
+
+### Minard's Napoleon March
+
+<img src = "images/minard.png">
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### Heatmaps
+
+[source](https://towardsdatascience.com/exploring-infections-through-data-interactive-visualisation-of-measles-in-the-usa-6ae8d5949538)
+
+<img src = "images/heatmap.png">
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### Spotify: Total Eclipse of the Heart
+
+[source](https://insights.spotify.com/us/2017/08/24/data-viz-total-eclipse-of-the-heart-follows-the-eclipse/)
+
+<img src = "images/total_eclipse.gif">
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### Chernoff Faces
+
+[source](https://www.axios.com/the-emoji-states-of-america-1513302318-0ca61705-de75-4c8f-8521-5cbab12a45f2.html)
+
+<img src = "images/chernoff.png">
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### Ridge plot (a.k.a Joy plot)
+
+<img src = "images/ridge.png" width = "80%" height = "80%">
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### Flowing Data: A Day in the Life of Americans
+
+[source](https://flowingdata.com/2015/12/15/a-day-in-the-life-of-americans/)
+
+<iframe width="800" height="500" src="https://www.youtube.com/embed/k88d_fn3G-I" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### Pudding: Women's Pockets (and every single post on their site!)
+
+[source](https://pudding.cool/2018/08/pockets/)
+
+<img src ="images/pockets.png" width = "60%">
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### The Gapminder story
+
+The history of the world encapsulated in a simple visualization:
+
+[source](https://www.gapminder.org/world)
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+## Dangers of Dirty Data {.title-slide}
+
+---
+
+### What could be dirty about data?
+
+- The data itself
+- The data's structure
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### The data itself: Outliers
+
+::: {.fragment}
+- Numerical Outliers: This is a histogram of random ~2.3 million transactions on ebay US website in over a few weeks in 2013 ([source](https://users.soe.ucsc.edu/~draper/Reading-2015-Day-5.html)):
+
+<img src = "images/ebay_dist.png" width="35%">
+
+:::
+
+::: {.fragment}
+- Textual Outliers: The [Blog Authorship Corpus](http://u.cs.biu.ac.il/~schlerj/schler_springsymp06.pdf) consists of 19K posts by bloggers from blogger.com in 2004. These are actual words used in the 10-20 age group:
+
+>aaaaaaaaaaaaaaaaaaaaaargh, lolzi, jfjgfjhgjhfjgfjf, roflmfao, duuuuuuh, walang, dunno
+
+:::
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### The data itself: Missing data
+
+[source](https://www.themarker.com/news/1.2593452)
+
+<img src = "images/elections.png" width = "80%" height = "80%">
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### The data's structure
+
+In a word: Excel.
+
+[source](https://medium.com/@miles.mcbain/tidying-the-australian-same-sex-marriage-postal-survey-data-with-r-5d35cea07962)
+
+<img src = "images/messy_excel.png" width = "60%">
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### Spreadsheet Blunder
+
+[source](https://www.bbc.com/news/technology-54423988)
+
+<img src = "images/covid_uk_excel.png" width = "60%">
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### Some advice on cleaning data
+
+::: {.fragment}
+Plot first:
+
+```{python}
+tips = sns.load_dataset('tips')
+sns.pairplot(tips, height=1.5)
+plt.show()
+```
+:::
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### Some advice on cleaning data
+
+::: {.fragment}
+Apply common transformations:
+
+Here's how ebay's 2.3 million transactions look with a log transformation:
+
+::: {layout-ncol=2}
+![](images/ebay_dist.png){width=50%}
+
+![](images/ebay_log.png){width=50%}
+:::
+:::
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### Some advice on cleaning data
+
+Use robust statistics (an entire field in Statistics):
+
+For example the Median is much more robust to extreme values than the mean:
+
+<img src = "images/median_mean_simulation.gif">
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### Some advice on cleaning data
+
+Tidy your data:
+
+> Each variable is a column, each observation is a row, and each type of observational unit is a table. ([Hadley Wickham](http://vita.had.co.nz/papers/tidy-data.html))
+
+Untidy (wide):
+
+<img src = "images/untidy_data.png" width="40%">
+
+Tidy (long):
+
+<img src = "images/tidy_data.png" width="40%">
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::

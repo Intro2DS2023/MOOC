@@ -1262,7 +1262,838 @@
 
 <h3 id="web-data-is-big-data">Web data is Big Data</h3>
 <p>We can all agree <em>this</em> is big: (<a href="https://www.domo.com/data-never-sleeps">Domo.com</a>)</p>
-<p><img src="images/domo.png" width="40%"></p>
+
+<img src="images/domo.png" width="40%" class="r-stretch"><aside class="notes">
+<div style="direction:rtl; font-size:16px">
+
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="exploring-data-basic-plots" class="slide level2 title-slide center">
+<h2>Exploring Data: Basic Plots</h2>
+</section>
+<section class="slide level2">
+
+<h3 id="boxplot">Boxplot</h3>
+<div class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>sns.<span class="bu">set</span>()</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> np.random.chisquare(<span class="dv">5</span>, <span class="dv">1000</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>sns.boxplot(y <span class="op">=</span> X)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'X'</span>)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img data-src="c03_eda_files/figure-revealjs/cell-11-output-1.png" width="514" height="389"></p>
+</div>
+</div>
+<aside class="notes">
+<div style="direction:rtl; font-size:16px">
+
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2">
+
+<h3 id="swarmplot">Swarmplot</h3>
+<div class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>sns.swarmplot(y <span class="op">=</span> X)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'X'</span>)</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img data-src="c03_eda_files/figure-revealjs/cell-12-output-1.png" width="514" height="389"></p>
+</div>
+</div>
+<aside class="notes">
+<div style="direction:rtl; font-size:16px">
+
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2">
+
+<h3 id="histogram">Histogram</h3>
+<div class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>sns.distplot(X, kde <span class="op">=</span> <span class="va">False</span>)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Frequency'</span>)</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'X'</span>)</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img data-src="c03_eda_files/figure-revealjs/cell-13-output-1.png" width="523" height="435"></p>
+</div>
+</div>
+<aside class="notes">
+<div style="direction:rtl; font-size:16px">
+
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2">
+
+<h3 id="histogram-1">Histogram</h3>
+<div class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>sns.distplot(X, hist <span class="op">=</span> <span class="va">False</span>)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Density'</span>)</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'X'</span>)</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img data-src="c03_eda_files/figure-revealjs/cell-14-output-1.png" width="528" height="435"></p>
+</div>
+</div>
+<aside class="notes">
+<div style="direction:rtl; font-size:16px">
+
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2">
+
+<h3 id="density-plot-kernel-density-estimation-convolution">Density plot: kernel density estimation / convolution</h3>
+<div class="fragment">
+<p>The way to get a smooth estimate of the distribution in density plot is by defining a kernel which “smoothes” the data. Mathematically we define a kernel weight function <span class="math inline">\(w: \mathbb{R} \to \mathbb{R}^+\)</span> as:</p>
+<div>
+<ol type="1">
+<li class="fragment">Non-negative and symmetric: <span class="math inline">\(w(x) = w(-x)\)</span></li>
+<li class="fragment">Integrates to 1: <span class="math inline">\(\int_{\mathbb{R}} w(x)dx = 1\)</span></li>
+</ol>
+</div>
+</div>
+<div class="fragment">
+<p>And then the density kernel estimate is: <span class="math inline">\(J(x) = \frac{1}{n} \cdot \sum_{i=1}^n w(x_i - x)\)</span>.</p>
+</div>
+<div class="fragment">
+<p>Nice property: <span class="math inline">\(\int_{\mathbb{R}} J(x)dx = 1\)</span></p>
+<ul>
+<li>Wide <span class="math inline">\(w\)</span>: smooth estimate, but it may not reflect the real data</li>
+<li>Narrow <span class="math inline">\(w\)</span>: very non-smooth description</li>
+</ul>
+</div>
+<aside class="notes">
+<div style="direction:rtl; font-size:16px">
+
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2">
+
+<p>For example smoothing this same dataset with too narrow or too wide window:</p>
+<div class="cell" data-execution_count="14">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize <span class="op">=</span>(<span class="dv">14</span>, <span class="dv">5</span>))</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>plt.subplot(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">1</span>)</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>sns.kdeplot(X, bw<span class="op">=</span><span class="fl">0.1</span>)</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Density'</span>)</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'X'</span>)</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Width=0.1: Too narrow'</span>)</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>plt.subplot(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">2</span>)</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>sns.kdeplot(X, bw<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Density'</span>)</span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'X'</span>)</span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Width=1: About right'</span>)</span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>plt.subplot(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">3</span>)</span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>sns.kdeplot(X, bw<span class="op">=</span><span class="dv">10</span>)</span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Density'</span>)</span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'X'</span>)</span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Width=10: Too wide'</span>)</span>
+<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<p><img data-src="c03_eda_files/figure-revealjs/cell-15-output-1.png" width="1122" height="455"></p>
+</div>
+</div>
+<aside class="notes">
+<div style="direction:rtl; font-size:16px">
+
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2">
+
+<h3 id="scatterplot">Scatterplot</h3>
+<div class="cell" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>b0 <span class="op">=</span> <span class="dv">2</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>b1 <span class="op">=</span> <span class="dv">3</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>Y <span class="op">=</span> X <span class="op">*</span> b1 <span class="op">+</span> b0 <span class="op">+</span> np.random.normal(<span class="dv">0</span>, <span class="dv">10</span>, <span class="dv">1000</span>)</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>sns.scatterplot(X, Y)</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Density'</span>)</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'X'</span>)</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img data-src="c03_eda_files/figure-revealjs/cell-16-output-1.png" width="523" height="435"></p>
+</div>
+</div>
+<aside class="notes">
+<div style="direction:rtl; font-size:16px">
+
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2">
+
+<h3 id="what-can-we-learn-from-simple-plots">What can we learn from simple plots?</h3>
+<div class="fragment">
+<p>Look at outliers:</p>
+<p><img data-src="images/Outliers.jpg" style="width:30.0%"></p>
+</div>
+<div class="fragment">
+<p>See the shape and tail direction:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/Skew.jpg" style="width:50.0%"></p>
+<p></p><figcaption>Age at heart attack (left) and cost of hospitalization (right)</figcaption><p></p>
+</figure>
+</div>
+</div>
+<aside class="notes">
+<div style="direction:rtl; font-size:16px">
+
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="exploring-data-summary-statistics" class="slide level2 title-slide center">
+<h2>Exploring Data: Summary Statistics</h2>
+</section>
+<section class="slide level2">
+
+<h3 id="location">Location</h3>
+<p>“Where is this X located? Where is the central mass?”</p>
+<ul>
+<li>Mean of empirical distribution (=average): <span class="math display">\[Mean(X) = \frac{1}{N}\sum\limits_{i=1}^N X_i\]</span></li>
+<li>Median: <span class="math display">\[Med(X) = m\space s.t. \space P(X \leq m) = P(X \geq m) = 0.5\]</span></li>
+<li>Mode: <span class="math display">\[Mode(X) = Most \space frequent \space value \space in \space a \space dataset\]</span></li>
+</ul>
+<aside class="notes">
+<div style="direction:rtl; font-size:16px">
+
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2">
+
+<div class="cell" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>mean <span class="op">=</span> np.mean(X)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>median <span class="op">=</span> np.median(X)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>hist, _ <span class="op">=</span> np.histogram(X, bins<span class="op">=</span><span class="bu">range</span>(<span class="dv">20</span>))</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>mode <span class="op">=</span> <span class="bu">list</span>(<span class="bu">range</span>(<span class="dv">20</span>))[hist.argsort()[::<span class="op">-</span><span class="dv">1</span>][<span class="dv">0</span>]]</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>sns.distplot(X, bins <span class="op">=</span> <span class="bu">range</span>(<span class="dv">20</span>), kde <span class="op">=</span> <span class="va">False</span>)</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>plt.plot([mean, mean], [<span class="dv">0</span>, <span class="dv">160</span>], linewidth<span class="op">=</span><span class="dv">2</span>, color<span class="op">=</span><span class="st">'r'</span>)</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>plt.plot([median, median], [<span class="dv">0</span>, <span class="dv">160</span>], linewidth<span class="op">=</span><span class="dv">2</span>, color<span class="op">=</span><span class="st">'g'</span>)</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>plt.plot([mode, mode], [<span class="dv">0</span>, <span class="dv">160</span>], linewidth<span class="op">=</span><span class="dv">2</span>, color<span class="op">=</span><span class="st">'b'</span>)</span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>plt.legend({<span class="st">'Mean'</span>:mean,<span class="st">'Median'</span>:median,<span class="st">'Mode'</span>:mode})</span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'X'</span>)</span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Frequency'</span>)</span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img data-src="c03_eda_files/figure-revealjs/cell-17-output-1.png" width="523" height="435"></p>
+</div>
+</div>
+<aside class="notes">
+<div style="direction:rtl; font-size:16px">
+
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2">
+
+<h3 id="dispersion">Dispersion</h3>
+<p>“Is X widely spread out? Does it concentrate narrowly around the mean?”</p>
+<ul>
+<li>Quantiles/Percentiles: <span class="math display">\[Q(X, q) = v\space s.t. \space P(X \leq v) = 1-P(X \geq v) = q\]</span></li>
+<li>Range: <span class="math display">\[Range(X) = Max(X) - Min(X)\]</span></li>
+<li>Inter-Quartile-Range: <span class="math display">\[IQR(X) = Q(X, 0.75) - Q(X, 0.25)\]</span></li>
+</ul>
+<aside class="notes">
+<div style="direction:rtl; font-size:16px">
+
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2">
+
+<h3 id="dispersion-1">Dispersion</h3>
+<ul>
+<li>(Empirical) Variance: <span class="math display">\[Var(X) = \frac{1}{N}\sum\limits_{i=1}^N (X_i - Mean(X))^2\]</span></li>
+<li>Standard Deviation: <span class="math display">\[STD(X) = \sqrt{Var(X)}\]</span></li>
+</ul>
+<div class="fragment">
+<div class="cell" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'90th percentile: </span><span class="sc">{</span>np<span class="sc">.</span>percentile(X, <span class="dv">90</span>) <span class="sc">:.2f}</span><span class="ss">'</span>)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Range: </span><span class="sc">{</span>np<span class="sc">.</span><span class="bu">max</span>(X) <span class="op">-</span> np<span class="sc">.</span><span class="bu">min</span>(X) <span class="sc">:.2f}</span><span class="ss">'</span>)</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'IQR: </span><span class="sc">{</span>np<span class="sc">.</span>percentile(X, <span class="dv">75</span>) <span class="op">-</span> np<span class="sc">.</span>percentile(X, <span class="dv">25</span>) <span class="sc">:.2f}</span><span class="ss">'</span>)</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Variance: </span><span class="sc">{</span>np<span class="sc">.</span>var(X) <span class="sc">:.2f}</span><span class="ss">'</span>)</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Standard Deviation: </span><span class="sc">{</span>np<span class="sc">.</span>std(X) <span class="sc">:.2f}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>90th percentile: 9.39
+Range: 21.53
+IQR: 4.07
+Variance: 10.65
+Standard Deviation: 3.26</code></pre>
+</div>
+</div>
+</div>
+<aside class="notes">
+<div style="direction:rtl; font-size:16px">
+
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2">
+
+<h3 id="shape">Shape</h3>
+<p>“Is X symmetric or not? How ‘tailed’ is it?”</p>
+<ul>
+<li>Skewness: <span class="math display">\[Skew(X) = \frac{1}{N}\frac{\sum\limits_{i=1}^N (X_i - Mean(X))^3}{STD(X)^3}\]</span></li>
+</ul>
+<div class="fragment">
+<div class="cell" data-execution_count="18">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy <span class="im">import</span> stats</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Skewness: </span><span class="sc">{</span>stats<span class="sc">.</span>skew(X) <span class="sc">:.2f}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Skewness: 1.28</code></pre>
+</div>
+</div>
+</div>
+<aside class="notes">
+<div style="direction:rtl; font-size:16px">
+
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="advanced-visualization" class="slide level2 title-slide center">
+<h2>Advanced Visualization</h2>
+</section>
+<section class="slide level2">
+
+<h3 id="minards-napoleon-march">Minard’s Napoleon March</h3>
+
+<img src="images/minard.png" class="r-stretch"><aside class="notes">
+<div style="direction:rtl; font-size:16px">
+
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2">
+
+<h3 id="heatmaps">Heatmaps</h3>
+<p><a href="https://towardsdatascience.com/exploring-infections-through-data-interactive-visualisation-of-measles-in-the-usa-6ae8d5949538">source</a></p>
+
+<img src="images/heatmap.png" class="r-stretch"><aside class="notes">
+<div style="direction:rtl; font-size:16px">
+
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2">
+
+<h3 id="spotify-total-eclipse-of-the-heart">Spotify: Total Eclipse of the Heart</h3>
+<p><a href="https://insights.spotify.com/us/2017/08/24/data-viz-total-eclipse-of-the-heart-follows-the-eclipse/">source</a></p>
+
+<img src="images/total_eclipse.gif" class="r-stretch"><aside class="notes">
+<div style="direction:rtl; font-size:16px">
+
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2">
+
+<h3 id="chernoff-faces">Chernoff Faces</h3>
+<p><a href="https://www.axios.com/the-emoji-states-of-america-1513302318-0ca61705-de75-4c8f-8521-5cbab12a45f2.html">source</a></p>
+
+<img src="images/chernoff.png" class="r-stretch"><aside class="notes">
+<div style="direction:rtl; font-size:16px">
+
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2">
+
+<h3 id="ridge-plot-a.k.a-joy-plot">Ridge plot (a.k.a Joy plot)</h3>
+<p><img src="images/ridge.png" width="80%" height="80%"></p>
+<aside class="notes">
+<div style="direction:rtl; font-size:16px">
+
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2">
+
+<h3 id="flowing-data-a-day-in-the-life-of-americans">Flowing Data: A Day in the Life of Americans</h3>
+<p><a href="https://flowingdata.com/2015/12/15/a-day-in-the-life-of-americans/">source</a></p>
+<iframe width="800" height="500" src="https://www.youtube.com/embed/k88d_fn3G-I" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="">
+</iframe>
+<aside class="notes">
+<div style="direction:rtl; font-size:16px">
+
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2">
+
+<h3 id="pudding-womens-pockets-and-every-single-post-on-their-site">Pudding: Women’s Pockets (and every single post on their site!)</h3>
+<p><a href="https://pudding.cool/2018/08/pockets/">source</a></p>
+
+<img src="images/pockets.png" width="60%" class="r-stretch"><aside class="notes">
+<div style="direction:rtl; font-size:16px">
+
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2">
+
+<h3 id="the-gapminder-story">The Gapminder story</h3>
+<p>The history of the world encapsulated in a simple visualization:</p>
+<p><a href="https://www.gapminder.org/world">source</a></p>
+<aside class="notes">
+<div style="direction:rtl; font-size:16px">
+
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="dangers-of-dirty-data" class="slide level2 title-slide center">
+<h2>Dangers of Dirty Data</h2>
+</section>
+<section class="slide level2">
+
+<h3 id="what-could-be-dirty-about-data">What could be dirty about data?</h3>
+<ul>
+<li>The data itself</li>
+<li>The data’s structure</li>
+</ul>
+<aside class="notes">
+<div style="direction:rtl; font-size:16px">
+
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2">
+
+<h3 id="the-data-itself-outliers">The data itself: Outliers</h3>
+<div class="fragment">
+<ul>
+<li>Numerical Outliers: This is a histogram of random ~2.3 million transactions on ebay US website in over a few weeks in 2013 (<a href="https://users.soe.ucsc.edu/~draper/Reading-2015-Day-5.html">source</a>):</li>
+</ul>
+<p><img src="images/ebay_dist.png" width="35%"></p>
+</div>
+<div class="fragment">
+<ul>
+<li>Textual Outliers: The <a href="http://u.cs.biu.ac.il/~schlerj/schler_springsymp06.pdf">Blog Authorship Corpus</a> consists of 19K posts by bloggers from blogger.com in 2004. These are actual words used in the 10-20 age group:</li>
+</ul>
+<blockquote>
+<p>aaaaaaaaaaaaaaaaaaaaaargh, lolzi, jfjgfjhgjhfjgfjf, roflmfao, duuuuuuh, walang, dunno</p>
+</blockquote>
+</div>
+<aside class="notes">
+<div style="direction:rtl; font-size:16px">
+
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2">
+
+<h3 id="the-data-itself-missing-data">The data itself: Missing data</h3>
+<p><a href="https://www.themarker.com/news/1.2593452">source</a></p>
+<p><img src="images/elections.png" width="80%" height="80%"></p>
+<aside class="notes">
+<div style="direction:rtl; font-size:16px">
+
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2">
+
+<h3 id="the-datas-structure">The data’s structure</h3>
+<p>In a word: Excel.</p>
+<p><a href="https://medium.com/@miles.mcbain/tidying-the-australian-same-sex-marriage-postal-survey-data-with-r-5d35cea07962">source</a></p>
+
+<img src="images/messy_excel.png" width="60%" class="r-stretch"><aside class="notes">
+<div style="direction:rtl; font-size:16px">
+
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2">
+
+<h3 id="spreadsheet-blunder">Spreadsheet Blunder</h3>
+<p><a href="https://www.bbc.com/news/technology-54423988">source</a></p>
+
+<img src="images/covid_uk_excel.png" width="60%" class="r-stretch"><aside class="notes">
+<div style="direction:rtl; font-size:16px">
+
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2">
+
+<h3 id="some-advice-on-cleaning-data">Some advice on cleaning data</h3>
+<div class="fragment">
+<p>Plot first:</p>
+<div class="cell" data-execution_count="19">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>tips <span class="op">=</span> sns.load_dataset(<span class="st">'tips'</span>)</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>sns.pairplot(tips, height<span class="op">=</span><span class="fl">1.5</span>)</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img data-src="c03_eda_files/figure-revealjs/cell-20-output-1.png" width="426" height="426"></p>
+</div>
+</div>
+</div>
+<aside class="notes">
+<div style="direction:rtl; font-size:16px">
+
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2">
+
+<h3 id="some-advice-on-cleaning-data-1">Some advice on cleaning data</h3>
+<div class="fragment">
+<p>Apply common transformations:</p>
+<p>Here’s how ebay’s 2.3 million transactions look with a log transformation:</p>
+<div class="quarto-layout-panel">
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img data-src="images/ebay_dist.png"></p>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img data-src="images/ebay_log.png"></p>
+</div>
+</div>
+</div>
+</div>
+<aside class="notes">
+<div style="direction:rtl; font-size:16px">
+
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2">
+
+<h3 id="some-advice-on-cleaning-data-2">Some advice on cleaning data</h3>
+<p>Use robust statistics (an entire field in Statistics):</p>
+<p>For example the Median is much more robust to extreme values than the mean:</p>
+
+<img src="images/median_mean_simulation.gif" class="r-stretch"><aside class="notes">
+<div style="direction:rtl; font-size:16px">
+
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2">
+
+<h3 id="some-advice-on-cleaning-data-3">Some advice on cleaning data</h3>
+<p>Tidy your data:</p>
+<blockquote>
+<p>Each variable is a column, each observation is a row, and each type of observational unit is a table. (<a href="http://vita.had.co.nz/papers/tidy-data.html">Hadley Wickham</a>)</p>
+</blockquote>
+<p>Untidy (wide):</p>
+<p><img src="images/untidy_data.png" width="40%"></p>
+<p>Tidy (long):</p>
+<p><img src="images/tidy_data.png" width="40%"></p>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
 
