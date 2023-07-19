@@ -343,7 +343,9 @@
 <h3 id="stat.-and-or-department-tau">Stat. and OR Department, TAU</h3>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>נעשה כעת חזרה מהירה על כמה מהנושאים החיוניים לנו מהסתברות.</p>
+<p>חשיבה הסתברותית היא אבן יסוד בעבודה עם נתונים. גם כשנעבוד עם מודלים שנראים כמו אלגוריתם טכני, שאין מאחוריו הנחות כלשהן של התפלגות, נראה שחשיבה הסתברותית עוזרת לנו להבין הרבה יותר טוב למה האלגוריתם הזה עובד ואיך אפשר לשפר אותו.</p>
+<p>אם יש סטודנטים שמרגישים שהמעבר כאן מהיר מדי עבורם, מומלץ לחזור על החומר של הקורס מבוא להסתברות.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -373,7 +375,17 @@
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>נתחיל עם מספר מושגים מהסתברות בדידה.</p>
+<p>מרחב המדגם שמסומן בדרך כלל באומגה, הוא קבוצה של כל המאורעות שיכולים לקרות, קבוצה סופית או בת מניה.</p>
+<p>פונקצית הסתברות או התפלגות F, מתאימה לכל מאורע במרחב המדגם מספר בין 0 ל-1 הוא ההסתברות, כך שסכום ההסתברויות הוא 1.</p>
+<p>לכל תת קבוצה A של מאורעות מאומגה ההסתברות שלה היא הסתברות סכום המאורעות.</p>
+<p>ומושג מהותי לנו הוא המשתנה המקרי. המשתנה המקרי X הוא פונקציה ממרחב המדגם אל הישר הממשי, מתפלג F אם ההסתברות שX יקבל ערכים מקבוצה A היא ההסתברות של A.</p>
+<p>(הדגמה על הלוח)</p>
+<p>נדגים על שתי הטלות מטבע:</p>
+<p>מרחב המדגם אומגה: (H, H), (H, T), (T, H), (T, T)</p>
+<p>אם המטבע הוגן, פונקצית ההסתברות היא: 1/4 לכל אחד מהמאורעות האלה.</p>
+<p>נגדיר קבוצה A התקבל H אחד. הקבוצה מורכבת משני המאורעות (H, T), (T, H), וההסתברות שלה תהיה רבע ועוד רבע, חצי.</p>
+<p>לבסוף נגדיר משתנה מקרי X להיות מספר הפעמים שהתקבל H. X מקבל ערכים 0, 1 ו-2 בהסתברות רבע, חצי ורבע על-פי התפלגות F. סך כל ההסתברויות: 1.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -393,7 +405,7 @@
 <div>
 <ul>
 <li class="fragment">For a real random variable <span class="math inline">\(\Omega \subset \mathbb{R}\)</span></li>
-<li class="fragment">If <span class="math inline">\(X \sim F\)</span> then the expectation (mean) of <span class="math inline">\(X\)</span> is the wieghted average by <span class="math inline">\(F\)</span>: <span class="math display">\[E(X) = \sum_{\omega \in \Omega} \omega \cdot F(w)\]</span></li>
+<li class="fragment">If <span class="math inline">\(X \sim F\)</span> then the expectation (mean) of <span class="math inline">\(X\)</span> is the weighted average by <span class="math inline">\(F\)</span>: <span class="math display">\[E(X) = \sum_{\omega \in \Omega} \omega \cdot F(w)\]</span></li>
 <li class="fragment">Expectation properties:
 <ul>
 <li class="fragment">Additivity: <span class="math inline">\(E(X + Y) = E(X) + E(Y)\)</span></li>
@@ -404,7 +416,10 @@
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>ניזכר במושג התוחלת. עבור משתנה מקרי ממשי מרחב הערכים האפשריים הוא הישר הממשי,</p>
+<p>והתוחלת היא ממוצע משוקלל. ממוצע משוקלל של הערכים כפול ההסתברויות שלהם.</p>
+<p>(הדגמה על הלוח) בדוגמא שלנו, התוחלת של X היא רבע כפול 0 ועוד חצי כפול 1 ועוד רבע כפול 2, כלומר 1.</p>
+<p>תכונות חשובות לנו של תוחלת: תוחלת היא אדיטיבית, כלומר תוחלת של סכום היא סכום התוחלות. תוחלת היא ליניארית, כלומר תוחלת של טרנספורמציה ליניארית של משתנה היא טרנספורמציה ליניארית על התוחלת. וחשוב להזכיר שתוחלת אינה אינווריאנטית לכל פונקציה f, לדוגמא התוחלת של אחת חלקי X אינה אחת חלקי התוחלת של X.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -428,14 +443,19 @@
 <li class="fragment">Variance properties:
 <ul>
 <li class="fragment"><span class="math inline">\(Var(X) = E(X^2) - 2E^2(X) + E^2(X) = E(X^2) - [E(X)]^2\)</span></li>
-<li class="fragment">Additivity is not guaranteed: <span class="math inline">\(Var(X + Y) \neq Var(X) + Var(Y)\)</span> (unless independent)</li>
-<li class="fragment">Linearity: <span class="math inline">\(Var(aX + b) = a^2Var(X)\)</span> for scalars <span class="math inline">\(a, b\)</span></li>
+<li class="fragment">Additivity is not guaranteed: <span class="math inline">\(Var(X + Y) \neq Var(X) + Var(Y)\)</span> (unless independent, see later)</li>
+<li class="fragment">Linearity is not really linearity: <span class="math inline">\(Var(aX + b) = a^2Var(X)\)</span> for scalars <span class="math inline">\(a, b\)</span></li>
 </ul></li>
 </ul>
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>אם תוחלת מודדת מיקום, מרכז המסה של המשתנה המקרי, שונות מודדת פיזור - פיזור של המשתנה המקרי סביב התוחלת שלו.</p>
+<p>בהגדרה של השונות אנחנו מודדים את התוחלת של הסטיה הריבועית של X מהתוחלת שלו, כלומר זה תוחלת וגם השונות היא ממוצע משוקלל של סטיות ריבועיות.</p>
+<p>סטיית התקן מחזירה אותנו לסקאלה המקורית של X על-ידי לקיחת שורש.</p>
+<p>תכונות חשובות של השונות: (הדגמה על הלוח) אם נפתח את הריבוע של הביטוי בתוך השונות ונשתמש באדיטיביות של התוחלת: E[(X - E(X))^2] = E[X^2 - 2XE(X) + E(X)^2] = E(X^2) -2E(X)E(X) + E(X)^2 נראה שהשונות היא גם תוחלת של המשתנה בריבוע פחות ריבוע התוחלת.</p>
+<p>השונות היא לא אדיטיבית: אלא אם כן זוג משתנים הם ב”ת ונראה זאת בהמשך, שונות הסכום שלהם היא לא סכום השונויות.</p>
+<p>לבסוף השונות היא גם לא באמת ליניארית אבל יש כאן כלל שחשוב להכיר: שונות של aX+b, המקדם a יוצא החוצה בריבוע.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -451,6 +471,21 @@
 </section>
 <section id="discrete-distributions" class="slide level2 title-slide center">
 <h2>Discrete Distributions</h2>
+<aside class="notes">
+<div style="direction:rtl; font-size:16px">
+<p>יש מספר התפלגויות בדידות שכדאי להכיר. כרגע נחזור רק על התפלגויות ברנולי, בינומית ופואסון.</p>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section class="slide level2">
 
@@ -467,7 +502,11 @@
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>כשאנחנו אומרים שמשתנה מתפלג ברנולי אנחנו מדברים על שתי תוצאות אפשריות: הצלחה או כישלון, תמונה אימפרסיוניסטית או ריאליסטית, עליה או ירידה. אבל כדי לדבר על תוחלת אנחנו תמיד נסמן 0 או 1.</p>
+<p>נסמן שמשתנה מתפלג ברנולי עם סיכוי p, כשp הוא הסיכוי שהמשתנה יקבל 1.</p>
+<p>לדוגמא הטלת מטבע ו-X הוא מספר הפעמים שהתקבל עץ, נסמן כברנולי חצי.</p>
+<p>אז פונקצית ההתפלגות של ברנולי פשוטה: X יקבל 1 בהסתברות p, ו-0 בהסתברות 1 פחות p.</p>
+<p>התוחלת לפי ההגדרה פשוטה לחישוב היא p עצמו, והשונות היא p כפול אחת פחות p.&nbsp;איך מתקבל המעבר שהתוחלת של X בריבוע היא גם כן p? אם X מקבל ערכים 0 או 1 בהסתברות p ו-1 פחות p, גם X בריבוע יקבל ערכים 0 או 1 באותן הסתברויות, כלומר גם X בריבוע מתפלג ברנולי.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -488,7 +527,7 @@
 <ul>
 <li class="fragment">Let <span class="math inline">\(X_1, \dots, X_n \sim Ber(p)\)</span> independently, then their sum <span class="math inline">\(Y\)</span> distributes Binomial: <span class="math display">\[Y = \sum_{i=1}^{n}X_i \sim Bin(n, p)\]</span></li>
 <li class="fragment">For Binomial distribution <span class="math inline">\(\Omega = \{0, 1, \dots, n\}\)</span></li>
-<li class="fragment">PDF: <span class="math inline">\(Pr(X = k) = {n \choose k} p^k (1-p)^{n-k}\)</span></li>
+<li class="fragment">PDF: <span class="math inline">\(Pr(Y = k) = {n \choose k} p^k (1-p)^{n-k}\)</span></li>
 <li class="fragment">Example: <span class="math inline">\(Y\)</span> is the number of heads in 10 tosses of a fair coin, <span class="math inline">\(Y \sim Bin(10, 0.5)\)</span></li>
 <li class="fragment">Expectation: <span class="math inline">\(E(Y) = E(\sum_i X_i) = np\)</span> (by additivity)</li>
 <li class="fragment">Variance: <span class="math inline">\(Var(Y) = Var(\sum_i X_i) = \sum_i Var(X_i) = np(1-p)\)</span> (by independence, additivity)</li>
@@ -497,7 +536,12 @@
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>איך מקבלים התפלגות בינומית? אם יש לנו אוסף של n משתני ברנולי ב”ת עם סיכוי זהה p, אז הסכום שלהם מתפלג בינומית.</p>
+<p>משתנה Y שמתפלג בינומית סופר למעשה את מספר הפעמים שנקבל את התוצאה אחת, או את מספר ה”הצלחות” מתוך n ניסיונות זהים. כלומר הערכים האפשריים למשתנה בינומי הם אפס עד n, ויש נוסחה פשוטה לקבל את ההסתברות לכל k.</p>
+<p>דוגמא: Y יהיה מספר הפעמים שיתקבל “ראש” בעשר הטלות של מטבע הוגן, כלומר Y יתפלג בינומית עם 10 וסיכוי חצי.</p>
+<p>כדי לחשב את התוחלת של משתנה מקרי בינומי נשתמש בתוחלת של סכום משתני הברנולי, שהיא סכום התוחלת כלומר n כפול p.</p>
+<p>שונות - כעת המשתנים שמרכיבים את הסכום הם בלתי תלויים, לכן שונות הסכום היא סכום השונויות, או n כפול p כפול 1 מינוס p.</p>
+<p>בדוגמא שלנו התוחלת של מספר הפעמים לקבל ראש בעשר הטלות מטבע תהיה 10 כפול חצי, יוצא חמש. והשונות עשר כפול חצי כפול חצי, יוצא 2.5.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -524,7 +568,10 @@
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>התפלגות פואסונית חשובה מאוד במדעי הנתונים. נתחיל בתיאור טכני שלה.</p>
+<p>עבור התפלגות פואסונית, מרחב המדגם הוא אינסופי, הוא כל השלמים האי-שליליים. עבור משתנה X שמתפלג פואסונית עם פרמטר למדא, הסיכוי ש-X יקבל ערך מסוים K נתון בנוסחה הזאת.</p>
+<p>כדי לחשב את התוחלת אנחנו מחשבים סכום של ערך כפול ההסתברות שלו. אם נוציא ערכים שלא תלוים בסכום החוצה, נראה שנשארנו עם מה שנזהה כטור טיילור של e בחזקת למדא, כלומר הוא מצטמצם עם הגורם e בחזקת מינוס למדא ונשארים עם למדא.</p>
+<p>חישוב דומה לשונות יראה שהתוחלת של X בריבוע הוא למדא בריבוע ועוד למדא, לכן השונות של משתנה פואסוני בשורה התחתונה שווה לתוחלת שלו.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -561,7 +608,10 @@
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>ההתפלגות הפואסונית חשובה מאוד כי היא מתארת בקירוב טוב תהליכי ספירה שקורים ביומיום או במחקר:</p>
+<p>מספר הלקוחות שמגיעים לתור כלשהו, למשל בקולנוע מספר החלקיקים הרדיואקטיביים שנפלטים לאורך זמן או בגנטיקה, מספר המוטציות שקורות בגנום של יצור מסוים לאורך הרבה דורות</p>
+<p>המנגון שעומד מאחורי כל התהליכים האלה: תכונת חוסר הזיכרון. כל עוד זמן ההמתנה למאורע הבא בלתי תלוי בזמן שעבר מהקודם, מספר המאורעות בפרק זמן מתפלג פואסון. לדוגמא בתור לקולנוע, כל לקוח מגיע באופן בלתי-תלוי מלקוחות אחרים, ובהינתן שהוא נמצא שניה בתור או דקה, אין לזה שום השפעה על משך הזמן עד שיבוא הלקוח הבא.</p>
+<p>תכונה נוספת היא האדיטיביות של שני משתנים פואסונים ב”ת: הסכום שלהם מתפלג גם כן פואסונית עם סכום הקצבים. בדוגמא של התור לקולנוע, אפשר לחשוב על ההתפלגות של מספר הלקוחות של <em>שני</em> תורות.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -577,6 +627,21 @@
 </section>
 <section id="empirical-distributions-and-relations-between-rvs" class="slide level2 title-slide center">
 <h2>Empirical distributions and relations between RVs</h2>
+<aside class="notes">
+<div style="direction:rtl; font-size:16px">
+<p>נעבור כעת לנושא של קשרים בין שני משתנים מקריים. לפני זה, ננסה להגדיר במדויק את פונקצית ההתפלגות האמפירית.</p>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section class="slide level2">
 
@@ -596,7 +661,13 @@
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>פונקצית ההתפלגות האמפירית חשובה לנו כל כך, כי היא הדרך שלנו לעבור מנתונים, מספרים, להסתברות. איך נפעיל כלים הסתברותיים על המדגם שלנו?</p>
+<p>יש לנו מדגם בגודל n שבו אנחנו מסמנים כל תצפית כx_i,</p>
+<p>ואנחנו מתייחסים לאוסף כל התצפיות שלנו כאל מרחב המדגם. לא ראינו ערכים אחרים, כך שאנחנו מניחים שהערכים שראינו הם כל מה שיכול לקרות.</p>
+<p>אם אין חזרות במדגם, אז פונקצית ההסתברות היא אחת חלקי n לכל ערך במדגם.</p>
+<p>אם יש חזרות, אז ההסתברות לכל ערך היא החלק היחסי במדגם של הערך הזה, לומר כמה פעמים הוא הוא התקבל, חלקי n.</p>
+<p>(דוגמא על הלוח) לדוגמא מדדנו גבהים של חמישה סטודנטים וקיבלנו 160, 165, 165, 170 ו-175. זה מרחב המדגם שלנו, ועל-פי ההגדרה שלנו, הסיכוי שסטודנט יהיה בגובה 160 הוא 1 חלקי 5, והסיכוי שסטודנט יהיה בגובה 165 הוא 2 חלקי 5.</p>
+<p>כעת אפשר להפעיל כלים הסתברותיים על המדגם: התוחלת תהיה ממוצע התצפיות: סכום התצפיות חלקי n. ומה המשמעות אם אני רושם שF(w1) שווה ל-F(w2)? זה אומר ששתי התצפיות האלה מופיעות אותו מספר פעמים במדגם.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -658,7 +729,9 @@
 <p>Given information about passengers, what questions might we be interested in and statistically examine?</p>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>ניקח כדוגמא למדגם נתונים מפורסמים של נוסעי הטיטאניק.</p>
+<p>כל שורה בטבלה היא נוסע שיש לגביו ארבעה נתונים או משתנים: האם שרד או לא, האם הגיל שלו היה מבוגר מעל גיל 18 או צעיר. המין שלו והמחלקה בה נסע: ראשונה, שניה, שלישית או צוות הספינה.</p>
+<p>אילו שאלות מעניינות סטטיסטית או הסתברותית ניתן לשאול על מדגם כזה? הרבה מאוד.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -688,7 +761,9 @@
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>נתמקד בשני משתנים X ו-Y. X יקבל K ערכי X אפשריים, ו-Y יקבל L ערכי Y אפשריים.</p>
+<p>בדוגמת הטיטאניק X יהיה המחלקה שבה נסע הנוסע (ולה יש ארבעה ערכים אפשריים), ו-Y יהיה המצב שלו לאחר הטביעה: שרד או לא, כלומר שני ערכים.</p>
+<p>נראה את ההתפלגויות האמפיריות, ומהן נשאל שאלות מעניינות. נדבר על כמה התפלגויות אמפיריות מעניינות:</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -721,7 +796,10 @@
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>ההתפלגות הראשונה היא ההתפלגות השולית, או המרג’ינל, זו בדיוק פונקצית ההתפלגות האמפירית שדיברנו עליה.</p>
+<p>במקרה של X היא ההתפלגות של המחלקה, הקלאס. ההסתברות לראות כל אחת מהמחלקות גדולה או שווה לאפס, סכום ההסתברויות הוא אחת.</p>
+<p>איך ניתן להציג התפלגות כזאת?</p>
+<p>מאחר שמדובר רק בארבעה ערכים אפשר לרשום אותם בצורת טבלה, את המספרים עצמם, ההסתברויות או גם וגם. יש שיטענו שצורה גרפית מתאימה היא גרף עוגה או פאי צ’ארט, אני אישית הייתי מעדיף לראות נתונים כאלה בגרף מקלות או בארצ’ארט.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -744,15 +822,19 @@
 <li class="fragment">Its properties:
 <ul>
 <li class="fragment"><span class="math inline">\(P(X = x_k, Y = y_l) \geq 0 \quad \forall k,l\)</span></li>
-<li class="fragment"><span class="math inline">\(P(X = x_1, Y = y_l) + P(X = x_2, Y = y_l) + \dots + P(X = x_K, Y = y_l) = P(Y = y_l)\)</span></li>
 <li class="fragment"><span class="math inline">\(\sum_{k = 1, \dots, K, l = 1, \dots, L}P(X = x_1, Y = y_l) = 1\)</span></li>
+<li class="fragment"><span class="math inline">\(P(X = x_1, Y = y_l) + P(X = x_2, Y = y_l) + \dots + P(X = x_K, Y = y_l) = P(Y = y_l)\)</span></li>
 </ul></li>
 <li class="fragment">What representation is suitable?</li>
 </ul>
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>כל עוד אנחנו יודעים לתאר רק התפלגות אמפירית של משתנה אחד אנחנו די מוגבלים. התפלגות אמפירית מעניינת יותר היא ההתפלגות המשותפת או הjoint, של שני משתנים X ו-Y.</p>
+<p>כעת אנחנו כבר שואלים מה ההסתברות שX שווה לערך מסוים בו זמנים עם זה שY שווה לערך אחר. במקרה שלנו אפשר לשאול למשל מה הסיכוי לראות במדגם נוסע מצוות הספינה (ערך X) ששרד (ערך Y). כך שאנחנו רואים שמרחב המדגם הוא מעין מכפלה של מרחבי המדגמים של X ושל Y מבלי להיכנס להגדרה מדויקת. אם יש 4 אפשרויות ל-X ו-2 שאפשרויות ל-Y, במרחב המדגם של ההתפלגות המשותפת יהיו 8 אפשרויות.</p>
+<p>בכל אופן ההתפלגות היא כמו כל התפלגות, כל הסתברות של קומבינציה של X ושל Y גדולה מאפס, וסכום ההסתברויות הוא 1.</p>
+<p>תכונה מעניינת נוספת היא מה קורה כשאני מקבע את Y כאן על ערך y_l וסוכם את כל ההסתברויות ש-X שווה לערך מסוים ו-Y קבוע על ערך זה - אני מקבל את ההסתברות השולית, הכללית, ש-Y שווה לערך זה. חשבו על זה כך: ההסתברות שנוסע מצוות הספינה שרד ועוד ההסתברות שנוסע מצוות הספינה טבע, היא ההסתברות בכלל למצוא נוסע מצוות הספינה.</p>
+<p>איך ראוי להציג התפלגות משותפת של שני משתנים בדידים עם מעט ערכים כמו כאן?</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -769,16 +851,18 @@
 <section class="slide level2">
 
 <h3 id="the-contingency-table">The Contingency Table</h3>
-<div>
+<div class="fragment">
 <p><img data-src="images/titanic_contingency_class_survival.jpg"></p>
 <ul>
-<li class="fragment">Note the table also includes the marginal distributions</li>
-<li class="fragment">In order to get percentages (emprical probabilities) divide the numbers by their total, here 2201</li>
+<li>Note the table also includes the marginal distributions</li>
+<li>In order to get percentages (emprical probabilities) divide the numbers by their total, here 2201</li>
 </ul>
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>הצגה מקובלת היא טבלת השכיחות הזאת, או טבלת ההתפלגות המשותפת ה-contingency table.</p>
+<p>נשים לב שהטבלה כתובה כרגע עם הנתונים עצמם. בשוליים נמצאים המספרים שמייצגים את ההתפלגות השולית, וכדי להגיע להתפלגות המשותפת צריך לחלק את המספרים בפנים הטבלה בסך המדגם של הנוסעים כלומר ב-2201.</p>
+<p>לדוגמא כדי לקבל את ההסתברות שנוסע מצוות הספינה שרד, צריך לחלק 212 ב-2201, שזה 9.6 אחוז.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -797,8 +881,8 @@
 <h3 id="distribution-iii-the-conditional-distribution">Distribution III: the Conditional Distribution</h3>
 <div>
 <ul>
-<li class="fragment">The empirical conditional distribution of <span class="math inline">\(Y\)</span> given <span class="math inline">\(X\)</span> is marked <span class="math inline">\(P(Y|X)\)</span></li>
 <li class="fragment">This is the probability that <span class="math inline">\(Y\)</span> receives each of its values given <span class="math inline">\(X\)</span> is fixed at some value</li>
+<li class="fragment">The empirical conditional distribution of <span class="math inline">\(Y\)</span> given <span class="math inline">\(X\)</span> is marked <span class="math inline">\(P(Y|X)\)</span></li>
 <li class="fragment">Its properties:
 <ul>
 <li class="fragment"><span class="math inline">\(P(Y = y_l | X = x_k) \geq 0 \quad \forall k,l\)</span></li>
@@ -808,7 +892,11 @@
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>ההתפלגות האמפירית השלישית שנדבר עליה היא ההתפלגות שתעניין אותנו ביותר: ההתפלגות המותנית, הconditional distirbution.</p>
+<p>בהתפלגות זו אנחנו מקבעים משתנה אחד, למשל X להיות בערך או קבוצת ערכים מסוימים, ושואלים: בהינתן שX נמצא בקבוצת הערכים הזאת, מה ההתפלגות של Y.</p>
+<p>נסמן התפלגות זאת כP(Y|X).</p>
+<p>עדיין, זאת פונקצית הסתברות רגילה במובן שהסתברות גדולה או שווה לאפס, וסכום ההסתברויות הוא 1.</p>
+<p>לדוגמא במקרה של הטיטאניק נשאל מה הסיכוי שנוסע שרד או טבע, בהינתן שהיה ממחלקה ראשונה, שניה, שלישית או צוות הספינה. באופן אינטואיטיבי וגם מהיכרותנו את סיפור הטיטאניק ההתפלגות של מצב הנוסע לאחר הטביעה בהינתן המחלקה שלו שונה לחלוטין. ופה טמון העניין האמיתי בנתוני הטיטאניק.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -827,18 +915,26 @@
 <h3 id="distribution-iii-the-conditional-distribution-1">Distribution III: the Conditional Distribution</h3>
 <div>
 <ul>
-<li class="fragment">Bayes’ Theorem: <span class="math display">\[P(Y = \text{Alive} | X = \text{First}) = \frac{P(X = \text{First} | Y = \text{Alive}) \cdot P(Y = \text{Alive})}{P(X = \text{First})}\]</span></li>
-<li class="fragment">Law of total probability: <span class="math display">\[
+<li class="fragment"><p>Bayes’ Theorem: <span class="math display">\[
+\begin{aligned}
+P(Y = \text{Alive} | X = \text{First}) &amp;= \frac{P(X = \text{First}, Y = \text{Alive})}{P(X = \text{First})} \\
+&amp;= \frac{P(X = \text{First} | Y = \text{Alive}) \cdot P(Y = \text{Alive})}{P(X = \text{First})}
+\end{aligned}
+\]</span></p></li>
+<li class="fragment"><p>Law of total probability: <span class="math display">\[
 \begin{aligned}
 P(Y = \text{Alive}) &amp;= P(Y = \text{Alive}|X = \text{First})P(X = \text{First}) + \dots \\
 &amp;+ P(Y = \text{Alive}|X = \text{Crew})P(X = \text{Crew})
 \end{aligned}
-\]</span></li>
+\]</span></p></li>
 </ul>
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>בהקשר של התתפלגות המותנית, ראוי לציין שתי נוסחאות מפתח הקשורות בהסתברות מותנית: נוסחת בייס ונוסחת ההסתברות השלמה.</p>
+<p>נוסחת בייס מקשרת לנו בין ההסתברות המותנית של Y בהינתן X, לבין ההסתברות המותנית של X בהינתן Y. ההסתברות המותנית של Y בהינתן X היא ההסתברות המשותפת של Y ושל X חלקי ההסתברות השולית של X. וההסתברות המשותפת של Y ושל X היא ההסתברות של X בהינתן Y כפול ההסתברות השולית של Y.</p>
+<p>במקרה שלנו ההסתברות שנוסע שרד בהינתן שהיה ממחלקה ראשונה, שווה להסתברות שהיה במחלקה ראשונה בהינתן ששרד, כפול ההסתברות ששרד, חלקי ההסתברות שהוא ממחלקה ראשונה.</p>
+<p>נוסחה נוספת שעוזרת לנו פעמים רבות בחישוב המכנה של נוסחת בייס או ההתפלגות השולית, היא נוסחת ההסתברות השלמה: הסיכוי שנוסע שרד, הוא הסיכוי שהוא שרד אם היה במחלקה ראשונה, כפול הסיכוי להיות במחלקה ראשונה, ועוד ההסתברות שהוא שרד אם היה במחלקה שניה כפול ההסתברות להיות במחלקה שניה, וכולי, עד צוות הספינה. כלומר כדי להגיע להסתברות הכללית לשרוד אנחנו עוברים דרך כל האפשרויות לשרוד.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -865,7 +961,16 @@ P(Y = \text{Alive}) &amp;= P(Y = \text{Alive}|X = \text{First})P(X = \text{First
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>הצגה שמסכמת את כל שלוש ההתפלגויות שלמדנו עליהן היא טבלה שמכילה גם התפלגויות שוליות, גם משותפות וגם מותנות.</p>
+<p>נבדוק שהגענו להבנה באמצעות שלוש שאלות, נסו לעצור את הסרטון ולענות בעצמכם:</p>
+<ol type="1">
+<li><p>איפה ניתן לראות את הההתפלגות האמפירית השולית של X, המחלקה? בשורת הטוטאל, האחרונה. ספציפית לגבי הסיכוי להיות במחלקה ראשונה הוא קצת פחות מ-15 אחוז.</p></li>
+<li><p>איפה ניתן למצוא את ההתפלגות המשותפת של X ו-Y? בתאי הטבלה בשורות שבהן כתוב perecent of table. לדוגמא הסיכוי שנוסע היה ממחלקה ראשונה ושרד הוא 202 נוסעים מתוך 2201, בערך 9.18 אחוז.</p></li>
+<li><p>איפה ניתן למצוא את ההתפלגות המותנית של Y בהינתן X? בשורות שבהן כתוב percent of column. ספציפית אנחנו רוצים לדעת את ההסתברות שנוסע שרד בהינתן שהיה ממחלקה ראשונה, וזה 202 נוסעים מתוך 325, קצת יותר מ-62 אחוז.</p></li>
+</ol>
+<p>שוב נדגיש שזו ההתפלגות המעניינת ביותר כאן, כי היא זאת שמראה את הבדלי המעמדות: שיעור השורדים מהמחלקה הראשונה היה מעל 60 אחוז, כלומר יותר מכפול משיעור השורדים במחלקה השלישית או מהצוות.</p>
+<p>נבדוק אם משפט בייס מתקיים (על הלוח):</p>
+<p>0.62 אכן שווה להסתברות המותנית ההפוכה מתוך השורה 0.285, כפול ההסתברות השולית0.323, חלקי ההסתברות השולית0.148.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -884,15 +989,13 @@ P(Y = \text{Alive}) &amp;= P(Y = \text{Alive}|X = \text{First})P(X = \text{First
 <h3 id="graphical-methods-for-conditional-distributions">Graphical methods for conditional distributions</h3>
 
 <img data-src="images/titanic_conditional.jpg" style="width:50.0%" class="r-stretch"><div>
-<ol type="1">
-<li class="fragment">What conditional distribution is represented here, <span class="math inline">\(P(Y|X)\)</span> or <span class="math inline">\(P(X|Y)\)</span>?</li>
-<li class="fragment">What probabilities does the yellow slice represent in the right and left pies?</li>
-<li class="fragment">What can be derived about the 2nd conditional distribution? Can we say <span class="math inline">\(P(Y = \text{Alive}|X = \text{First}) &gt; P(Y = \text{Alive}|X = \text{Crew})\)</span>?</li>
-</ol>
+<p>What conditional distribution is represented here, <span class="math inline">\(P(Y|X)\)</span> or <span class="math inline">\(P(X|Y)\)</span>?</p>
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>גם התפלגות מותנית ניתן להציג כגרף עוגה או גרף מקלות.</p>
+<p>האם מה שמוצג בגרפי העוגה האלה היא הסתברות מותנית של מצב הנוסע בהינתן המחלקה שלו, או ההסתברות המותנית של המחלקה בהינתן מצב הנוסע, חי או מת? זוהי ההסתברות המותנית של המחלקה בהינתן מצב הנוסע. זו הסתברות בכיוון ההפוך למה שהסתכלנו עליו עד כה. משמאל התפלגות המחלקה בהינתן שהנוסע חי, כך שההסתברות כאן מיוצגת על ידי גודל הפרוסה של העוגה, מימין בהינתן שהוא מת.</p>
+<p>לדוגמא, אנחנו רואים שוב ביטוי לכמה עדיף להיות במחלקה הראשונה. מהעובדה שהשטח הירוק גדול פי כמה בעוגה השמאלית, אנחנו מבינים שאם הנוסע חי סביר פי כמה שהוא הגיע ממחלקה ראשונה, לעומת המצב שבו אנו יודעים שמת.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -908,6 +1011,21 @@ P(Y = \text{Alive}) &amp;= P(Y = \text{Alive}|X = \text{First})P(X = \text{First
 </section>
 <section id="independence-covariance-and-correlation" class="slide level2 title-slide center">
 <h2>Independence, Covariance and Correlation</h2>
+<aside class="notes">
+<div style="direction:rtl; font-size:16px">
+<p>נסיים את המיני-מבוא שלנו בדיון בתלות בין משתנים והדרכים לכמת אותה.</p>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section class="slide level2">
 
@@ -921,13 +1039,17 @@ P(Y = \text{Alive}) &amp;= P(Y = \text{Alive}|X = \text{First})P(X = \text{First
 <ul>
 <li class="fragment"><span class="math inline">\(P(X|Y) = P(X)\)</span></li>
 <li class="fragment"><span class="math inline">\(P(X, Y) = P(X)P(Y)\)</span></li>
-<li class="fragment"><span class="math inline">\(E(XY) = E(X)E(Y)\)</span></li>
 </ul></li>
+<li class="fragment">Also: <span class="math inline">\(E(XY) = E(X)E(Y)\)</span></li>
 </ul>
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>מהי אי-תלות בין זוג משתנים? ההגדרה האינטואיטיבית היא שידע על משתנה אחד לא מוסיף לידע על ההתפלגות של המשתנה האחר, ולהיפך.</p>
+<p>בדוגמא של הטיטאניק - האם המחלקה והשרידות של נוסע ב”ת? בודאי שלא. הרי ראינו שאם נוסע היה במחלקה ראשונה, סיכויי ההישרדות שלו היו גבוהים ביותר מפי שתיים מנוסע במחלקה השלישית. ולהיפך: ראינו שאם אנחנו יודעים שנוסע שרד, הסבירות שהוא הגיע ממחלקה ראשונה גדולה פי כמה אם אנחנו יודעים שנוסע טבע.</p>
+<p>בצורה פורמלית יותר, נגיד שזוג משתנים X ו-Y הם ב”ת אם ההתפלגות המותנית של Y בהינתן X שווה להתפלגות השולית של Y.</p>
+<p>וכאשר אנחנו אומרים את זה אנחנו גם אומרים את הכיוון ההפוך, ידע על Y לא מוסיף על ידע על X, כלומר הכיוון ההפוך נכון גם כן. וניתן להראות גם שההסתברות המשותפת היא מכפלת ההסתברויות - כל שלוש ההגדרות האחרונות הן שקולות.</p>
+<p>בנוסף אנו יודעים גם שתוחלת המכפלה של המשתנים שווה למכפלת התוחלות, עובדה שתעזור לנו בהמשך.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -954,7 +1076,10 @@ P(Y = \text{Alive}) &amp;= P(Y = \text{Alive}|X = \text{First})P(X = \text{First
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>קווארינס או שונות משותפת, הוא מדד להשתנות המשותפת של זוג משתנים X ו-Y. באנגלית זה נשמע טוב יותר, כי אנחנו שואלים עד כמה X ו-Y משתנים בקו, באופן דומה.</p>
+<p>ההגדרה הפורמלית של הקווריאנס היא התוחלת של מכפלת המרחק של X מהתוחלת שלו, כפול המרחק של Y מהתוחלת שלו. אפשר להראות שכמות זו שקולה לתוחלת המכפלה פחות מכפלת התוחלות.</p>
+<p>נשים לב שהתוחלת של הקווריאנס היא על ההתפלגות המשותפת.</p>
+<p>ונדגיש, שאין זה נכון לומר שהקווריאנס מודד “אי-תלות”, אלא הוא מודד מתאם, קשר. מדוע?</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -979,14 +1104,21 @@ P(Y = \text{Alive}) &amp;= P(Y = \text{Alive}|X = \text{First})P(X = \text{First
 <li class="fragment">If when <span class="math inline">\(X\)</span> gets “high” values so does <span class="math inline">\(Y\)</span> tend to get high values: <span class="math inline">\(Cov(X, Y) &gt; 0\)</span></li>
 <li class="fragment">If when <span class="math inline">\(X\)</span> gets “high” values <span class="math inline">\(Y\)</span> tends to get “low” values: <span class="math inline">\(Cov(X, Y) &lt; 0\)</span></li>
 <li class="fragment">What is <span class="math inline">\(Cov(X, X)\)</span>?</li>
-<li class="fragment">Linearity: <span class="math inline">\(Cov(aX + b, cY+d) = abCov(X, Y)\)</span></li>
+<li class="fragment">“Linearity”: <span class="math inline">\(Cov(aX + b, cY+d) = acCov(X, Y)\)</span></li>
 <li class="fragment">Now we can always write: <span class="math inline">\(Var(X \pm Y) = Var(X) + Var(Y) \pm 2Cov(X, Y)\)</span></li>
 </ul></li>
 </ul>
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>כמה תכונות חשובות לקווריאנס:</p>
+<p>אמנם נכון שכאשר X ו-Y ב”ת הקווריאנס הוא אפס, אבל ההיפך אינו בהכרח נכון. אם מצאתם זוג משתנים שהקווריאנס ביניהם הוא אפס, בהחלט יכול להיות שהם תלויים. לדוגמא X ו-X בריבוע. אם תחשבו את הקווריאנס תגלו שהוא אפס, אבל ברור שאלה משתנים תלויים, ידע על X קובע במדויק מהו X בריבוע. לכן על זוג משתנים עם קווריאנס אפס נגיד שהם “בלתי מתואמים”</p>
+<p>מכל מקום, אם כאשר X מקבל ערכים גבוהים גם Y מקבל ערכים גבוהים, נמצא שהקווריאנס חיובי - X ו-Y נוטים להשתנות בצורה מתואמת.</p>
+<p>ואם כאשר X מקבל ערכים גבוהים Y נוטה דווקא לקבל ערכים נמוכים, נמצא שהקווריאנס שלילי.</p>
+<p>עוד דברים שחשוב לדעת על הקווריאנס:</p>
+<p>קווריאנס של משתנה עם עצמו, נציב בנוסחה ונראה שמתקבלת ההגדרה של שונות המשתנה.</p>
+<p>בדומה לשונות הקווריאנס הוא לא באמת ליניארי אבל מתקיימת תכונה מעניינת: בקווריאנס של טרנספורמציה ליניארית על X aX+b, עם טרנספורמציה cY+d, הקבועים a,c מכפילים את הקווריאנס של המשתנים המקוריים.</p>
+<p>לסיום, עכשיו שאנחנו יודעים מהו הקווריאנס, אנחנו יכולים לחזור להגדרה הכללית לשונות הסכום של זוג משתנים כלשהם: היא שווה לסכום השונויות ועוד פעמיים הקווריאנס. כעת ניתן לראות שוב מדוע לזוג משתנים ב”ת הגדרה זו מצטמצמת לסכום השונויות.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1007,15 +1139,21 @@ P(Y = \text{Alive}) &amp;= P(Y = \text{Alive}|X = \text{First})P(X = \text{First
 <ul>
 <li class="fragment">Since the magnitude of covariance is hard to interpret</li>
 <li class="fragment">Let us standardize: <span class="math display">\[\rho_{XY} = Corr(X, Y) = \frac{Cov(X, Y)}{SD(X)SD(Y)}\]</span></li>
-<li class="fragment">For a sample: <span class="math display">\[r_{XY} = \frac{\sum_{i=1}^{n} (x_i - \overline{x})(y_i - \overline{y})}
-{\sqrt{\sum_{i=1}^{n} (x_i - \overline{x})^2  \sum_{i=1}^{n}(y_i - \overline{y})^2}}\]</span></li>
 <li class="fragment"><span class="math display">\[-1 \leq Corr(X, Y) \leq 1\]</span></li>
+<li class="fragment">For a sample of <span class="math inline">\(n\)</span> pairs <span class="math inline">\((x_i, y_i)\)</span>: <span class="math display">\[r_{XY} = \frac{\sum_{i=1}^{n} (x_i - \overline{x})(y_i - \overline{y})}
+{\sqrt{\sum_{i=1}^{n} (x_i - \overline{x})^2  \sum_{i=1}^{n}(y_i - \overline{y})^2}}\]</span></li>
 <li class="fragment">Nice geometric interpretation: Cosine similarity between two vectors (samples): <span class="math inline">\(r_{xy} = \cos\theta = \frac{\bf{x}\cdot\bf{y}}{||\bf{x}||||\bf{y}||}\)</span></li>
 </ul>
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>מושג אחרון שנחזור עליו הוא הקורלציה, המתאם.</p>
+<p>אם הקווריאנס שווה לאפס, אנחנו יודעים שהמשתנים בלתי מתואמים. אבל אם הוא חיובי או שלילי, קשה לפרש מה אומר הגודל שלו.</p>
+<p>מקובל לכן לחלק את הקווריאנס במכפלת סטיות התקן, הם שורש השונות. המדד הזה נקרא מתאם בין X ל-Y, מסומן עם האות היוונית רו, והוא כבר נע בין מינוס אחת, לפלוס אחת.</p>
+<p>מתאם של פלוס 1 אומר שהמשתנים X ו-Y מתואמים זה עם זה באופן מושלם, כאשר X עולה Y עולה באופן צפוי לחלוטין.</p>
+<p>מתאם של מינוס אחת אומר שהמשתנים גם כן מתואמים באופן מושלם אבל בכיוונים מנוגדים: כאשר X עולה Y יורד באופן צפוי לחלוטין.</p>
+<p>אם יש מדגם בגודל n של זוגות עם משתנה X ומשתנה Y ממשיים ניתן לחשב עליהם את המתאם האמפירי באמצעות הנוסחה שלפניכם, שנקראת גם מקדם המתאם של פירסון על-שם המדען שפיתח אותה, קרל פירסון.</p>
+<p>לבסוף נזכיר בשביל חובבי הגיאומטריה שאפשר להראות שמה שיש לנו כאן אינו אלא המרחק הקוסינוסי בין שני הוקטורים X ו-Y אחרי שמירכזנו אותם כלומר חיסרנו מהם את הממוצע. הוא בעצם הקוסינוס של הזווית שהם יוצרים. אם הזווית הזאת ישרה, כלומר אין ביניהם שום תיאום, נקבל 0. ואם הוקטורים נעים בדיוק לאותו כיוון הזווית ביניהם היא 0 ונקבל 1.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1028,9 +1166,6 @@ P(Y = \text{Alive}) &amp;= P(Y = \text{Alive}|X = \text{First})P(X = \text{First
           overflow: hidden!important;
           display:block!important;
       }</style></aside>
-</section>
-<section class="slide level2">
-
 
 <img src="../Intro2DS_logo_white.jpg" class="slide-logo r-stretch"><div class="footer footer-default">
 <p><a href="https://intro2ds2023.github.io/mooc/" target="_blank">Intro to Data Science</a></p>
