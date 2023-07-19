@@ -5,6 +5,8 @@ format:
     chalkboard: true
     fig-width: 6
     fig-asp: 0.618
+    template-partials:
+      - "../title-slide.html"
 css: "../slides_quarto.css"
 standalone: false
 include-in-header: "../header_quarto.html"
