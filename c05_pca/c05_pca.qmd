@@ -286,6 +286,7 @@ print(W.shape)
 
 Let's see the W matrix first 2 principal directions alongside the movies: do you see anything interesting?
 :::
+
 ::: {.notes}
 ::: {style="direction:rtl; font-size:16px"}
 :::
@@ -303,6 +304,11 @@ first_2_PCs = pd.concat([movies[:14]['title'], means, loadings2], axis = 1).set_
 first_2_PCs.head(10).style.applymap(color_negative_red).format("{:.2f}")
 ```
 
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
 ---
 
 ### PC directions in a plot
@@ -318,7 +324,6 @@ plt.axhline(y=0, color='r', linestyle='--')
 plt.show()
 ```
 
-:::
 ::: {.notes}
 ::: {style="direction:rtl; font-size:16px"}
 :::
@@ -342,6 +347,11 @@ T = X_centered @ W[:, :2]
 print(T.shape)
 ```
 
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
 ---
 
 ```{python}
@@ -358,7 +368,6 @@ plt.show()
 - Are there interesting clusters or people worth pointing at? Would have been nice to see users' gender here!
 :::
 
-:::
 ::: {.notes}
 ::: {style="direction:rtl; font-size:16px"}
 :::
@@ -370,7 +379,7 @@ plt.show()
 
 What do you expect the scores to be for users that are high on 1st PC (hate all films)?
 
-::: {.fragmnet}
+::: {.fragment}
 ```{python}
 PC1_top_100 = T[:, 0].argsort()[-100:]
 print('Top PC1:', miss_cong.iloc[PC1_top_100, :].groupby('score').size())
@@ -379,14 +388,13 @@ print('Top PC1:', miss_cong.iloc[PC1_top_100, :].groupby('score').size())
 
 What do you expect the scores to be for users that are low on 1st PC (love all films)
 
-::: {.fragmnet}
+::: {.fragment}
 ```{python}
 PC1_bottom_100 = T[:, 0].argsort()[:100]
 print('Bottom PC1:', miss_cong.iloc[PC1_bottom_100, :].groupby('score').size())
 ```
 :::
 
-:::
 ::: {.notes}
 ::: {style="direction:rtl; font-size:16px"}
 :::
@@ -396,7 +404,7 @@ print('Bottom PC1:', miss_cong.iloc[PC1_bottom_100, :].groupby('score').size())
 
 What do you expect the scores to be for users that are high on 2nd PC (like romantic films)?
 
-::: {.fragmnet}
+::: {.fragment}
 ```{python}
 PC2_top_100 = T[:, 1].argsort()[-100:]
 print('Top PC2:', miss_cong.iloc[PC2_top_100, :].groupby('score').size())
@@ -405,14 +413,13 @@ print('Top PC2:', miss_cong.iloc[PC2_top_100, :].groupby('score').size())
 
 What do you expect the scores to be for users that are low on 2nd PC (like action films)
 
-::: {.fragmnet}
+::: {.fragment}
 ```{python}
 PC2_bottom_100 = T[:, 1].argsort()[:100]
 print('Bottom PC2:', miss_cong.iloc[PC2_bottom_100, :].groupby('score').size())
 ```
 :::
 
-:::
 ::: {.notes}
 ::: {style="direction:rtl; font-size:16px"}
 :::
@@ -438,7 +445,6 @@ Etc.
     - $V_{p\times p}$ is an orthogonal matrix: its columns are an orthonormal basis of $\mathbb R^p$, $V'V = V V' = I$. 
 :::
 
-:::
 ::: {.notes}
 ::: {style="direction:rtl; font-size:16px"}
 :::
@@ -461,7 +467,6 @@ Etc.
 - Key observation: $X\mathbf{v}_j = U D V' \mathbf{v}_j = UD \mathbf{e}_j = \mathbf{u}_j d_j$ because of orthogonality of $V$
 :::
 
-:::
 ::: {.notes}
 ::: {style="direction:rtl; font-size:16px"}
 :::
@@ -471,7 +476,7 @@ Etc.
 
 ### Using the SVD to find the PCA
 
-::: {.incrmental}
+::: {.incremental}
 - Given a vector $\mathbf{v} \in \mathbb R^p$ with $\|\mathbf{v}\|^2=1$, express it in the $V$ columns basis:
 $\mathbf{v} = a_1\mathbf{v}_1 + \dots + a_p \mathbf{v}_p \mbox{ with } a_1^2 + \dots + a_p^2 = 1$
 
@@ -485,8 +490,81 @@ $X\mathbf{v} = a_1 d_1 \mathbf{u}_1 + \dots + a_p d_p \mathbf{u}_p \Rightarrow \
 - Similarly the second PC is defined by $\mathbf{v}_2$ in $V$, and so on
 :::
 
-:::
 ::: {.notes}
 ::: {style="direction:rtl; font-size:16px"}
 :::
+:::
+
+---
+
+## PCA via Eigendecomposition {.title-slide}
+
+---
+
+### Eigendecomposition
+
+::: {.fragment}
+A non-zero vector $\mathbf{v}$ is an eigenvector of a square $p \times p$ matrix $\mathbf{A}$ if it satisfies:
+$$\mathbf{A}\mathbf{v} = \lambda\mathbf{v},$$
+for some scalar $\lambda$.
+:::
+
+::: {.incremental}
+- Then $\lambda$ is called the eigenvalue corresponding to $\mathbf{v}$.
+
+- Geometrically speaking, the eigenvectors of $\mathbf{A}$ are the vectors that $\mathbf{A}$ merely elongates or shrinks, and the amount that they elongate/shrink by is the eigenvalue
+
+- An eigendecomposition of $\mathbf{A}$ is then: $\mathbf{A} = \mathbf{V}\mathbf{\Lambda}\mathbf{V}^{-1}$,
+
+- where $\mathbf{V}$ is the square $n \times n$ matrix whose $j$th column is the eigenvector $\mathbf{v}_j$ of $\mathbf{A}$, and $\mathbf{\Lambda}$ is the diagonal matrix whose diagonal elements are the corresponding eigenvalues, $\mathbf{\Lambda}_{jj} = \lambda_j$
+
+- If $\mathbf{A}$ is real and symmetric, $\mathbf{V}$ is orthogonal, $\mathbf{A} = \mathbf{V}\mathbf{\Lambda}\mathbf{V}'$ and $\lambda_j$ are scalars
+
+- If $\mathbf{A}$ is also positive definite (PSD), then $\lambda_j \ge 0$
+:::
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### Calculating Principal Components: the Eigendecomposition
+
+::: {.incremental}
+- Look again at the PCA problem:
+$$\mathbf{v}_1 = \arg\max_{\mathbf{v}:\|\mathbf{v}\|^2 =1} \|X\mathbf{v}\|^2$$
+
+- Using Lagrange multiplier $\lambda_1$: $\max_{\mathbf{v}_1}{\mathbf{v}_1'X'X\mathbf{v}_1} + \lambda_1(1 - \mathbf{v}_1'\mathbf{v}_1)$
+
+- Take derivative with respect to $\mathbf{v}_1$, compare to 0:
+$$2X'X\mathbf{v}_1 - 2\lambda_1\mathbf{v}_1 = 0 \\
+X'X\mathbf{v}_1 = \lambda_1\mathbf{v}_1$$
+
+- So $\mathbf{v}_1$ must be an eigenvector of the square, real, PSD $X'X$ matrix, and $\lambda_1$ its eigenvalue!
+
+- Which eigenvalue and eigenvector?
+
+:::
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+- So we're looking for the set of $W_{p \times p}$ eigenvectors of $X'X$ with their corresponding eigenvalues $\lambda_1, \dots, \lambda_p$ ordered from largest to smallest.
+
+- One can also show the $\lambda_j$ themselves are the variances of the PCs
+
+::: {.incremental}
+- What is the relation to SVD?
+    - Let $X = UVD'$ as before
+    - $X'X = VD'U'UDV = VD'DV = VD^2V$
+    - $D^2$ is $p \times p$ diagonal with **squared** singular values on diagonal
+    - Which means $V$ are eigenvectors of and they're also the required $W$ for PCA
+    - Eigenvalues $\lambda_1, \dots, \lambda_p$ are squared singular values $d_1^2, \dots, d_p^2$
+    - Either look at $\lambda_1, \dots, \lambda_p$ or $d_1^2, \dots, d_p^2$ for the PCs variance
 :::
