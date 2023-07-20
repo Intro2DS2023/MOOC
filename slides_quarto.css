@@ -117,3 +117,8 @@
   right: 15px;
 	bottom: 2px;
 }
+
+code.sourceCode {
+  font-size: 1.3em;
+  /* or try font-size: xx-large; */
+}
