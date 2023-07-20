@@ -37,13 +37,18 @@ footer: "[Intro to Data Science](https://intro2ds2023.github.io/mooc/){target='_
 
 ::: {.notes}
 ::: {style="direction:rtl; font-size:16px"}
-
+איך משיגים נתונים? מה כדאי לעשות דבר ראשון כשמקבלים קובץ נתונים, ומה יכול להיות כל כך לא נקי בנתונים שצריך לנקות אותם? היום נלמד כמה עקרונות בסיס בנתונים, הם חומר הגלם של דאטא סיינס.
 :::
 :::
 ---
 
 ## Common Data Formats in Data Science {.title-slide}
 
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+נתחיל בללמוד על פורמטים נפוצים שבהם נתונים מגיעים.
+:::
+:::
 ---
 
 ### CSV: Comma Separated Values
@@ -65,6 +70,11 @@ print(df.head())
 
 ::: {.notes}
 ::: {style="direction:rtl; font-size:16px"}
+פורמט נפוץ מאוד הוא comma separated values, או CSV.
+
+אם תפתחו CSV בתכנת עריכה הפשוטה ביותר הוא ייראה לכם כמו ג'ונגל של נתונים, אבל האמת שזה פורמט מצוין לדאטה בצורת טבלה. כאן יש לנו דאטה שבו לקוחות תיארו את החוויות שלהם עם תרופות שונות ודירגו את אותן תרופות.
+
+אני קורא את הנתונים פנדאז, ה-ספרייה הטובה ביותר שיש לפייתון להציע כשזה נוגע לנתוני טבלה, כל עוד הם לא גדולים מדי, וגם על זה נדבר. אני משתמש בפקודה read_csv, ומבקש את השורות הראשונות של הדאטה עם המתודה head, והוא כבר נראה הרבה יותר ברור.
 :::
 :::
 
@@ -93,6 +103,9 @@ data
 
 ::: {.notes}
 ::: {style="direction:rtl; font-size:16px"}
+פורמט נוסף שחשוב להכיר כי הוא גמיש הרבה יותר, וזה גם פורמט שבו מגיעים הרבה פעמים נתונים כתוצאה מקריאות לשרתים באינטרנט - הוא ג'ייסון. ג'ייסון מתאים למידע מקונן או nested, כמו מילון, שבו יש קבוצה של צמדים של key ו-value. במקרה שלפנינו יש נתון מתוך מפקד אוכלוסין על אדם מסוים. והמפתחות הם מה השם שלו, כתובת, גיל וכולי. נשים לב שהערכים יכולים להיות מילונים בעצמם כמו הכתובת כאן, או רשימה של ערכים.
+
+בפייתון אפשר להשתמש במודול json ולפתוח את הקובץ עם הפקודה json.load. היופי בפייתון הוא שהדאטא נקרא ישר לתוך מילון dict של פייתון, שיש לו את כל הגמישות של מילון json.
 :::
 :::
 
@@ -117,6 +130,7 @@ lines
 
 ::: {.notes}
 ::: {style="direction:rtl; font-size:16px"}
+ניתן לקרוא נתונים גם מקובץ טקסט פשוט, זה בדרך כלל אכן מתאים לטקסט, לדוגמא לצורך ניתוחים של שפה או ייצור טקסט. במקרה הזה יש לנו קובץ טקסט פשוט של שיר, ואני משתמש בפקודה readlines לקרוא את השורות לתוך רשימה של מחרוזות. כל שורת טקסט היא מחרוזת.
 :::
 :::
 
@@ -132,6 +146,8 @@ lines
 
 ::: {.notes}
 ::: {style="direction:rtl; font-size:16px"}
+נתונים נמצאים גם במקומות פחות צפויים. אפשר לחלץ נתונים כמעט מכל אתר אינטרנט. ואתרי אינטרנט כתובים בשפת html. בתרגול תלמדו יותר על מבנה html, שאפשר לראות אותו כמעין עץ של תכונות שבו כל ענף מתפרש לתת-ענפים וכך הדפדפן יודע להציג לנו את האתר.
+
 :::
 :::
 
@@ -154,6 +170,12 @@ print(soup.prettify())
 
 ::: {.notes}
 ::: {style="direction:rtl; font-size:16px"}
+כדי לקרוא את המידע באתר סטטי אפשר להשתמש בספריית beautifulsoup, כאן אני קורא קובץ html על-ידי העטיפה שלו בקלאס BeautifulSoup.
+
+הפעולה הזאת בעצם קוראת את העץ שהוא דף הhtml, לתוך אוביקט שכאן נקרא soup, כמו שמקובל בחבילה הזאת. אם אבקש את המתודה prettify על האוביקט הזה נראה שאכן כל קובץ הhtml נמצא בו בצורה מסודרת.
+
+למה שנרצה לקרוא אתר מהאינטרנט ומה הקשר לנתונים? על כך ביחידה הבאה.
+
 :::
 :::
 
@@ -170,6 +192,9 @@ print(soup.prettify())
 
 ::: {.notes}
 ::: {style="direction:rtl; font-size:16px"}
+איך מגיעים אלינו נתונים? החיים הם לא קורס, ונתונים לא נמצאים פשוט כמו כאן באתר הקורס בקובץ מסודר ומחכים שננתח אותם!
+
+בעבר נתונים הגיעו כמעט תמיד כי מישהו אצר אותם בצורה ידנית. מישהו כתב אותם ביומן או ספר, שורה אחר שורה. היום בעידן הביג דאטא רוב הנתונים נאספים בצורה אוטומטית. בואו נראה כמה דוגמאות.
 :::
 :::
 
@@ -183,6 +208,7 @@ If your parents have not taken note, anywhere, of how tall you were at the age o
 
 ::: {.notes}
 ::: {style="direction:rtl; font-size:16px"}
+גם היום, יש שפע דוגמאות של אוצרות נתונים ידנית. אם ההורים שלכם צירו על הקיר את הגובה שלכם מהרגע שנעמדתם על הרגליים - נראה את המידע הזה על הקיר. אחרת - לא יהיו לנו הנתונים.
 :::
 :::
 
@@ -196,6 +222,7 @@ If the US government had not seen fit to estimate and record the level of alcoho
 
 ::: {.notes}
 ::: {style="direction:rtl; font-size:16px"}
+ברמה הלאומית תמיד הגיעו מממשלות שפשוט תיעדו את הקורה בתוך המדינה לצרכי ניתוח כלכלי. כאן אפשר לראות שיש לנו תיעוד מאמצע המאה ה19, על כמות צריכת האלכוהול השנתית של אזרי אמריקאי. נסו לחשוב למה על מעיד המידע החסר בשנת 1920 ועד אמצע שנות ה30 של המאה ה20. האם באותה תקופה הפסיקו האמריקאים לשתות אלכוהול?
 :::
 :::
 
@@ -209,6 +236,9 @@ Have you ever opened up an Internet browser, searched for "Amazon", clicked on [
 
 ::: {.notes}
 ::: {style="direction:rtl; font-size:16px"}
+כיום כאמור אנחנו מעריכים שמרבית הנתונים פיסית בעולם נאגרים בצורה אוטומטית. כל פעם שאתם נכנסים לאתר אינטרנט אפילו אם זה רק להסתכל על מחירים של חולצות, אתם מייצרים דאטא. עצם פתיחת הדפדפן מייצרת שורה במאגר נתונים של גוגל: מי אתם, מה המין, הגיל והמיקום שלכם ומתי פתחתם את הדפדפן. 
+
+אפילו גלילה באתרים מסוימים שיש להם את הקיבולת לאגור נתוני ענק, יכולה להיות שורה בבסיס נתונים: מתי גללתם, כמה גללתם, מה היתה הפעולה הבאה שלכם.
 :::
 :::
 
@@ -221,6 +251,7 @@ Have you ever opened up an Internet browser, searched for "Amazon", clicked on [
 
 ::: {.notes}
 ::: {style="direction:rtl; font-size:16px"}
+וגם אתם יכולים לייצר דאטא מהאינטרנט, באמצעות פעולה שנקראת web scraping. זה יכול להיות דרך שירותים של אתרים שנקראים APIs, וזה יכול להיות דרך קוד בbeautiful soup, באמצעות פעולה אקטיבית שלכם מול דף אונליין.
 :::
 :::
 
@@ -228,12 +259,13 @@ Have you ever opened up an Internet browser, searched for "Amazon", clicked on [
 
 ### Public APIs (I)
 
-You also have the power to automatically curate data, yourself.
-
 <img src = "images/google_trends01.png">
 
 ::: {.notes}
 ::: {style="direction:rtl; font-size:16px"}
+דוגמא לAPI שכזה הוא גוגל טרנדס. גוגל מאפשרת לכל גולש לקבל את דפוס החיפוש אחר מונח כלשהו לאורך תקופה, ואפילו להשוות למונחים אחרים. כאן חיפשתי את הטרנד של חיפוש אחר אוכל לחתולים מול אוכל לכלבים. יותר מזה, אתם יכולים בלחיצת כפתור להוריד את הנתונים כטבלה למחשב האישי בקובץ csv.
+
+בתרגול תראו דוגמאות לAPIs נוספים ולספריות פייתון שעוטפות אותם.
 :::
 :::
 
@@ -241,9 +273,15 @@ You also have the power to automatically curate data, yourself.
 
 ### Beautiful Soup
 
-You may not even need an API.  The following code scrapes the Wikipedia page for the [Beatles discography](https://en.wikipedia.org/wiki/The_Beatles_discography){target="_blank"} and creates a table, out of "thin air". See more advanced examples in recitation.
+::: {.fragment}
+You may not even need an API. Would you look to have all the [Beatles](https://en.wikipedia.org/wiki/The_Beatles_discography){target="_blank"} records in a single table on your machine?
+:::
+
+::: {.fragment}
+The following code scrapes the Wikipedia page for the and creates a table, out of "thin air". See more advanced examples in recitation.
 
 ```{python}
+#| code-line-numbers: "|7|8|"
 from bs4 import BeautifulSoup
 import requests
 import re
@@ -253,15 +291,23 @@ url = 'https://en.wikipedia.org/wiki/The_Beatles_discography'
 r = requests.get(url)
 soup = BeautifulSoup(r.content, 'html.parser')
 ```
+:::
 
 ::: {.notes}
 ::: {style="direction:rtl; font-size:16px"}
+אם אין API, ואין לאתר מדיניות נוקשה נגד תוכנה שקוראת לו להוריד דאטא, אפשר להשתמש בכלים תכנותיים כדי להוריד דאטא.
+
+נסתכל על עמוד הוויקיפדיה של תקליטי הביטלס למשל בוויקיפדיה. נחמד להסתכל על הטבלה, אבל אין לה ערך ממשי עבורנו בלי שנוכל למיין אותה, לקבץ אותה, לסכום אותה וכולי.
+
+הקוד שלפנינו מוריד את האתר של הערך בוויקיפדיה, ומהאתר נחלץ את הטבלה. אנחנו קוראים לאתר עם ספריית requests, ועוטפים את תוכן הקריאה עם הקלאס BeautifulSoup כפי שראינו, לתוך אוביקט שנקרא soup.
 :::
 :::
 
 ---
 
 ```{python}
+#| echo: false
+
 def get_release_details(release_col):
     release_date = None
     release_label = None
@@ -288,6 +334,7 @@ def get_release_details(release_col):
 ---
 
 ```{python}
+#| code-line-numbers: "|1|4|5|9|10|11|18,22-23|"
 albums = dict()
 id = 0
 albums[id] = dict()
@@ -317,6 +364,13 @@ for table in tables:
 
 ::: {.notes}
 ::: {style="direction:rtl; font-size:16px"}
+כעת נאתחל מילון ריק בשם albums. נמצא את כל הטבלאות בדף, כלומר את כל התגיות html בשם table.
+
+נעבור טבלה טבלה, נמצא את הכותרת שלה, ונשווה לכותרת שאנחנו מחפשים. אם מצאנו את הטבלה המבוקשת, נמצא את כל השורות שלה.
+
+נעבור שורה שורה, ונרשום במילון שלנו את מה שאנחנו מחפשים: שם האלבום, תאריך ההוצאה והלייבל.
+
+זה בסדר אם אתם לא מבינים כרגע כל שורה ושורה מהקוד, בתרגול ובשיעורי הבית כאמור תתרגלו את הנושא.
 :::
 :::
 
@@ -329,6 +383,7 @@ albums_df.head(5)
 
 ::: {.notes}
 ::: {style="direction:rtl; font-size:16px"}
+כעת יש לנו מילון מקונן שבו כל מפתח הוא מזהה סידורי וכל ערך הוא מילון קטן בעצמו, עם ערכים כמו שם ותאריך הוצאה לכל אלבום. ניתן לעטוף מילון כזה בתור דאטאפריים של פנדאז, והנה הטבלה שלנו, כבר לא רק בדף באינטרנט שאנחנו יכולים רק לבהות בו, אלא ממש על המחשב שלנו וניתן לשאול שאלות מעניינות על התקליטים של הביטלס ולענות עליהן באמצעותה.
 :::
 :::
 

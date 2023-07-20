@@ -410,7 +410,7 @@
 <h3 id="stat.-and-or-department-tau">Stat. and OR Department, TAU</h3>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>איך משיגים נתונים? מה כדאי לעשות דבר ראשון כשמקבלים קובץ נתונים, ומה יכול להיות כל כך לא נקי בנתונים שצריך לנקות אותם? היום נלמד כמה עקרונות בסיס בנתונים, הם חומר הגלם של דאטא סיינס.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -426,6 +426,21 @@
 </section>
 <section id="common-data-formats-in-data-science" class="slide level2 title-slide center">
 <h2>Common Data Formats in Data Science</h2>
+<aside class="notes">
+<div style="direction:rtl; font-size:16px">
+<p>נתחיל בללמוד על פורמטים נפוצים שבהם נתונים מגיעים.</p>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section class="slide level2">
 
@@ -461,7 +476,9 @@
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>פורמט נפוץ מאוד הוא comma separated values, או CSV.</p>
+<p>אם תפתחו CSV בתכנת עריכה הפשוטה ביותר הוא ייראה לכם כמו ג’ונגל של נתונים, אבל האמת שזה פורמט מצוין לדאטה בצורת טבלה. כאן יש לנו דאטה שבו לקוחות תיארו את החוויות שלהם עם תרופות שונות ודירגו את אותן תרופות.</p>
+<p>אני קורא את הנתונים פנדאז, ה-ספרייה הטובה ביותר שיש לפייתון להציע כשזה נוגע לנתוני טבלה, כל עוד הם לא גדולים מדי, וגם על זה נדבר. אני משתמש בפקודה read_csv, ומבקש את השורות הראשונות של הדאטה עם המתודה head, והוא כבר נראה הרבה יותר ברור.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -508,7 +525,8 @@
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>פורמט נוסף שחשוב להכיר כי הוא גמיש הרבה יותר, וזה גם פורמט שבו מגיעים הרבה פעמים נתונים כתוצאה מקריאות לשרתים באינטרנט - הוא ג’ייסון. ג’ייסון מתאים למידע מקונן או nested, כמו מילון, שבו יש קבוצה של צמדים של key ו-value. במקרה שלפנינו יש נתון מתוך מפקד אוכלוסין על אדם מסוים. והמפתחות הם מה השם שלו, כתובת, גיל וכולי. נשים לב שהערכים יכולים להיות מילונים בעצמם כמו הכתובת כאן, או רשימה של ערכים.</p>
+<p>בפייתון אפשר להשתמש במודול json ולפתוח את הקובץ עם הפקודה json.load. היופי בפייתון הוא שהדאטא נקרא ישר לתוך מילון dict של פייתון, שיש לו את כל הגמישות של מילון json.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -548,7 +566,7 @@
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>ניתן לקרוא נתונים גם מקובץ טקסט פשוט, זה בדרך כלל אכן מתאים לטקסט, לדוגמא לצורך ניתוחים של שפה או ייצור טקסט. במקרה הזה יש לנו קובץ טקסט פשוט של שיר, ואני משתמש בפקודה readlines לקרוא את השורות לתוך רשימה של מחרוזות. כל שורת טקסט היא מחרוזת.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -571,7 +589,7 @@
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>נתונים נמצאים גם במקומות פחות צפויים. אפשר לחלץ נתונים כמעט מכל אתר אינטרנט. ואתרי אינטרנט כתובים בשפת html. בתרגול תלמדו יותר על מבנה html, שאפשר לראות אותו כמעין עץ של תכונות שבו כל ענף מתפרש לתת-ענפים וכך הדפדפן יודע להציג לנו את האתר.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -859,7 +877,9 @@
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>כדי לקרוא את המידע באתר סטטי אפשר להשתמש בספריית beautifulsoup, כאן אני קורא קובץ html על-ידי העטיפה שלו בקלאס BeautifulSoup.</p>
+<p>הפעולה הזאת בעצם קוראת את העץ שהוא דף הhtml, לתוך אוביקט שכאן נקרא soup, כמו שמקובל בחבילה הזאת. אם אבקש את המתודה prettify על האוביקט הזה נראה שאכן כל קובץ הhtml נמצא בו בצורה מסודרת.</p>
+<p>למה שנרצה לקרוא אתר מהאינטרנט ומה הקשר לנתונים? על כך ביחידה הבאה.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -885,7 +905,8 @@
 </ul>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>איך מגיעים אלינו נתונים? החיים הם לא קורס, ונתונים לא נמצאים פשוט כמו כאן באתר הקורס בקובץ מסודר ומחכים שננתח אותם!</p>
+<p>בעבר נתונים הגיעו כמעט תמיד כי מישהו אצר אותם בצורה ידנית. מישהו כתב אותם ביומן או ספר, שורה אחר שורה. היום בעידן הביג דאטא רוב הנתונים נאספים בצורה אוטומטית. בואו נראה כמה דוגמאות.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -906,7 +927,7 @@
 
 <img src="images/height_marks.jpg" width="70%" class="r-stretch"><aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>גם היום, יש שפע דוגמאות של אוצרות נתונים ידנית. אם ההורים שלכם צירו על הקיר את הגובה שלכם מהרגע שנעמדתם על הרגליים - נראה את המידע הזה על הקיר. אחרת - לא יהיו לנו הנתונים.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -927,7 +948,7 @@
 
 <img src="images/alcohol-consumption-per-person-us.png" width="70%" class="r-stretch"><aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>ברמה הלאומית תמיד הגיעו מממשלות שפשוט תיעדו את הקורה בתוך המדינה לצרכי ניתוח כלכלי. כאן אפשר לראות שיש לנו תיעוד מאמצע המאה ה19, על כמות צריכת האלכוהול השנתית של אזרי אמריקאי. נסו לחשוב למה על מעיד המידע החסר בשנת 1920 ועד אמצע שנות ה30 של המאה ה20. האם באותה תקופה הפסיקו האמריקאים לשתות אלכוהול?</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -948,7 +969,8 @@
 
 <img src="images/you_are_data.png" class="r-stretch"><aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>כיום כאמור אנחנו מעריכים שמרבית הנתונים פיסית בעולם נאגרים בצורה אוטומטית. כל פעם שאתם נכנסים לאתר אינטרנט אפילו אם זה רק להסתכל על מחירים של חולצות, אתם מייצרים דאטא. עצם פתיחת הדפדפן מייצרת שורה במאגר נתונים של גוגל: מי אתם, מה המין, הגיל והמיקום שלכם ומתי פתחתם את הדפדפן.</p>
+<p>אפילו גלילה באתרים מסוימים שיש להם את הקיבולת לאגור נתוני ענק, יכולה להיות שורה בבסיס נתונים: מתי גללתם, כמה גללתם, מה היתה הפעולה הבאה שלכם.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -971,7 +993,7 @@
 </ul>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>וגם אתם יכולים לייצר דאטא מהאינטרנט, באמצעות פעולה שנקראת web scraping. זה יכול להיות דרך שירותים של אתרים שנקראים APIs, וזה יכול להיות דרך קוד בbeautiful soup, באמצעות פעולה אקטיבית שלכם מול דף אונליין.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -988,11 +1010,11 @@
 <section class="slide level2">
 
 <h3 id="public-apis-i">Public APIs (I)</h3>
-<p>You also have the power to automatically curate data, yourself.</p>
 
 <img src="images/google_trends01.png" class="r-stretch"><aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>דוגמא לAPI שכזה הוא גוגל טרנדס. גוגל מאפשרת לכל גולש לקבל את דפוס החיפוש אחר מונח כלשהו לאורך תקופה, ואפילו להשוות למונחים אחרים. כאן חיפשתי את הטרנד של חיפוש אחר אוכל לחתולים מול אוכל לכלבים. יותר מזה, אתם יכולים בלחיצת כפתור להוריד את הנתונים כטבלה למחשב האישי בקובץ csv.</p>
+<p>בתרגול תראו דוגמאות לAPIs נוספים ולספריות פייתון שעוטפות אותם.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1009,20 +1031,27 @@
 <section class="slide level2">
 
 <h3 id="beautiful-soup">Beautiful Soup</h3>
-<p>You may not even need an API. The following code scrapes the Wikipedia page for the <a href="https://en.wikipedia.org/wiki/The_Beatles_discography" target="_blank">Beatles discography</a> and creates a table, out of “thin air”. See more advanced examples in recitation.</p>
+<div class="fragment">
+<p>You may not even need an API. Would you look to have all the <a href="https://en.wikipedia.org/wiki/The_Beatles_discography" target="_blank">Beatles</a> records in a single table on your machine?</p>
+</div>
+<div class="fragment">
+<p>The following code scrapes the Wikipedia page for the and creates a table, out of “thin air”. See more advanced examples in recitation.</p>
 <div class="cell" data-execution_count="5">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> bs4 <span class="im">import</span> BeautifulSoup</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> re</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">'https://en.wikipedia.org/wiki/The_Beatles_discography'</span></span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>r <span class="op">=</span> requests.get(url)</span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>soup <span class="op">=</span> BeautifulSoup(r.content, <span class="st">'html.parser'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9" data-code-line-numbers="|7|8|"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1"></a><span class="im">from</span> bs4 <span class="im">import</span> BeautifulSoup</span>
+<span id="cb9-2"><a href="#cb9-2"></a><span class="im">import</span> requests</span>
+<span id="cb9-3"><a href="#cb9-3"></a><span class="im">import</span> re</span>
+<span id="cb9-4"><a href="#cb9-4"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb9-5"><a href="#cb9-5"></a></span>
+<span id="cb9-6"><a href="#cb9-6"></a>url <span class="op">=</span> <span class="st">'https://en.wikipedia.org/wiki/The_Beatles_discography'</span></span>
+<span id="cb9-7"><a href="#cb9-7"></a>r <span class="op">=</span> requests.get(url)</span>
+<span id="cb9-8"><a href="#cb9-8"></a>soup <span class="op">=</span> BeautifulSoup(r.content, <span class="st">'html.parser'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>אם אין API, ואין לאתר מדיניות נוקשה נגד תוכנה שקוראת לו להוריד דאטא, אפשר להשתמש בכלים תכנותיים כדי להוריד דאטא.</p>
+<p>נסתכל על עמוד הוויקיפדיה של תקליטי הביטלס למשל בוויקיפדיה. נחמד להסתכל על הטבלה, אבל אין לה ערך ממשי עבורנו בלי שנוכל למיין אותה, לקבץ אותה, לסכום אותה וכולי.</p>
+<p>הקוד שלפנינו מוריד את האתר של הערך בוויקיפדיה, ומהאתר נחלץ את הטבלה. אנחנו קוראים לאתר עם ספריית requests, ועוטפים את תוכן הקריאה עם הקלאס BeautifulSoup כפי שראינו, לתוך אוביקט שנקרא soup.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1038,24 +1067,6 @@
 </section>
 <section class="slide level2">
 
-<div class="cell" data-execution_count="6">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_release_details(release_col):</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    release_date <span class="op">=</span> <span class="va">None</span></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    release_label <span class="op">=</span> <span class="va">None</span></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> release_col <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span>:</span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>        release_list <span class="op">=</span> release_col.find(<span class="st">'ul'</span>)</span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> release_list <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span>:</span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>            release_list_elements <span class="op">=</span> release_list.find_all(<span class="st">'li'</span>)</span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>            <span class="cf">for</span> element <span class="kw">in</span> release_list_elements:</span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>                element_text <span class="op">=</span> element.get_text()</span>
-<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>                <span class="cf">if</span> element_text.startswith(<span class="st">'Released: '</span>):</span>
-<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>                    release_date <span class="op">=</span> re.search(<span class="st">'Released: ([0-9a-zA-Z ]+)'</span>,<span class="op">\</span></span>
-<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>                                             element_text).group(<span class="dv">1</span>)</span>
-<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>                <span class="cf">if</span> element_text.startswith(<span class="st">'Label: '</span>):</span>
-<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>                    release_label <span class="op">=</span> re.search(<span class="st">'Label: ([0-9a-zA-Z,\(\) ]+)'</span>, <span class="op">\</span></span>
-<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>                                              element_text).group(<span class="dv">1</span>)</span>
-<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> release_date, release_label</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
 
@@ -1075,35 +1086,38 @@
 <section class="slide level2">
 
 <div class="cell" data-execution_count="7">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>albums <span class="op">=</span> <span class="bu">dict</span>()</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="bu">id</span> <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>albums[<span class="bu">id</span>] <span class="op">=</span> <span class="bu">dict</span>()</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>tables <span class="op">=</span> soup.find_all(<span class="st">'table'</span>)</span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> table <span class="kw">in</span> tables:</span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    caption <span class="op">=</span> table.find(<span class="st">'caption'</span>)</span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> caption <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span>:</span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>        header <span class="op">=</span> caption.get_text()</span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> re.match(re.<span class="bu">compile</span>(<span class="st">'^List of(.+?)albums'</span>), header):</span>
-<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>            rows <span class="op">=</span> table.find_all(<span class="st">'tr'</span>)</span>
-<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>            <span class="cf">for</span> row <span class="kw">in</span> rows:</span>
-<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>                title_col <span class="op">=</span> row.find(<span class="st">'th'</span>)</span>
-<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>                <span class="cf">if</span> title_col <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span> <span class="kw">and</span> <span class="st">'scope'</span> <span class="kw">in</span> title_col.attrs <span class="kw">and</span><span class="op">\</span></span>
-<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>                title_col.attrs[<span class="st">'scope'</span>] <span class="op">==</span> <span class="st">'row'</span>:            </span>
-<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>                    title_cell <span class="op">=</span> title_col.find(<span class="st">'a'</span>)</span>
-<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>                    <span class="cf">if</span> title_cell <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span> <span class="kw">and</span> title_cell.attrs <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span> <span class="kw">and</span><span class="op">\</span></span>
-<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>                    <span class="st">'title'</span> <span class="kw">in</span> title_cell.attrs:</span>
-<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>                        albums[<span class="bu">id</span>][<span class="st">'name'</span>] <span class="op">=</span> title_cell.attrs[<span class="st">'title'</span>]</span>
-<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a>                        release_col <span class="op">=</span> row.find(<span class="st">'td'</span>)</span>
-<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a>                        release_date, release_label <span class="op">=</span> get_release_details(release_col)</span>
-<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a>                        <span class="cf">if</span> release_date <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span> <span class="kw">or</span> release_label <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span>:</span>
-<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a>                            albums[<span class="bu">id</span>][<span class="st">'release_date'</span>] <span class="op">=</span> release_date</span>
-<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a>                            albums[<span class="bu">id</span>][<span class="st">'release_label'</span>] <span class="op">=</span> release_label</span>
-<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a>                            <span class="bu">id</span> <span class="op">+=</span> <span class="dv">1</span></span>
-<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a>                            albums[<span class="bu">id</span>] <span class="op">=</span> <span class="bu">dict</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10" data-code-line-numbers="|1|4|5|9|10|11|18,22-23|"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1"></a>albums <span class="op">=</span> <span class="bu">dict</span>()</span>
+<span id="cb10-2"><a href="#cb10-2"></a><span class="bu">id</span> <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb10-3"><a href="#cb10-3"></a>albums[<span class="bu">id</span>] <span class="op">=</span> <span class="bu">dict</span>()</span>
+<span id="cb10-4"><a href="#cb10-4"></a>tables <span class="op">=</span> soup.find_all(<span class="st">'table'</span>)</span>
+<span id="cb10-5"><a href="#cb10-5"></a><span class="cf">for</span> table <span class="kw">in</span> tables:</span>
+<span id="cb10-6"><a href="#cb10-6"></a>    caption <span class="op">=</span> table.find(<span class="st">'caption'</span>)</span>
+<span id="cb10-7"><a href="#cb10-7"></a>    <span class="cf">if</span> caption <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span>:</span>
+<span id="cb10-8"><a href="#cb10-8"></a>        header <span class="op">=</span> caption.get_text()</span>
+<span id="cb10-9"><a href="#cb10-9"></a>        <span class="cf">if</span> re.match(re.<span class="bu">compile</span>(<span class="st">'^List of(.+?)albums'</span>), header):</span>
+<span id="cb10-10"><a href="#cb10-10"></a>            rows <span class="op">=</span> table.find_all(<span class="st">'tr'</span>)</span>
+<span id="cb10-11"><a href="#cb10-11"></a>            <span class="cf">for</span> row <span class="kw">in</span> rows:</span>
+<span id="cb10-12"><a href="#cb10-12"></a>                title_col <span class="op">=</span> row.find(<span class="st">'th'</span>)</span>
+<span id="cb10-13"><a href="#cb10-13"></a>                <span class="cf">if</span> title_col <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span> <span class="kw">and</span> <span class="st">'scope'</span> <span class="kw">in</span> title_col.attrs <span class="kw">and</span><span class="op">\</span></span>
+<span id="cb10-14"><a href="#cb10-14"></a>                title_col.attrs[<span class="st">'scope'</span>] <span class="op">==</span> <span class="st">'row'</span>:            </span>
+<span id="cb10-15"><a href="#cb10-15"></a>                    title_cell <span class="op">=</span> title_col.find(<span class="st">'a'</span>)</span>
+<span id="cb10-16"><a href="#cb10-16"></a>                    <span class="cf">if</span> title_cell <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span> <span class="kw">and</span> title_cell.attrs <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span> <span class="kw">and</span><span class="op">\</span></span>
+<span id="cb10-17"><a href="#cb10-17"></a>                    <span class="st">'title'</span> <span class="kw">in</span> title_cell.attrs:</span>
+<span id="cb10-18"><a href="#cb10-18"></a>                        albums[<span class="bu">id</span>][<span class="st">'name'</span>] <span class="op">=</span> title_cell.attrs[<span class="st">'title'</span>]</span>
+<span id="cb10-19"><a href="#cb10-19"></a>                        release_col <span class="op">=</span> row.find(<span class="st">'td'</span>)</span>
+<span id="cb10-20"><a href="#cb10-20"></a>                        release_date, release_label <span class="op">=</span> get_release_details(release_col)</span>
+<span id="cb10-21"><a href="#cb10-21"></a>                        <span class="cf">if</span> release_date <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span> <span class="kw">or</span> release_label <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span>:</span>
+<span id="cb10-22"><a href="#cb10-22"></a>                            albums[<span class="bu">id</span>][<span class="st">'release_date'</span>] <span class="op">=</span> release_date</span>
+<span id="cb10-23"><a href="#cb10-23"></a>                            albums[<span class="bu">id</span>][<span class="st">'release_label'</span>] <span class="op">=</span> release_label</span>
+<span id="cb10-24"><a href="#cb10-24"></a>                            <span class="bu">id</span> <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb10-25"><a href="#cb10-25"></a>                            albums[<span class="bu">id</span>] <span class="op">=</span> <span class="bu">dict</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>כעת נאתחל מילון ריק בשם albums. נמצא את כל הטבלאות בדף, כלומר את כל התגיות html בשם table.</p>
+<p>נעבור טבלה טבלה, נמצא את הכותרת שלה, ונשווה לכותרת שאנחנו מחפשים. אם מצאנו את הטבלה המבוקשת, נמצא את כל השורות שלה.</p>
+<p>נעבור שורה שורה, ונרשום במילון שלנו את מה שאנחנו מחפשים: שם האלבום, תאריך ההוצאה והלייבל.</p>
+<p>זה בסדר אם אתם לא מבינים כרגע כל שורה ושורה מהקוד, בתרגול ובשיעורי הבית כאמור תתרגלו את הנושא.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1120,8 +1134,8 @@
 <section class="slide level2">
 
 <div class="cell" data-execution_count="8">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>albums_df <span class="op">=</span> pd.DataFrame.from_dict(albums, orient <span class="op">=</span><span class="st">'index'</span>)</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>albums_df.head(<span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>albums_df <span class="op">=</span> pd.DataFrame.from_dict(albums, orient <span class="op">=</span><span class="st">'index'</span>)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>albums_df.head(<span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="8">
 <div>
 <style scoped="">
@@ -1186,7 +1200,7 @@
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>כעת יש לנו מילון מקונן שבו כל מפתח הוא מזהה סידורי וכל ערך הוא מילון קטן בעצמו, עם ערכים כמו שם ותאריך הוצאה לכל אלבום. ניתן לעטוף מילון כזה בתור דאטאפריים של פנדאז, והנה הטבלה שלנו, כבר לא רק בדף באינטרנט שאנחנו יכולים רק לבהות בו, אלא ממש על המחשב שלנו וניתן לשאול שאלות מעניינות על התקליטים של הביטלס ולענות עליהן באמצעותה.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1288,19 +1302,19 @@
 
 <h3 id="boxplot">Boxplot</h3>
 <div class="cell" data-execution_count="9">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>sns.<span class="bu">set</span>()</span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> np.random.chisquare(<span class="dv">5</span>, <span class="dv">1000</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>sns.<span class="bu">set</span>()</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> np.random.chisquare(<span class="dv">5</span>, <span class="dv">1000</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell" data-execution_count="10">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>sns.boxplot(y <span class="op">=</span> X)</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'X'</span>)</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>sns.boxplot(y <span class="op">=</span> X)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'X'</span>)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<p><img data-src="c03_eda_files/figure-revealjs/cell-11-output-1.png" width="527" height="389"></p>
+<p><img data-src="c03_eda_files/figure-revealjs/cell-11-output-1.png" width="514" height="389"></p>
 </div>
 </div>
 <aside class="notes">
@@ -1323,11 +1337,11 @@
 
 <h3 id="swarmplot">Swarmplot</h3>
 <div class="cell" data-execution_count="11">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>sns.swarmplot(y <span class="op">=</span> X)</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'X'</span>)</span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>sns.swarmplot(y <span class="op">=</span> X)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'X'</span>)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<p><img data-src="c03_eda_files/figure-revealjs/cell-12-output-1.png" width="527" height="389"></p>
+<p><img data-src="c03_eda_files/figure-revealjs/cell-12-output-1.png" width="514" height="389"></p>
 </div>
 </div>
 <aside class="notes">
@@ -1350,10 +1364,10 @@
 
 <h3 id="histogram">Histogram</h3>
 <div class="cell" data-execution_count="12">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>sns.distplot(X, kde <span class="op">=</span> <span class="va">False</span>)</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Frequency'</span>)</span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'X'</span>)</span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>sns.distplot(X, kde <span class="op">=</span> <span class="va">False</span>)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Frequency'</span>)</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'X'</span>)</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <p><img data-src="c03_eda_files/figure-revealjs/cell-13-output-1.png" width="523" height="435"></p>
 </div>
@@ -1378,10 +1392,10 @@
 
 <h3 id="histogram-1">Histogram</h3>
 <div class="cell" data-execution_count="13">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>sns.distplot(X, hist <span class="op">=</span> <span class="va">False</span>)</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Density'</span>)</span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'X'</span>)</span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>sns.distplot(X, hist <span class="op">=</span> <span class="va">False</span>)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Density'</span>)</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'X'</span>)</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <p><img data-src="c03_eda_files/figure-revealjs/cell-14-output-1.png" width="527" height="435"></p>
 </div>
@@ -1446,23 +1460,23 @@
 <div class="cell" data-execution_count="14">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize <span class="op">=</span>(<span class="dv">14</span>, <span class="dv">5</span>))</span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>plt.subplot(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">1</span>)</span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>sns.kdeplot(X, bw<span class="op">=</span><span class="fl">0.1</span>)</span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Density'</span>)</span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'X'</span>)</span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Width=0.1: Too narrow'</span>)</span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>plt.subplot(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">2</span>)</span>
-<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>sns.kdeplot(X, bw<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Density'</span>)</span>
-<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'X'</span>)</span>
-<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Width=1: About right'</span>)</span>
-<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>plt.subplot(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">3</span>)</span>
-<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>sns.kdeplot(X, bw<span class="op">=</span><span class="dv">10</span>)</span>
-<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Density'</span>)</span>
-<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'X'</span>)</span>
-<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Width=10: Too wide'</span>)</span>
-<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize <span class="op">=</span>(<span class="dv">14</span>, <span class="dv">5</span>))</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>plt.subplot(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">1</span>)</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>sns.kdeplot(X, bw<span class="op">=</span><span class="fl">0.1</span>)</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Density'</span>)</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'X'</span>)</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Width=0.1: Too narrow'</span>)</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>plt.subplot(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">2</span>)</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>sns.kdeplot(X, bw<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Density'</span>)</span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'X'</span>)</span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Width=1: About right'</span>)</span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>plt.subplot(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">3</span>)</span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>sns.kdeplot(X, bw<span class="op">=</span><span class="dv">10</span>)</span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Density'</span>)</span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'X'</span>)</span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Width=10: Too wide'</span>)</span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
 <p><img data-src="c03_eda_files/figure-revealjs/cell-15-output-1.png" width="1122" height="455"></p>
@@ -1488,13 +1502,13 @@
 
 <h3 id="scatterplot">Scatterplot</h3>
 <div class="cell" data-execution_count="15">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>b0 <span class="op">=</span> <span class="dv">2</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>b1 <span class="op">=</span> <span class="dv">3</span></span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>Y <span class="op">=</span> X <span class="op">*</span> b1 <span class="op">+</span> b0 <span class="op">+</span> np.random.normal(<span class="dv">0</span>, <span class="dv">10</span>, <span class="dv">1000</span>)</span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>sns.scatterplot(X, Y)</span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Density'</span>)</span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'X'</span>)</span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>b0 <span class="op">=</span> <span class="dv">2</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>b1 <span class="op">=</span> <span class="dv">3</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>Y <span class="op">=</span> X <span class="op">*</span> b1 <span class="op">+</span> b0 <span class="op">+</span> np.random.normal(<span class="dv">0</span>, <span class="dv">10</span>, <span class="dv">1000</span>)</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>sns.scatterplot(X, Y)</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Density'</span>)</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'X'</span>)</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <p><img data-src="c03_eda_files/figure-revealjs/cell-16-output-1.png" width="523" height="435"></p>
 </div>
@@ -1578,18 +1592,18 @@
 <section class="slide level2">
 
 <div class="cell" data-execution_count="16">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>mean <span class="op">=</span> np.mean(X)</span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>median <span class="op">=</span> np.median(X)</span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>hist, _ <span class="op">=</span> np.histogram(X, bins<span class="op">=</span><span class="bu">range</span>(<span class="dv">20</span>))</span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>mode <span class="op">=</span> <span class="bu">list</span>(<span class="bu">range</span>(<span class="dv">20</span>))[hist.argsort()[::<span class="op">-</span><span class="dv">1</span>][<span class="dv">0</span>]]</span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>sns.distplot(X, bins <span class="op">=</span> <span class="bu">range</span>(<span class="dv">20</span>), kde <span class="op">=</span> <span class="va">False</span>)</span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>plt.plot([mean, mean], [<span class="dv">0</span>, <span class="dv">160</span>], linewidth<span class="op">=</span><span class="dv">2</span>, color<span class="op">=</span><span class="st">'r'</span>)</span>
-<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>plt.plot([median, median], [<span class="dv">0</span>, <span class="dv">160</span>], linewidth<span class="op">=</span><span class="dv">2</span>, color<span class="op">=</span><span class="st">'g'</span>)</span>
-<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>plt.plot([mode, mode], [<span class="dv">0</span>, <span class="dv">160</span>], linewidth<span class="op">=</span><span class="dv">2</span>, color<span class="op">=</span><span class="st">'b'</span>)</span>
-<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>plt.legend({<span class="st">'Mean'</span>:mean,<span class="st">'Median'</span>:median,<span class="st">'Mode'</span>:mode})</span>
-<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'X'</span>)</span>
-<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Frequency'</span>)</span>
-<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>mean <span class="op">=</span> np.mean(X)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>median <span class="op">=</span> np.median(X)</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>hist, _ <span class="op">=</span> np.histogram(X, bins<span class="op">=</span><span class="bu">range</span>(<span class="dv">20</span>))</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>mode <span class="op">=</span> <span class="bu">list</span>(<span class="bu">range</span>(<span class="dv">20</span>))[hist.argsort()[::<span class="op">-</span><span class="dv">1</span>][<span class="dv">0</span>]]</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>sns.distplot(X, bins <span class="op">=</span> <span class="bu">range</span>(<span class="dv">20</span>), kde <span class="op">=</span> <span class="va">False</span>)</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>plt.plot([mean, mean], [<span class="dv">0</span>, <span class="dv">160</span>], linewidth<span class="op">=</span><span class="dv">2</span>, color<span class="op">=</span><span class="st">'r'</span>)</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>plt.plot([median, median], [<span class="dv">0</span>, <span class="dv">160</span>], linewidth<span class="op">=</span><span class="dv">2</span>, color<span class="op">=</span><span class="st">'g'</span>)</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>plt.plot([mode, mode], [<span class="dv">0</span>, <span class="dv">160</span>], linewidth<span class="op">=</span><span class="dv">2</span>, color<span class="op">=</span><span class="st">'b'</span>)</span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>plt.legend({<span class="st">'Mean'</span>:mean,<span class="st">'Median'</span>:median,<span class="st">'Mode'</span>:mode})</span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'X'</span>)</span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Frequency'</span>)</span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <p><img data-src="c03_eda_files/figure-revealjs/cell-17-output-1.png" width="523" height="435"></p>
 </div>
@@ -1644,17 +1658,17 @@
 </ul>
 <div class="fragment">
 <div class="cell" data-execution_count="17">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'90th percentile: </span><span class="sc">{</span>np<span class="sc">.</span>percentile(X, <span class="dv">90</span>) <span class="sc">:.2f}</span><span class="ss">'</span>)</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Range: </span><span class="sc">{</span>np<span class="sc">.</span><span class="bu">max</span>(X) <span class="op">-</span> np<span class="sc">.</span><span class="bu">min</span>(X) <span class="sc">:.2f}</span><span class="ss">'</span>)</span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'IQR: </span><span class="sc">{</span>np<span class="sc">.</span>percentile(X, <span class="dv">75</span>) <span class="op">-</span> np<span class="sc">.</span>percentile(X, <span class="dv">25</span>) <span class="sc">:.2f}</span><span class="ss">'</span>)</span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Variance: </span><span class="sc">{</span>np<span class="sc">.</span>var(X) <span class="sc">:.2f}</span><span class="ss">'</span>)</span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Standard Deviation: </span><span class="sc">{</span>np<span class="sc">.</span>std(X) <span class="sc">:.2f}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'90th percentile: </span><span class="sc">{</span>np<span class="sc">.</span>percentile(X, <span class="dv">90</span>) <span class="sc">:.2f}</span><span class="ss">'</span>)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Range: </span><span class="sc">{</span>np<span class="sc">.</span><span class="bu">max</span>(X) <span class="op">-</span> np<span class="sc">.</span><span class="bu">min</span>(X) <span class="sc">:.2f}</span><span class="ss">'</span>)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'IQR: </span><span class="sc">{</span>np<span class="sc">.</span>percentile(X, <span class="dv">75</span>) <span class="op">-</span> np<span class="sc">.</span>percentile(X, <span class="dv">25</span>) <span class="sc">:.2f}</span><span class="ss">'</span>)</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Variance: </span><span class="sc">{</span>np<span class="sc">.</span>var(X) <span class="sc">:.2f}</span><span class="ss">'</span>)</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Standard Deviation: </span><span class="sc">{</span>np<span class="sc">.</span>std(X) <span class="sc">:.2f}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>90th percentile: 9.10
-Range: 17.13
-IQR: 4.10
-Variance: 9.84
-Standard Deviation: 3.14</code></pre>
+<pre><code>90th percentile: 9.23
+Range: 22.53
+IQR: 4.05
+Variance: 9.61
+Standard Deviation: 3.10</code></pre>
 </div>
 </div>
 </div>
@@ -1683,11 +1697,11 @@ Standard Deviation: 3.14</code></pre>
 </ul>
 <div class="fragment">
 <div class="cell" data-execution_count="18">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy <span class="im">import</span> stats</span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Skewness: </span><span class="sc">{</span>stats<span class="sc">.</span>skew(X) <span class="sc">:.2f}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy <span class="im">import</span> stats</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Skewness: </span><span class="sc">{</span>stats<span class="sc">.</span>skew(X) <span class="sc">:.2f}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Skewness: 1.11</code></pre>
+<pre><code>Skewness: 1.18</code></pre>
 </div>
 </div>
 </div>
@@ -2006,9 +2020,9 @@ Standard Deviation: 3.14</code></pre>
 <div class="fragment">
 <p>Plot first:</p>
 <div class="cell" data-execution_count="19">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>tips <span class="op">=</span> sns.load_dataset(<span class="st">'tips'</span>)</span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>sns.pairplot(tips, height<span class="op">=</span><span class="fl">1.5</span>)</span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>tips <span class="op">=</span> sns.load_dataset(<span class="st">'tips'</span>)</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>sns.pairplot(tips, height<span class="op">=</span><span class="fl">1.5</span>)</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <p><img data-src="c03_eda_files/figure-revealjs/cell-20-output-1.png" width="426" height="426"></p>
 </div>
