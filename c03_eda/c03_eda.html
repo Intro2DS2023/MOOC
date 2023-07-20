@@ -1226,15 +1226,19 @@
 <li class="fragment">“Everything processed in Excel is small data.” (<a href="https://www.theguardian.com/news/datablog/2013/apr/25/forget-big-data-small-data-revolution">Rufus Pollock, The Guardian</a>)</li>
 <li class="fragment">“[Big Data] is data so large it does not fit in main memory” (Leskovec et al., Mining of Massive Datasets)</li>
 </ul>
+<div class="fragment">
 <p>Or maybe we should define the size of our data according how easy it is to process and understand it?</p>
 <ul>
 <li class="fragment">“[Small Data is] data that has small enough size for human comprehension.” (<a href="jWork.ORG">jWork.ORG</a>)</li>
 <li class="fragment">“data sets that are too large or complex for traditional data-processing application software to adequately deal with” (<a href="https://en.wikipedia.org/wiki/Big_data">Wikipedia</a>)</li>
 </ul>
 </div>
+</div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>לפני שנמשיך כמה הערות על המונחים הפופולריים סמול דאטא וביג דאטא.</p>
+<p>יש כאלה שיטענו שדאטא הוא קטן או גדול לפי הגודל שהוא צורך פיסית, על הדיסק. לדוגמא אנחנו מביאים כאן הגדרה לדאטא קטן - זה דאטא שנכנס בקובץ אקסל. והגדרה לדאטא גדול - זה דאטא שלא נכנס בזיכרון של מחשב בודד.</p>
+<p>הגדרות אחרות חושבות על האופן בו אנחנו מעבדים את הדאטא. לדוגמא דאטא קטן הוא דאטא שאנשים יכולים להבין. או דאטא גדול זה דאטא ששיטות מסורתיות לעיבוד נתונים כבר לא יכולות לפעול עליו.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1254,13 +1258,15 @@
 <div>
 <p>The actual definition should probably merge both of the above.</p>
 <ul>
-<li class="fragment">Excel can fit 1M rows, 16K columns of double numbers. Try loading a matrix such as this into Matlab, Python or R, and invert it - you can’t. So isn’t that Big?</li>
+<li class="fragment">Excel can fit 1M rows, 16K columns of double numbers. Try loading a matrix such as this into Matlab, Python or R, multiply and invert it - you can’t. So isn’t that Big?</li>
 <li class="fragment">Facebook generates 4 Petabytes of data, daily. That’s 4K Terabytes or 4M Gigabytes. (<a href="https://www.brandwatch.com/blog/47-facebook-statistics/">Brandwatch.com</a>) But a Facebook Data Scientist in daily life typically needs only a copy of some of these data, which fits in her PC. Isn’t that small?</li>
 </ul>
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>אם חייבים הגדרה מדויקת, היא בטח תכלול את שני הפרמטרים האלה.</p>
+<p>לדוגמא, גם דאטא שנכנס באקסל, עם מיליון שורות ו-16 אלף עמודות. נסו להזין מטריצה כזאת בזיכרון בפייתון, לכפול אותה, להפוך את התוצאה - לא בטוח שתצליחו. אז למרות שהנתונים נכנסים באקסל, הם לא גדולים מאוד?</p>
+<p>לחילופין, לפי מקור מסוים פייסבוק מייצרת כמה פטאבייטים של דאטא כל יום, או מיליוני ג’יגה-בייט. אבל אם נציץ מעבר לכתף של מדענית נתונים בפייסבוק, ספק אם היא משתמשת בצורה יומיומית בנתונים שהגודל שלהם מעל מה שהמחשב שלה יכול להכיל, רוב הזמן אנחנו פועלים על איזו תת קבוצה קטנה של נתונים.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1281,7 +1287,7 @@
 
 <img src="images/domo.png" width="40%" class="r-stretch"><aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>אנחנו רוצים להגיד שזה לא מאוד חשוב, ולא תידרשו בקורס הזה להיצמד לאיזו הגדרה טכנית. כולנו יכולים להסכים שהנתונים שהאינטרנט מייצר הם נתוני ענק. בתרשים הזה שמתעדכן כל שנה אפשר לראות כמה דוגמאות: שכל דקה גוגל שומרת 6 מיליון חיפושים. אינסטגרם מפרסמת 66 אלף תמונות חדשות. או שיוטיוב מעלים 500 שעות של וידאו. כל דקה.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1297,6 +1303,21 @@
 </section>
 <section id="exploring-data-basic-plots" class="slide level2 title-slide center">
 <h2>Exploring Data: Basic Plots</h2>
+<aside class="notes">
+<div style="direction:rtl; font-size:16px">
+<p>אחד הדברים הראשונים שנרצה לעשות עם נתונים, קטנים או גדולים, הוא למצות מהם כמה תרשימים. בתרשים ויזואלי אחד יש פוטנציאל לזהות המון דברים על הנתונים שלנו, ואולי גם בעיות. בחלק זה נחזור על כמה תרשימים בסיסיים למשתנים רציפים או כמותיים. לאחר מכן נראה כמה תרשימים מודרניים ומרגשים.</p>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section class="slide level2">
 
@@ -1304,22 +1325,29 @@
 <div class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>sns.<span class="bu">set</span>()</span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> np.random.chisquare(<span class="dv">5</span>, <span class="dv">1000</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell" data-execution_count="10">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>sns.boxplot(y <span class="op">=</span> X)</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'X'</span>)</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code></code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>sns.boxplot(y <span class="op">=</span> X)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'X'</span>)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<p><img data-src="c03_eda_files/figure-revealjs/cell-11-output-1.png" width="514" height="389"></p>
+<p><img data-src="c03_eda_files/figure-revealjs/cell-12-output-1.png" width="527" height="389"></p>
 </div>
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>נשתמש בספריית seaborn שמתממשקת היטב עם פנדאז, ונצייר תרשים קופסה, או בוקספלוט.</p>
+<p>כאן אני מצייר בוקספלוט של משתנה אקראי X, ואני רוצה שהקופסה תהיה עומדת, בניגוד לשוכבת, אז אני מפרט y = X.</p>
+<p>(הדגמה על הלוח) הבוקספלוט פופולרי כי הוא תרשים פשוט שמורכב מחמישה קווים בלבד: הקו במרכז הקופסא הוא החציון של הנתונים, הערך שחצי מההתפלגות מעליו, וחצי מתחתיו. הגבול התחתון והגבול העליון של הקופסה הם הרבעון התחתון או האחוזון ה-25, והרבעון העליון או האחוזון ה-75. תיכף נגדיר אחוזונים במדויק אבל נזכור שאחוזון 25 הוא הערך שמתחתיו נמצאים 25 אחוזים מהנתונים.</p>
+<p>רוחב הקופסה הוא האחוזון הרבעון העליון פחות הרבעון התחתון. ערך זה נקרא ה-IQR או הinterquartile range. כדי לקבל את השפם העליון נוסיף לרבעון העליון או הגבול העליון של הקופסא את ה-IQR כפול 1.5, אבל לא נמתח שם את השפם אלא היכן שנמצא הערך הכי קרוב אליו מלמטה.</p>
+<p>כדי לקבל את השפם התחתון נעשה אותו דבר כלפי מטה: נמתח את השפם בערך הכי קרוב מלמעלה, לרבעון תחתון פחות 1.5 כפול ה-IQR.</p>
+<p>לבסוף נסמן את כל התצפיות שנפלו מעבר לגדר הזאת בין שני השפמים, אלה תצפיות יחסית חריגות.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1336,17 +1364,17 @@
 <section class="slide level2">
 
 <h3 id="swarmplot">Swarmplot</h3>
-<div class="cell" data-execution_count="11">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>sns.swarmplot(y <span class="op">=</span> X)</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'X'</span>)</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>sns.swarmplot(y <span class="op">=</span> X)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'X'</span>)</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<p><img data-src="c03_eda_files/figure-revealjs/cell-12-output-1.png" width="514" height="389"></p>
+<p><img data-src="c03_eda_files/figure-revealjs/cell-13-output-1.png" width="527" height="389"></p>
 </div>
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>תרשים פופולרי לאחרונה הוא הסוורם פלוט, סוורם מהמילה באנגלית לנחיל, כמו נחיל של דבורים. היתרון בסוורמפלוט הוא שכל תצפית מיוצגת על-ידי נקודה, וכך אפשר לראות את צורת ההתפלגות במדויק יותר. סוורמפלוט מתאים אולי יותר לדאטא קטן יותר, שאם נסרטט עליו בוקספלוט התמונה תהיה אולי קצת מטעה.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1363,18 +1391,19 @@
 <section class="slide level2">
 
 <h3 id="histogram">Histogram</h3>
-<div class="cell" data-execution_count="12">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>sns.distplot(X, kde <span class="op">=</span> <span class="va">False</span>)</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Frequency'</span>)</span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'X'</span>)</span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>sns.distplot(X, kde <span class="op">=</span> <span class="va">False</span>)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Frequency'</span>)</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'X'</span>)</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<p><img data-src="c03_eda_files/figure-revealjs/cell-13-output-1.png" width="523" height="435"></p>
+<p><img data-src="c03_eda_files/figure-revealjs/cell-14-output-1.png" width="523" height="435"></p>
 </div>
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>היסטוגרמה היא תרשים נפוץ להראות התפלגות, כאן אנחנו מציירים אותה עם הפקודה sns.distplot ואנחנו מפרטים kde = False, תיכף נדבר על זה.</p>
+<p>ההיסטוגרמה מחלקת את הטווח הרלוונטי למשתנה למקטעים שווים שנקראים גם bins, וסופרת כמה ערכים נמצאים בכל טווח. בצורה כזאת קל לראות אם ההתפלגות סימטרית או לא, אולי יש לה זנב ימינה לכיוון ערכים גדולים, או זנב שמאלה לכיוון ערכים קטנים.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1390,19 +1419,20 @@
 </section>
 <section class="slide level2">
 
-<h3 id="histogram-1">Histogram</h3>
-<div class="cell" data-execution_count="13">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>sns.distplot(X, hist <span class="op">=</span> <span class="va">False</span>)</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Density'</span>)</span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'X'</span>)</span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<h3 id="density-plot">Density Plot</h3>
+<div class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>sns.distplot(X, hist <span class="op">=</span> <span class="va">False</span>)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Density'</span>)</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'X'</span>)</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<p><img data-src="c03_eda_files/figure-revealjs/cell-14-output-1.png" width="527" height="435"></p>
+<p><img data-src="c03_eda_files/figure-revealjs/cell-15-output-1.png" width="527" height="435"></p>
 </div>
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>כדי לראות את צורת ההתפלגות בצורה חלקה יותר, נבקש מהפונקציה distplot, hist = False. זה יצייר לנו תרשים צפיפות.</p>
+<p>מהו תרשים צפיפות?</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1440,7 +1470,11 @@
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>תרשים צפיפות נוצר עם מה שקרוי קונבולוציה על הנתונים, או קרנל דנסיטי אסטימיישן.</p>
+<p>נגדיר איזושהי פונקציית גרעין, קרנל, w(x). הדרישות שלנו מהפונקציה שתהיה סימטרית, כלומר w(x) = w(-x), ושהאינטגרל עליה יתן 1.</p>
+<p>בפועל אנחנו מחפשים מעין חלון קטן (להראות דוגמאות). את החלון הזה נזיז לאורך טווח הערכים שהמשתנה איקס מקבל, ונפעיל אותו על המשתנה X, וזו תהיה הצפיפות. השטח תחת תרשים הצפיפות שמתקבל הוא: 1. למעשה קיבלנו מעין היסטוגרמה מוחלקת.</p>
+<p>מה גודל החלון שאנחנו רוצים לבחור? אם נבחר חלון רחב מידי, זה נקרא פרמרטר bandwidth, התוצאה עשויה להיות חלקה מאוד אבל עלולה לא לייצג את המבנה האמיתי של ההתפלגות. אם נבחר bandwidth קטן מדי כלומר חלון צר מידי, התרשים צפיפות יהיה ספציפי מדי ולא מספיק חלק.</p>
+<p>בואו נראה את זה.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1457,34 +1491,34 @@
 <section class="slide level2">
 
 <p>For example smoothing this same dataset with too narrow or too wide window:</p>
-<div class="cell" data-execution_count="14">
+<div class="cell" data-execution_count="15">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize <span class="op">=</span>(<span class="dv">14</span>, <span class="dv">5</span>))</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>plt.subplot(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">1</span>)</span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>sns.kdeplot(X, bw<span class="op">=</span><span class="fl">0.1</span>)</span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Density'</span>)</span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'X'</span>)</span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Width=0.1: Too narrow'</span>)</span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>plt.subplot(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">2</span>)</span>
-<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>sns.kdeplot(X, bw<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Density'</span>)</span>
-<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'X'</span>)</span>
-<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Width=1: About right'</span>)</span>
-<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>plt.subplot(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">3</span>)</span>
-<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>sns.kdeplot(X, bw<span class="op">=</span><span class="dv">10</span>)</span>
-<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Density'</span>)</span>
-<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'X'</span>)</span>
-<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Width=10: Too wide'</span>)</span>
-<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize <span class="op">=</span>(<span class="dv">14</span>, <span class="dv">5</span>))</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>plt.subplot(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">1</span>)</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>sns.kdeplot(X, bw<span class="op">=</span><span class="fl">0.1</span>)</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Density'</span>)</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'X'</span>)</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Width=0.1: Too narrow'</span>)</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>plt.subplot(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">2</span>)</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>sns.kdeplot(X, bw<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Density'</span>)</span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'X'</span>)</span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Width=1: About right'</span>)</span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>plt.subplot(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">3</span>)</span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>sns.kdeplot(X, bw<span class="op">=</span><span class="dv">10</span>)</span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Density'</span>)</span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'X'</span>)</span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Width=10: Too wide'</span>)</span>
+<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
-<p><img data-src="c03_eda_files/figure-revealjs/cell-15-output-1.png" width="1122" height="455"></p>
+<p><img data-src="c03_eda_files/figure-revealjs/cell-16-output-1.png" width="1122" height="455"></p>
 </div>
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>בדוגמא שלפניכם אני משתמש בפרמטר bw מהמילה bandwidth. אפשר לראות שכשהוא קטן מידי הצפיפות לא מספיק חלקה, הרבה קפיצות כנראה לא מאוד חשובות בנתונים. אם הפרמטר גדול מידי נוצרת התפלגות פעמון מושלמת וסימטרית, אבל היא ממש לא מייצגת את הנתונים. במקרה הזה נכון כנראה פרמטר bw באמצע, נאמר 1.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1501,21 +1535,20 @@
 <section class="slide level2">
 
 <h3 id="scatterplot">Scatterplot</h3>
-<div class="cell" data-execution_count="15">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>b0 <span class="op">=</span> <span class="dv">2</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>b1 <span class="op">=</span> <span class="dv">3</span></span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>Y <span class="op">=</span> X <span class="op">*</span> b1 <span class="op">+</span> b0 <span class="op">+</span> np.random.normal(<span class="dv">0</span>, <span class="dv">10</span>, <span class="dv">1000</span>)</span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>sns.scatterplot(X, Y)</span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Density'</span>)</span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'X'</span>)</span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>Y <span class="op">=</span> X <span class="op">*</span> <span class="dv">3</span> <span class="op">+</span> <span class="dv">2</span> <span class="op">+</span> np.random.normal(<span class="dv">0</span>, <span class="dv">10</span>, <span class="dv">1000</span>)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>sns.scatterplot(X, Y)</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Density'</span>)</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'X'</span>)</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<p><img data-src="c03_eda_files/figure-revealjs/cell-16-output-1.png" width="523" height="435"></p>
+<p><img data-src="c03_eda_files/figure-revealjs/cell-17-output-1.png" width="523" height="435"></p>
 </div>
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>תרשים חשוב בין זוג משתנים רציפים הוא תרשים פיזור או הסקאטרפלוט. כאן אני מדמה איזשהו משתנה Y על סמך משתנה X, מוסיף לו קצת רעש ומשתמש בsns.scatterplot ליצור תרשים פיזור ביניהם. בתרשים פיזור כל זוג ערכים X ו-Y הם נקודה שערך ה-X שלה הוא X וערך ה-Y שלה הוא Y.</p>
+<p>תרשים כזה מאפשר לראות קשר בין שני משתנים רציפים, ובפרט מה שיעניין אותנו מאוד - האם יש לו איזשהו דפוס, כמו עליה או ירידה.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1547,7 +1580,10 @@
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>מה ניתן ללמוד מתרשימים פשוטים? לא מעט.</p>
+<p>האם יש תצפיות חריגות, כמו בתרשים שלפנינו שמתאר התפלגות מספר תושבים ליחידת דיור, בערים שונות בארצות הברית. יש פה בבירור תצפית חריגה של כמה ערים שבהן המספר הזה קטן במיוחד, במקרה הזה מדובר למשל בניו יורק סיטי, שם גרים יותר רווקים.</p>
+<p>כפי שאמרנו מעניין אותנו מאוד לדעת מה צורת ההתפלגות ואיזה זנב יש לה במידה שהיא לא סימטרית. כאן למשל רואים זנב שמאלי בהיסטוגרמה שמתארת גיל של נשים שלקו בהתקף לב - כי התופעה נדירה יותר בקרב צעירות.</p>
+<p>לעומת זאת בנתונים שמערבים כסף, כמו כאן בהיסטוגרמה שמתארת התפלגות ההוצאות של נשים שטופלו במחלקות לב, נראה הרבה פעמים זנב ימני - חריגות של ערכים גבוהים. ברוב המקרים לא יוגש לפציינטית חשבון שלילי, חשבון, כסף, זה דבר שיכול רק לגדול.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1563,19 +1599,9 @@
 </section>
 <section id="exploring-data-summary-statistics" class="slide level2 title-slide center">
 <h2>Exploring Data: Summary Statistics</h2>
-</section>
-<section class="slide level2">
-
-<h3 id="location">Location</h3>
-<p>“Where is this X located? Where is the central mass?”</p>
-<ul>
-<li>Mean of empirical distribution (=average): <span class="math display">\[Mean(X) = \frac{1}{N}\sum\limits_{i=1}^N X_i\]</span></li>
-<li>Median: <span class="math display">\[Med(X) = m\space s.t. \space P(X \leq m) = P(X \geq m) = 0.5\]</span></li>
-<li>Mode: <span class="math display">\[Mode(X) = Most \space frequent \space value \space in \space a \space dataset\]</span></li>
-</ul>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>נדבר כעת על מספר אומדנים סטטיסטיים שחשובים לנו, את חלקם כבר ראינו בחזרה על הסתברויות בדידות, נתמקד עכשיו במשתנים רציפים.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1591,26 +1617,57 @@
 </section>
 <section class="slide level2">
 
-<div class="cell" data-execution_count="16">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>mean <span class="op">=</span> np.mean(X)</span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>median <span class="op">=</span> np.median(X)</span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>hist, _ <span class="op">=</span> np.histogram(X, bins<span class="op">=</span><span class="bu">range</span>(<span class="dv">20</span>))</span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>mode <span class="op">=</span> <span class="bu">list</span>(<span class="bu">range</span>(<span class="dv">20</span>))[hist.argsort()[::<span class="op">-</span><span class="dv">1</span>][<span class="dv">0</span>]]</span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>sns.distplot(X, bins <span class="op">=</span> <span class="bu">range</span>(<span class="dv">20</span>), kde <span class="op">=</span> <span class="va">False</span>)</span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>plt.plot([mean, mean], [<span class="dv">0</span>, <span class="dv">160</span>], linewidth<span class="op">=</span><span class="dv">2</span>, color<span class="op">=</span><span class="st">'r'</span>)</span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>plt.plot([median, median], [<span class="dv">0</span>, <span class="dv">160</span>], linewidth<span class="op">=</span><span class="dv">2</span>, color<span class="op">=</span><span class="st">'g'</span>)</span>
-<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>plt.plot([mode, mode], [<span class="dv">0</span>, <span class="dv">160</span>], linewidth<span class="op">=</span><span class="dv">2</span>, color<span class="op">=</span><span class="st">'b'</span>)</span>
-<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>plt.legend({<span class="st">'Mean'</span>:mean,<span class="st">'Median'</span>:median,<span class="st">'Mode'</span>:mode})</span>
-<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'X'</span>)</span>
-<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Frequency'</span>)</span>
-<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<h3 id="location">Location</h3>
+<p>“Where is this X located? Where is the central mass?”</p>
+<ul>
+<li>Mean of empirical distribution (=average): <span class="math display">\[Mean(X) = \bar{X} = \frac{1}{N}\sum\limits_{i=1}^N X_i\]</span></li>
+<li>Median: <span class="math display">\[Med(X) = m\space s.t. \space P(X \leq m) = P(X \geq m) = 0.5\]</span></li>
+<li>Mode: <span class="math display">\[Mode(X) = Most \space frequent \space value \space in \space a \space dataset\]</span></li>
+</ul>
+<aside class="notes">
+<div style="direction:rtl; font-size:16px">
+<p>אומדנים של מיקום: היכן מרכז המסה של ההתפלגות?</p>
+<p>יש לנו את ממוצע המדגם, שמסומן בד”כ כאיקס באר.</p>
+<p>החציון, הוא הערך שמעליו חצי מההתפלגות ומתחתיו חצי, זה גם האחוזון ה-50.</p>
+<p>והשכיח - הערך הכי נפוץ במדגם.</p>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2">
+
+<div class="cell" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>mean <span class="op">=</span> np.mean(X)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>median <span class="op">=</span> np.median(X)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>hist, _ <span class="op">=</span> np.histogram(X, bins<span class="op">=</span><span class="bu">range</span>(<span class="dv">20</span>))</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>mode <span class="op">=</span> <span class="bu">list</span>(<span class="bu">range</span>(<span class="dv">20</span>))[hist.argsort()[::<span class="op">-</span><span class="dv">1</span>][<span class="dv">0</span>]]</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span> (<span class="dv">4</span>,<span class="dv">4</span>))</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>sns.distplot(X, bins <span class="op">=</span> <span class="bu">range</span>(<span class="dv">20</span>), kde <span class="op">=</span> <span class="va">False</span>)</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>plt.plot([mean, mean], [<span class="dv">0</span>, <span class="dv">160</span>], linewidth<span class="op">=</span><span class="dv">2</span>, color<span class="op">=</span><span class="st">'r'</span>)</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>plt.plot([median, median], [<span class="dv">0</span>, <span class="dv">160</span>], linewidth<span class="op">=</span><span class="dv">2</span>, color<span class="op">=</span><span class="st">'g'</span>)</span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>plt.plot([mode, mode], [<span class="dv">0</span>, <span class="dv">160</span>], linewidth<span class="op">=</span><span class="dv">2</span>, color<span class="op">=</span><span class="st">'b'</span>)</span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>plt.legend({<span class="st">'Mean'</span>:mean,<span class="st">'Median'</span>:median,<span class="st">'Mode'</span>:mode})</span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'X'</span>)</span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Frequency'</span>)</span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<p><img data-src="c03_eda_files/figure-revealjs/cell-17-output-1.png" width="523" height="435"></p>
+<p><img data-src="c03_eda_files/figure-revealjs/cell-18-output-1.png" width="374" height="361"></p>
 </div>
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>למה שנרצה ערך אחד למיקום ולא אחר. לדוגמא בהתפלגות עם זנב ימני כמו כאן, נחשב את הממוצע, החציון והשכיח. הממוצע הוא ודאי הסטטיסטי המוכר מכולם אבל שימו לב כמה הוא מושפע מערכים קיצוניים בהתפלגות. הוא לא בהכרח מעיד מה שהיינו רוצים שהוא יעיד, על מרכז המסה של ההתפלגות.</p>
+<p>חציון לעומת זאת, אינו מושפע מערכים קיצוניים, גם אם נוסיף להתפלגות ערך מקסימלי גדול פי אלף מהנוכחי, החציון לא יזוז.</p>
+<p>לצרכים אחרים השכיח אולי הוא התשובה הטובה ביותר למיקום, אבל השכיח גם יכול להטעות, קל לחשוב על התפלגויות בהן השכיח הוא בעייתי מאוד כמדד למיקום.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1635,7 +1692,11 @@
 </ul>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>כשאנו מדברים על פיזור אפשר לשאול על ערכים במיקומים ספציפיים, כמו אחוזונים.</p>
+<p>האחוזון ה-q הוא הערך שמתחתיו q מההתפלגות האמפירית של המדגם, ומעליו אחת מינוס q.</p>
+<p>לדוגמא האחוזון ה-75 או Q(X, 0.75), הוא הערך שמתחתיו 75 אחוזים מהמדגם ומעליו 25 אחוזים.</p>
+<p>מדד אחר יכול להיות הטווח של ההתפלגות, המקסימום פחות המינימום שלה.</p>
+<p>ומדד אחר כפי שראינו הוא ה-IQR או ה-interquartile range, שהוא הטווח שבו נמצאים חמישים האחוזים המרכזיים של ההתפלגות: אחוזון 75 פחות אחוזון 25.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1657,24 +1718,25 @@
 <li>Standard Deviation: <span class="math display">\[STD(X) = \sqrt{Var(X)}\]</span></li>
 </ul>
 <div class="fragment">
-<div class="cell" data-execution_count="17">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'90th percentile: </span><span class="sc">{</span>np<span class="sc">.</span>percentile(X, <span class="dv">90</span>) <span class="sc">:.2f}</span><span class="ss">'</span>)</span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Range: </span><span class="sc">{</span>np<span class="sc">.</span><span class="bu">max</span>(X) <span class="op">-</span> np<span class="sc">.</span><span class="bu">min</span>(X) <span class="sc">:.2f}</span><span class="ss">'</span>)</span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'IQR: </span><span class="sc">{</span>np<span class="sc">.</span>percentile(X, <span class="dv">75</span>) <span class="op">-</span> np<span class="sc">.</span>percentile(X, <span class="dv">25</span>) <span class="sc">:.2f}</span><span class="ss">'</span>)</span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Variance: </span><span class="sc">{</span>np<span class="sc">.</span>var(X) <span class="sc">:.2f}</span><span class="ss">'</span>)</span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Standard Deviation: </span><span class="sc">{</span>np<span class="sc">.</span>std(X) <span class="sc">:.2f}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="18">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'90th percentile: </span><span class="sc">{</span>np<span class="sc">.</span>percentile(X, <span class="dv">90</span>) <span class="sc">:.2f}</span><span class="ss">'</span>)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Range: </span><span class="sc">{</span>np<span class="sc">.</span><span class="bu">max</span>(X) <span class="op">-</span> np<span class="sc">.</span><span class="bu">min</span>(X) <span class="sc">:.2f}</span><span class="ss">'</span>)</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'IQR: </span><span class="sc">{</span>np<span class="sc">.</span>percentile(X, <span class="dv">75</span>) <span class="op">-</span> np<span class="sc">.</span>percentile(X, <span class="dv">25</span>) <span class="sc">:.2f}</span><span class="ss">'</span>)</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Variance: </span><span class="sc">{</span>np<span class="sc">.</span>var(X) <span class="sc">:.2f}</span><span class="ss">'</span>)</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Standard Deviation: </span><span class="sc">{</span>np<span class="sc">.</span>std(X) <span class="sc">:.2f}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>90th percentile: 9.23
-Range: 22.53
-IQR: 4.05
-Variance: 9.61
-Standard Deviation: 3.10</code></pre>
+<pre><code>90th percentile: 9.32
+Range: 20.22
+IQR: 3.93
+Variance: 9.46
+Standard Deviation: 3.08</code></pre>
 </div>
 </div>
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>לבסוף המדדים הנפוצים ביותר למדידת פיזור הם שונות המדגם, והשורש שלה סטיית התקן.</p>
+<p>לכל אחד מאלה יש פונקציה פשוטה מספריית numpy שכדאי להכיר.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1696,18 +1758,19 @@ Standard Deviation: 3.10</code></pre>
 <li>Skewness: <span class="math display">\[Skew(X) = \frac{1}{N}\frac{\sum\limits_{i=1}^N (X_i - Mean(X))^3}{STD(X)^3}\]</span></li>
 </ul>
 <div class="fragment">
-<div class="cell" data-execution_count="18">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy <span class="im">import</span> stats</span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Skewness: </span><span class="sc">{</span>stats<span class="sc">.</span>skew(X) <span class="sc">:.2f}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="19">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy <span class="im">import</span> stats</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Skewness: </span><span class="sc">{</span>stats<span class="sc">.</span>skew(X) <span class="sc">:.2f}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Skewness: 1.18</code></pre>
+<pre><code>Skewness: 1.11</code></pre>
 </div>
 </div>
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>בשונות אנחנו שואלים מהו ממוצע הסטיות הריבועיות של X מהממוצע שלו. מסתבר שאם ניקח את ממוצע הסטיות בחזקת 3 של X מהממוצע שלו, נקבל כמות שיכולה למדוד עד כמה ההתפלגות שלנו רחוקה מסימטריה. קוראים לזה skewness. אם ההתפלגות סימטרית למדי נצפה לראות סקיונס של אפס בקירוב, אם יש לה זנב ימני, הסטיות החיוביות מהממוצע גדולות יותר, נצפה לראות סקיונס חיובי. כמו במקרה שלנו שבו לX יש זנב ימני.</p>
+<p>ולהיפך, זנב שמאלי יתבטא בסקיונס שלילי.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1723,6 +1786,21 @@ Standard Deviation: 3.10</code></pre>
 </section>
 <section id="advanced-visualization" class="slide level2 title-slide center">
 <h2>Advanced Visualization</h2>
+<aside class="notes">
+<div style="direction:rtl; font-size:16px">
+<p>משסיימנו לדבר על מדדים ותרשימים סטנדרטיים לנתונים כמותיים, אנחנו רוצים לגרות את הדמיון שלכם באמצעות כמה תרשימים מתקדמים למדי. התחום של ויזואליציה או סטוריטלינג תופס תאוצה בשנים האחרונות עד כדי כך שיש מדעני נתונים וחוקרים שהקריירה שלהם מוקדשת לדבר. דרכים שונות ומקוריות להציג נתונים צצות כל יום, בואו נתרשם מכמה שאהבנו.</p>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section class="slide level2">
 
@@ -1730,7 +1808,7 @@ Standard Deviation: 3.10</code></pre>
 
 <img src="images/minard.png" class="r-stretch"><aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>הדוגמא הקלאסית היא דווקא ישנה, מהמאה ה19, של מהנדס וגיאוגרף צרפתי בשם שארל ז’וזה מינארד. כאן הוא תאר את הצבא של נפוליאון והמסע שלו מפולין אל מוסקבה במטרה לכבוש את רוסיה. עובי הרצועה מתאר את גודל הצבא שכפי שאנחנו רואים התמעט בצורה אכזרית במסע חזרה. כיוון הרצועה והאורך שלה מתארים את הכיוון בו הצבא נע והמרחק.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1751,7 +1829,7 @@ Standard Deviation: 3.10</code></pre>
 
 <img src="images/heatmap.png" class="r-stretch"><aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>מפות חום. גם תרשים זה מפורסם מאוד, הוא מתאר את שיעור מקרי החצבת במדינות שונות בארצות הברית החל מ-1928 ועד המאה ה-21. המיוחד בתרשים הוא כמובן ההיפסקות הכמעט מוחלטת של חצבת לאורך כל ארה”ב החל משנת 1963, השנה שבה פותח החיסון לחצבת.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1772,7 +1850,8 @@ Standard Deviation: 3.10</code></pre>
 
 <img src="images/total_eclipse.gif" class="r-stretch"><aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>הנה דוגמא לויזואליזציה מ-2017 שמדגימה מספר דברים יפים. את הויזואליזציה הזאת הכין מדען נתונים מספוטיפיי, חברת הסטרימינג של מוסיקה. והוא מראה לאורך ליקוי חמה מאוד בולט שהיה על אדמת ארצות הברית, את מספר ההשמעות של השיר total eclipse of the heart, בספוטיפיי. ניתן לראות איך הפיק עוקב אחרי ליקוי החמה בצורה אדוקה.</p>
+<p>דבר נוסף שהויזואליזציה הזאת מדגימה הוא שבעידן המחשב ויזואליזציה לא חייבת להיות סטטית. גם בפייתון, גם בשפות נוספות, ניתן ליצור כמה תרשימים ולחבר אותם לסרטון קצר שממחיש את התופעה טוב יותר.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1793,7 +1872,8 @@ Standard Deviation: 3.10</code></pre>
 
 <img src="images/chernoff.png" class="r-stretch"><aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>הנה עוד תרשים על גבול המגוחך: להביע נתונים באמצעות אימוג’י! כאן מדובר בנתונים על האוכלוסיה במדינות שונות בארצות הברית, כשכל מדינה מיוצגת על ידי פרצוף אחד</p>
+<p>כמה פרמטרים מוצגים כאן על כל פרצוף ופרצוף. לדוגמא גודל הסנטר מבטא את אחוז האנשים שסובלים מהשמנה במדינה. גוון הפרצוף מבטא את אחוז התושבים שאין להם ביטוח (ככל שהוא כהה יותר כך גדול האחוז). והאוריינטציה של הפה, מעצוב ועד צוחק מבטאת את אחוז התושבים מתחת לקו העוני. אם תלחצו על הלינק המצורף, תראו עוד דבר מיוחד בתרשים הזה, וזה שהוא אינטראקטיבי. כשנרחף על פני כל פרצוף נקבל את כל הנתונים שאנחנו צריכים על המדינה שהוא מייצג.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1813,7 +1893,8 @@ Standard Deviation: 3.10</code></pre>
 <p><img src="images/ridge.png" width="80%" height="80%"></p>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>תרשים שצבר פופולריות לאחרונה הוא תרשים הרכסים, או הג’וי פלוט כפי שקוראים לו לפעמים, כי הוא מזכיר עטיפת אלבום של להקת רוק מצוין בשם ג’וי דיוויז’ן.</p>
+<p>היופי בתרשים הזה זה שהוא מורכב מהרבה תת-תרשימים שאנחנו מכירים - תרשימי צפיפות, שמסודרים אחד מעל השני כאן לפי החציון של ההתפלגות. במקרה שלנו השתמשו בתרשם רכסים כדי להשוות במנעד הקולי של זמרות פופ מפורסמות, מבריטני ספירס ועד וויטני יוסטון, שהיה לה מנעד גם רחב מאוד וגם חציון התווים שהיא שרה היה כנראה הגבוה ביותר מבין אלה.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1835,7 +1916,7 @@ Standard Deviation: 3.10</code></pre>
 </iframe>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>כאן אנחנו רואים ויזואליזציה שלקרוא לה תרשים יהיה ממש מגוחך. מדובר בסרטון שלם שמתאר מה אנשים עושים עושים במהלך כל שעה ביום, לפי סקר שנעשה בארצות הברית. ניתן לראות כיצד בחצות רוב האנשים מתארים שהם ישנים. אם נעביר קצת קדימה את הזמן נראה כיצד רוב האנשים מתארים כיצד הם מתעוררים והולכים לעבודה, וחוזר חלילה.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1856,7 +1937,7 @@ Standard Deviation: 3.10</code></pre>
 
 <img src="images/pockets.png" width="60%" class="r-stretch"><aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>ויזואליזציות חזקות יכולות גם להעביר מסר, שמאוד קשה להעביר בצורות אחרות. מדעניות הנתונים מאחורי הויזואליזציה שלפנינו דגמו לא פחות מ-80 זוגות של ג’ינסים, ושרטטו את מימדי הכיס. ניתן לתהות מדוע כיסים במכנסי ג’ינס שמיועדים לנשים הם קטנים כל כך עד כדי שהם לא פרקטיים בכלל. התרשים הזה הוא הוכחה ניצחת לתופעה.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1877,7 +1958,8 @@ Standard Deviation: 3.10</code></pre>
 <p><a href="https://www.gapminder.org/world">source</a></p>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>לבסוף נראה ויזואליזציה של רופא ואפידמיולוג שבדי בשם האנס רוזלינג שהפכה מפורסמת מאוד, עד כדי כך שיש לה אתר משלה.</p>
+<p>(הסבר על gapminder)</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1893,6 +1975,21 @@ Standard Deviation: 3.10</code></pre>
 </section>
 <section id="dangers-of-dirty-data" class="slide level2 title-slide center">
 <h2>Dangers of Dirty Data</h2>
+<aside class="notes">
+<div style="direction:rtl; font-size:16px">
+<p>בחלק האחרון של יחידה זו נזהיר קצת מפני הסכנות החבויות בדאטא גדול, בודאי בדאטא שנאסף מהאינטרנט. ניקיון של דאטא מהווה חלק גדול משגרת יומו של מדען נתונים, והוא נושא מחקר גדול. אנחנו דנים בו כאן ממש על קצה המזלג.</p>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section class="slide level2">
 
@@ -1903,7 +2000,7 @@ Standard Deviation: 3.10</code></pre>
 </ul>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>מה יכול להיות מלוכלך בנתונים שצריך לנקות אותם? נראה שאפשר לדבר גם על הנתונים עצמם, וגם על המבנה שלהם.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1936,7 +2033,8 @@ Standard Deviation: 3.10</code></pre>
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>כשאנחנו מדברים על משתנים כמותיים, דאטא “לא נקי” יכול להיות דאטא עם תצפיות כל כך חריגות שנקרא להם outliers. אלה לא חייבות להיות תצפיות “לא חוקיות”, או טעויות הקלדה, למרות שגם מכאלה צריך להתגונן. כאן למשל יש היסטוגרמה של כמה עשרות אלפי רכישות בדולרים באתר איביי במשך כמה שבועות ב-2013. הסיבה שאנחנו רואים כאן רק מקל סביב האפס היא כי אחת הרכישות האלה היתה של מכונית יוקרה בכ160 אלף דולר. המכונית הזאת היא כל כך חריגה ביחס לסכומי הרכישות האחרים, שהיא מעוותת את ההתפלגות לחלוטין ולא מאפשרת באמת לראות את צורתה, איפה נמצאת המסה של הרכישות.</p>
+<p>נתונים אחרים רועשים מאוד מהאינטרנט בפרט יכולים להיות נתוני טקסט. בדוגמא שלפנינו מופיעות מילים אמיתיות מתוך קובץ טקסטים שהם בלוגים מאתר blogger.com משנת 2004. אם ברצונכם לקחת את הטקסט הזה ולאמן אותו לצורך מודל שפה ולהתחשב בכל מילה ומילה שאיזה בלוגר כתב, אתם עלולים להיות בבעיה.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1957,7 +2055,8 @@ Standard Deviation: 3.10</code></pre>
 <p><img src="images/elections.png" width="80%" height="80%"></p>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>נושא אחר שיכול לשמש כמוקד של קורס שלם הוא נושא הנתונים החסרים. כל מיני מנגנונים יכולים לעמוד מאחורי נתונים חסרים, ובהתאם למנגנון כך ראוי להתאים שיטת טיפול לנתונים. בקורס זה לא נעסוק בנושא בהרחבה, אבל כל מדען נתונים שעוסק עם דאטא אמיתי ייתקל בסופו שלדבר בבעיה הזאת, שכן מודלים רבים מאלה שנלמד לא יודעים מה לעשות עם תצפית שבמשתנה מסוים הנתון שלה חסר.</p>
+<p>כאן אנחנו רואים דוגמא מפורסמת מהבחירות בישראל ב-2015, כאשר המדגמים טעו לגמרי לגבי הרכב הקואליציה המסתמן, והסוקרים טענו מאוחר יותר שכנראה שאנשים שמתכוונים להצביע בדרך מסוימת לא ענו או פשוט שיקרו.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1979,7 +2078,8 @@ Standard Deviation: 3.10</code></pre>
 
 <img src="images/messy_excel.png" width="60%" class="r-stretch"><aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>לסיום נזכיר שלא רק הנתונים יכולים להיות רועשים או מלוכלכים. הרבה פעמים גם אם הנתונים מגיעים בלחיצת כפתור, הם מגיעים למשל בקובץ אקסל ששום תוכנת מחשב לא יכולה לקרוא כטבלה פשוטה שאפשר להתחיל לעבוד איתה.</p>
+<p>במקרה שלנו אלה נתונים אמיתיים של הלשכה המרכזית לסטטיסטיקה של אוסטרליה, והדרך המשונה שלהם לחלוק מידע עם הציבור. יש כאן לוגו, תאים ממוזגים, פסיקים בתוך מספרים, שורות סיכום ועוד הרבה אתגרים שלוקח זמן לטפל בהם. אתם מוזמנים להוריד קובץ נתונים מהלשכה המרכזית לסטטיסטיקה בישראל ולראות שהמצב לא מאוד שונה.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -2000,7 +2100,7 @@ Standard Deviation: 3.10</code></pre>
 
 <img src="images/covid_uk_excel.png" width="60%" class="r-stretch"><aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>אקסל היא תוכנה נהדרת, אבל יש כל כך הרבה מקרים ששימוש לא אחראי בה הביא לתוצאות הרסניות ממש. באחד המקרים האחרונים מתקופת הקורונה בבריטניה, הפקידים בקופות החולים שהיו אחראים על איחוד התוצאות של בדיקות קורונה לא היו מודעים למגבלת השורות שיש באקסל, הם אפילו השתמשו בגירסה ישנה של אקסל עם מקסימום 64 אלף שורות. נוספו עוד ועוד שורות לקובץ האחוד, אבל אקסל לא קרא את כולם, הוא פשוט מחק שורות. ולקח זמן עד שהבינו שאלפי בדיקות פשוט נמחקו ככה מהדיסק.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -2019,18 +2119,18 @@ Standard Deviation: 3.10</code></pre>
 <h3 id="some-advice-on-cleaning-data">Some advice on cleaning data</h3>
 <div class="fragment">
 <p>Plot first:</p>
-<div class="cell" data-execution_count="19">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>tips <span class="op">=</span> sns.load_dataset(<span class="st">'tips'</span>)</span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>sns.pairplot(tips, height<span class="op">=</span><span class="fl">1.5</span>)</span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="20">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>tips <span class="op">=</span> sns.load_dataset(<span class="st">'tips'</span>)</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>sns.pairplot(tips, height<span class="op">=</span><span class="fl">1.5</span>)</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<p><img data-src="c03_eda_files/figure-revealjs/cell-20-output-1.png" width="426" height="426"></p>
+<p><img data-src="c03_eda_files/figure-revealjs/cell-21-output-1.png" width="426" height="426"></p>
 </div>
 </div>
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>אז מה אפשר לעשות לגבי נתונים שאנחנו חודשים שיש בהם תצפיות חריגות? קודם כל לצייר אותם. כאן אנחנו רואים דוגמא לתרשים pairplot, תרשים זוגות, שלוקח סט של נתונים ומצייר כל משתנה מול כל משתנה אחר. על האלכסון יופיעו התרשימים של כל משתנה בנפרד. אולי התרשמות מהירה כזאת תאפשר לכם לזהות אנומליות בנתונים כבר בהתחלה.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -2063,7 +2163,7 @@ Standard Deviation: 3.10</code></pre>
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>אסטרטגיה נוספת שכדאי להיות מודעים לה כבר מעכשיו, היא שימוש בטרנספורמציות על הנתונים שלנו. כאן אנחנו רואים את אותם נתוני רכישות מאיביי, בלי ועם טרנספורמציית לוג. טרנספורמציות יכולות פעמים רבות לייצב שונות של משתנים, ואף לשפר ביצועים של מודלים שמשתמשים באותם נתונים. נדבר עוד על טרנספורמציות על נתונים בהמשך.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -2085,7 +2185,8 @@ Standard Deviation: 3.10</code></pre>
 
 <img src="images/median_mean_simulation.gif" class="r-stretch"><aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>כדי לתאר מיקום של התפלגויות על נתונים גדולים, מומלץ להשתמש בחציון ולא רק בממוצע. מדדים אלה קלים לחישוב וההשוואה ביניהם לפעמים פוקחת עיניים. בסימולציה כאן אנחנו רואים כיצד הממוצע מושפע בקלות ככל שאנחנו מגדילים את המקסימום של איזה משתנה X. הממוצע נע ימינה וימינה לעבר הערך הקיצון, עד כדי כך שהוא יוצא החוצה ממרכז ההתפלגות וכבר לא משקף את מה שאנחנו היינו רוצים שישקף.</p>
+<p>החציון לעומת זאת - לא מושפע.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -2112,7 +2213,10 @@ Standard Deviation: 3.10</code></pre>
 <p><img src="images/tidy_data.png" width="40%"></p>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>לבסוף מומלץ גם לחשוב על הדרך שבה אתם מזינים נתונים. תנגישו לאנשים נתונים בצורה שאתם הייתם רוצים שינגישו אותם לכם.</p>
+<p>אחת הגישות הפופולריות בתחום היא הtidy data. נקפיד ככל האפשר שכל משתנה יופיע בעמודה משלו. כל תצפית תהיה שורה. וכל טבלה עוסקת בנושא אחד ויחיד.</p>
+<p>בדוגמא כאן אנחנו רואים כיצד אפילו טבלה פשוטה כמו כאן אפשר לשמור בצורה שמסבכת את העניינים. נסו לחשוב למשל איך הייתם מחלצים את השמות של כל האנשים ששקלו לפני גיל 25 מתחת ל-70 קילוגרם…</p>
+<p>זהו להפעם! ביחידה הבאה ניקח את כל מה שלמדנו עד כה וננסה להפעיל אותו על סט נתונים אמיתי, מתוך תחרות מידול חשובה, של נטפליקס.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
