@@ -314,9 +314,11 @@ first_2_PCs.head(10).style.applymap(color_negative_red).format("{:.2f}")
 ### PC directions in a plot
 
 ```{python}
+#| echo: false
 import matplotlib.pyplot as plt
 import seaborn as sns
-
+```
+```{python}
 ax = sns.scatterplot(x='PC1', y='PC2', size='mean_rating', data=first_2_PCs)
 for i, point in first_2_PCs.iterrows():
     ax.text(point['PC1'], point['PC2'], str(i))
