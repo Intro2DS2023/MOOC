@@ -542,7 +542,10 @@
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>באופן כללי יש לנו נתונים עם n תצפיות ו-p משתנים. זה מתרגם למטריצה X עם n שורות ו-p עמודות. בדוגמא של נטפליקס n יהיה 10 אלפים ו-p יהיה 14 אם ניקח רק את הסרטים לגביהם יש לנו את כל הנתונים.</p>
+<p>נרצה להוריד את המימד של הנתונים להיות q, כשq בדרך כלל קטן בהרבה מ-p, בד”כ 2 או 3. נראה שבדרך זה נוכל לזהות כיוונים חשובים בדאטא שמתמצתים אותו היטב, נוכל לעשות תרשים לדאטא בדו או תלת מימד (אי אפשר לצייר נקודות ב-14 מימד!) ואם אנחנו ברי מזל נוכל גם לראות מבנים בנתונים שלא היינו רואים אחרת, נראה את הנתונים שלנו ממש מתחלקים לאשכולות, לקלאסטרים.</p>
+<p>איך מבצעים PCA? הדרך הנאיבית היא לבצע בחירה של q משתנים מתוך p.&nbsp;כל פעם שבחרנו שני סרטים בדאטא ועשינו תרשים פיזור של סרט אחד מול אחר זה בדיוק מה שעשינו! אבל איבדנו ככה המון מידע!</p>
+<p>הדרך הנאיבית פחות היא לעשות מה שעשינו בשקף הקודם רק על הרבה משתנים: לחפש הטלות, לחפש צירופים ליניאריים של המשתנים שיהוו כיוונים מעניינים בדאטא. בואו נפרמל את הבעיה הזאת.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -571,7 +574,12 @@
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>כל תצפית היא וקטור באורך p.&nbsp;יש לנו n תצפיות או וקטורים כאלה, x1 עד xn.</p>
+<p>אפשר לסדר את הוקטורים האלה אחד מתחת לשני במטריצה n על p, כאשר כל שורה היא וקטור.</p>
+<p>נניח לרגע שכל עמודה ממורכזת, כלומר הסכום שלה או הממוצע שלה הוא אפס. אם כל משתנה ממורכז סביב האפס, ניתן לראות בנתונים שלנו מאין “ענן” סביב הראשית במרחב p מימדי. שוב כל פעם שהמילים מרחב p מימדי מרתיעות אתכם, חשבו על p = 2 או p = 3, מימדים שניתן לדמיין.</p>
+<p>דרך אחת לתאר כמה מידע יש במטריצה הזאת, מידע שנרצה לשמר, הוא הפיזור הריבועי של התצפיות מהמרכז שלהן. אם הנחנו שהמרכז שלהן באפס אז הכמות הזאת תהיה פשוט הוקטורים בריבוע, או הטרייס של X טרנספוז X, מטריצת הקווריאנס של המדגם הזה.</p>
+<p>אז יש לנו כמות לשמר, ואנחנו רוצים למצור q כיוונים שאם נטיל את המטריצה שלנו עליהם, נשמר כמה שיותר מהכמות הזאת, מהפיזור הזה, מהשונות של הדאטא.</p>
+<p>וכשאנחנו אומרים כיוון, אנחנו מתכוונים לוקטור פי מימדי עם נורמה 1, כלומר וקטור מנורמל או וקטור יחידה. נסמן אותו ב-v.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -593,8 +601,8 @@
 <li class="fragment"><p>Goal: Find the <span class="math inline">\(q\)</span> direction(s) with the most dispersion</p></li>
 <li class="fragment"><p>Projection is direction <span class="math inline">\(\mathbf{v}\)</span>: <span class="math inline">\(X\mathbf{v} \in \mathbb R^n.\)</span> Examples:</p>
 <ul>
-<li class="fragment"><span class="math inline">\(\mathbf{v} = (1,0,...,0)'\)</span>: pick first coordinate from each observation</li>
-<li class="fragment"><span class="math inline">\(\mathbf{v} = (1/\sqrt{p},1/\sqrt{p},...,1/\sqrt{p})'\)</span>: project on diagonal (average all coordinates)</li>
+<li class="fragment"><span class="math inline">\(\mathbf{v} = (1,0,\dots,0)'\)</span>: pick first coordinate from each observation</li>
+<li class="fragment"><span class="math inline">\(\mathbf{v} = (1/\sqrt{p},1/\sqrt{p},\dots,1/\sqrt{p})'\)</span>: project on diagonal (average all coordinates)</li>
 </ul></li>
 <li class="fragment"><p>Dispersion in direction <span class="math inline">\(\mathbf{v}\)</span>: <span class="math inline">\(||X\mathbf{v}||^2 = \mathbf{v}'(X'X)\mathbf{v}.\)</span></p></li>
 <li class="fragment"><p>Finding the best direction which maximizes dispersion: <span class="math inline">\(\mathbf{v}_1 = \arg\max_{\mathbf{v}:\|\mathbf{v}\|^2 =1} \|X\mathbf{v}\|^2\)</span></p></li>
@@ -603,7 +611,12 @@
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>אז אנחנו רוצים למצוא את וקטור ההטלה ששומר על הכי הרבה פיזור. בואו ניתן דוגמאות:</p>
+<p>אם v יהיה למשל וקטור הבסיס הטריוויאלי בR^p, שיש בו 1 בקואורדינטה הראשונה ואפס בכל השאר - כשנטיל את המטריצה עליו דבר זה יהיה שקול לבחירת המשתנה הראשון. כלומר המספר שייצג כל תצפית יהיה הערך שלה בעמודה הראשונה.</p>
+<p>אם ניתן משקולת שווה לכל קוארדינטה, ומשקולת כזאת חייבת להיות 1 חלקי שורש p כדי שהוקטור יהיה מנורמל - הטלה של המטריצה שלנו עליו תהיה שקולה ללקחת את הממוצע של כל המשתנים עבור כל תצפית.</p>
+<p>ובואו נגדיר מהו הפיזור של ההטלה Xv, מדובר בנורמה של הוקטור הזה, שאנו רואים בביטוי v’X’Xv.</p>
+<p>לסיכום הנה הבעיה של PCA: נרצה לבחור את הכיוון v שימקסם את הפיזור של ההטלה v’X’Xv.</p>
+<p>כשנמצא אותו, נקרא לכיוון הזה הprinicipal component direction הראשון. זה הכיוון הטוב ביותר להטיל עליו!</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -622,7 +635,7 @@
 <h3 id="how-do-we-find-the-next-principal-component">How do we find the next principal component?</h3>
 <div>
 <ul>
-<li class="fragment"><p>Now we want a <strong>different</strong> direction <span class="math inline">\(\mathbf{v}_2\)</span> which maximizes direction after accounting for <span class="math inline">\(\mathbf{v}_1\)</span>.</p></li>
+<li class="fragment"><p>Now we want a <strong>different</strong> direction <span class="math inline">\(\mathbf{v}_2\)</span> which maximizes dispersion after accounting for <span class="math inline">\(\mathbf{v}_1\)</span>.</p></li>
 <li class="fragment"><p>Require orthogonality: <span class="math inline">\(\mathbf{v}_2 = \arg\max_{||\mathbf{v}||^2 =1, \mathbf{v}'\mathbf{v}_1 = 0}||X\mathbf{v}||^2\)</span></p></li>
 <li class="fragment"><p>This is the second principal direction</p></li>
 <li class="fragment"><p>Can keep going looking for new directions</p></li>
@@ -632,7 +645,12 @@
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>אבל זה רק כיוון ראשון. אמרנו שאנחנו רוצים q כיוונים. איך נמצא את הכיוונים הבאים?</p>
+<p>הכיוון הבא v2 יהיה הכיוון שממקסם את פיזור ההטלה, אחרי שהתחשבנו כבר בכיוון v1.</p>
+<p>אפשר לראות שהדבר שקול לדרישת אורתוגנוליות. הוקטור שאנחנו מחפשים v2 ממקסם את פיזור ההטלה, הנורמה שלה, כך שהוא מנורמל וגם הוא אורתוגנלי לוקטור הראשון.</p>
+<p>זה יהיה הכיוון השני, ואפשר להמשיך לכיוון שלישי וכך עד שמשיגים q כיוונים מנורמלים אורתוגונליים זה לזה.</p>
+<p>כשנשיג q וקטורים כאלה, כל אחד באורך p, נוכל להציב אותם זה לצד זה ולקבל מטריצה שנסמן כW. קוראים למטריצה כזאת הרבה פעמים loadings, כי מה שיש בכל וקטור ווקטור שמצאנו הוא בעצם המשקולות לכל משתנה ומשתנה מהדאטא המקורי. אם בדאטא המקורי לדוגמא יש 3 משתנים, והוקטור v שאנחנו מצאנו הוא (1/sqrt(3), sqrt(2)/sqrt(3), 0), שהוא בערך (0.57, 0.81, 0), זה אומר שהמשתנה הראשון קיבל משקולת 0.57, המשתנה השני 0.81, והשלישי משקולת 0, הוא לא חשוב לכיוון הזה שמצאנו.</p>
+<p>ההטלה עצמה גם היא תהיה חשובה לנו: אם נכפול את הדאטא n על p שלנו במטריצת ההטלה W שבה יש את q הכיוונים הראשונים, נקבל דאטא ממימד נמוך יותר, מימד q. נקרא לו T.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -648,6 +666,21 @@
 </section>
 <section id="pca-on-netflix-dataset" class="slide level2 title-slide center">
 <h2>PCA on Netflix Dataset</h2>
+<aside class="notes">
+<div style="direction:rtl; font-size:16px">
+<p>נעשה רגע הפסקה בכל האלגברה הזאת לראות את השורה התחתונה כדי שתהיה לנו מוטיבציה לחזור שוב לחלק המתמטי ולראות איך מוצאים את פתרון ה-PCA.</p>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section class="slide level2">
 
@@ -662,7 +695,10 @@
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>ניזכר שוב בדאטא של התחרות של נטפליקס, שמכיל דירוגים מ-1 עד 5 על 99 סרטים.</p>
+<p>X יהיה המטריצה עם עשרת אלפים שורות על 14 הסרטים הראשונים אותם דירגו כל עשרת אלפים המשתמשים.</p>
+<p>n שווה 10000, p שווה 14, זה לא כזה גדול אבל כאמור איך תעשו ויזואליזציה לדאטא 14 מימדי?!</p>
+<p>נבצע PCA עם פייתון.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -720,7 +756,8 @@
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>אנחנו קוראים את הנתונים כפי שעשינו ביחידה הקודמת, ומוודאים שהמימדים הם כפי שאנחנו מצפים, 10000 על 14.</p>
+<p>שוב נציץ לתוך הדאטא: יש כאן פשוט מספרים מ-1 עד 5.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -761,7 +798,8 @@
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>ניזכר שניתוח PCA אנחנו עושים על מטריצת אחרי שהיא עברה מרכוז או סנטרינג. כרגע היא כמובן לא ממורכזת, הממוצע של כל עמודה שונה מאפס.</p>
+<p>כדי למרכז את הנתונים נחסר מכל עמודה את הממוצע שלה. כעת באוביקט X centered, יש את הנתונים שלנו אחרי מרכוז, אפשר לראות שהממוצע של כל עמודה הוא אפס מבחינה נומרית.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -807,7 +845,13 @@
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>איך עושים PCA על הנתונים שלנו? זאת בעצם הפעם הראשונה שאנחנו נתקלים בספריית sklearn, זאת ספריית אופן סורס או קוד פתוח, למימוש מודלים סטטיסטיים ומודלים של למידת מכונה שעוד נלמד עליהם.</p>
+<p>כאן אני מייבא את הקלאס המתאים PCA ממודול של sklearn שנקרא decomposition.</p>
+<p>אני מאתחל את הקלאס באמצעות אובייקט שאני קורא לו pca. בשלב הזה יכולתי למשל לפרט מהו q הרצוי באמצעות פרמטר הn_components, לדוגמא n_components=2.</p>
+<p>פעולת הPCA עצמה קוראת רק כשאני קורא למתודה פיט של האוביקט, כשאני מכניס לתוכה את הנתונים שלי, X_centered. המתודה הזו מחזירה איזשהו טיפוס שלא מעניין אותנו כרגע ולכן אני קולט אותו עם קו תחתון.</p>
+<p>וזהו, עשינו PCA. אבל מה קיבלנו?</p>
+<p>קיבלנו את המטריצה W, בשדה components קו תחתון. נשים לב שמאחר שלא פירטנו מהו q כמה כיוונים אנחנו רוצים, קיבלנו את מקסימום הכיוונים האפשרי שזהוא p, לכן המטריצה W שלנו היא בגודל p על p.&nbsp;נשים לב גם שsklearn מחזיר את המטריצה כפי שאנחנו סימנו אותו עם טרנספוז, בגלל זה צריך לעשות על הארגומנט קומפוננטס טרנספוז אם רוצים לקבל את W כפי שאנחנו סיכמנו.</p>
+<p>אבל זה עדיין לא אומר מה קיבלנו. בדרך כלל מעניינים אותנו שניים-שלושה הכיוונים הראשונים, בואו נראה את המשקולות שלהם לכל סרט וסרט:</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -835,21 +879,21 @@
 </details>
 <div class="cell-output cell-output-display" data-execution_count="13">
 <style type="text/css">
-#T_337e9_row0_col0, #T_337e9_row1_col0, #T_337e9_row2_col0, #T_337e9_row3_col0, #T_337e9_row4_col0, #T_337e9_row4_col2, #T_337e9_row5_col0, #T_337e9_row5_col2, #T_337e9_row6_col0, #T_337e9_row6_col2, #T_337e9_row7_col0, #T_337e9_row8_col0, #T_337e9_row9_col0, #T_337e9_row9_col2 {
+#T_ec6ae_row0_col0, #T_ec6ae_row1_col0, #T_ec6ae_row2_col0, #T_ec6ae_row3_col0, #T_ec6ae_row4_col0, #T_ec6ae_row4_col2, #T_ec6ae_row5_col0, #T_ec6ae_row5_col2, #T_ec6ae_row6_col0, #T_ec6ae_row6_col2, #T_ec6ae_row7_col0, #T_ec6ae_row8_col0, #T_ec6ae_row9_col0, #T_ec6ae_row9_col2 {
   color: black;
 }
-#T_337e9_row0_col1, #T_337e9_row0_col2, #T_337e9_row1_col1, #T_337e9_row1_col2, #T_337e9_row2_col1, #T_337e9_row2_col2, #T_337e9_row3_col1, #T_337e9_row3_col2, #T_337e9_row4_col1, #T_337e9_row5_col1, #T_337e9_row6_col1, #T_337e9_row7_col1, #T_337e9_row7_col2, #T_337e9_row8_col1, #T_337e9_row8_col2, #T_337e9_row9_col1 {
+#T_ec6ae_row0_col1, #T_ec6ae_row0_col2, #T_ec6ae_row1_col1, #T_ec6ae_row1_col2, #T_ec6ae_row2_col1, #T_ec6ae_row2_col2, #T_ec6ae_row3_col1, #T_ec6ae_row3_col2, #T_ec6ae_row4_col1, #T_ec6ae_row5_col1, #T_ec6ae_row6_col1, #T_ec6ae_row7_col1, #T_ec6ae_row7_col2, #T_ec6ae_row8_col1, #T_ec6ae_row8_col2, #T_ec6ae_row9_col1 {
   color: red;
 }
 </style>
 
-<table id="T_337e9" data-quarto-postprocess="true">
+<table id="T_ec6ae" data-quarto-postprocess="true">
 <thead>
 <tr class="header">
 <th class="blank level0" data-quarto-table-cell-role="th">&nbsp;</th>
-<th id="T_337e9_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">mean_rating</th>
-<th id="T_337e9_level0_col1" class="col_heading level0 col1" data-quarto-table-cell-role="th">PC1</th>
-<th id="T_337e9_level0_col2" class="col_heading level0 col2" data-quarto-table-cell-role="th">PC2</th>
+<th id="T_ec6ae_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">mean_rating</th>
+<th id="T_ec6ae_level0_col1" class="col_heading level0 col1" data-quarto-table-cell-role="th">PC1</th>
+<th id="T_ec6ae_level0_col2" class="col_heading level0 col2" data-quarto-table-cell-role="th">PC2</th>
 </tr>
 <tr class="odd">
 <th class="index_name level0" data-quarto-table-cell-role="th">title</th>
@@ -860,64 +904,64 @@
 </thead>
 <tbody>
 <tr class="odd">
-<td id="T_337e9_level0_row0" class="row_heading level0 row0" data-quarto-table-cell-role="th">Independence Day</td>
-<td id="T_337e9_row0_col0" class="data row0 col0">4.15</td>
-<td id="T_337e9_row0_col1" class="data row0 col1">-0.25</td>
-<td id="T_337e9_row0_col2" class="data row0 col2">-0.26</td>
+<td id="T_ec6ae_level0_row0" class="row_heading level0 row0" data-quarto-table-cell-role="th">Independence Day</td>
+<td id="T_ec6ae_row0_col0" class="data row0 col0">4.15</td>
+<td id="T_ec6ae_row0_col1" class="data row0 col1">-0.25</td>
+<td id="T_ec6ae_row0_col2" class="data row0 col2">-0.26</td>
 </tr>
 <tr class="even">
-<td id="T_337e9_level0_row1" class="row_heading level0 row1" data-quarto-table-cell-role="th">The Patriot</td>
-<td id="T_337e9_row1_col0" class="data row1 col0">4.11</td>
-<td id="T_337e9_row1_col1" class="data row1 col1">-0.26</td>
-<td id="T_337e9_row1_col2" class="data row1 col2">-0.06</td>
+<td id="T_ec6ae_level0_row1" class="row_heading level0 row1" data-quarto-table-cell-role="th">The Patriot</td>
+<td id="T_ec6ae_row1_col0" class="data row1 col0">4.11</td>
+<td id="T_ec6ae_row1_col1" class="data row1 col1">-0.26</td>
+<td id="T_ec6ae_row1_col2" class="data row1 col2">-0.06</td>
 </tr>
 <tr class="odd">
-<td id="T_337e9_level0_row2" class="row_heading level0 row2" data-quarto-table-cell-role="th">The Day After Tomorrow</td>
-<td id="T_337e9_row2_col0" class="data row2 col0">3.70</td>
-<td id="T_337e9_row2_col1" class="data row2 col1">-0.32</td>
-<td id="T_337e9_row2_col2" class="data row2 col2">-0.15</td>
+<td id="T_ec6ae_level0_row2" class="row_heading level0 row2" data-quarto-table-cell-role="th">The Day After Tomorrow</td>
+<td id="T_ec6ae_row2_col0" class="data row2 col0">3.70</td>
+<td id="T_ec6ae_row2_col1" class="data row2 col1">-0.32</td>
+<td id="T_ec6ae_row2_col2" class="data row2 col2">-0.15</td>
 </tr>
 <tr class="even">
-<td id="T_337e9_level0_row3" class="row_heading level0 row3" data-quarto-table-cell-role="th">Pirates of the Caribbean: The Curse of the Black Pearl</td>
-<td id="T_337e9_row3_col0" class="data row3 col0">4.35</td>
-<td id="T_337e9_row3_col1" class="data row3 col1">-0.15</td>
-<td id="T_337e9_row3_col2" class="data row3 col2">-0.03</td>
+<td id="T_ec6ae_level0_row3" class="row_heading level0 row3" data-quarto-table-cell-role="th">Pirates of the Caribbean: The Curse of the Black Pearl</td>
+<td id="T_ec6ae_row3_col0" class="data row3 col0">4.35</td>
+<td id="T_ec6ae_row3_col1" class="data row3 col1">-0.15</td>
+<td id="T_ec6ae_row3_col2" class="data row3 col2">-0.03</td>
 </tr>
 <tr class="odd">
-<td id="T_337e9_level0_row4" class="row_heading level0 row4" data-quarto-table-cell-role="th">Pretty Woman</td>
-<td id="T_337e9_row4_col0" class="data row4 col0">4.07</td>
-<td id="T_337e9_row4_col1" class="data row4 col1">-0.23</td>
-<td id="T_337e9_row4_col2" class="data row4 col2">0.45</td>
+<td id="T_ec6ae_level0_row4" class="row_heading level0 row4" data-quarto-table-cell-role="th">Pretty Woman</td>
+<td id="T_ec6ae_row4_col0" class="data row4 col0">4.07</td>
+<td id="T_ec6ae_row4_col1" class="data row4 col1">-0.23</td>
+<td id="T_ec6ae_row4_col2" class="data row4 col2">0.45</td>
 </tr>
 <tr class="even">
-<td id="T_337e9_level0_row5" class="row_heading level0 row5" data-quarto-table-cell-role="th">Forrest Gump</td>
-<td id="T_337e9_row5_col0" class="data row5 col0">4.51</td>
-<td id="T_337e9_row5_col1" class="data row5 col1">-0.11</td>
-<td id="T_337e9_row5_col2" class="data row5 col2">0.01</td>
+<td id="T_ec6ae_level0_row5" class="row_heading level0 row5" data-quarto-table-cell-role="th">Forrest Gump</td>
+<td id="T_ec6ae_row5_col0" class="data row5 col0">4.51</td>
+<td id="T_ec6ae_row5_col1" class="data row5 col1">-0.11</td>
+<td id="T_ec6ae_row5_col2" class="data row5 col2">0.01</td>
 </tr>
 <tr class="odd">
-<td id="T_337e9_level0_row6" class="row_heading level0 row6" data-quarto-table-cell-role="th">The Green Mile</td>
-<td id="T_337e9_row6_col0" class="data row6 col0">4.46</td>
-<td id="T_337e9_row6_col1" class="data row6 col1">-0.16</td>
-<td id="T_337e9_row6_col2" class="data row6 col2">0.00</td>
+<td id="T_ec6ae_level0_row6" class="row_heading level0 row6" data-quarto-table-cell-role="th">The Green Mile</td>
+<td id="T_ec6ae_row6_col0" class="data row6 col0">4.46</td>
+<td id="T_ec6ae_row6_col1" class="data row6 col1">-0.16</td>
+<td id="T_ec6ae_row6_col2" class="data row6 col2">0.00</td>
 </tr>
 <tr class="even">
-<td id="T_337e9_level0_row7" class="row_heading level0 row7" data-quarto-table-cell-role="th">Con Air</td>
-<td id="T_337e9_row7_col0" class="data row7 col0">3.73</td>
-<td id="T_337e9_row7_col1" class="data row7 col1">-0.30</td>
-<td id="T_337e9_row7_col2" class="data row7 col2">-0.32</td>
+<td id="T_ec6ae_level0_row7" class="row_heading level0 row7" data-quarto-table-cell-role="th">Con Air</td>
+<td id="T_ec6ae_row7_col0" class="data row7 col0">3.73</td>
+<td id="T_ec6ae_row7_col1" class="data row7 col1">-0.30</td>
+<td id="T_ec6ae_row7_col2" class="data row7 col2">-0.32</td>
 </tr>
 <tr class="odd">
-<td id="T_337e9_level0_row8" class="row_heading level0 row8" data-quarto-table-cell-role="th">Twister</td>
-<td id="T_337e9_row8_col0" class="data row8 col0">3.75</td>
-<td id="T_337e9_row8_col1" class="data row8 col1">-0.30</td>
-<td id="T_337e9_row8_col2" class="data row8 col2">-0.14</td>
+<td id="T_ec6ae_level0_row8" class="row_heading level0 row8" data-quarto-table-cell-role="th">Twister</td>
+<td id="T_ec6ae_row8_col0" class="data row8 col0">3.75</td>
+<td id="T_ec6ae_row8_col1" class="data row8 col1">-0.30</td>
+<td id="T_ec6ae_row8_col2" class="data row8 col2">-0.14</td>
 </tr>
 <tr class="even">
-<td id="T_337e9_level0_row9" class="row_heading level0 row9" data-quarto-table-cell-role="th">Sweet Home Alabama</td>
-<td id="T_337e9_row9_col0" class="data row9 col0">3.67</td>
-<td id="T_337e9_row9_col1" class="data row9 col1">-0.30</td>
-<td id="T_337e9_row9_col2" class="data row9 col2">0.59</td>
+<td id="T_ec6ae_level0_row9" class="row_heading level0 row9" data-quarto-table-cell-role="th">Sweet Home Alabama</td>
+<td id="T_ec6ae_row9_col0" class="data row9 col0">3.67</td>
+<td id="T_ec6ae_row9_col1" class="data row9 col1">-0.30</td>
+<td id="T_ec6ae_row9_col2" class="data row9 col2">0.59</td>
 </tr>
 </tbody>
 </table>
@@ -925,7 +969,11 @@
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>בטבלה הזאת, מוצגים עשרת הסרטים הראשונים: השם שלהם, ממוצע הדירוג שלהם, והמשקולות שלהם במה שאנחנו קראנו v1 ו-v2, הם כיווני ה-PC הראשונים כלומר שתי העמודות הראשונות ב-W.</p>
+<p>למי שמעוניין הקוד מצורף כאן במצגת.</p>
+<p>הסתכלו רגע על הטבלה ונסו למצוא פרשנות כלשהי למשקולות של ה-PC הראשון, ולמשקולות של ה-PC השני.</p>
+<p>קצת קשה לראות את זה. ובכל זאת שימו לב שהמשקולות ב-PC הראשון הן כולן לאותו כיוון. והגודל שלהן קשור מאוד בפופולריות הכללית של הסרט. ככל שהדירוג הממוצע של הסרט גדול יותר, כך קטנות המשקלות בערך מוחלט. כלומר נראה שהכיוון בנתונים ששומר על הכי הרבה פיזור, אם היינו צריכים לתת מספר אחד לכל תצפית שהיא במקרה שלנו צופה שראתה 14 סרטים, היינו מסתכלים כמה הצופה הזאת מסכימה עם הממוצע!</p>
+<p>לגבי הכיוון השני, צריך קצת להכיר את הסרטים כדי לראות את זה. אבל בואו נראה את זה עם תרשים.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -954,7 +1002,11 @@
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>בתרשים הפיזור שלפנינו כל סרט הוא נקודה, שהגודל שלה נקבע על-ידי כמה הסרט פופולרי. רכיב הX של הנקודה הוא המשקל שלה בPC הראשון, ורכיב הY שלה הוא המשקל שלה בPC השני.</p>
+<p>את מה שראינו בטבלה אפשר לראות גם כאן, ככל שהסרט פופולרי יותר כך הנקודה קטנה בערך מוחלט.</p>
+<p>אבל על “מדבר” הPC השני? אם אתם מכירים את הסרטים ברשימה זה די ברור: הPC השני מבדיל בין סרטים רומנטיים גמו אשה יפה, סוויט הום אלבמה, לבין סרטי אקשן, כמו קון איר וארמגדון.</p>
+<p>כלומר אחרי שהתחשבנו בכיוון הראשון שמבטא כמה צופה מדרגת סרטים פשוט על-פי הפופולריות שלהם, הכיוון השני מבדיל כנראה בין צופים שאוהבים סרטים רומנטיים לבין סרטים שמעדיפים סרטי אקשן.</p>
+<p>חשוב להדגיש כבר עכשיו - זו פרשנות! כאן היא ממש קופצת מול העיניים, הרבה פעמים זה לא יהיה כל כך פשוט.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -990,7 +1042,9 @@
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>אמרנו שגם הדאטא של ההטלה מעניין אותנו. אחרי שנכפול את X בW נקבל את T שהיא מטריצה מסדר גודל עשרת אלפים על 14. בעצם קיבלנו שוב מטריצת נתונים מסדר גודל 10000 על 14 אבל כזאת שהעמודות שלה אורתוגנוליות זו לזה, והיא מחלקת את הפיזור או השונות המקוריים בצורה שונה לגמרי. העמודה הראשונה תהיה עם הפיזור הגדול ביותר, לאחר מכן השניה וכולי.</p>
+<p>בדרך כלל נתעניין בהורדת מימד, כלומר בהכפלה של X רק בעמודות הראשונות של W, כדי לקבל מטריצה T עם 2 עמודות בלבד.</p>
+<p>עכשיו אפשר סוף סוף לעשות ויזואליזציה לנתונים שלנו, עם תרשים פיזור פשוט:</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1026,7 +1080,10 @@
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>על ציר האיקס הציון של כל צופה בPC הראשון, או עד כמה הצופה דומה בדירוגים שלו לדיעה הפופולרית.</p>
+<p>על ציר הוואי הציון של כל צופה בPC השני, עד כמה הוא מעדיף סרטים רומנטיים על פני סרטי אקשן.</p>
+<p>בשלב הזה פעמים רבות מתגלים אשכולות מעניינים בדאטא, או קלאסטרים. כאן קשה לראות אשכולות מעניינים אבל היה מעניין לצבוע את המגדר של הצופים כאן, ולראות האם אכן נכונה הסטיגמה שנשים אוהבות יותר סרטים רומנטיים וגברים אוהבים יותר סרטי אקשן. אם הסטיגמה נכונה נראה יותר נשים במעלה הגרף, ויותר גברים בתחתית הגרף.</p>
+<p>עדיין חשוב להבין מה מייצגות תצפיות הקצה לראות שהבנו: כאן (תצפית הכי עליונה) יש צופה שנותן ציונים גבוהים לסרטים רומנטיים וציונים נמוכים יחסית לסרטי אקשן. כאן (נקודה הכי ימנית) יש צופה שפשוט מצביע הפוך לדעת הרוב, מאחר שהציונים הממוצעים די גבוהים, הצופה הזה כנראה שונא את כל הסרטים. ואילו כאן (נקודה הכי שמאלית) נראה צופה שנותנת ציונים בתיאום עם הדעה הפופולרית, כנראה ציונים גבוהים באופן כללי לכל הסרטים.PC הראשון.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1074,7 +1131,9 @@ dtype: int64</code></pre>
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>מה לגבי הסרט איזו מין שוטרת? אילו ציונים נצפה לראות מצופים שגבוהים בPC הראשון, כלומר שונאים את כל הסרטים?</p>
+<p>אם ניקח את מאה הצופים עם ציון הכי גבוה בPC הראשון נראה שהם אכן נתנו ציון נמוך מאוד גם לאיזו מין שוטרת.</p>
+<p>ומה לגבי 100 הצופים עם הציון הכי נמוך בPC הראשון, כלומר צופים שאוהבים הכל – נראה שאכן הם אהבו גם את איזו מין שוטרת.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1123,7 +1182,38 @@ dtype: int64</code></pre>
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
+<p>בשביל לצפות מה יהיו הציונים של צופים גבוהים או נמוכים בPC הראשון, צריך קודם להחליט האם איזו מין שוטרת הוא סרט רומנטי או סרט אקשן. מי שראה את הסרט ידע להגיד שזה לא חד משמעי, אבל בגדול זה סרט שהצד הרך שלו, הקומי-רומנטי, דומיננטי יותר. ולכן זה לא מפתיע שצופים שגבוהים בPC השני נותנים ציונים גבוהים יחסית לאיזו מין שוטרת, וצופים שנמוכים בPC השני נותנים ציונים נמוכים יחסית לאיזו מין שוטרת.</p>
+<p>לפני שנחזור לחלק המתמטי, אני מקווה שאתם מתרשמים איזה כלי מדהים זה PCA. מאוחר יותר נרצה אולי לחזות כיצד ידרג משתמש שלא ראינו בדאטא, את הסרט איזו מין שוטרת, על סמך שאר הדירוגים שלו. הכיוונים האלה שגילינו יכולים לעזור לנו מאוד, אפשר לומר שמצאנו משתנים חדשים בדאטא, משתנים שאנחנו יודעים שמשמרים הרבה מהשונות, ונוכל לבקש על הצופה הזה שאלה פשוטה שאולי לא היינו חושבים עליה בכלל - האם יש לך העדפה לסרטים רומנטיים על פני סרטי אקשן?</p>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2">
 
+<h3 id="scree-plot-of-explained-variance">Scree Plot: % of explained variance</h3>
+<div class="cell" data-execution_count="24">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>plt.plot(np.arange(pca.n_components_) <span class="op">+</span> <span class="dv">1</span>, pca.explained_variance_ratio_, <span class="st">'o-'</span>, linewidth<span class="op">=</span><span class="dv">2</span>, color<span class="op">=</span><span class="st">'blue'</span>)</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Scree Plot'</span>)</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Principal Component'</span>)</span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'% Variance Explained'</span>)</span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img data-src="c05_pca_files/figure-revealjs/cell-25-output-1.png" width="523" height="449"></p>
+</div>
+</div>
+<aside class="notes">
+<div style="direction:rtl; font-size:16px">
+<p>עוד תרשים שעשוי לעניין אתכם נקרא סקרי-פלוט, שמשתמש בשדה explained_variance_ratio_ של אוביקט ה-PCA. הסקריפלוט מצייר את אחוז השונות המוסברת של כל PC. בדרך כלל נראה דפוס יורד בחדות, הPC הראשונים מסבירים אחוז ניכר מהשונות, ואלה שבאים אחריהם מסבירים מעט מאוד.</p>
+<p>לפעמים נעזרים בתרשים כזה לדעת מה המימד הראוי לנתונים. ובכל מקרה אחוזי השונות המוסברת מסתכמים למאה אחוז.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1245,9 +1335,9 @@ dtype: int64</code></pre>
 <ul>
 <li class="fragment"><p>Then <span class="math inline">\(\lambda\)</span> is called the eigenvalue corresponding to <span class="math inline">\(\mathbf{v}\)</span>.</p></li>
 <li class="fragment"><p>Geometrically speaking, the eigenvectors of <span class="math inline">\(\mathbf{A}\)</span> are the vectors that <span class="math inline">\(\mathbf{A}\)</span> merely elongates or shrinks, and the amount that they elongate/shrink by is the eigenvalue</p></li>
-<li class="fragment"><p>An eigendecomposition of <span class="math inline">\(\mathbf{A}\)</span> is then: <span class="math inline">\(\mathbf{A} = \mathbf{V}\mathbf{\Lambda}\mathbf{V}^{-1}\)</span>,</p></li>
+<li class="fragment"><p>An eigendecomposition of <span class="math inline">\(\mathbf{A}\)</span> is then: <span class="math inline">\(\mathbf{A} = \mathbf{V}\mathbf{\Lambda}\mathbf{V}^{-1}\)</span></p></li>
 <li class="fragment"><p>where <span class="math inline">\(\mathbf{V}\)</span> is the square <span class="math inline">\(n \times n\)</span> matrix whose <span class="math inline">\(j\)</span>th column is the eigenvector <span class="math inline">\(\mathbf{v}_j\)</span> of <span class="math inline">\(\mathbf{A}\)</span>, and <span class="math inline">\(\mathbf{\Lambda}\)</span> is the diagonal matrix whose diagonal elements are the corresponding eigenvalues, <span class="math inline">\(\mathbf{\Lambda}_{jj} = \lambda_j\)</span></p></li>
-<li class="fragment"><p>If <span class="math inline">\(\mathbf{A}\)</span> is real and symmetric, <span class="math inline">\(\mathbf{V}\)</span> is orthogonal, <span class="math inline">\(\mathbf{A} = \mathbf{V}\mathbf{\Lambda}\mathbf{V}'\)</span> and <span class="math inline">\(\lambda_j\)</span> are scalars</p></li>
+<li class="fragment"><p>If <span class="math inline">\(\mathbf{A}\)</span> is real and symmetric, <span class="math inline">\(\mathbf{V}\)</span> is orthogonal, <span class="math inline">\(\mathbf{A} = \mathbf{V}\mathbf{\Lambda}\mathbf{V}'\)</span> and <span class="math inline">\(\lambda_j\)</span> are real scalars</p></li>
 <li class="fragment"><p>If <span class="math inline">\(\mathbf{A}\)</span> is also positive definite (PSD), then <span class="math inline">\(\lambda_j \ge 0\)</span></p></li>
 </ul>
 </div>
@@ -1325,16 +1415,16 @@ X'X\mathbf{v}_1 = \lambda_1\mathbf{v}_1\]</span></p></li>
 <div class="columns">
 <div class="column" style="width:50%;">
 <p>Previously…</p>
-<div class="cell" data-execution_count="24">
+<div class="cell" data-execution_count="25">
 <div class="cell-output cell-output-display">
-<p><img data-src="c05_pca_files/figure-revealjs/cell-25-output-1.png" width="513" height="429"></p>
+<p><img data-src="c05_pca_files/figure-revealjs/cell-26-output-1.png" width="513" height="429"></p>
 </div>
 </div>
 </div><div class="column" style="width:50%;">
 <p>Now:</p>
-<div class="cell" data-execution_count="25">
+<div class="cell" data-execution_count="26">
 <div class="cell-output cell-output-display">
-<p><img data-src="c05_pca_files/figure-revealjs/cell-26-output-1.png" width="534" height="429"></p>
+<p><img data-src="c05_pca_files/figure-revealjs/cell-27-output-1.png" width="534" height="429"></p>
 </div>
 </div>
 </div>
