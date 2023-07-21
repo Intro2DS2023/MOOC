@@ -410,7 +410,7 @@
 <h3 id="stat.-and-or-department-tau">Stat. and OR Department, TAU</h3>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>בשיעור זה נלמד על ניתוח גורמים ראשיים, או principal components analysis. אפשר לראות ב-PCA כשיטה מתקדמת לחקר של דאטא ולכן אנחנו לומדים אותה ממש כעת. אפשר גם לראות בה הרבה מעבר. PCA היא הבסיס להרבה מאוד אלגוריתמים מתקדמים בחזית המחקר, אלגוריתמים שעוסקים בלמידת ייצוגים ממימד נמוך, לדאטא ממימד עצום, על מנת שנוכל ללמוד מהדאטא הזה משהו.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -463,7 +463,8 @@
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>נתחיל בדוגמא פשוטה ונתקדם משם. יש לי דאטא עם n תצפיות ושני משתנים. אני רוצה לייצג כל תצפית לא עם שני משתנים אלא עם אחד. מספר אחד שימצה אותה, וזאת עם לאבד כמה שפחות מידע. כלומר: אני רוצה להוריד את המימד מ2 ל1.</p>
+<p>אם אני משרטט את הנתונים, ברור לי אינטואיטיבית מה הכיוון בהם, מה הקו או הוקטור ששומר את מקסימום המידע. זה הקו הזה.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -506,7 +507,7 @@
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>PCA יעשה בדיוק את זה. הוא ימצא את הכיוון, או הוקטור שלאורכו נשמר מירב המידע בנתונים, וכשנמצא את הוקטור הזה, נוכל להטיל את הנתונים עליו, כלומר כל תצפית תקבל את הערך שלה על הקו החשוב הזה. וככה נקבל את מה שרצינו: דאטא במימד שני משתנים, הפך לדאטא במימד אחד, עם כמה שפחות איבוד מידע.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -834,21 +835,21 @@
 </details>
 <div class="cell-output cell-output-display" data-execution_count="13">
 <style type="text/css">
-#T_bf0f8_row0_col0, #T_bf0f8_row1_col0, #T_bf0f8_row2_col0, #T_bf0f8_row3_col0, #T_bf0f8_row4_col0, #T_bf0f8_row4_col2, #T_bf0f8_row5_col0, #T_bf0f8_row5_col2, #T_bf0f8_row6_col0, #T_bf0f8_row6_col2, #T_bf0f8_row7_col0, #T_bf0f8_row8_col0, #T_bf0f8_row9_col0, #T_bf0f8_row9_col2 {
+#T_337e9_row0_col0, #T_337e9_row1_col0, #T_337e9_row2_col0, #T_337e9_row3_col0, #T_337e9_row4_col0, #T_337e9_row4_col2, #T_337e9_row5_col0, #T_337e9_row5_col2, #T_337e9_row6_col0, #T_337e9_row6_col2, #T_337e9_row7_col0, #T_337e9_row8_col0, #T_337e9_row9_col0, #T_337e9_row9_col2 {
   color: black;
 }
-#T_bf0f8_row0_col1, #T_bf0f8_row0_col2, #T_bf0f8_row1_col1, #T_bf0f8_row1_col2, #T_bf0f8_row2_col1, #T_bf0f8_row2_col2, #T_bf0f8_row3_col1, #T_bf0f8_row3_col2, #T_bf0f8_row4_col1, #T_bf0f8_row5_col1, #T_bf0f8_row6_col1, #T_bf0f8_row7_col1, #T_bf0f8_row7_col2, #T_bf0f8_row8_col1, #T_bf0f8_row8_col2, #T_bf0f8_row9_col1 {
+#T_337e9_row0_col1, #T_337e9_row0_col2, #T_337e9_row1_col1, #T_337e9_row1_col2, #T_337e9_row2_col1, #T_337e9_row2_col2, #T_337e9_row3_col1, #T_337e9_row3_col2, #T_337e9_row4_col1, #T_337e9_row5_col1, #T_337e9_row6_col1, #T_337e9_row7_col1, #T_337e9_row7_col2, #T_337e9_row8_col1, #T_337e9_row8_col2, #T_337e9_row9_col1 {
   color: red;
 }
 </style>
 
-<table id="T_bf0f8" data-quarto-postprocess="true">
+<table id="T_337e9" data-quarto-postprocess="true">
 <thead>
 <tr class="header">
 <th class="blank level0" data-quarto-table-cell-role="th">&nbsp;</th>
-<th id="T_bf0f8_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">mean_rating</th>
-<th id="T_bf0f8_level0_col1" class="col_heading level0 col1" data-quarto-table-cell-role="th">PC1</th>
-<th id="T_bf0f8_level0_col2" class="col_heading level0 col2" data-quarto-table-cell-role="th">PC2</th>
+<th id="T_337e9_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">mean_rating</th>
+<th id="T_337e9_level0_col1" class="col_heading level0 col1" data-quarto-table-cell-role="th">PC1</th>
+<th id="T_337e9_level0_col2" class="col_heading level0 col2" data-quarto-table-cell-role="th">PC2</th>
 </tr>
 <tr class="odd">
 <th class="index_name level0" data-quarto-table-cell-role="th">title</th>
@@ -859,64 +860,64 @@
 </thead>
 <tbody>
 <tr class="odd">
-<td id="T_bf0f8_level0_row0" class="row_heading level0 row0" data-quarto-table-cell-role="th">Independence Day</td>
-<td id="T_bf0f8_row0_col0" class="data row0 col0">4.15</td>
-<td id="T_bf0f8_row0_col1" class="data row0 col1">-0.25</td>
-<td id="T_bf0f8_row0_col2" class="data row0 col2">-0.26</td>
+<td id="T_337e9_level0_row0" class="row_heading level0 row0" data-quarto-table-cell-role="th">Independence Day</td>
+<td id="T_337e9_row0_col0" class="data row0 col0">4.15</td>
+<td id="T_337e9_row0_col1" class="data row0 col1">-0.25</td>
+<td id="T_337e9_row0_col2" class="data row0 col2">-0.26</td>
 </tr>
 <tr class="even">
-<td id="T_bf0f8_level0_row1" class="row_heading level0 row1" data-quarto-table-cell-role="th">The Patriot</td>
-<td id="T_bf0f8_row1_col0" class="data row1 col0">4.11</td>
-<td id="T_bf0f8_row1_col1" class="data row1 col1">-0.26</td>
-<td id="T_bf0f8_row1_col2" class="data row1 col2">-0.06</td>
+<td id="T_337e9_level0_row1" class="row_heading level0 row1" data-quarto-table-cell-role="th">The Patriot</td>
+<td id="T_337e9_row1_col0" class="data row1 col0">4.11</td>
+<td id="T_337e9_row1_col1" class="data row1 col1">-0.26</td>
+<td id="T_337e9_row1_col2" class="data row1 col2">-0.06</td>
 </tr>
 <tr class="odd">
-<td id="T_bf0f8_level0_row2" class="row_heading level0 row2" data-quarto-table-cell-role="th">The Day After Tomorrow</td>
-<td id="T_bf0f8_row2_col0" class="data row2 col0">3.70</td>
-<td id="T_bf0f8_row2_col1" class="data row2 col1">-0.32</td>
-<td id="T_bf0f8_row2_col2" class="data row2 col2">-0.15</td>
+<td id="T_337e9_level0_row2" class="row_heading level0 row2" data-quarto-table-cell-role="th">The Day After Tomorrow</td>
+<td id="T_337e9_row2_col0" class="data row2 col0">3.70</td>
+<td id="T_337e9_row2_col1" class="data row2 col1">-0.32</td>
+<td id="T_337e9_row2_col2" class="data row2 col2">-0.15</td>
 </tr>
 <tr class="even">
-<td id="T_bf0f8_level0_row3" class="row_heading level0 row3" data-quarto-table-cell-role="th">Pirates of the Caribbean: The Curse of the Black Pearl</td>
-<td id="T_bf0f8_row3_col0" class="data row3 col0">4.35</td>
-<td id="T_bf0f8_row3_col1" class="data row3 col1">-0.15</td>
-<td id="T_bf0f8_row3_col2" class="data row3 col2">-0.03</td>
+<td id="T_337e9_level0_row3" class="row_heading level0 row3" data-quarto-table-cell-role="th">Pirates of the Caribbean: The Curse of the Black Pearl</td>
+<td id="T_337e9_row3_col0" class="data row3 col0">4.35</td>
+<td id="T_337e9_row3_col1" class="data row3 col1">-0.15</td>
+<td id="T_337e9_row3_col2" class="data row3 col2">-0.03</td>
 </tr>
 <tr class="odd">
-<td id="T_bf0f8_level0_row4" class="row_heading level0 row4" data-quarto-table-cell-role="th">Pretty Woman</td>
-<td id="T_bf0f8_row4_col0" class="data row4 col0">4.07</td>
-<td id="T_bf0f8_row4_col1" class="data row4 col1">-0.23</td>
-<td id="T_bf0f8_row4_col2" class="data row4 col2">0.45</td>
+<td id="T_337e9_level0_row4" class="row_heading level0 row4" data-quarto-table-cell-role="th">Pretty Woman</td>
+<td id="T_337e9_row4_col0" class="data row4 col0">4.07</td>
+<td id="T_337e9_row4_col1" class="data row4 col1">-0.23</td>
+<td id="T_337e9_row4_col2" class="data row4 col2">0.45</td>
 </tr>
 <tr class="even">
-<td id="T_bf0f8_level0_row5" class="row_heading level0 row5" data-quarto-table-cell-role="th">Forrest Gump</td>
-<td id="T_bf0f8_row5_col0" class="data row5 col0">4.51</td>
-<td id="T_bf0f8_row5_col1" class="data row5 col1">-0.11</td>
-<td id="T_bf0f8_row5_col2" class="data row5 col2">0.01</td>
+<td id="T_337e9_level0_row5" class="row_heading level0 row5" data-quarto-table-cell-role="th">Forrest Gump</td>
+<td id="T_337e9_row5_col0" class="data row5 col0">4.51</td>
+<td id="T_337e9_row5_col1" class="data row5 col1">-0.11</td>
+<td id="T_337e9_row5_col2" class="data row5 col2">0.01</td>
 </tr>
 <tr class="odd">
-<td id="T_bf0f8_level0_row6" class="row_heading level0 row6" data-quarto-table-cell-role="th">The Green Mile</td>
-<td id="T_bf0f8_row6_col0" class="data row6 col0">4.46</td>
-<td id="T_bf0f8_row6_col1" class="data row6 col1">-0.16</td>
-<td id="T_bf0f8_row6_col2" class="data row6 col2">0.00</td>
+<td id="T_337e9_level0_row6" class="row_heading level0 row6" data-quarto-table-cell-role="th">The Green Mile</td>
+<td id="T_337e9_row6_col0" class="data row6 col0">4.46</td>
+<td id="T_337e9_row6_col1" class="data row6 col1">-0.16</td>
+<td id="T_337e9_row6_col2" class="data row6 col2">0.00</td>
 </tr>
 <tr class="even">
-<td id="T_bf0f8_level0_row7" class="row_heading level0 row7" data-quarto-table-cell-role="th">Con Air</td>
-<td id="T_bf0f8_row7_col0" class="data row7 col0">3.73</td>
-<td id="T_bf0f8_row7_col1" class="data row7 col1">-0.30</td>
-<td id="T_bf0f8_row7_col2" class="data row7 col2">-0.32</td>
+<td id="T_337e9_level0_row7" class="row_heading level0 row7" data-quarto-table-cell-role="th">Con Air</td>
+<td id="T_337e9_row7_col0" class="data row7 col0">3.73</td>
+<td id="T_337e9_row7_col1" class="data row7 col1">-0.30</td>
+<td id="T_337e9_row7_col2" class="data row7 col2">-0.32</td>
 </tr>
 <tr class="odd">
-<td id="T_bf0f8_level0_row8" class="row_heading level0 row8" data-quarto-table-cell-role="th">Twister</td>
-<td id="T_bf0f8_row8_col0" class="data row8 col0">3.75</td>
-<td id="T_bf0f8_row8_col1" class="data row8 col1">-0.30</td>
-<td id="T_bf0f8_row8_col2" class="data row8 col2">-0.14</td>
+<td id="T_337e9_level0_row8" class="row_heading level0 row8" data-quarto-table-cell-role="th">Twister</td>
+<td id="T_337e9_row8_col0" class="data row8 col0">3.75</td>
+<td id="T_337e9_row8_col1" class="data row8 col1">-0.30</td>
+<td id="T_337e9_row8_col2" class="data row8 col2">-0.14</td>
 </tr>
 <tr class="even">
-<td id="T_bf0f8_level0_row9" class="row_heading level0 row9" data-quarto-table-cell-role="th">Sweet Home Alabama</td>
-<td id="T_bf0f8_row9_col0" class="data row9 col0">3.67</td>
-<td id="T_bf0f8_row9_col1" class="data row9 col1">-0.30</td>
-<td id="T_bf0f8_row9_col2" class="data row9 col2">0.59</td>
+<td id="T_337e9_level0_row9" class="row_heading level0 row9" data-quarto-table-cell-role="th">Sweet Home Alabama</td>
+<td id="T_337e9_row9_col0" class="data row9 col0">3.67</td>
+<td id="T_337e9_row9_col1" class="data row9 col1">-0.30</td>
+<td id="T_337e9_row9_col2" class="data row9 col2">0.59</td>
 </tr>
 </tbody>
 </table>
@@ -1314,8 +1315,35 @@ X'X\mathbf{v}_1 = \lambda_1\mathbf{v}_1\]</span></p></li>
 </ul></li>
 </ul>
 </div>
+</section>
+<section id="non-linear-pca" class="slide level2 title-slide center">
+<h2>Non-Linear PCA</h2>
+</section>
+<section class="slide level2">
 
-<img src="../Intro2DS_logo_white.jpg" class="slide-logo r-stretch"><div class="footer footer-default">
+<h3 id="non-linear-relation">Non-linear Relation</h3>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p>Previously…</p>
+<div class="cell" data-execution_count="24">
+<div class="cell-output cell-output-display">
+<p><img data-src="c05_pca_files/figure-revealjs/cell-25-output-1.png" width="513" height="429"></p>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<p>Now:</p>
+<div class="cell" data-execution_count="25">
+<div class="cell-output cell-output-display">
+<p><img data-src="c05_pca_files/figure-revealjs/cell-26-output-1.png" width="534" height="429"></p>
+</div>
+</div>
+</div>
+</div>
+<div class="fragment">
+<p>Try non-linear PCA: Kernel PCA, Autoencoders</p>
+</div>
+<p><img src="../Intro2DS_logo_white.jpg" class="slide-logo"></p>
+<div class="footer footer-default">
 <p><a href="https://intro2ds2023.github.io/mooc/" target="_blank">Intro to Data Science</a></p>
 </div>
 </section>

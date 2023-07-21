@@ -37,6 +37,7 @@ footer: "[Intro to Data Science](https://intro2ds2023.github.io/mooc/){target='_
 
 ::: {.notes}
 ::: {style="direction:rtl; font-size:16px"}
+בשיעור זה נלמד על ניתוח גורמים ראשיים, או principal components analysis. אפשר לראות ב-PCA כשיטה מתקדמת לחקר של דאטא ולכן אנחנו לומדים אותה ממש כעת. אפשר גם לראות בה הרבה מעבר. PCA היא הבסיס להרבה מאוד אלגוריתמים מתקדמים בחזית המחקר, אלגוריתמים שעוסקים בלמידת ייצוגים ממימד נמוך, לדאטא ממימד עצום, על מנת שנוכל ללמוד מהדאטא הזה משהו.
 
 :::
 :::
@@ -79,7 +80,9 @@ plt.show()
 
 ::: {.notes}
 ::: {style="direction:rtl; font-size:16px"}
+נתחיל בדוגמא פשוטה ונתקדם משם. יש לי דאטא עם n תצפיות ושני משתנים. אני רוצה לייצג כל תצפית לא עם שני משתנים אלא עם אחד. מספר אחד שימצה אותה, וזאת עם לאבד כמה שפחות מידע. כלומר: אני רוצה להוריד את המימד מ2 ל1.
 
+אם אני משרטט את הנתונים, ברור לי אינטואיטיבית מה הכיוון בהם, מה הקו או הוקטור ששומר את מקסימום המידע. זה הקו הזה.
 :::
 :::
 
@@ -110,7 +113,7 @@ plt.show()
 
 ::: {.notes}
 ::: {style="direction:rtl; font-size:16px"}
-
+PCA יעשה בדיוק את זה. הוא ימצא את הכיוון, או הוקטור שלאורכו נשמר מירב המידע בנתונים, וכשנמצא את הוקטור הזה, נוכל להטיל את הנתונים עליו, כלומר כל תצפית תקבל את הערך שלה על הקו החשוב הזה. וככה נקבל את מה שרצינו: דאטא במימד שני משתנים, הפך לדאטא במימד אחד, עם כמה שפחות איבוד מידע.
 :::
 :::
 
@@ -638,4 +641,62 @@ X'X\mathbf{v}_1 = \lambda_1\mathbf{v}_1$$
     - Which means $V$ are eigenvectors of and they're also the required $W$ for PCA
     - Eigenvalues $\lambda_1, \dots, \lambda_p$ are squared singular values $d_1^2, \dots, d_p^2$
     - Either look at $\lambda_1, \dots, \lambda_p$ or $d_1^2, \dots, d_p^2$ for the PCs variance
+:::
+
+---
+
+## Non-Linear PCA {.title-slide}
+
+---
+
+### Non-linear Relation
+
+:::: {.columns}
+::: {.column width="50%"}
+Previously...
+
+```{python}
+#| echo: false
+
+n = 50
+X1 = np.random.normal(size=n)
+X2 = 2 * X1 + 3 + np.random.normal(scale=1.0, size=n)
+X = np.concatenate([X1[:, np.newaxis], X2[:, np.newaxis]], axis=1)
+X = StandardScaler().fit_transform(X)
+X = np.concatenate([X, [[3, 3]]], axis=0)
+plt.figure(figsize =(6, 5))
+plt.scatter(X[:, 0], X[:, 1])
+plt.ylabel('X2')
+plt.xlabel('X1')
+plt.xlim((-3.5, 3.5))
+plt.ylim((-3.5, 3.5))
+plt.show()
+```
+:::
+
+::: {.column width="50%"}
+Now:
+
+```{python}
+#| echo: false
+
+n = 50
+r = 1
+s = 0
+X1 = r * np.cos(np.linspace(s, s + 2 * np.pi, n))
+X2 = r * np.sin(np.linspace(s, s + 2 * np.pi, n)) + np.random.normal(scale = 0.1, size=n)
+X = np.concatenate([X1[:, np.newaxis], X2[:, np.newaxis]], axis=1)
+X = StandardScaler().fit_transform(X)
+
+plt.figure(figsize =(6, 5))
+plt.scatter(X[:, 0], X[:, 1])
+plt.ylabel('X2')
+plt.xlabel('X1')
+plt.show()
+```
+:::
+::::
+
+::: {.fragment}
+Try non-linear PCA: Kernel PCA, Autoencoders
 :::
