@@ -429,10 +429,103 @@
 </section>
 <section class="slide level2">
 
+<h3 id="some-intuition">Some intuition</h3>
+<p>I have <span class="math inline">\(n\)</span> points with <span class="math inline">\(p = 2\)</span> dimensions. I wish to represent each point with a <strong>single</strong> number, without losing much information.</p>
+<div class="cell" data-execution_count="1">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.decomposition <span class="im">import</span> PCA</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">50</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>X1 <span class="op">=</span> np.random.normal(size<span class="op">=</span>n)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>X2 <span class="op">=</span> <span class="dv">2</span> <span class="op">*</span> X1 <span class="op">+</span> <span class="dv">3</span> <span class="op">+</span> np.random.normal(scale<span class="op">=</span><span class="fl">1.0</span>, size<span class="op">=</span>n)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> np.concatenate([X1[:, np.newaxis], X2[:, np.newaxis]], axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> StandardScaler().fit_transform(X)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> np.concatenate([X, [[<span class="dv">3</span>, <span class="dv">3</span>]]], axis<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>pca <span class="op">=</span> PCA(n_components<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>T <span class="op">=</span> pca.fit_transform(X)</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize <span class="op">=</span>(<span class="dv">6</span>, <span class="dv">5</span>))</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>plt.scatter(X[:, <span class="dv">0</span>], X[:, <span class="dv">1</span>])</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'X2'</span>)</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'X1'</span>)</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Original Data'</span>)</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>plt.xlim((<span class="op">-</span><span class="fl">3.5</span>, <span class="fl">3.5</span>))</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>plt.ylim((<span class="op">-</span><span class="fl">3.5</span>, <span class="fl">3.5</span>))</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<p><img data-src="c05_pca_files/figure-revealjs/cell-2-output-1.png" width="513" height="449"></p>
+</div>
+</div>
+<aside class="notes">
+<div style="direction:rtl; font-size:16px">
+
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2">
+
+<p>PCA will find the best direction to project the data on, while preserving the maximum “information”:</p>
+<div class="cell" data-execution_count="2">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize <span class="op">=</span>(<span class="dv">13</span>, <span class="dv">5</span>))</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>plt.subplot(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">1</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>plt.scatter(X[:, <span class="dv">0</span>], X[:, <span class="dv">1</span>])</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>plt.plot([<span class="op">-</span><span class="dv">3</span>, <span class="dv">3</span>], [<span class="op">-</span><span class="dv">3</span>, <span class="dv">3</span>], linestyle<span class="op">=</span><span class="st">'--'</span>, color<span class="op">=</span><span class="st">'r'</span>)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'X2'</span>)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'X1'</span>)</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Best Direction'</span>)</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>plt.xlim((<span class="op">-</span><span class="fl">3.5</span>, <span class="fl">3.5</span>))</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>plt.ylim((<span class="op">-</span><span class="fl">3.5</span>, <span class="fl">3.5</span>))</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>plt.subplot(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">2</span>)</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>plt.scatter(T, np.repeat(<span class="dv">0</span>, n <span class="op">+</span> <span class="dv">1</span>))</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">''</span>)</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'T1'</span>)</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>plt.tick_params(left <span class="op">=</span> <span class="va">False</span> , labelleft <span class="op">=</span> <span class="va">False</span>)</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Projected Data'</span>)</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<p><img data-src="c05_pca_files/figure-revealjs/cell-3-output-1.png" width="1034" height="449"></p>
+</div>
+</div>
+<aside class="notes">
+<div style="direction:rtl; font-size:16px">
+
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2">
+
 <h3 id="advanced-exploration-dimensionality-reduction">Advanced exploration: dimensionality reduction</h3>
 <div>
 <ul>
-<li class="fragment">We have <span class="math inline">\(n\)</span> points in <span class="math inline">\(p\)</span> dimensions. In the Netflix Ddataset: <span class="math inline">\(n=10^4, p=14\)</span> (considering only the fully observed movies)</li>
+<li class="fragment">We have <span class="math inline">\(n\)</span> points in <span class="math inline">\(p\)</span> dimensions. In the Netflix Dataset: <span class="math inline">\(n=10^4, p=14\)</span> (considering only the fully observed movies)</li>
 <li class="fragment">We want to reduce the data to <span class="math inline">\(q \ll p\)</span> dimensions (typically <span class="math inline">\(q=2\)</span> or <span class="math inline">\(q=3\)</span>), to:
 <ul>
 <li class="fragment">Identify <strong>important dimensions</strong> which summarize the data well</li>
@@ -585,28 +678,12 @@
 <section class="slide level2">
 
 <h3 id="remember-the-data">Remember the Data</h3>
-<div class="cell" data-execution_count="1">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>ratings <span class="op">=</span> pd.read_csv(<span class="st">'../datasets/netflix/train_ratings_all.csv'</span>, header <span class="op">=</span> <span class="va">None</span>)</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>miss_cong <span class="op">=</span> pd.read_csv(<span class="st">'../datasets/netflix/train_y_rating.csv'</span>, header <span class="op">=</span> <span class="va">None</span>, names <span class="op">=</span> [<span class="st">'score'</span>])</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>movies <span class="op">=</span> pd.read_csv(<span class="st">'../datasets/netflix/movie_titles.csv'</span>, header <span class="op">=</span> <span class="va">None</span>, names <span class="op">=</span> [<span class="st">'year'</span>, <span class="st">'title'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell" data-execution_count="2">
-<div class="cell-output cell-output-stdout">
-<pre><code></code></pre>
-</div>
-</div>
-<div class="fragment">
 <div class="cell" data-execution_count="3">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> ratings.values[:,:<span class="dv">14</span>]</span>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(X.shape)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>(10000, 14)</code></pre>
-</div>
-</div>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>ratings <span class="op">=</span> pd.read_csv(<span class="st">'../datasets/netflix/train_ratings_all.csv'</span>, header <span class="op">=</span> <span class="va">None</span>)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>miss_cong <span class="op">=</span> pd.read_csv(<span class="st">'../datasets/netflix/train_y_rating.csv'</span>, header <span class="op">=</span> <span class="va">None</span>, names <span class="op">=</span> [<span class="st">'score'</span>])</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>movies <span class="op">=</span> pd.read_csv(<span class="st">'../datasets/netflix/movie_titles.csv'</span>, header <span class="op">=</span> <span class="va">None</span>, names <span class="op">=</span> [<span class="st">'year'</span>, <span class="st">'title'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell" data-execution_count="4">
 <div class="cell-output cell-output-stdout">
@@ -615,7 +692,22 @@
 </div>
 <div class="fragment">
 <div class="cell" data-execution_count="5">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(X[:<span class="dv">5</span>, :<span class="dv">5</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> ratings.values[:,:<span class="dv">14</span>]</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(X.shape)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>(10000, 14)</code></pre>
+</div>
+</div>
+</div>
+<div class="cell" data-execution_count="6">
+<div class="cell-output cell-output-stdout">
+<pre><code></code></pre>
+</div>
+</div>
+<div class="fragment">
+<div class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(X[:<span class="dv">5</span>, :<span class="dv">5</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[[2 4 4 4 5]
  [4 5 3 3 4]
@@ -644,20 +736,20 @@
 <section class="slide level2">
 
 <h3 id="centering-the-data">Centering the Data</h3>
-<div class="cell" data-execution_count="6">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># currently..</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>X.mean(axis<span class="op">=</span><span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="6">
+<div class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># currently..</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>X.mean(axis<span class="op">=</span><span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="8">
 <pre><code>array([4.1463, 4.1073, 3.7045, 4.3482, 4.0748, 4.5143, 4.4563, 3.7287,
        3.7546, 3.6749, 3.7316, 4.0183, 4.0168, 3.706 ])</code></pre>
 </div>
 </div>
 <div class="fragment">
-<div class="cell" data-execution_count="7">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># centering X: subtracting the mean from each column</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>X_centered <span class="op">=</span> X <span class="op">-</span> X.mean(axis<span class="op">=</span><span class="dv">0</span>)</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(X_centered.mean(axis<span class="op">=</span><span class="dv">0</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># centering X: subtracting the mean from each column</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>X_centered <span class="op">=</span> X <span class="op">-</span> X.mean(axis<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(X_centered.mean(axis<span class="op">=</span><span class="dv">0</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[-9.66338121e-17 -3.95061761e-16  1.38555833e-16 -2.87059265e-16
   2.44426701e-16 -4.23483471e-16  2.94164693e-16  9.66338121e-17
@@ -687,14 +779,14 @@
 <h3 id="performing-pca">Performing PCA</h3>
 <div class="fragment">
 <p>Performing PCA in 3 lines:</p>
-<div class="cell" data-execution_count="8">
-<div class="sourceCode cell-code" id="cb12" data-code-line-numbers="|1|3-4|6-7|"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1"></a><span class="im">from</span> sklearn.decomposition <span class="im">import</span> PCA</span>
-<span id="cb12-2"><a href="#cb12-2"></a></span>
-<span id="cb12-3"><a href="#cb12-3"></a><span class="co"># instantiating PCA object</span></span>
-<span id="cb12-4"><a href="#cb12-4"></a>pca <span class="op">=</span> PCA()</span>
-<span id="cb12-5"><a href="#cb12-5"></a></span>
-<span id="cb12-6"><a href="#cb12-6"></a><span class="co"># performing PCA</span></span>
-<span id="cb12-7"><a href="#cb12-7"></a>pca.fit(X_centered)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb14" data-code-line-numbers="|1|3-4|6-7|"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1"></a><span class="im">from</span> sklearn.decomposition <span class="im">import</span> PCA</span>
+<span id="cb14-2"><a href="#cb14-2"></a></span>
+<span id="cb14-3"><a href="#cb14-3"></a><span class="co"># instantiating PCA object</span></span>
+<span id="cb14-4"><a href="#cb14-4"></a>pca <span class="op">=</span> PCA()</span>
+<span id="cb14-5"><a href="#cb14-5"></a></span>
+<span id="cb14-6"><a href="#cb14-6"></a><span class="co"># performing PCA</span></span>
+<span id="cb14-7"><a href="#cb14-7"></a>pca.fit(X_centered)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 <div class="fragment">
@@ -702,10 +794,10 @@
 </div>
 <div class="fragment">
 <p>The <span class="math inline">\(W\)</span> matrix, a.k.a the “loadings”, each column is a principal direction:</p>
-<div class="cell" data-execution_count="11">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>W <span class="op">=</span> pca.components_.T</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(W.shape)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>W <span class="op">=</span> pca.components_.T</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(W.shape)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>(14, 14)</code></pre>
 </div>
@@ -730,33 +822,33 @@
 </section>
 <section class="slide level2">
 
-<div class="cell" data-execution_count="12">
+<div class="cell" data-execution_count="14">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>means <span class="op">=</span> pd.DataFrame(X.mean(axis <span class="op">=</span> <span class="dv">0</span>))</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>means.columns <span class="op">=</span> [<span class="st">'mean_rating'</span>]</span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>loadings2 <span class="op">=</span> pd.DataFrame(W[:, :<span class="dv">2</span>], columns <span class="op">=</span> [<span class="st">'PC1'</span>, <span class="st">'PC2'</span>])</span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>first_2_PCs <span class="op">=</span> pd.concat([movies[:<span class="dv">14</span>][<span class="st">'title'</span>], means, loadings2], axis <span class="op">=</span> <span class="dv">1</span>).set_index(<span class="st">'title'</span>)</span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>first_2_PCs.head(<span class="dv">10</span>).style.applymap(color_negative_red).<span class="bu">format</span>(<span class="st">"</span><span class="sc">{:.2f}</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>means <span class="op">=</span> pd.DataFrame(X.mean(axis <span class="op">=</span> <span class="dv">0</span>))</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>means.columns <span class="op">=</span> [<span class="st">'mean_rating'</span>]</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>loadings2 <span class="op">=</span> pd.DataFrame(W[:, :<span class="dv">2</span>], columns <span class="op">=</span> [<span class="st">'PC1'</span>, <span class="st">'PC2'</span>])</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>first_2_PCs <span class="op">=</span> pd.concat([movies[:<span class="dv">14</span>][<span class="st">'title'</span>], means, loadings2], axis <span class="op">=</span> <span class="dv">1</span>).set_index(<span class="st">'title'</span>)</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>first_2_PCs.head(<span class="dv">10</span>).style.applymap(color_negative_red).<span class="bu">format</span>(<span class="st">"</span><span class="sc">{:.2f}</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-display" data-execution_count="11">
+<div class="cell-output cell-output-display" data-execution_count="13">
 <style type="text/css">
-#T_16fb3_row0_col0, #T_16fb3_row1_col0, #T_16fb3_row2_col0, #T_16fb3_row3_col0, #T_16fb3_row4_col0, #T_16fb3_row4_col2, #T_16fb3_row5_col0, #T_16fb3_row5_col2, #T_16fb3_row6_col0, #T_16fb3_row6_col2, #T_16fb3_row7_col0, #T_16fb3_row8_col0, #T_16fb3_row9_col0, #T_16fb3_row9_col2 {
+#T_bf0f8_row0_col0, #T_bf0f8_row1_col0, #T_bf0f8_row2_col0, #T_bf0f8_row3_col0, #T_bf0f8_row4_col0, #T_bf0f8_row4_col2, #T_bf0f8_row5_col0, #T_bf0f8_row5_col2, #T_bf0f8_row6_col0, #T_bf0f8_row6_col2, #T_bf0f8_row7_col0, #T_bf0f8_row8_col0, #T_bf0f8_row9_col0, #T_bf0f8_row9_col2 {
   color: black;
 }
-#T_16fb3_row0_col1, #T_16fb3_row0_col2, #T_16fb3_row1_col1, #T_16fb3_row1_col2, #T_16fb3_row2_col1, #T_16fb3_row2_col2, #T_16fb3_row3_col1, #T_16fb3_row3_col2, #T_16fb3_row4_col1, #T_16fb3_row5_col1, #T_16fb3_row6_col1, #T_16fb3_row7_col1, #T_16fb3_row7_col2, #T_16fb3_row8_col1, #T_16fb3_row8_col2, #T_16fb3_row9_col1 {
+#T_bf0f8_row0_col1, #T_bf0f8_row0_col2, #T_bf0f8_row1_col1, #T_bf0f8_row1_col2, #T_bf0f8_row2_col1, #T_bf0f8_row2_col2, #T_bf0f8_row3_col1, #T_bf0f8_row3_col2, #T_bf0f8_row4_col1, #T_bf0f8_row5_col1, #T_bf0f8_row6_col1, #T_bf0f8_row7_col1, #T_bf0f8_row7_col2, #T_bf0f8_row8_col1, #T_bf0f8_row8_col2, #T_bf0f8_row9_col1 {
   color: red;
 }
 </style>
 
-<table id="T_16fb3" data-quarto-postprocess="true">
+<table id="T_bf0f8" data-quarto-postprocess="true">
 <thead>
 <tr class="header">
 <th class="blank level0" data-quarto-table-cell-role="th">&nbsp;</th>
-<th id="T_16fb3_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">mean_rating</th>
-<th id="T_16fb3_level0_col1" class="col_heading level0 col1" data-quarto-table-cell-role="th">PC1</th>
-<th id="T_16fb3_level0_col2" class="col_heading level0 col2" data-quarto-table-cell-role="th">PC2</th>
+<th id="T_bf0f8_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">mean_rating</th>
+<th id="T_bf0f8_level0_col1" class="col_heading level0 col1" data-quarto-table-cell-role="th">PC1</th>
+<th id="T_bf0f8_level0_col2" class="col_heading level0 col2" data-quarto-table-cell-role="th">PC2</th>
 </tr>
 <tr class="odd">
 <th class="index_name level0" data-quarto-table-cell-role="th">title</th>
@@ -767,64 +859,64 @@
 </thead>
 <tbody>
 <tr class="odd">
-<td id="T_16fb3_level0_row0" class="row_heading level0 row0" data-quarto-table-cell-role="th">Independence Day</td>
-<td id="T_16fb3_row0_col0" class="data row0 col0">4.15</td>
-<td id="T_16fb3_row0_col1" class="data row0 col1">-0.25</td>
-<td id="T_16fb3_row0_col2" class="data row0 col2">-0.26</td>
+<td id="T_bf0f8_level0_row0" class="row_heading level0 row0" data-quarto-table-cell-role="th">Independence Day</td>
+<td id="T_bf0f8_row0_col0" class="data row0 col0">4.15</td>
+<td id="T_bf0f8_row0_col1" class="data row0 col1">-0.25</td>
+<td id="T_bf0f8_row0_col2" class="data row0 col2">-0.26</td>
 </tr>
 <tr class="even">
-<td id="T_16fb3_level0_row1" class="row_heading level0 row1" data-quarto-table-cell-role="th">The Patriot</td>
-<td id="T_16fb3_row1_col0" class="data row1 col0">4.11</td>
-<td id="T_16fb3_row1_col1" class="data row1 col1">-0.26</td>
-<td id="T_16fb3_row1_col2" class="data row1 col2">-0.06</td>
+<td id="T_bf0f8_level0_row1" class="row_heading level0 row1" data-quarto-table-cell-role="th">The Patriot</td>
+<td id="T_bf0f8_row1_col0" class="data row1 col0">4.11</td>
+<td id="T_bf0f8_row1_col1" class="data row1 col1">-0.26</td>
+<td id="T_bf0f8_row1_col2" class="data row1 col2">-0.06</td>
 </tr>
 <tr class="odd">
-<td id="T_16fb3_level0_row2" class="row_heading level0 row2" data-quarto-table-cell-role="th">The Day After Tomorrow</td>
-<td id="T_16fb3_row2_col0" class="data row2 col0">3.70</td>
-<td id="T_16fb3_row2_col1" class="data row2 col1">-0.32</td>
-<td id="T_16fb3_row2_col2" class="data row2 col2">-0.15</td>
+<td id="T_bf0f8_level0_row2" class="row_heading level0 row2" data-quarto-table-cell-role="th">The Day After Tomorrow</td>
+<td id="T_bf0f8_row2_col0" class="data row2 col0">3.70</td>
+<td id="T_bf0f8_row2_col1" class="data row2 col1">-0.32</td>
+<td id="T_bf0f8_row2_col2" class="data row2 col2">-0.15</td>
 </tr>
 <tr class="even">
-<td id="T_16fb3_level0_row3" class="row_heading level0 row3" data-quarto-table-cell-role="th">Pirates of the Caribbean: The Curse of the Black Pearl</td>
-<td id="T_16fb3_row3_col0" class="data row3 col0">4.35</td>
-<td id="T_16fb3_row3_col1" class="data row3 col1">-0.15</td>
-<td id="T_16fb3_row3_col2" class="data row3 col2">-0.03</td>
+<td id="T_bf0f8_level0_row3" class="row_heading level0 row3" data-quarto-table-cell-role="th">Pirates of the Caribbean: The Curse of the Black Pearl</td>
+<td id="T_bf0f8_row3_col0" class="data row3 col0">4.35</td>
+<td id="T_bf0f8_row3_col1" class="data row3 col1">-0.15</td>
+<td id="T_bf0f8_row3_col2" class="data row3 col2">-0.03</td>
 </tr>
 <tr class="odd">
-<td id="T_16fb3_level0_row4" class="row_heading level0 row4" data-quarto-table-cell-role="th">Pretty Woman</td>
-<td id="T_16fb3_row4_col0" class="data row4 col0">4.07</td>
-<td id="T_16fb3_row4_col1" class="data row4 col1">-0.23</td>
-<td id="T_16fb3_row4_col2" class="data row4 col2">0.45</td>
+<td id="T_bf0f8_level0_row4" class="row_heading level0 row4" data-quarto-table-cell-role="th">Pretty Woman</td>
+<td id="T_bf0f8_row4_col0" class="data row4 col0">4.07</td>
+<td id="T_bf0f8_row4_col1" class="data row4 col1">-0.23</td>
+<td id="T_bf0f8_row4_col2" class="data row4 col2">0.45</td>
 </tr>
 <tr class="even">
-<td id="T_16fb3_level0_row5" class="row_heading level0 row5" data-quarto-table-cell-role="th">Forrest Gump</td>
-<td id="T_16fb3_row5_col0" class="data row5 col0">4.51</td>
-<td id="T_16fb3_row5_col1" class="data row5 col1">-0.11</td>
-<td id="T_16fb3_row5_col2" class="data row5 col2">0.01</td>
+<td id="T_bf0f8_level0_row5" class="row_heading level0 row5" data-quarto-table-cell-role="th">Forrest Gump</td>
+<td id="T_bf0f8_row5_col0" class="data row5 col0">4.51</td>
+<td id="T_bf0f8_row5_col1" class="data row5 col1">-0.11</td>
+<td id="T_bf0f8_row5_col2" class="data row5 col2">0.01</td>
 </tr>
 <tr class="odd">
-<td id="T_16fb3_level0_row6" class="row_heading level0 row6" data-quarto-table-cell-role="th">The Green Mile</td>
-<td id="T_16fb3_row6_col0" class="data row6 col0">4.46</td>
-<td id="T_16fb3_row6_col1" class="data row6 col1">-0.16</td>
-<td id="T_16fb3_row6_col2" class="data row6 col2">0.00</td>
+<td id="T_bf0f8_level0_row6" class="row_heading level0 row6" data-quarto-table-cell-role="th">The Green Mile</td>
+<td id="T_bf0f8_row6_col0" class="data row6 col0">4.46</td>
+<td id="T_bf0f8_row6_col1" class="data row6 col1">-0.16</td>
+<td id="T_bf0f8_row6_col2" class="data row6 col2">0.00</td>
 </tr>
 <tr class="even">
-<td id="T_16fb3_level0_row7" class="row_heading level0 row7" data-quarto-table-cell-role="th">Con Air</td>
-<td id="T_16fb3_row7_col0" class="data row7 col0">3.73</td>
-<td id="T_16fb3_row7_col1" class="data row7 col1">-0.30</td>
-<td id="T_16fb3_row7_col2" class="data row7 col2">-0.32</td>
+<td id="T_bf0f8_level0_row7" class="row_heading level0 row7" data-quarto-table-cell-role="th">Con Air</td>
+<td id="T_bf0f8_row7_col0" class="data row7 col0">3.73</td>
+<td id="T_bf0f8_row7_col1" class="data row7 col1">-0.30</td>
+<td id="T_bf0f8_row7_col2" class="data row7 col2">-0.32</td>
 </tr>
 <tr class="odd">
-<td id="T_16fb3_level0_row8" class="row_heading level0 row8" data-quarto-table-cell-role="th">Twister</td>
-<td id="T_16fb3_row8_col0" class="data row8 col0">3.75</td>
-<td id="T_16fb3_row8_col1" class="data row8 col1">-0.30</td>
-<td id="T_16fb3_row8_col2" class="data row8 col2">-0.14</td>
+<td id="T_bf0f8_level0_row8" class="row_heading level0 row8" data-quarto-table-cell-role="th">Twister</td>
+<td id="T_bf0f8_row8_col0" class="data row8 col0">3.75</td>
+<td id="T_bf0f8_row8_col1" class="data row8 col1">-0.30</td>
+<td id="T_bf0f8_row8_col2" class="data row8 col2">-0.14</td>
 </tr>
 <tr class="even">
-<td id="T_16fb3_level0_row9" class="row_heading level0 row9" data-quarto-table-cell-role="th">Sweet Home Alabama</td>
-<td id="T_16fb3_row9_col0" class="data row9 col0">3.67</td>
-<td id="T_16fb3_row9_col1" class="data row9 col1">-0.30</td>
-<td id="T_16fb3_row9_col2" class="data row9 col2">0.59</td>
+<td id="T_bf0f8_level0_row9" class="row_heading level0 row9" data-quarto-table-cell-role="th">Sweet Home Alabama</td>
+<td id="T_bf0f8_row9_col0" class="data row9 col0">3.67</td>
+<td id="T_bf0f8_row9_col1" class="data row9 col1">-0.30</td>
+<td id="T_bf0f8_row9_col2" class="data row9 col2">0.59</td>
 </tr>
 </tbody>
 </table>
@@ -849,14 +941,14 @@
 <section class="slide level2">
 
 <h3 id="pc-directions-in-a-plot">PC directions in a plot</h3>
-<div class="cell" data-execution_count="14">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> sns.scatterplot(x<span class="op">=</span><span class="st">'PC1'</span>, y<span class="op">=</span><span class="st">'PC2'</span>, size<span class="op">=</span><span class="st">'mean_rating'</span>, data<span class="op">=</span>first_2_PCs)</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, point <span class="kw">in</span> first_2_PCs.iterrows():</span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    ax.text(point[<span class="st">'PC1'</span>], point[<span class="st">'PC2'</span>], <span class="bu">str</span>(i))</span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>plt.axhline(y<span class="op">=</span><span class="dv">0</span>, color<span class="op">=</span><span class="st">'r'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>)</span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> sns.scatterplot(x<span class="op">=</span><span class="st">'PC1'</span>, y<span class="op">=</span><span class="st">'PC2'</span>, size<span class="op">=</span><span class="st">'mean_rating'</span>, data<span class="op">=</span>first_2_PCs)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, point <span class="kw">in</span> first_2_PCs.iterrows():</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    ax.text(point[<span class="st">'PC1'</span>], point[<span class="st">'PC2'</span>], <span class="bu">str</span>(i))</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>plt.axhline(y<span class="op">=</span><span class="dv">0</span>, color<span class="op">=</span><span class="st">'r'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>)</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<p><img data-src="c05_pca_files/figure-revealjs/cell-15-output-1.png" width="808" height="429"></p>
+<p><img data-src="c05_pca_files/figure-revealjs/cell-17-output-1.png" width="808" height="429"></p>
 </div>
 </div>
 <aside class="notes">
@@ -878,19 +970,19 @@
 <section class="slide level2">
 
 <h3 id="projected-data">Projected Data</h3>
-<div class="cell" data-execution_count="15">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>T <span class="op">=</span> X_centered <span class="op">@</span> W <span class="co"># make sure this is the same as pca.transform(X_centered)</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(T.shape)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>T <span class="op">=</span> X_centered <span class="op">@</span> W <span class="co"># make sure this is the same as pca.transform(X_centered)</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(T.shape)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>(10000, 14)</code></pre>
 </div>
 </div>
 <p>More typically we would want to <strong>reduce</strong> dimensionality:</p>
-<div class="cell" data-execution_count="16">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>T <span class="op">=</span> X_centered <span class="op">@</span> W[:, :<span class="dv">2</span>]</span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(T.shape)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="18">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>T <span class="op">=</span> X_centered <span class="op">@</span> W[:, :<span class="dv">2</span>]</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(T.shape)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>(10000, 2)</code></pre>
 </div>
@@ -913,15 +1005,15 @@
 </section>
 <section class="slide level2">
 
-<div class="cell" data-execution_count="17">
+<div class="cell" data-execution_count="19">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> sns.jointplot(x<span class="op">=</span>T[:,<span class="dv">0</span>], y<span class="op">=</span>T[:,<span class="dv">1</span>], height<span class="op">=</span><span class="fl">3.5</span>)</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>ax.set_axis_labels(<span class="st">'PC1: Popular Vote'</span>, <span class="st">'PC2: Romance vs. Action'</span>, fontsize<span class="op">=</span><span class="dv">10</span>)</span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> sns.jointplot(x<span class="op">=</span>T[:,<span class="dv">0</span>], y<span class="op">=</span>T[:,<span class="dv">1</span>], height<span class="op">=</span><span class="fl">3.5</span>)</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>ax.set_axis_labels(<span class="st">'PC1: Popular Vote'</span>, <span class="st">'PC2: Romance vs. Action'</span>, fontsize<span class="op">=</span><span class="dv">10</span>)</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
-<p><img data-src="c05_pca_files/figure-revealjs/cell-18-output-1.png" width="343" height="345"></p>
+<p><img data-src="c05_pca_files/figure-revealjs/cell-20-output-1.png" width="343" height="345"></p>
 </div>
 </div>
 <div>
@@ -952,9 +1044,9 @@
 <h3 id="and-now-miss-congeniality">And now: Miss Congeniality!</h3>
 <p>What do you expect the scores to be for users that are high on 1st PC (hate all films)?</p>
 <div class="fragment">
-<div class="cell" data-execution_count="18">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>PC1_top_100 <span class="op">=</span> T[:, <span class="dv">0</span>].argsort()[<span class="op">-</span><span class="dv">100</span>:]</span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Top PC1:'</span>, miss_cong.iloc[PC1_top_100, :].groupby(<span class="st">'score'</span>).size())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="20">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>PC1_top_100 <span class="op">=</span> T[:, <span class="dv">0</span>].argsort()[<span class="op">-</span><span class="dv">100</span>:]</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Top PC1:'</span>, miss_cong.iloc[PC1_top_100, :].groupby(<span class="st">'score'</span>).size())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Top PC1: score
 1    30
@@ -967,9 +1059,9 @@ dtype: int64</code></pre>
 </div>
 <p>What do you expect the scores to be for users that are low on 1st PC (love all films)</p>
 <div class="fragment">
-<div class="cell" data-execution_count="19">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>PC1_bottom_100 <span class="op">=</span> T[:, <span class="dv">0</span>].argsort()[:<span class="dv">100</span>]</span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Bottom PC1:'</span>, miss_cong.iloc[PC1_bottom_100, :].groupby(<span class="st">'score'</span>).size())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="21">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>PC1_bottom_100 <span class="op">=</span> T[:, <span class="dv">0</span>].argsort()[:<span class="dv">100</span>]</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Bottom PC1:'</span>, miss_cong.iloc[PC1_bottom_100, :].groupby(<span class="st">'score'</span>).size())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Bottom PC1: score
 3     5
@@ -999,9 +1091,9 @@ dtype: int64</code></pre>
 
 <p>What do you expect the scores to be for users that are high on 2nd PC (like romantic films)?</p>
 <div class="fragment">
-<div class="cell" data-execution_count="20">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>PC2_top_100 <span class="op">=</span> T[:, <span class="dv">1</span>].argsort()[<span class="op">-</span><span class="dv">100</span>:]</span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Top PC2:'</span>, miss_cong.iloc[PC2_top_100, :].groupby(<span class="st">'score'</span>).size())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="22">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>PC2_top_100 <span class="op">=</span> T[:, <span class="dv">1</span>].argsort()[<span class="op">-</span><span class="dv">100</span>:]</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Top PC2:'</span>, miss_cong.iloc[PC2_top_100, :].groupby(<span class="st">'score'</span>).size())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Top PC2: score
 2    12
@@ -1014,9 +1106,9 @@ dtype: int64</code></pre>
 </div>
 <p>What do you expect the scores to be for users that are low on 2nd PC (like action films)</p>
 <div class="fragment">
-<div class="cell" data-execution_count="21">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>PC2_bottom_100 <span class="op">=</span> T[:, <span class="dv">1</span>].argsort()[:<span class="dv">100</span>]</span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Bottom PC2:'</span>, miss_cong.iloc[PC2_bottom_100, :].groupby(<span class="st">'score'</span>).size())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="23">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>PC2_bottom_100 <span class="op">=</span> T[:, <span class="dv">1</span>].argsort()[:<span class="dv">100</span>]</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Bottom PC2:'</span>, miss_cong.iloc[PC2_bottom_100, :].groupby(<span class="st">'score'</span>).size())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Bottom PC2: score
 1    17
