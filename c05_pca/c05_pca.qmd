@@ -27,7 +27,7 @@ footer: "[Intro to Data Science](https://intro2ds2023.github.io/mooc/){target='_
 
 ## Introduction to Data Science {.title-slide}
 
-### Principal Components Analysis - Class 4
+### Principal Components Analysis - Class 5
 
 ### Giora Simchoni
 
