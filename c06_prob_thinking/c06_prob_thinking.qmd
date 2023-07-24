@@ -1,0 +1,522 @@
+---
+format:
+  revealjs:
+    slide-number: true
+    chalkboard: true
+    fig-width: 6
+    fig-asp: 0.618
+    template-partials:
+      - "../title-slide.html"
+css: "../slides_quarto.css"
+standalone: false
+include-in-header: "../header_quarto.html"
+logo: "../Intro2DS_logo_white.jpg"
+pagetitle: "Probabilistic Thinking"
+callout-appearance: simple
+smaller: true
+execute:
+  eval: true
+  echo: true
+code-line-numbers: false
+code-block-border-left: true
+highlight-style: github
+footer: "[Intro to Data Science](https://intro2ds2023.github.io/mooc/){target='_blank'}"
+---
+
+## {.logo-slide}
+
+## Introduction to Data Science {.title-slide}
+
+### Probabilistic Thinking - Class 6
+
+### Giora Simchoni
+
+#### `gsimchoni@gmail.com` and add `#intro2ds` in subject
+
+### Stat. and OR Department, TAU
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+יש הרבה דרכים שהסתברות וסטטיסטיקה יכולות להטעות אותנו. ושום קורס שעוסק שבהן, לא שלם בלי לתת לפחות אזהרה, לגבי התופעות האלה.
+ביחידה זו נתמקד בשלוש דרכים שנתונים יכולים להטעות אם לא מסתכלים עליהם בצורה מקיפה ונכונה. אנחנו קוראים לזה: חשיבה הסתברותית.
+:::
+:::
+
+---
+
+## Conditional Probability {.title-slide}
+
+---
+
+### Reminder: Discrete Empirical Distributions
+
+::: {.incremental}
+- Marginal distribution: $P(X = x_k)$, $P(Y = y_l)$
+- Joint distribution: $P(X = x_k, Y = y_l)$
+- Conditional distribution: $P(Y = y_l | X = x_k)$, $P(X = x_k | Y = y_l)$
+
+- Most interesting: conditional distribution
+:::
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### Reminder: The Contingency Table
+
++----------+---------------+---------------+---------------+-------------+
+| $Y/X$    | $x_1$         | $x_2$         | $x_3$         | Total       |
++==========+===============+===============+===============+=============+
+| $y_1$    | $P(x_1, y_1)$ | $P(x_2, y_1)$ | $P(x_3, y_1)$ | $P(Y = y_1)$|
++----------+---------------+---------------+---------------+-------------+
+| $y_2$    | $P(x_1, y_2)$ | $P(x_2, y_2)$ | $P(x_3, y_2)$ | $P(Y = y_2)$|
++----------+---------------+---------------+---------------+-------------+
+| Total    | $P(X = x_1)$  | $P(X = x_2)$  | $P(X = x_3)$  |  $\large{1}$|
++----------+---------------+---------------+---------------+-------------+
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+
+:::
+:::
+
+---
+
+### Reminder: Important Laws
+
+::: {.incremental}
+Given two random variables $X,Y,$ we have:
+
+- Bayes' Law: 
+$$ Pr (Y=y|X=x) = \frac{Pr(Y=y,X=x)}{Pr(X=x)} = \frac{Pr(X=x|Y=y)Pr(Y=y)}{Pr(X=x)}$$
+
+- Law of total probability: 
+$$ Pr(X=x) = \sum_y Pr(X=x,Y=y)=\sum_y Pr(X=x|Y=y) Pr(Y=y)$$
+
+- The two are often combined to give:
+$$ Pr (Y=y_1|X=x) = \frac{Pr(X=x|Y=y_1)Pr(Y=y_1)}{\sum_y Pr(X=x|Y=y) Pr(Y=y)}$$
+
+- In this way, knowing only about $Pr(X|Y)$ and $Pr(Y)$ teaches us about $Pr(Y|X)$
+:::
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### Example: Corona testing 
+
+Assume we have a Corona test described as **super accurate**  meaning:
+
+- 99% of people who are carriers test positive
+- 99% of people who are healthy test negative
+
+::: {.fragment}
+- Question: given I get randomly tested and get a positive test, what is the probability that I am actually a carrier?
+:::
+
+::: {.fragment}
+- What if I add in this contingency table?
+
++----------------+-----------------+-------------+---------+
+|                | predict healthy | predict sick| Total   |
++================+=================+=============+=========+
+| really healthy | 99000           | 1000        | 100000  |
++----------------+-----------------+-------------+---------+
+| really sick    | 1               | 99          | 100     |
++----------------+-----------------+-------------+---------+
+| Total          | 99001           | 1099        | 100100  |
++----------------+-----------------+-------------+---------+
+
+:::
+
+::: {.fragment}
+- Answer: Assuming the disease is rare (say 1/1000 = 0.001), that probability is very small even for an *accurate* test!
+:::
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### Formulation in terms of conditional probabilities
+
+::: {.incremental}
+- Define two Bernoulli variables: 
+    - $Y \in \{0,1\}$  --- carrier or not   ;  $X \in \{0,1\}$  --- positive test or not 
+
+- Given values: 
+    - $$ Pr(X=1|Y=1) = Pr(X=0|Y=0) = 0.99\;,\;\; Pr(Y=1) = 0.001$$
+
+- We are interested in $Pr(Y=1|X=1)$, using our formulas above we get: 
+
+- $$ Pr(Y=1|X=1) = \frac{Pr(X=1|Y=1)Pr(Y=1)}{Pr(X=1)} = \frac{0.99 \cdot 0.001}{0.99 \cdot 0.001 + 0.01\cdot0.999} = 0.0902.$$
+
+- Conclusion: If you get a positive result in this accurate test, you still have $<10\%$ chance of being an actual carrier
+:::
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+## Simpson's Paradox {.title-slide}
+
+---
+
+### UC Berkeley Gender Bias Study
+
+- A well known research studying relation between:
+    - Gender ($X$)
+    - Admission to Berkeley ($Y$)
+    - Department ($Z$)
+
+When checking relation between $X$ and $Y$:
+
+::: {.fragment}
++----------------+-----------------+-------------+---------+
+|                | Men             | Women       | Total   |
++================+=================+=============+=========+
+| Not Admitted   | 150             | 220         | 370     |
++----------------+-----------------+-------------+---------+
+| Admitted       | 220             | 150         | 370     |
++----------------+-----------------+-------------+---------+
+| Total          | 370             | 370         | 540     |
++----------------+-----------------+-------------+---------+
+:::
+
+::: {.fragment}
+Men applying are more likely to be admitted?
+:::
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### UC Berkeley Gender Bias Study
+
+- When conditioning on Department ($Z$), the conclusion reverses:
+
+::: {.fragment}
++----------------+----------------+-----------------+-------------+---------+
+|   Department   |                | Men             | Women       | Total   |
++================+================+=================+=============+=========+
+| A              | Not Admitted   | 50              | 200         | 250     |
++----------------+----------------+-----------------+-------------+---------+
+|                | Admitted       | 20              | 100         | 120     |
++================+================+=================+=============+=========+
+| B              | Not Admitted   | 100             | 20          | 120     |
++----------------+----------------+-----------------+-------------+---------+
+|                | Admitted       | 200             | 50          | 250     |
++----------------+----------------+-----------------+-------------+---------+
+| Total          | Total          | 370             | 370         | 540     |
++----------------+----------------+-----------------+-------------+---------+
+:::
+
+::: {.fragment}
+- Conclusion: Women applied more for department A, with lower admission rates!
+:::
+
+::: {.fragment}
+- Simpson's Paradox: a trend appears marginally, and disappears or completely reverses when checking by group
+:::
+
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### Formulizing the UC Berkeley Example
+
+- $X$ -- Gender ($M/F$)
+- $Y$ -- Admission to Berkeley ($yes/no$)
+- $Z$ -- Department ($A/B$)
+
+::: {.incremental}
+- $Pr(Y = yes | X = M) > Pr(Y = yes | X = F)$, but:
+- $Pr(Y = yes | X = M, Z = A) < Pr(Y = yes | X = F, Z = A)$
+- $Pr(Y = yes | X = M, Z = B) < Pr(Y = yes | X = F, Z = B)$
+:::
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### How can that be?
+
+The probabilities which are not conditioned on Department are still **weighted averages** (Bayes Law):
+
+$$
+\begin{aligned}
+Pr(Y = yes | X = F) &= Pr(Y = yes | X = F, Z = A) \cdot \bf{Pr(Z = A | X = F)} \\
+    &+ Pr(Y = yes | X = F, Z = B) \cdot \bf{Pr(Z = B | X = F)}
+\end{aligned}
+$$
+
+::: {.fragment}
+The paradox occurs due to these weights! (women applying to more competitive departments)
+:::
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### Simpson's paradox: the effect of additional conditioning
+
+::: {.incremental}
+- In general assume now we have three random variables $X, Y, Z$
+- We can consider two conditional distributions: $Pr(Y|X)$ and $Pr(Y|X,Z)$
+- The paradox, which is not really a paradox, says that we can reach "conflicting" conclusions, for example: 
+    - $Pr(Y = 1 | X = x_1) > Pr(Y = 1 | X = x_2)$ 
+    - but: $Pr(Y = 1 | X = x_1, Z = z) < Pr(Y = 1 | X = x_2, Z = z),\;\; \forall z$
+
+- So in this situation, is $x_1$ or $x_2$ a better support for $Y = 1$?
+
+- Back to basic formulas, the key is the weighting: 
+    - $$ Pr(Y = y | X = x) = \sum_z Pr(Y = y | X = x, Z = z) {\bf Pr(Z = z | X = x)}$$
+:::
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### Another example: Corona mortality
+
+::: {.incremental}
+- We have two countries (call them *Italy* and *Germany*) 
+
+- In Italy the mortality rate among Corona patients is higher than in Germany
+
+- But in Germany the mortality rate is higher than in Italy both among young patients and among old patients
+
+- How can that be?
+
+:::
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### Another example: Corona mortality
+
+::: {.incremental}
+- Let $Y$ = Dead/Alive, $X$ = Country, $Z$ = Young/Old and we are considering only Corona patients:
+
+- $Pr(Y=D|X=I) > Pr(Y=D|X=G)$, but:
+- $Pr(Y=D|X=I, Z=Yo) < Pr(Y=D|X=G, Z=Yo)$
+- $Pr(Y = D | X=I, Z=O) <  Pr(Y=D|X=G, Z=O)$
+:::
+
+::: {.fragment}
+Solution: Germany has a lot of young patients, Italy a lot of old: 
+    $$ Pr(Z=Yo | X=G) \gg Pr(Z=Yo | X=I).$$
+:::
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### Simpson's paradox beyond binary variables
+
+Continuous distributions with clusters (example in recitation)
+
+![](images/simpsons-paradox.gif)
+
+[source](https://simplystatistics.org/posts/2017-08-08-code-for-my-educational-gifs/)
+
+::: {.fragment}
+When $Y$ is numeric: we may be interested in conditional expectation, with "paradox":
+
+- $\mathbb E(Y|X=x_1) > \mathbb E(Y|X=x_2)$, but:
+- $\mathbb E(Y|X=x_1, Z=z) < \mathbb E(Y|X=x_2, Z=z),\;\; \forall z$
+:::
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+## Anscombe's Quartet {.title-slide}
+
+---
+
+### Anscombe's Quartet
+
+:::: {.columns}
+::: {.column width="70%"}
+```{python}
+#| code-fold: true
+
+import matplotlib.pyplot as plt
+import numpy as np
+
+x = [10, 8, 13, 9, 11, 14, 6, 4, 12, 7, 5]
+y1 = [8.04, 6.95, 7.58, 8.81, 8.33, 9.96, 7.24, 4.26, 10.84, 4.82, 5.68]
+y2 = [9.14, 8.14, 8.74, 8.77, 9.26, 8.10, 6.13, 3.10, 9.13, 7.26, 4.74]
+y3 = [7.46, 6.77, 12.74, 7.11, 7.81, 8.84, 6.08, 5.39, 8.15, 6.42, 5.73]
+x4 = [8, 8, 8, 8, 8, 8, 8, 19, 8, 8, 8]
+y4 = [6.58, 5.76, 7.71, 8.84, 8.47, 7.04, 5.25, 12.50, 5.56, 7.91, 6.89]
+
+datasets = {
+    'I': (x, y1),
+    'II': (x, y2),
+    'III': (x, y3),
+    'IV': (x4, y4)
+}
+
+fig, axs = plt.subplots(2, 2, sharex=True, sharey=True, figsize=(6, 6),
+                        gridspec_kw={'wspace': 0.08, 'hspace': 0.08})
+axs[0, 0].set(xlim=(0, 20), ylim=(2, 14))
+axs[0, 0].set(xticks=(0, 10, 20), yticks=(4, 8, 12))
+
+for ax, (label, (x, y)) in zip(axs.flat, datasets.items()):
+    ax.text(0.1, 0.9, label, fontsize=20, transform=ax.transAxes, va='top')
+    ax.tick_params(direction='in', top=True, right=True)
+    ax.plot(x, y, 'o')
+
+    # linear regression
+    p1, p0 = np.polyfit(x, y, deg=1)  # slope, intercept
+    ax.axline(xy1=(0, p0), slope=p1, color='r', lw=2)
+
+    # add text box for the statistics
+    stats = (f'X Mean = {np.mean(x):.2f}\n'
+             f'Y Mean = {np.mean(y):.2f}\n'
+             f'X SD = {np.std(x):.2f}\n'
+             f'Y SD = {np.std(y):.2f}\n'
+             f'Corr = {np.corrcoef(x, y)[0][1]:.2f}')
+    bbox = dict(boxstyle='round', fc='blanchedalmond', ec='orange', alpha=0.5)
+    ax.text(0.95, 0.07, stats, fontsize=9, bbox=bbox,
+            transform=ax.transAxes, horizontalalignment='right')
+
+plt.show()
+```
+:::
+::: {.column width="30%"}
+::: {.fragment}
+- Beware of looking at just summary statistics!
+- Be careful of outliers!
+- Plot first!
+:::
+:::
+::::
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### Datasaurus Dozen
+
+A modern Anscombe's Quartet by Matejka and George (2017):
+
+![](images/DinoSequentialSmaller.gif)
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+## Pitfalls Sumary {.title-slide}
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### Conclusions about probabilistic thinking
+
+- Conditional distributions are very important for interpretation and not very intuitive sometimes
+
+- It is critical to carefully consider which direction and level of conditioning is relevant to reasoning about data
+
+- It is important to be able to write the  information, questions and answers explicitly as statements about conditional probabilities or expectations, and use the laws of probability correctly
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### Dependence and causality
+
+- A well known but often misunderstood fact is that correlation/dependence is not the same as causality
+
+- Example: Assume we study X=smoking and Y=lung disease and find a strong correlation between them: people who smoke more have more lung disease 
+
+- Assume for now the connection is real and replicable in multiple studies
+
+- Is it correct to conclude that smoking causes lung disease? 
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### Causal and (example of) non-causal relationships 
+
+![](images/Cause.png)
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### How and when can we infer causality?
+
+- This is an area of active research, there are many theories and practical methods:
+
+    - Clinical trials that guarantee found relations are causal
+
+    - Instrumental variable methods
+
+    - Causal inference methods by Judea Pearl and others
+
+- We will not discuss these in more detail in this course
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
