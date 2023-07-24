@@ -475,7 +475,7 @@ Given information about passengers, what questions might we be interested in and
 ### Distribution III: the Conditional Distribution
 
 ::: {.incremental}
-- Bayes' Theorem:
+- Bayes' Law:
 $$
 \begin{aligned}
 P(Y = \text{Alive} | X = \text{First}) &= \frac{P(X = \text{First}, Y = \text{Alive})}{P(X = \text{First})} \\
@@ -515,7 +515,7 @@ The marginal, joint and conditional distributions can be put in a single (crowde
 ::: {.incremental}
 1. Find the empirical marginal distribution of $X$ (Class). What is $P(X = \text{First})$?
 2. Find the empirical joint distribution of $X, Y$. What is $P(X = \text{First}, Y = \text{Alive})$?
-3. Find the empirical conditional distribution of $Y|X$. What is $P(Y = \text{Alive}| X = \text{First})$? See that Bayes' theorem holds.
+3. Find the empirical conditional distribution of $Y|X$. What is $P(Y = \text{Alive}| X = \text{First})$? See that Bayes' law holds.
 :::
 
 ::: {.notes}
