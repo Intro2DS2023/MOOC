@@ -817,7 +817,7 @@ Means difference:  24.62</code></pre>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>impr_red_null <span class="op">=</span> np.random.choice(population, <span class="dv">30</span>)</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Means difference: </span><span class="sc">{</span>impr_red_null<span class="sc">.</span>mean() <span class="op">-</span> real_red_null<span class="sc">.</span>mean()<span class="sc">: .2f}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Means difference:  19.07</code></pre>
+<pre><code>Means difference: -11.28</code></pre>
 </div>
 </div>
 <div class="fragment">
@@ -833,8 +833,8 @@ Means difference:  24.62</code></pre>
 <span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>impr_red_null <span class="op">=</span> np.random.choice(population, <span class="dv">30</span>)</span>
 <span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Means difference: </span><span class="sc">{</span>impr_red_null<span class="sc">.</span>mean() <span class="op">-</span> real_red_null<span class="sc">.</span>mean()<span class="sc">: .2f}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Means difference: -13.30
-Means difference:  11.73</code></pre>
+<pre><code>Means difference: -4.46
+Means difference: -2.19</code></pre>
 </div>
 </div>
 </div>
@@ -873,8 +873,8 @@ Means difference:  11.73</code></pre>
 <span id="cb14-8"><a href="#cb14-8"></a><span class="bu">print</span>(<span class="ss">f'Max null mean diff: </span><span class="sc">{</span><span class="bu">max</span>(null_mean_diffs)<span class="sc">: .2f}</span><span class="ss">'</span>)</span>
 <span id="cb14-9"><a href="#cb14-9"></a><span class="bu">print</span>(<span class="ss">f'Min null mean diff: </span><span class="sc">{</span><span class="bu">min</span>(null_mean_diffs)<span class="sc">: .2f}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Max null mean diff:  38.24
-Min null mean diff: -38.58</code></pre>
+<pre><code>Max null mean diff:  36.54
+Min null mean diff: -39.53</code></pre>
 </div>
 </div>
 </div>
@@ -916,7 +916,7 @@ Min null mean diff: -38.58</code></pre>
 <span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
-<p><img data-src="c07_inferenceA_files/figure-revealjs/cell-11-output-1.png" width="509" height="411"></p>
+<p><img data-src="c07_inferenceA_files/figure-revealjs/cell-11-output-1.png" width="509" height="416"></p>
 </div>
 </div>
 <p>It seems like our original value of 15 points difference is not that extreme. There’s a measure for that:</p>
@@ -953,7 +953,7 @@ Min null mean diff: -38.58</code></pre>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'P(mean_diff &gt;= 15 | H0) = </span><span class="sc">{</span>one_sided_p_value<span class="sc">: .2f}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>P(mean_diff &gt;= 15 | H0) =  0.07</code></pre>
+<pre><code>P(mean_diff &gt;= 15 | H0) =  0.06</code></pre>
 </div>
 </div>
 </div>
@@ -996,7 +996,7 @@ Min null mean diff: -38.58</code></pre>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'P(|mean_diff| &gt;= 15 | H0) = </span><span class="sc">{</span>two_sided_p_value<span class="sc">: .2f}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>P(|mean_diff| &gt;= 15 | H0) =  0.14</code></pre>
+<pre><code>P(|mean_diff| &gt;= 15 | H0) =  0.13</code></pre>
 </div>
 </div>
 </div>
@@ -1081,17 +1081,17 @@ Min null mean diff: -38.58</code></pre>
 <div class="cell" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>pd.value_counts(null_res, normalize<span class="op">=</span><span class="va">True</span>).sort_index()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="14">
-<pre><code>0     0.0010
-1     0.0101
-2     0.0447
-3     0.1186
-4     0.2054
-5     0.2474
-6     0.2090
-7     0.1140
-8     0.0400
-9     0.0092
-10    0.0006
+<pre><code>0     0.0009
+1     0.0094
+2     0.0425
+3     0.1233
+4     0.2063
+5     0.2440
+6     0.2017
+7     0.1170
+8     0.0442
+9     0.0103
+10    0.0004
 dtype: float64</code></pre>
 </div>
 </div>
@@ -1137,8 +1137,8 @@ dtype: float64</code></pre>
 <span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>two_sided_p_value <span class="op">=</span> np.mean(null_res <span class="op">&gt;=</span> <span class="dv">8</span>) <span class="op">+</span> np.mean(null_res<span class="op">&lt;=</span><span class="dv">2</span>)</span>
 <span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'P(heads&gt;=8 or heads&lt;=2 | H0) = </span><span class="sc">{</span>two_sided_p_value<span class="sc">: .3f}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>P(heads &gt;= 8 | H0) =  0.050
-P(heads&gt;=8 or heads&lt;=2 | H0) =  0.106</code></pre>
+<pre><code>P(heads &gt;= 8 | H0) =  0.055
+P(heads&gt;=8 or heads&lt;=2 | H0) =  0.108</code></pre>
 </div>
 </div>
 </div>
@@ -1297,10 +1297,10 @@ P(heads&gt;=8 or heads&lt;=2 | H0) =  0.106</code></pre>
 
 <h3 id="two-common-approaches-to-testing">Two Common Approaches to Testing</h3>
 <ol type="1">
-<li>Compute P-value and compare to some threshold <span class="math inline">\(\alpha\)</span> (1%, 5%)
+<li>Compute p-value and compare to some threshold <span class="math inline">\(\alpha\)</span> (1%, 5%)
 <ul>
-<li>If P-value <span class="math inline">\(\le \alpha \Rightarrow\)</span> reject <span class="math inline">\(H_0\)</span></li>
-<li>If P-value <span class="math inline">\(&gt; \alpha \Rightarrow\)</span> don’t reject <span class="math inline">\(H_0\)</span></li>
+<li>If p-value <span class="math inline">\(\le \alpha \Rightarrow\)</span> reject <span class="math inline">\(H_0\)</span></li>
+<li>If p-value <span class="math inline">\(&gt; \alpha \Rightarrow\)</span> don’t reject <span class="math inline">\(H_0\)</span></li>
 </ul></li>
 </ol>
 <div class="fragment">
@@ -1383,7 +1383,7 @@ P(heads&gt;=8 or heads&lt;=2 | H0) =  0.106</code></pre>
 <div class="cell" data-execution_count="17">
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'C (above which 1% of null distribution) = </span><span class="sc">{</span>np<span class="sc">.</span>quantile(null_mean_diffs, <span class="fl">0.99</span>)<span class="sc">: .2f}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>C (above which 1% of null distribution) =  23.91</code></pre>
+<pre><code>C (above which 1% of null distribution) =  23.38</code></pre>
 </div>
 </div>
 <p>We got 15 points difference, so.</p>

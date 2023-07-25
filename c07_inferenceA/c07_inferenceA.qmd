@@ -668,9 +668,9 @@ Highly important, see later.
 
 ### Two Common Approaches to Testing
 
-1. Compute P-value and compare to some threshold $\alpha$ (1%, 5%)
-    - If P-value $\le \alpha \Rightarrow$ reject $H_0$
-    - If P-value $> \alpha \Rightarrow$ don't reject $H_0$
+1. Compute p-value and compare to some threshold $\alpha$ (1%, 5%)
+    - If p-value $\le \alpha \Rightarrow$ reject $H_0$
+    - If p-value $> \alpha \Rightarrow$ don't reject $H_0$
 
 ::: {.fragment}
 2. Looking at some statistic of the sample $T(X)$, by fixing $\alpha$ at some "significance level", extract a critical value $C$ and compare to it:
