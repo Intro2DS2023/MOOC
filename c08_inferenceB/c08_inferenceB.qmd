@@ -721,7 +721,7 @@ We keep the SE estimator of $\sqrt{\frac{S_x^2}{n_x} +\frac{S_y^2}{n_y}}$:
 
 $\frac{\overline{X} - \overline{Y} - (\mu_x- \mu_y)}{\sqrt{\frac{S_x^2}{n_x} +\frac{S_y^2}{n_y}}} \sim t_{df'}$
 
-Where: $df'={\frac{\left({\frac{S_x^2}{n_x}}+{\frac{S_y^2}{n_y}}\right)^{2}}{{\frac{\left(S_x^2/n_x\right)^2}{n_x-1}}+{\frac{\left(S_y^2/n_{2}\right)^{2}}{n_y-1}}}}$
+Where: $df'=\frac{\left(\frac{S_x^2}{n_x}+\frac{S_y^2}{n_y}\right)^{2}}{\frac{\left(S_x^2/n_x\right)^2}{n_x-1}+\frac{\left(S_y^2/n_{2}\right)^{2}}{n_y-1}}$
 
 
 ::: {.notes}
