@@ -202,7 +202,7 @@ $$f(x) = \frac{1}{{\sigma \sqrt{2\pi}}}e^{\frac{-({x - \mu})^2}{2\sigma^2}}$$
 
 ::: {.fragment}
 - If $\mu = 0$ and $\sigma = 1$ (a.k.a the Standard Normal Distribution $N(0, 1)$) it has the familiar form:
-$$f(x) = \frac{1}{{\sqrt {2\pi}}}\exp(-\frac {x^2}{2})$$
+$$f(x) = \frac{1}{{\sqrt {2\pi}}}\exp(-\frac{x^2}{2})$$
 
 and the familiar bell shape around 0:
 :::
@@ -721,7 +721,7 @@ We keep the SE estimator of $\sqrt{\frac{S_x^2}{n_x} +\frac{S_y^2}{n_y}}$:
 
 $\frac{\overline{X} - \overline{Y} - (\mu_x- \mu_y)}{\sqrt{\frac{S_x^2}{n_x} +\frac{S_y^2}{n_y}}} \sim t_{df'}$
 
-Where: $df' ={\frac {\left({\frac {s_{1}^{2}}{n_{1}}}+{\frac {s_{2}^{2}}{n_{2}}}\right)^{2}}{{\frac {\left(s_{1}^{2}/n_{1}\right)^{2}}{n_{1}-1}}+{\frac {\left(s_{2}^{2}/n_{2}\right)^{2}}{n_{2}-1}}}}$
+Where: $df' ={\frac{\left({\frac{s_{1}^{2}}{n_{1}}}+{\frac{s_{2}^{2}}{n_{2}}}\right)^{2}}{{\frac{\left(s_{1}^{2}/n_{1}\right)^{2}}{n_{1}-1}}+{\frac{\left(s_{2}^{2}/n_{2}\right)^{2}}{n_{2}-1}}}}$
 
 
 ::: {.notes}

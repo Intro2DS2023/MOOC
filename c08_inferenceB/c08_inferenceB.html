@@ -532,7 +532,7 @@
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>plt.hist(null_mean_diffs, bins<span class="op">=</span>np.arange(<span class="op">-</span><span class="dv">45</span>, <span class="dv">45</span>, <span class="dv">5</span>))</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<p><img data-src="c08_inferenceB_files/figure-revealjs/cell-4-output-1.png" width="509" height="411"></p>
+<p><img data-src="c08_inferenceB_files/figure-revealjs/cell-4-output-1.png" width="509" height="413"></p>
 </div>
 </div>
 <div>
@@ -567,7 +567,7 @@
 </ul>
 <div class="fragment">
 <ul>
-<li>If <span class="math inline">\(\mu = 0\)</span> and <span class="math inline">\(\sigma = 1\)</span> (a.k.a the Standard Normal Distribution <span class="math inline">\(N(0, 1)\)</span>) it has the familiar form: <span class="math display">\[f(x) = \frac{1}{{\sqrt {2\pi}}}\exp(-\frac {x^2}{2})\]</span></li>
+<li>If <span class="math inline">\(\mu = 0\)</span> and <span class="math inline">\(\sigma = 1\)</span> (a.k.a the Standard Normal Distribution <span class="math inline">\(N(0, 1)\)</span>) it has the familiar form: <span class="math display">\[f(x) = \frac{1}{{\sqrt {2\pi}}}\exp(-\frac{x^2}{2})\]</span></li>
 </ul>
 <p>and the familiar bell shape around 0:</p>
 </div>
@@ -710,8 +710,8 @@
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Mean of mean differences: </span><span class="sc">{</span>mu<span class="sc">: .2f}</span><span class="ss">'</span>)</span>
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'SD of mean differences: </span><span class="sc">{</span>sigma<span class="sc">: .2f}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Mean of mean differences:  0.13
-SD of mean differences:  10.23</code></pre>
+<pre><code>Mean of mean differences:  0.05
+SD of mean differences:  10.14</code></pre>
 </div>
 </div>
 <ul>
@@ -769,7 +769,7 @@ SD of mean differences:  10.23</code></pre>
 <div class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'(</span><span class="sc">{</span>mu <span class="op">-</span> <span class="dv">2</span> <span class="op">*</span> sigma<span class="sc">: .2f}</span><span class="ss">, </span><span class="sc">{</span>mu <span class="op">+</span> <span class="dv">2</span> <span class="op">*</span> sigma<span class="sc">: .2f}</span><span class="ss">)'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>(-20.32,  20.58)</code></pre>
+<pre><code>(-20.23,  20.33)</code></pre>
 </div>
 </div>
 <ul>
@@ -1336,7 +1336,7 @@ SD of mean differences:  10.23</code></pre>
 <p>We replace <span class="math inline">\(\sigma_x\)</span> by its estimator: <span class="math inline">\(S_x = \sqrt{\frac{1}{n_x - 1}\sum{(X_i - \overline{X})^2}}\)</span> and the same for <span class="math inline">\(\sigma_y\)</span>.</p>
 <p>We keep the SE estimator of <span class="math inline">\(\sqrt{\frac{S_x^2}{n_x} +\frac{S_y^2}{n_y}}\)</span>:</p>
 <p><span class="math inline">\(\frac{\overline{X} - \overline{Y} - (\mu_x- \mu_y)}{\sqrt{\frac{S_x^2}{n_x} +\frac{S_y^2}{n_y}}} \sim t_{df'}\)</span></p>
-<p>Where: <span class="math inline">\(df' ={\frac {\left({\frac {s_{1}^{2}}{n_{1}}}+{\frac {s_{2}^{2}}{n_{2}}}\right)^{2}}{{\frac {\left(s_{1}^{2}/n_{1}\right)^{2}}{n_{1}-1}}+{\frac {\left(s_{2}^{2}/n_{2}\right)^{2}}{n_{2}-1}}}}\)</span></p>
+<p>Where: <span class="math inline">\(df' ={\frac{\left({\frac{s_{1}^{2}}{n_{1}}}+{\frac{s_{2}^{2}}{n_{2}}}\right)^{2}}{{\frac{\left(s_{1}^{2}/n_{1}\right)^{2}}{n_{1}-1}}+{\frac{\left(s_{2}^{2}/n_{2}\right)^{2}}{n_{2}-1}}}}\)</span></p>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
 
