@@ -198,11 +198,11 @@ plt.show()
 - With Continuous RVs we talk about "Probability Density Function" (PDF).
 
 - If $X \sim N(\mu, \sigma^2)$ its desnsity function is defined as:
-$$f(x) = \frac{1}{{\sigma \sqrt {2\pi } }}e^{\frac{- ( {x - \mu } )^2 }{2\sigma^2}}$$
+$$f(x) = \frac{1}{{\sigma \sqrt{2\pi}}}e^{\frac{-({x - \mu})^2}{2\sigma^2}}$$
 
 ::: {.fragment}
 - If $\mu = 0$ and $\sigma = 1$ (a.k.a the Standard Normal Distribution $N(0, 1)$) it has the familiar form:
-$$f(x) = \frac{1}{{ \sqrt {2\pi } }}\exp(-\frac {x^2}{2})$$
+$$f(x) = \frac{1}{{\sqrt {2\pi}}}\exp(-\frac {x^2}{2})$$
 
 and the familiar bell shape around 0:
 :::

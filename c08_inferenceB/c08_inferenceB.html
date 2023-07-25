@@ -563,11 +563,11 @@
 <ul>
 <li><p>With Discrete RVs we usually talk about “Probability Mass Function” (PMF).</p></li>
 <li><p>With Continuous RVs we talk about “Probability Density Function” (PDF).</p></li>
-<li><p>If <span class="math inline">\(X \sim N(\mu, \sigma^2)\)</span> its desnsity function is defined as: <span class="math display">\[f(x) = \frac{1}{{\sigma \sqrt {2\pi } }}e^{\frac{- ( {x - \mu } )^2 }{2\sigma^2}}\]</span></p></li>
+<li><p>If <span class="math inline">\(X \sim N(\mu, \sigma^2)\)</span> its desnsity function is defined as: <span class="math display">\[f(x) = \frac{1}{{\sigma \sqrt{2\pi}}}e^{\frac{-({x - \mu})^2}{2\sigma^2}}\]</span></p></li>
 </ul>
 <div class="fragment">
 <ul>
-<li>If <span class="math inline">\(\mu = 0\)</span> and <span class="math inline">\(\sigma = 1\)</span> (a.k.a the Standard Normal Distribution <span class="math inline">\(N(0, 1)\)</span>) it has the familiar form: <span class="math display">\[f(x) = \frac{1}{{ \sqrt {2\pi } }}\exp(-\frac {x^2}{2})\]</span></li>
+<li>If <span class="math inline">\(\mu = 0\)</span> and <span class="math inline">\(\sigma = 1\)</span> (a.k.a the Standard Normal Distribution <span class="math inline">\(N(0, 1)\)</span>) it has the familiar form: <span class="math display">\[f(x) = \frac{1}{{\sqrt {2\pi}}}\exp(-\frac {x^2}{2})\]</span></li>
 </ul>
 <p>and the familiar bell shape around 0:</p>
 </div>
@@ -710,8 +710,8 @@
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Mean of mean differences: </span><span class="sc">{</span>mu<span class="sc">: .2f}</span><span class="ss">'</span>)</span>
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'SD of mean differences: </span><span class="sc">{</span>sigma<span class="sc">: .2f}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Mean of mean differences: -0.05
-SD of mean differences:  10.24</code></pre>
+<pre><code>Mean of mean differences:  0.13
+SD of mean differences:  10.23</code></pre>
 </div>
 </div>
 <ul>
@@ -769,7 +769,7 @@ SD of mean differences:  10.24</code></pre>
 <div class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'(</span><span class="sc">{</span>mu <span class="op">-</span> <span class="dv">2</span> <span class="op">*</span> sigma<span class="sc">: .2f}</span><span class="ss">, </span><span class="sc">{</span>mu <span class="op">+</span> <span class="dv">2</span> <span class="op">*</span> sigma<span class="sc">: .2f}</span><span class="ss">)'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>(-20.54,  20.44)</code></pre>
+<pre><code>(-20.32,  20.58)</code></pre>
 </div>
 </div>
 <ul>
