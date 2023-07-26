@@ -640,8 +640,8 @@
 <section class="slide level2">
 
 <div class="cell" data-execution_count="2">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>real_sample <span class="op">=</span> get_images_matrix(folder <span class="op">+</span> <span class="st">'realism_train.csv'</span>, folder <span class="op">+</span> <span class="st">'realism'</span>, n <span class="op">=</span> <span class="dv">30</span>, seed <span class="op">=</span> <span class="dv">1976</span>)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>impr_sample <span class="op">=</span> get_images_matrix(folder <span class="op">+</span> <span class="st">'impressionism_train.csv'</span>, folder <span class="op">+</span> <span class="st">'impressionism'</span>, n <span class="op">=</span> <span class="dv">30</span>, seed <span class="op">=</span> <span class="dv">1976</span>)</span>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>real_sample <span class="op">=</span> get_images_matrix(folder <span class="op">+</span> <span class="st">'realism_train.csv'</span>, folder <span class="op">+</span> <span class="st">'realism'</span>, n <span class="op">=</span> <span class="dv">30</span>, seed <span class="op">=</span> <span class="dv">1977</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>impr_sample <span class="op">=</span> get_images_matrix(folder <span class="op">+</span> <span class="st">'impressionism_train.csv'</span>, folder <span class="op">+</span> <span class="st">'impressionism'</span>, n <span class="op">=</span> <span class="dv">30</span>, seed <span class="op">=</span> <span class="dv">1977</span>)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>real_red <span class="op">=</span> real_sample[:, :, :, <span class="dv">0</span>].mean(axis <span class="op">=</span> (<span class="dv">1</span>, <span class="dv">2</span>))</span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>impr_red <span class="op">=</span> impr_sample[:, :, :, <span class="dv">0</span>].mean(axis <span class="op">=</span> (<span class="dv">1</span>, <span class="dv">2</span>))</span>
@@ -649,10 +649,10 @@
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(real_red[:<span class="dv">10</span>])</span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(impr_red[:<span class="dv">10</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[161.3162 147.0798 140.2261 122.5448 191.0334  52.9117  96.4099 110.3566
- 171.9048  78.3864]
-[ 51.7256  99.2127  95.8073 105.3173  81.8901 125.3137 128.208   78.7658
-  81.1359 201.9115]</code></pre>
+<pre><code>[126.2373 144.1572 179.3338 203.9788 191.6487 105.5144  70.1566  99.5667
+ 132.5792 148.0175]
+[125.2964 148.967  151.2754 102.2348 147.8281 119.9497 122.4399 113.5083
+ 144.7585 193.5472]</code></pre>
 </div>
 </div>
 <div class="fragment">
@@ -661,9 +661,9 @@
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Impressionist paintings mean red value: </span><span class="sc">{</span>impr_red<span class="sc">.</span>mean()<span class="sc">:.2f}</span><span class="ss">'</span>)</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Means difference: </span><span class="sc">{</span>impr_red<span class="sc">.</span>mean() <span class="op">-</span> real_red<span class="sc">.</span>mean()<span class="sc">: .2f}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Realist paintings mean red value: 115.47
-Impressionist paintings mean red value: 130.75
-Means difference:  15.28</code></pre>
+<pre><code>Realist paintings mean red value: 124.46
+Impressionist paintings mean red value: 142.46
+Means difference:  18.00</code></pre>
 </div>
 </div>
 </div>
@@ -813,11 +813,11 @@ Means difference:  24.62</code></pre>
 <li>We can sample two random samples of so-called “impressionist” and so-called “realist” paintings to prove to ourselves that the difference between their means should be about zero:</li>
 </ul>
 <div class="cell" data-execution_count="7">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>real_red_null <span class="op">=</span> np.random.choice(population, <span class="dv">30</span>)</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>impr_red_null <span class="op">=</span> np.random.choice(population, <span class="dv">30</span>)</span>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>real_red_null <span class="op">=</span> np.random.choice(population, <span class="dv">30</span>, replace<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>impr_red_null <span class="op">=</span> np.random.choice(population, <span class="dv">30</span>, replace<span class="op">=</span><span class="va">False</span>)</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Means difference: </span><span class="sc">{</span>impr_red_null<span class="sc">.</span>mean() <span class="op">-</span> real_red_null<span class="sc">.</span>mean()<span class="sc">: .2f}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Means difference: -11.28</code></pre>
+<pre><code>Means difference:  4.60</code></pre>
 </div>
 </div>
 <div class="fragment">
@@ -825,16 +825,16 @@ Means difference:  24.62</code></pre>
 <li>We got a mean difference which is different than zero, <em>by random</em>. And again and again:</li>
 </ul>
 <div class="cell" data-execution_count="8">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>real_red_null <span class="op">=</span> np.random.choice(population, <span class="dv">30</span>)</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>impr_red_null <span class="op">=</span> np.random.choice(population, <span class="dv">30</span>)</span>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>real_red_null <span class="op">=</span> np.random.choice(population, <span class="dv">30</span>, replace<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>impr_red_null <span class="op">=</span> np.random.choice(population, <span class="dv">30</span>, replace<span class="op">=</span><span class="va">False</span>)</span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Means difference: </span><span class="sc">{</span>impr_red_null<span class="sc">.</span>mean() <span class="op">-</span> real_red_null<span class="sc">.</span>mean()<span class="sc">: .2f}</span><span class="ss">'</span>)</span>
 <span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>real_red_null <span class="op">=</span> np.random.choice(population, <span class="dv">30</span>)</span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>impr_red_null <span class="op">=</span> np.random.choice(population, <span class="dv">30</span>)</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>real_red_null <span class="op">=</span> np.random.choice(population, <span class="dv">30</span>, replace<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>impr_red_null <span class="op">=</span> np.random.choice(population, <span class="dv">30</span>, replace<span class="op">=</span><span class="va">False</span>)</span>
 <span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Means difference: </span><span class="sc">{</span>impr_red_null<span class="sc">.</span>mean() <span class="op">-</span> real_red_null<span class="sc">.</span>mean()<span class="sc">: .2f}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Means difference: -4.46
-Means difference: -2.19</code></pre>
+<pre><code>Means difference: -10.09
+Means difference:  4.21</code></pre>
 </div>
 </div>
 </div>
@@ -864,8 +864,8 @@ Means difference: -2.19</code></pre>
 <div class="fragment">
 <div class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb14" data-code-line-numbers="|6|"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1"></a><span class="kw">def</span> sample_null_mean_diff(n <span class="op">=</span> <span class="dv">30</span>):</span>
-<span id="cb14-2"><a href="#cb14-2"></a>    real_red_null <span class="op">=</span> np.random.choice(population, n)</span>
-<span id="cb14-3"><a href="#cb14-3"></a>    impr_red_null <span class="op">=</span> np.random.choice(population, n)</span>
+<span id="cb14-2"><a href="#cb14-2"></a>    real_red_null <span class="op">=</span> np.random.choice(population, n, replace<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb14-3"><a href="#cb14-3"></a>    impr_red_null <span class="op">=</span> np.random.choice(population, n, replace<span class="op">=</span><span class="va">False</span>)</span>
 <span id="cb14-4"><a href="#cb14-4"></a>    <span class="cf">return</span> impr_red_null.mean() <span class="op">-</span> real_red_null.mean()</span>
 <span id="cb14-5"><a href="#cb14-5"></a></span>
 <span id="cb14-6"><a href="#cb14-6"></a>null_mean_diffs <span class="op">=</span> np.array([sample_null_mean_diff() <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">10000</span>)])</span>
@@ -873,8 +873,8 @@ Means difference: -2.19</code></pre>
 <span id="cb14-8"><a href="#cb14-8"></a><span class="bu">print</span>(<span class="ss">f'Max null mean diff: </span><span class="sc">{</span><span class="bu">max</span>(null_mean_diffs)<span class="sc">: .2f}</span><span class="ss">'</span>)</span>
 <span id="cb14-9"><a href="#cb14-9"></a><span class="bu">print</span>(<span class="ss">f'Min null mean diff: </span><span class="sc">{</span><span class="bu">min</span>(null_mean_diffs)<span class="sc">: .2f}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Max null mean diff:  36.54
-Min null mean diff: -39.53</code></pre>
+<pre><code>Max null mean diff:  45.17
+Min null mean diff: -41.88</code></pre>
 </div>
 </div>
 </div>
@@ -916,7 +916,7 @@ Min null mean diff: -39.53</code></pre>
 <span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
-<p><img data-src="c07_inferenceA_files/figure-revealjs/cell-11-output-1.png" width="509" height="416"></p>
+<p><img data-src="c07_inferenceA_files/figure-revealjs/cell-11-output-1.png" width="509" height="411"></p>
 </div>
 </div>
 <p>It seems like our original value of 15 points difference is not that extreme. There’s a measure for that:</p>
@@ -949,11 +949,11 @@ Min null mean diff: -39.53</code></pre>
 </div>
 <div class="fragment">
 <div class="cell" data-execution_count="11">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>one_sided_p_value <span class="op">=</span> np.mean(null_mean_diffs <span class="op">&gt;=</span> <span class="dv">15</span>)</span>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>one_sided_p_value <span class="op">=</span> np.mean(null_mean_diffs <span class="op">&gt;=</span> <span class="dv">18</span>)</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'P(mean_diff &gt;= 15 | H0) = </span><span class="sc">{</span>one_sided_p_value<span class="sc">: .2f}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>P(mean_diff &gt;= 15 | H0) =  0.06</code></pre>
+<pre><code>P(mean_diff &gt;= 15 | H0) =  0.04</code></pre>
 </div>
 </div>
 </div>
@@ -996,7 +996,7 @@ Min null mean diff: -39.53</code></pre>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'P(|mean_diff| &gt;= 15 | H0) = </span><span class="sc">{</span>two_sided_p_value<span class="sc">: .2f}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>P(|mean_diff| &gt;= 15 | H0) =  0.13</code></pre>
+<pre><code>P(|mean_diff| &gt;= 15 | H0) =  0.14</code></pre>
 </div>
 </div>
 </div>
@@ -1081,17 +1081,17 @@ Min null mean diff: -39.53</code></pre>
 <div class="cell" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>pd.value_counts(null_res, normalize<span class="op">=</span><span class="va">True</span>).sort_index()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="14">
-<pre><code>0     0.0009
-1     0.0094
-2     0.0425
-3     0.1233
-4     0.2063
-5     0.2440
-6     0.2017
-7     0.1170
-8     0.0442
-9     0.0103
-10    0.0004
+<pre><code>0     0.0008
+1     0.0107
+2     0.0464
+3     0.1201
+4     0.1977
+5     0.2481
+6     0.1995
+7     0.1212
+8     0.0454
+9     0.0088
+10    0.0013
 dtype: float64</code></pre>
 </div>
 </div>
@@ -1137,8 +1137,8 @@ dtype: float64</code></pre>
 <span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>two_sided_p_value <span class="op">=</span> np.mean(null_res <span class="op">&gt;=</span> <span class="dv">8</span>) <span class="op">+</span> np.mean(null_res<span class="op">&lt;=</span><span class="dv">2</span>)</span>
 <span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'P(heads&gt;=8 or heads&lt;=2 | H0) = </span><span class="sc">{</span>two_sided_p_value<span class="sc">: .3f}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>P(heads &gt;= 8 | H0) =  0.055
-P(heads&gt;=8 or heads&lt;=2 | H0) =  0.108</code></pre>
+<pre><code>P(heads &gt;= 8 | H0) =  0.056
+P(heads&gt;=8 or heads&lt;=2 | H0) =  0.113</code></pre>
 </div>
 </div>
 </div>
@@ -1383,7 +1383,7 @@ P(heads&gt;=8 or heads&lt;=2 | H0) =  0.108</code></pre>
 <div class="cell" data-execution_count="17">
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'C (above which 1% of null distribution) = </span><span class="sc">{</span>np<span class="sc">.</span>quantile(null_mean_diffs, <span class="fl">0.99</span>)<span class="sc">: .2f}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>C (above which 1% of null distribution) =  23.38</code></pre>
+<pre><code>C (above which 1% of null distribution) =  23.67</code></pre>
 </div>
 </div>
 <p>We got 15 points difference, so.</p>

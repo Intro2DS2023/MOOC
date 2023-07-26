@@ -504,8 +504,8 @@
 </ul>
 <div class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb1" data-code-line-numbers="|1-4|6|"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">def</span> sample_null_mean_diff(n <span class="op">=</span> <span class="dv">30</span>):</span>
-<span id="cb1-2"><a href="#cb1-2"></a>    real_red_null <span class="op">=</span> np.random.choice(population, n)</span>
-<span id="cb1-3"><a href="#cb1-3"></a>    impr_red_null <span class="op">=</span> np.random.choice(population, n)</span>
+<span id="cb1-2"><a href="#cb1-2"></a>    real_red_null <span class="op">=</span> np.random.choice(population, n, replace<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb1-3"><a href="#cb1-3"></a>    impr_red_null <span class="op">=</span> np.random.choice(population, n, replace<span class="op">=</span><span class="va">False</span>)</span>
 <span id="cb1-4"><a href="#cb1-4"></a>    <span class="cf">return</span> impr_red_null.mean() <span class="op">-</span> real_red_null.mean()</span>
 <span id="cb1-5"><a href="#cb1-5"></a></span>
 <span id="cb1-6"><a href="#cb1-6"></a>null_mean_diffs <span class="op">=</span> np.array([sample_null_mean_diff() <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">10000</span>)])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -710,8 +710,8 @@
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Mean of mean differences: </span><span class="sc">{</span>mu<span class="sc">: .2f}</span><span class="ss">'</span>)</span>
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'SD of mean differences: </span><span class="sc">{</span>sigma<span class="sc">: .2f}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Mean of mean differences: -0.16
-SD of mean differences:  10.13</code></pre>
+<pre><code>Mean of mean differences: -0.01
+SD of mean differences:  10.11</code></pre>
 </div>
 </div>
 <ul>
@@ -769,7 +769,7 @@ SD of mean differences:  10.13</code></pre>
 <div class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'(</span><span class="sc">{</span>mu <span class="op">-</span> <span class="dv">2</span> <span class="op">*</span> sigma<span class="sc">: .2f}</span><span class="ss">, </span><span class="sc">{</span>mu <span class="op">+</span> <span class="dv">2</span> <span class="op">*</span> sigma<span class="sc">: .2f}</span><span class="ss">)'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>(-20.43,  20.11)</code></pre>
+<pre><code>(-20.24,  20.22)</code></pre>
 </div>
 </div>
 <ul>
@@ -1712,8 +1712,8 @@ P(mean_diff &gt;= 15 | H0) =  0.086</code></pre>
 <div class="fragment">
 <div class="cell" data-execution_count="20">
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> random_sample_t_test(alpha, n):</span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>    real_red_sample <span class="op">=</span> np.random.choice(real_red_all, n)</span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>    impr_red_sample <span class="op">=</span> np.random.choice(impr_red_all, n)</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>    real_red_sample <span class="op">=</span> np.random.choice(real_red_all, n, replace<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>    impr_red_sample <span class="op">=</span> np.random.choice(impr_red_all, n, replace<span class="op">=</span><span class="va">False</span>)</span>
 <span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>    t_test <span class="op">=</span> stats.ttest_ind(impr_red_sample, real_red_sample, alternative<span class="op">=</span><span class="st">'greater'</span>)</span>
 <span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> (impr_red_sample.mean() <span class="op">&gt;</span> real_red_sample.mean() <span class="kw">and</span> t_test[<span class="dv">1</span>] <span class="op">&lt;</span> alpha)</span>
 <span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a></span>
@@ -1725,7 +1725,7 @@ P(mean_diff &gt;= 15 | H0) =  0.086</code></pre>
 <span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Power = P(reject H0 | H1 ) = </span><span class="sc">{</span>np<span class="sc">.</span>mean(rejections)<span class="sc">: .2f}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Power = P(reject H0 | H1 ) =  0.45</code></pre>
+<pre><code>Power = P(reject H0 | H1 ) =  0.46</code></pre>
 </div>
 </div>
 </div>

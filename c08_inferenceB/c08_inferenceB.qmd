@@ -157,8 +157,8 @@ impr_red = impr_sample[:, :, :, 0].mean(axis = (1, 2))
 ```{python}
 #| code-line-numbers: "|1-4|6|"
 def sample_null_mean_diff(n = 30):
-    real_red_null = np.random.choice(population, n)
-    impr_red_null = np.random.choice(population, n)
+    real_red_null = np.random.choice(population, n, replace=False)
+    impr_red_null = np.random.choice(population, n, replace=False)
     return impr_red_null.mean() - real_red_null.mean()
 
 null_mean_diffs = np.array([sample_null_mean_diff() for i in range(10000)])
@@ -973,8 +973,8 @@ Let's simulate before we compute. We have the "population", we can just take man
 ::: {.fragment}
 ```{python}
 def random_sample_t_test(alpha, n):
-    real_red_sample = np.random.choice(real_red_all, n)
-    impr_red_sample = np.random.choice(impr_red_all, n)
+    real_red_sample = np.random.choice(real_red_all, n, replace=False)
+    impr_red_sample = np.random.choice(impr_red_all, n, replace=False)
     t_test = stats.ttest_ind(impr_red_sample, real_red_sample, alternative='greater')
     return (impr_red_sample.mean() > real_red_sample.mean() and t_test[1] < alpha)
 

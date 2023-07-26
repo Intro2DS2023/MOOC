@@ -242,8 +242,8 @@ folder = 'C:/Users/gsimchoni/Downloads/wikiart2/wikiart/'
 ```
 
 ```{python}
-real_sample = get_images_matrix(folder + 'realism_train.csv', folder + 'realism', n = 30, seed = 1976)
-impr_sample = get_images_matrix(folder + 'impressionism_train.csv', folder + 'impressionism', n = 30, seed = 1976)
+real_sample = get_images_matrix(folder + 'realism_train.csv', folder + 'realism', n = 30, seed = 1977)
+impr_sample = get_images_matrix(folder + 'impressionism_train.csv', folder + 'impressionism', n = 30, seed = 1977)
 
 real_red = real_sample[:, :, :, 0].mean(axis = (1, 2))
 impr_red = impr_sample[:, :, :, 0].mean(axis = (1, 2))
@@ -351,8 +351,8 @@ plt.show()
 - We can sample two random samples of so-called "impressionist" and so-called "realist" paintings to prove to ourselves that the difference between their means should be about zero:
 
 ```{python}
-real_red_null = np.random.choice(population, 30)
-impr_red_null = np.random.choice(population, 30)
+real_red_null = np.random.choice(population, 30, replace=False)
+impr_red_null = np.random.choice(population, 30, replace=False)
 print(f'Means difference: {impr_red_null.mean() - real_red_null.mean(): .2f}')
 ```
 
@@ -360,12 +360,12 @@ print(f'Means difference: {impr_red_null.mean() - real_red_null.mean(): .2f}')
 - We got a mean difference which is different than zero, *by random*. And again and again:
 
 ```{python}
-real_red_null = np.random.choice(population, 30)
-impr_red_null = np.random.choice(population, 30)
+real_red_null = np.random.choice(population, 30, replace=False)
+impr_red_null = np.random.choice(population, 30, replace=False)
 print(f'Means difference: {impr_red_null.mean() - real_red_null.mean(): .2f}')
 
-real_red_null = np.random.choice(population, 30)
-impr_red_null = np.random.choice(population, 30)
+real_red_null = np.random.choice(population, 30, replace=False)
+impr_red_null = np.random.choice(population, 30, replace=False)
 print(f'Means difference: {impr_red_null.mean() - real_red_null.mean(): .2f}')
 ```
 
@@ -389,8 +389,8 @@ print(f'Means difference: {impr_red_null.mean() - real_red_null.mean(): .2f}')
 #| code-line-numbers: "|6|"
 
 def sample_null_mean_diff(n = 30):
-    real_red_null = np.random.choice(population, n)
-    impr_red_null = np.random.choice(population, n)
+    real_red_null = np.random.choice(population, n, replace=False)
+    impr_red_null = np.random.choice(population, n, replace=False)
     return impr_red_null.mean() - real_red_null.mean()
 
 null_mean_diffs = np.array([sample_null_mean_diff() for i in range(10000)])
@@ -446,7 +446,7 @@ It seems like our original value of 15 points difference is not that extreme. Th
 
 ::: {.fragment}
 ```{python}
-one_sided_p_value = np.mean(null_mean_diffs >= 15)
+one_sided_p_value = np.mean(null_mean_diffs >= 18)
 
 print(f'P(mean_diff >= 15 | H0) = {one_sided_p_value: .2f}')
 ```
