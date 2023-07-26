@@ -1,0 +1,1196 @@
+---
+format:
+  revealjs:
+    slide-number: true
+    chalkboard: true
+    fig-width: 6
+    fig-asp: 0.618
+    template-partials:
+      - "../title-slide.html"
+css: "../slides_quarto.css"
+standalone: false
+include-in-header: "../header_quarto.html"
+logo: "../Intro2DS_logo_white.jpg"
+pagetitle: "Linear and Logistic Regression"
+callout-appearance: simple
+smaller: true
+execute:
+  eval: true
+  echo: true
+code-line-numbers: false
+code-block-border-left: true
+highlight-style: github
+footer: "[Intro to Data Science](https://intro2ds2023.github.io/mooc/){target='_blank'}"
+---
+
+## {.logo-slide}
+
+## Introduction to Data Science {.title-slide}
+
+### Linear and Logistic Regression - Class 9
+
+### Giora Simchoni
+
+#### `gsimchoni@gmail.com` and add `#intro2ds` in subject
+
+### Stat. and OR Department, TAU
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+## Intro. to Predictive Modeling {.title-slide}
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### Predictive modeling and Supervised learning
+
+- Basic idea: each observation is made of a vector $x \in \mathcal{X}$ (for example $x \in \mathbb{R}^p$) and a scalar $y$
+
+- Our goal is to build a model of the relationship between $x$ and $y$:
+$$y \approx f(x)$$
+
+::: {.fragment}
+    - $x$: predictors, regressors, features, exogenous variables
+    - $y$: response, dependent variable, endogenous variable
+:::
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### Predictive modeling and Supervised learning
+
+Two distinct goals for this:
+
+1. Prediction: in the future we will get $x$ and have to *predict* $\hat{y} = f(x)$
+
+2. Inference/understanding/model selection: Understanding the nature of the dependence between $x$ and $y$:
+
+    - Which variables in $x$ are important for explaining or predicting $y$?
+    - What type of dependence does $y$ have on $x$: linear? more complex?
+
+::: {.fragment}
+- Regression: $y \in \mathbb{R}$ numeric
+
+- Classification: $y \in \mathcal{G}$ an unordered set
+:::
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### Wikiart paintings: a classification problem
+
+$x \in \mathbb{R}^{K \times K \times 3}$: the image itself
+
+$y \in \{\text{impressionist}, \text{realist}\}$
+
+::: {.incremental}
+- More involved example: [Cifar-10](https://www.cs.toronto.edu/~kriz/cifar.html) with 10 classes
+
+- A good model: $f(x)$ such that $f(x) \approx 1$ for impressionist and $f(x)\approx 0$ for realist
+
+- Possible $f$: threshold the average red value for all pixels
+- Does not do a very good job in separating impressionist from realist paintings...
+:::
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### Netflix movies: a regression problem (sort of)
+
+- Recall we had $x \in \mathbb{R}^{99}$ movies, plus one special (Miss Congeniality) that we will call $y$
+
+    - All $x$ values are not really in $\mathbb{R}$ but in $\{0 = \text{None},1,2,3,4,5\}$
+    - $y$ is in $\{1,2,3,4,5\}$ (no missing)
+
+- A good model $f(x)$ sees the scores a user gave to the 99 movies (including which are missing) and gives a value that is close to $y$ for the same user
+
+---
+
+### Some more examples from real life
+
+::: {.fragment}
+#### Genome-Wide Association Studies (GWAS): find genetic causes of disease
+
+- $y \in \{\text{sick}, \text{healthy}\}$ for specific disease
+- $x \in \{0,1,2\}^{1M}$ ($p=10^6$) number of copies of "risk" variant in each location in the genome
+- The goal is to understand which coordinates in $x$ are related to $y$, and predict risk of $y$ for new people
+:::
+
+::: {.fragment}
+#### Email spam detection:
+
+- $y \in \{\text{OK}, \text{spam}\}$ for each email
+- $x$ can include sender identity, words and terms ("prize!", "sex", ...)
+- The model should identify and remove spam
+:::
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### Some more examples from real life
+
+::: {.fragment}
+#### Online advertising:
+
+- Surfer arrives on website, need to decide if and what add to show them
+- $y$ can be the amount she will spend if shown advertising for shirt/shoes/car/home 
+- $x$: surfing history, location, time of day/week/year, information from other databases, ...
+:::
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### Some simple models for Netflix
+
+The same score as a similar movie, say Sweet Home Alabama:
+
+```{python}
+#| echo: false
+
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from scipy.stats import pearsonr
+import warnings
+
+ratings = pd.read_csv('../datasets/netflix/train_ratings_all.csv', header = None)
+miss_cong = pd.read_csv('../datasets/netflix/train_y_rating.csv', header = None, names = ['score'])
+movies = pd.read_csv('../datasets/netflix/movie_titles.csv', header = None, names = ['year', 'title'])
+
+def scatter_cong(mov1):
+    mov1_id = movies.index[movies['title'] == mov1][0]
+    mov1_scores = ratings.values[:, mov1_id]
+    mov2_scores = miss_cong.values[:, 0]
+    nas = np.isnan(mov1_scores)
+    agg_data = pd.DataFrame({'mov1': mov1_scores[~nas], 'mov2': mov2_scores[~nas]}).groupby(['mov1', 'mov2']).size().reset_index()
+    agg_data.columns = [mov1, 'Miss Congeniality', 'count']
+    cc = agg_data['count']
+    sns.lmplot(x=mov1, y='Miss Congeniality', scatter_kws={'s' : cc}, data = agg_data, legend = False, fit_reg=False, ci=None, height=4.5)
+    plt.title(f'Corr {np.corrcoef(ratings.values[:, mov1_id],miss_cong.values[:,0])[0, 1] : .2f}')
+```
+
+
+```{python}
+scatter_cong('Sweet Home Alabama')
+```
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### Some simple models for Netflix
+
+The first PC score (those who love everything, love Miss Congeniality?):
+
+
+```{python}
+#| code-fold: true
+
+from sklearn.decomposition import PCA
+
+X = ratings.values[:,:14]
+X_centered = X - X.mean(axis = 0)
+pca = PCA()
+pca.fit(X_centered)
+W = pca.components_.T
+T = X_centered @ W
+
+add_data_1=pd.DataFrame({'PC1': T[:,0], 'Miss Congeniality':miss_cong.values[:,0]})
+sns.lmplot(x='PC1', y='Miss Congeniality', data=add_data_1, legend = False, fit_reg=False, ci=None)
+plt.title(f'Corr {np.corrcoef(T[:,0],miss_cong.values[:,0])[0,1] :.2f}')
+plt.show()
+```
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### Predictive modeling paradigm
+
+- We typically assume that we have a *training* dataset of size $n$: $Tr = \{(x_1,y_1),\dots,(x_n,y_n)\} = (X_{n\times p},Y_{n\times 1})$
+
+- IID assumption: each pair $(x_i, y_i)$ is drawn indepednently from some distribution $P_{x,y}$
+
+::: {.incremental}
+- A modeling approach takes $Tr$ as input and outputs a *prediction model* $\hat{f}(x)$ based on the training data
+    - In prediction: we get a new value $x_0$ and predict $\hat{y}_0 = \hat{f}(x_0)$. 
+
+- How good is our prediction? We typically define a loss function $L(y,\hat{y})$ and the quality of the model is $\mathbb{E}_{x_0,y_0}(L(y_0, \hat{y}_0))$
+:::
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### The loss function $L$
+
+::: {.incremental}
+- It measures the quality of the prediction: we can think of $L(y,\hat{y})$ as a measure of how much we lose when we predict $\hat{y}$ but the truth is $y$.
+
+- Simple example for classification: *misclassification error loss*
+$$L(y,\hat{y}) = \left\{\begin{array}{ll} 0 & \mbox{if } y=\hat{y}\\ 
+1 & \mbox{if } y\neq\hat{y}\end{array} \right.$$
+
+- More complex approach: penalize different types of error differently, e.g.: 
+$$L(y,\hat{y}) = \left\{\begin{array}{ll} 0 & \mbox{if } y=\hat{y}\\ 
+1 & \mbox{if } y=0,\hat{y}=1\\
+10 & \mbox{if } y=1,\hat{y}=0 \end{array} \right.$$
+
+
+- Simple example for regression: *squared error loss*
+$$L(y,\hat{y}) = (y-\hat{y})^2.$$
+:::
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### Evaluating predictive models
+
+::: {.incremental}
+- We are interested in $\mathbb{E}_{x_0,y_0}(L(y_0, \hat{y}_0))$, but we don't know it
+
+- Solution: in addition to the training data $Tr$, have a *test* data $Te= \{(x_{n+1},y_{n+1}),...,(x_{n+m},y_{n+m})\}$ of size $m$ and evaluate the model on it: $\;\;\hat{Err} = \frac{1}{m} \sum_{i=n+1}^{n+m} L(y_i, \hat{f}(x_i)).$
+
+- For squared error loss, it is typical to report the *Root* mean squared error: 
+$$RMSE = \sqrt{\frac{1}{m} \sum_{i=n+1}^{n+m} (y_i-\hat{f}(x_i))^2}$$
+
+- Since we typically only have one dataset (as in Netflix, wikiart examples), we split it *randomly* in two parts:
+    - Training set (typically $80\%$ of the data)
+    - Test set (typically $20\%$ of the data)
+
+:::
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### Data Splitting
+
+Let's divide our Netflix data 80-20:
+
+```{python}
+#| code-line-numbers: "|1-2|3-6|7-10|"
+
+X = ratings.values
+Y = miss_cong.values[:, 0]
+n = X.shape[0]
+tr_size = int(0.8 * n)
+te_size = n - tr_size
+tr_ind = np.random.choice(range(n), tr_size, replace=False)
+Xtr = X[tr_ind,]
+Xte = np.delete(X, tr_ind, axis=0)
+Ytr = Y[tr_ind]
+Yte = np.delete(Y, tr_ind)
+
+print(f'No. of train rows: {Xtr.shape[0]}, no. train of cols: {Xtr.shape[1]}')
+print(f'No. of test rows: {Xte.shape[0]}, no. test of cols: {Xte.shape[1]}')
+print(f'no. of obs in train y: {Ytr.shape[0]}')
+print(f'no. of obs in test y: {Yte.shape[0]}')
+```
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+## Linear Regression {.title-slide}
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### Linear Regression
+
+::: {.incremental}
+- Assume now $x \in \mathbb{R}^p, y\in \mathbb{R}$, and we want to build a model of the form:
+$$\hat{f}(x) = \hat{\beta}_0 + \hat{\beta}_1 x_1 + \ldots + \hat{\beta}_p x_p.$$
+
+- We have $Tr$, how can we estimate the coefficients?
+
+- Find coefficients that ''fit" $Tr$ well, that is $\hat{f}(x_i) \approx y_i,\;i=1,\ldots,n.$
+
+- Possible approach: Minmize *residual sum of squares* (RSS):
+$$RSS(\beta_0, \beta_1, \dots, \beta_p) = \sum_{i=1}^n (y_i - (\hat{\beta}_0 + \hat{\beta}_1 x_{i1} + \ldots + \hat{\beta}_p x_{ip}))^2 = \|Y - X_{n \times (p+1)} \beta\|^2.$$
+
+- This is the *ordinary least squares (OLS) linear regression* problem
+:::
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### Simple Demo: $p=1$ on Netflix Data
+
+Let's go back to $y$ = Miss Congeniality vs. $x_1$ = Sweet Home Alabama:
+
+The `statsmodels` approach:
+
+```{python}
+#| code-line-numbers: "|1-2|4|6|7|8|"
+#| output-location: fragment
+
+sweet_home_idx = 9
+X_sweet_tr = Xtr[:, [sweet_home_idx]]
+
+import statsmodels.api as sm
+
+X_sweet_tr1 = sm.add_constant(X_sweet_tr)
+model = sm.OLS(Ytr, X_sweet_tr1)
+model = model.fit()
+print(f'y = {model.params[0]:.2f} + {model.params[1]:.2f}*x1')
+```
+
+::: {.fragment}
+
+The `SKlearn` approach:
+
+```{python}
+#| code-line-numbers: "|1|3|4|"
+#| output-location: fragment
+
+from sklearn.linear_model import LinearRegression
+
+model = LinearRegression()
+model.fit(X_sweet_tr, Ytr)
+print(f'y = {model.intercept_:.2f} + {model.coef_[0]:.2f}*x1')
+```
+:::
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+The model is a simple straight line:
+
+```{python}
+#| code-line-numbers: "|1-2|4-5|"
+#| output-location: fragment
+
+pred_x = np.arange(1, 6).reshape((5, 1))
+y_hat = model.predict(pred_x)
+
+scatter_cong('Sweet Home Alabama')
+plt.plot(pred_x, y_hat, color = 'r')
+plt.show()
+```
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### Evaluating on the test data
+
+```{python}
+#| code-line-numbers: "|2-3|5|6|"
+
+# this is the sklearn approach, no need to add constant
+X_sweet_te = Xte[:, [sweet_home_idx]]
+y_hat_te = model.predict(X_sweet_te)
+
+test_RMSE_null = np.sqrt(np.mean((Yte-np.mean(Ytr))**2))
+test_RMSE_1movie = np.sqrt(np.mean((Yte-y_hat_te)**2))
+
+print(f'Test RMSE predicting the mean: {test_RMSE_null: .2f}')
+print(f'Test RMSE with Sweet Home Alabama: {test_RMSE_1movie: .2f}')
+```
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### Simple Demo: $p = 14$ on Netflix Data
+
+```{python}
+#| output-location: fragment
+
+Xtr_df = pd.DataFrame(Xtr[:, :14], columns=movies['title'][:14])
+Xtr_df1 = sm.add_constant(Xtr_df)
+
+model = sm.OLS(Ytr, Xtr_df1)
+model = model.fit()
+print(model.summary())
+```
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+
+```{python}
+#| output-location: fragment
+
+# this is the statsmodels approach, need to add constant
+Xte1 = sm.add_constant(Xte[:, :14])
+y_hat_te = model.predict(Xte1)
+
+test_RMSE_14movies = np.sqrt(np.mean((Yte - y_hat_te)**2))
+
+print(f'Test RMSE with the mean: {test_RMSE_null: .2f}')
+print(f'Test RMSE with Sweet Home Alabama: {test_RMSE_1movie: .2f}')
+print(f'Test RMSE with 14 movies: {test_RMSE_14movies: .2f}')
+```
+
+:::{.fragment}
+What is the model now?
+:::
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### Even more adventurous: use all 99 movies
+
+What to do about missing? Let's keep as 0 for now (did not rate = hate...)
+
+**Dealing with missing values is an important topic, that we won't cover here**
+
+```{python}
+#| code-line-numbers: "|1,6|"
+#| output-location: fragment
+
+Xtr[np.isnan(Xtr)] = 0
+Xtr1 = sm.add_constant(Xtr)
+model = sm.OLS(Ytr, Xtr1)
+model = model.fit()
+
+Xte[np.isnan(Xte)]=0
+Xte1 = sm.add_constant(Xte)
+y_hat_te = model.predict(Xte1)
+
+test_RMSE_99movies = np.sqrt(np.mean((Yte - y_hat_te)**2))
+
+print(f'Test RMSE with the mean: {test_RMSE_null: .2f}')
+print(f'Test RMSE with Sweet Home Alabama: {test_RMSE_1movie: .2f}')
+print(f'Test RMSE with 14 movies: {test_RMSE_14movies: .2f}')
+print(f'Test RMSE with 99 movies: {test_RMSE_99movies: .2f}')
+```
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+## Linear Regression - Fitting the Model {.title-slide}
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### Least squares regression: fitting the model
+
+- Let's start from the simple case $p=1$: one feature (Sweet Home Alabama) + constant/intercept
+
+- Finding the coefficients: 
+$$\min_{\beta_0,\beta_1} \sum_{i=1}^n (y_i - (\beta_0+\beta_1 x_i))^2$$
+
+::: {.fragment}
+- Solution (we won't prove here): 
+$$\hat{\beta}_1 = \frac{\sum_i (x_i - \bar{x})(y_i - \bar{y})}{\sum_i (x_i - \bar{x})^2} = \frac{\widehat{Cov(X,Y)}}{\widehat{Var(X)}},\;\;\;\;\hat{\beta}_0 = \bar{y} - \hat{\beta}_1 \bar{x}$$
+:::
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### General algebric solution for any $p$
+
+- Write our problem in matrix-vector notation (now $\beta \in \mathbb{R}^{p+1}$ is vector of coefficients): 
+$$\min_{\beta} RSS(\beta) = \min_{\beta} \|Y- X\beta\|^2$$
+
+::: {.incremental}
+- This is a quardratic function of $\beta$, find minimizer by differentiating and equating to zero. Normal equations:
+$$-2X^T (Y-X\beta) = 0$$
+
+- This looks scary, but it simply means:
+$$\frac{\partial RSS(\beta)}{\partial \beta_j}=\sum_{i=1}^n x_{ij} \left(y_i- (\beta_0 + \sum_{k=1}^p x_{ik} \beta_k)\right) = 0,\;\;j=0,\ldots,p$$
+:::
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+- The problem: 
+$$-2X^T (Y-X\beta) = 0$$
+
+- The solution: 
+$$X^TX\beta = X^T Y \;\;\Rightarrow\;\; \hat{\beta} = (X^TX)^{-1} X^T Y.$$ 
+(the second derivative matrix is positive definite $\Rightarrow$ minimum)
+
+::: {.fragment}
+- For $p=1$ we would recover back exactly the formulas from before
+:::
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### A geometric view
+
+- The columns of the matrix $X_{n\times (p+1)}$ are vectors $X^c_0, \dots, X^c_p \in \mathbb{R}^n.$<br>Each feature in $Tr$ is such a vector.
+
+- The response vector in $Tr$ is $Y_{n \times 1}$, which is also a vector in  $\mathbb{R}^n$.
+
+::: {.incremental}
+- $X\beta = X^c_0 \beta_0 + \dots +X^c_p \beta_p$ is a linear combination of the columns.
+
+- Hence, in $\min_\beta \| Y-X\beta\|^2$ we are seeking a linear combination of the columns which is closest to $Y$ in $\text{Span}(X^c_0, \dots ,X^c_p)$.
+:::
+::: {.fragment}
+$\Rightarrow$ OLS is an *orthogonal projection* of $Y$ on the column space of $X$
+:::
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+## Linear Regression - Statistical Perspective {.title-slide}
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### A statistical model for inference 
+
+- So far we did not assume any specific *true* relationship between $y$ and $x$
+
+::: {.incremental}
+- Let us now *assume* the following model: 
+$$y = \beta_0 + \beta_1 x_1 + \ldots + \beta_p x_p + \epsilon,\;\;\epsilon \sim N(0,\sigma^2)$$
+    
+1. $E(y|x) = x^T\beta$ is a linear function of $x$
+2. The error $(y-E(y|x))$ has a normal distribution and is independent for each observation
+
+- If this assumption holds, we can investigate the distribution of $\hat{\beta}$ and use that to do inference on the model
+:::
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+#### Distribution of the OLS solution under the model assumptions
+
+::: {.incremental}
+- What we know: 
+$$(a)\; E(Y) = X\beta,\;\;\;\; (b)\; Cov(Y) = \sigma^2 I_n ,\;\;\;\;(c)\; \hat{\beta} = (X^TX)^{-1} X^T Y$$
+
+- Mean: 
+$$E(\hat{\beta}) \stackrel{(c)}{=} (X^TX)^{-1} X^T E(Y) \stackrel{(a)}{=} (X^TX)^{-1} X^T X\beta = \beta.$$
+
+- Covariance matrix: 
+$$Cov(\hat{\beta}) \stackrel{(c)}{=} (X^TX)^{-1} X^T Cov(Y) X (X^TX)^{-1} \stackrel{(b)}{=} \sigma^2 (X^TX)^{-1} (X^T X) (X^TX)^{-1} = \sigma^2 (X^TX)^{-1}.$$
+:::
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### Statistical inference
+
+::: {.incremental}
+- From the previous formulas we conclude: $\hat{\beta}_j \sim N(\beta_j, \sigma^2 (X^TX)^{-1}_{j,j}).$
+
+- Recall that our second goal (beyond prediction) was *inference*: which variables are important?  
+
+- Now we can formalize this as a hypothesis test: for each variable $j$, test the null $H_{0j}: \beta_j = 0.$
+
+- If $H_{0j}$ holds, then $\hat{\beta}_j \sim N(0, \sigma^2 (X^TX)^{-1}_{j,j}).$
+
+- Assuming $\sigma^2$ is known, this leads to a simple $Z$-test as we studied
+
+- Since $\sigma^2$ is not known, we need to estimate it and get a T-test instead (details omitted). 
+:::
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+#### Back to the 14-movies model, now with the inference:
+
+```{python}
+#| echo: false
+Xtr_df = pd.DataFrame(Xtr[:, :14], columns=movies['title'][:14])
+Xtr_df1 = sm.add_constant(Xtr_df)
+
+model = sm.OLS(Ytr, Xtr_df1)
+model = model.fit()
+```
+```{python}
+print(model.summary())
+```
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### OLS regression summary
+
+- Minimize RSS on $Tr$ to find the "best" linear fit for $Y$ as a function of $X$
+
+- Algebraic solution, geometric interpretation: projection
+
+- Under the assumed statistical model (strong assumptions!) can do inference on which variables are important
+
+- The most important tool in the statistical/predictive modeling toolbox!
+
+- Learn more: Statistical Models course in Statistics
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### Comment I: OLS Interpretation
+
+- As we just saw, under the statistical model, $E\hat{\beta} = \beta \;\Rightarrow\; E(\hat{y}|x) = x^T E (\hat{\beta}) =  x^T \beta = E(y|x).$  
+
+- Even when the model doesn't hold, the use of RSS / squared error loss implies estimation of conditional expectation (details omitted)
+
+- Hence an interpretation of the OLS prediction is an *attempt* to estimate the conditional expectation $E(y|x)$
+
+- This conditional expectation is clearly interesting: it summarizes what we learned about $y$ from seeing $x$
+
+- The attempt may not be successful, if the model is not so good (more on that later), but at least we know what we are trying to predict!
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### Comment II: OLS via Likelihood
+
+- Recall the assumed model:
+$$y = \beta_0 + \beta_1 x_1 + \ldots + \beta_p x_p + \epsilon,\;\;\epsilon \sim N(0,\sigma^2)$$
+
+- An alternative criterion to *maximize* in order to get $\hat{\beta}$: the Likelihood of the data
+$$L(\beta|X, y) = \prod_{i = 1}^n{f(y_i|X;\beta)}$$
+
+- The $f$ being the Normal distribution density
+
+- This can be shown to give the exact same solution to $\hat{\beta}$!
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+## Logistic Regression {.title-slide}
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### What about classification?
+
+- We will focus on the simplest (and most important) case of two-class classification: 
+    - Impressionist vs. realist
+    - Sick vs healthy
+    - Buy vs don't buy
+
+- As before, we have $Tr = (X,Y)$ of size $n$, $Te$ of size $m$. 
+
+- For now, keep assuming $x \in \mathbb{R}^p$ is numeric as in the wikiart paintings example
+
+::: {.fragment}
+- Can we use the OLS mechanism we have built to build a classification model? 
+:::
+
+::: {.fragment}
+- For sure we can, if we encode $y=\text{impressionist} \Rightarrow y=1,\;\;y=\text{realist} \Rightarrow y=0$, we have numeric $y$
+:::
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### What is wrong with using OLS for classification? 
+
+- If we encode $y$ as above what is $E(y|x)$? It is $P(y=\text{impressionist}|\;\text{image})$ --- a clearly interesting quantity
+
+::: {.fragment}
+- Problem: as a probability, $0\leq P(y=\text{impressionist}|\;\text{image}) \leq 1.$ But model predictions $x^T\hat{\beta}$ can fall outside the legal range!
+
+- Another problem: can we make the model assumptions of normal $\epsilon$? No --- because $y$ can only be $0$ or $1$
+:::
+
+::: {.fragment}
+- The idea: try to create an approach that is similar to OLS, but more fitting for classification, taking into account the limited range of values and the need for a sensible statistical model
+:::
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### Logistic regression
+
+- Deals with the two problems above
+
+- We start from assuming a model: 
+$$\log\frac{P(y=1|x)}{P(y=0|x)} = x^T\beta$$
+
+- Notice that now all values are legal: 
+$$ 0\leq P(y=1|x) \leq 1 \;\; \Leftrightarrow\;\; -\infty \leq \log\frac{P(y=1|x)}{P(y=0|x)} \leq \infty.$$
+
+::: {.fragment}
+- Another way of writing this: 
+$$P(y=1|x) = \frac{\exp(x^T\beta)}{1+\exp(x^T\beta)} \quad\quad P(y=0|x) = 1- P(y=1|x) = \frac{1}{1+\exp(x^T\beta)}$$
+:::
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### Fitting a logistic regression
+
+- Given training data $Tr$, we want to find the best coefficients $\hat{\beta}$
+
+- This is done by maximum likelihood, finding $\beta$ to maximize:
+$$L(\beta|X, y) = \prod_{i = 1}^n{P(y_i|x_i;\beta)} = \prod_{i = 1}^n{P(y_i = 1|x_i;\beta)^{y_i}P(y_i = 0|x_i;\beta)^{1-y_i}}$$
+
+::: {.fragment}
+$$\max_\beta \prod_{i=1}^n  \left(\frac{\exp(x_i^T\beta)}{1+\exp(x_i^T\beta)}\right)^{y_i} \left(\frac{1}{1+\exp(x_i^T\beta)}\right)^{1-y_i}$$
+:::
+::: {.incremental}
+- The solution is $\hat{\beta}$, the logistic regression coefficients estimates
+
+- Predicting on $x \in Te$:
+$$\widehat{P(y=1|x)} = \frac{\exp(x^T\hat{\beta})}{1+\exp(x^T\hat{\beta})}\;\; \Rightarrow\;\; \hat{y} = \begin{cases} 1 & \mbox{if} \widehat{P(y=1|x)}> 0.5 \\
+0 & \mbox{otherwise}\end{cases}$$
+:::
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### Interpretation of coefficients
+
+- We can write our model as: 
+$$\log\frac{P(y=1|x)}{P(y=0|x)} = x^T\beta$$
+
+- The expression on the left is called the *log odds*: log of the ratio of positive vs negative probability
+
+- Interpretation: ${\beta}_j$ is the change in the log odds from a change of 1 unit in $x_j$. 
+
+::: {.incremental}
+- For example, if ${\beta}_j=1$ then when $x_j=1$ vs $x_j=0$ the log odds increase by $1$, so the odds increase times $e=2.72$, which is roughly the increase in ${P(y=1|x)}$ when it is close to $0$. 
+
+- When estimating from $Tr$: add hats over all quantities and remember these are only estimates!
+:::
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### Example: South African Hearth Disease Data
+
+```{python}
+saheart = pd.read_table("../datasets/SAheart.data", header = 0, sep=',', index_col=0)
+
+print(saheart.describe())
+```
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### SAHeart: Data Splitting with `SKlearn`
+
+```{python}
+#| code-line-numbers: "|4-6|"
+saheart_X=pd.get_dummies(saheart.iloc[:, :9]).iloc[:, :9]
+saheart_y=saheart.iloc[:, 9]
+
+from sklearn.model_selection import train_test_split
+
+Xtr, Xte, Ytr, Yte = train_test_split(saheart_X, saheart_y, test_size=0.2, random_state=42)
+
+print(f'No. of train rows: {Xtr.shape[0]}, no. train of cols: {Xtr.shape[1]}')
+print(f'No. of test rows: {Xte.shape[0]}, no. test of cols: {Xte.shape[1]}')
+print(f'no. of obs in train y: {Ytr.shape[0]}')
+print(f'no. of obs in test y: {Yte.shape[0]}')
+```
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### SAHeart: LR with `statsomdels`
+
+```{python}
+import statsmodels.api as sm
+
+model = sm.Logit(Ytr, sm.add_constant(Xtr))
+model = model.fit()
+
+print(model.summary())
+```
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### SAHeart: LR with `SKlearn`
+
+
+```{python}
+from sklearn.linear_model import LogisticRegression
+
+model = LogisticRegression(solver='lbfgs',max_iter=10000)
+model.fit(Xtr, Ytr)
+
+print('intercept:', model.intercept_)
+print('coef:', model.coef_)
+```
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### SAHeart: LR Test Performance
+
+```{python}
+#| code-line-numbers: "|3|4|5|"
+from sklearn.metrics import confusion_matrix
+
+p_hat_te = model.predict_proba(Xte)[:, 1]
+y_hat_te = p_hat_te > 0.5
+conf = confusion_matrix(Yte, y_hat_te)
+
+pd.DataFrame(
+  confusion_matrix(Yte, y_hat_te),
+  index=['true:no', 'true:yes'], 
+  columns=['pred:no', 'pred:yes']
+)
+```
+::: {.fragment}
+```{python}
+acc = np.mean(Yte == y_hat_te)
+err = np.mean(Yte != y_hat_te)
+print(f'Accuracy: {acc: .2f}, Misclassification loss: {err: .2f}')
+```
+:::
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+## Classification Model Evaluation {.title-slide}
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### Measuring Classification Performance
+
+- Different errors have different costs/value. 
+
+- Summarize performance in different ways that capture different types of errors:
+
+::: {.fragment}
+|        |   Pred   |          |     |
+|--------|----------|----------|-----|
+|**Real**| Pos      | Neg      |Total|
+|Pos     | $TP$     | $FN$     | $P$ |
+|Neg     | $FP$     | $TN$     | $N$ |
+|Total   | $\hat{P}$| $\hat{N}$|     |
+:::
+
+::: {.fragment}
+$P = \sum_{i=n+1}^{n+m} y_i$ number of positive examples, similarly $N$.
+
+$\hat{P} = \sum_{i=n+1}^{n+m} \hat{y}_i$ number of positive predictions, similarly $\hat{N}$.
+
+$TP = \sum_{i=n+1}^{n+m} y_i \hat{y}_i$ number of true positives, $FP = \hat{P}-TP$
+
+$TN = \sum_{i=n+1}^{n+m} (1-y_i) (1-\hat{y}_i)$ number of true negatives, $FN = \hat{N}-TN$
+:::
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+|        |   Pred   |          |     |
+|--------|----------|----------|-----|
+|**Real**| Pos      | Neg      |Total|
+|Pos     | $TP$     | $FN$     | $P$ |
+|Neg     | $FP$     | $TN$     | $N$ |
+|Total   | $\hat{P}$| $\hat{N}$| $m$ |
+
+<hr>
+
+::: {.fragment}
+Accuracy: $P(Correct) = \;(TN+TP)/m$
+
+Prediction error: $P(Error) = \;(FN+FP)/m$
+
+Precision+ (positive predictive value): $P(True + | Pred +) = \;TP/\hat{P}$
+
+Recall+ (sensitivity, true positive rate):  $P(Pred + | True +) = \;TP/P$
+
+False positive rate: $P(Pred + | True -) = \;FP/N$
+
+Harmonic mean of precision and recall: $\;F_1 = 2 \times \frac{Precision \times Recall}{Precision + Recall}$
+:::
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+```{python}
+pd.DataFrame(
+  confusion_matrix(Yte, y_hat_te),
+  index=['true:no', 'true:yes'], 
+  columns=['pred:no', 'pred:yes']
+)
+```
+
+::: {.fragment}
+```{python}
+from sklearn.metrics import classification_report
+
+print(classification_report(Yte, y_hat_te))
+```
+:::
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### Classification evaluation: different goals
+
+We can think of several different prediction goals, all potentially important: 
+
+1. Classify correctly --- make few (weighted) errors on test set or new prediction points
+2. Predict probabilities well: $\widehat{P(y=1|x)} \approx P(y=1|x)$ for new points
+3. Rank well: given multiple prediction points, predict which one is *more likely* to have $y = 1$.
+
+::: {.fragment}
+These different tasks can reflect in the loss function / model evaluation task:
+
+1. Correct classification: misclassification loss as above, also precision, recall etc.
+2. Good probability prediction: using Bernoulli loss / cross entropy: 
+$$L(y,\hat{p}) = \hat{p}^y (1-\hat{p})^{(1-y)}$$
+3. How do we measure ranking perofrmance of a model on a test set?
+:::
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### The ROC Curve
+
+The idea: to evaluate ranking performance, do not set the threshold $0.5$ but check what happens at all possible thresholds: 
+
+1. True positive rate: what % of the positive observations pass the threshold?
+2. False positive rate: what % of the negative observations pass the threshold?
+
+::: {.fragment}
+- The ROC curve plots TPR vs FPR for all possible threholds: if the model ranks well, for high thresholds we will have $FPR\approx 0$, while for low thresholds we will have $TPR \approx 1$
+:::
+
+::: {.fragment}
+- Note that even if $\widehat{P(y=1|x)}$ predicts probabilities badly, or even if the predictions are not in the range $[0,1]$, the ranking can still be good
+:::
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+
+```{python}
+#| code-fold: true
+
+from sklearn.metrics import roc_curve, auc
+
+fpr, tpr, thresholds = roc_curve(Yte, p_hat_te)
+auc1 = auc(fpr, tpr)
+
+plt.plot(fpr, tpr, color='darkorange',
+         lw=2, label='ROC curve (area = %0.2f)' % auc1)
+plt.plot([0, 1], [0, 1], color='navy', lw=2, linestyle='--')
+plt.xlim([0.0, 1.0])
+plt.ylim([0.0, 1.05])
+plt.xlabel('False Positive Rate')
+plt.ylabel('True Positive Rate')
+plt.title('ROC curve for our logistic model')
+plt.legend(loc="lower right")
+plt.show()
+```
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+## The Area Under the Curve (AUC)
+
+- *For a random ranking:* $FPR \approx TPR$ at every threshold, so we are around the diagonal $x=y$: $$AUC\approx 0.5$$
+
+- *For a perfect ranking model:* at high thresholds, $FPR=0$, at low thresholds $TPR=1$, hence: $$AUC=1.$$
+
+- Very nice interpretation of AUC: Assume the test set has $m_1$ ones ($y=1$) and $m_0$ zeros, then AUC is the % of correctly ranked pairs with different response: 
+$$AUC = \frac{ \#\left\{(i,j): y_i = 0, y_j=1 \mbox{ and } \hat{p}_i < \hat{p}_j\right\}}{m_1\times m_0}$$
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
