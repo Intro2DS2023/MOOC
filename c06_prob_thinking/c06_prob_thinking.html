@@ -423,6 +423,21 @@
 </section>
 <section id="conditional-probability" class="slide level2 title-slide center">
 <h2>Conditional Probability</h2>
+<aside class="notes">
+<div style="direction:rtl; font-size:16px">
+<p>הסתברות בכלל היא מושג לא קל לתפיסה. הרי במציאות דברים מתרחשים או לא מתרחשים, אז מה המשמעות של המשפט מחר ירד גשם בסיכוי 80 אחוז. ואם אנשים לא מצטיינים בפירוש אמירות הסתברותיות, כשזה נוגע להסתברות מותנית התפיסה שלנו עלולה להטעות אותנו אפילו יותר.</p>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section class="slide level2">
 
@@ -437,7 +452,8 @@
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>ניזכר בשלוש ההתפלגויות האמפיריות שלמדנו עליהן: ההתפלגות השולית, המרג’ינל, של X ושל Y. ההתפלגות המשותפת, הג’וינט, שהיא בעצם הסתברות החיתוך. וההסתברות המותנית, הקונדישיונל - אם ידוע לי שX קיבל ערך מסוים, מה כעת ההסתברות שY יקבל ערך אחר, האם היא שונה.</p>
+<p>כאמור הכי מעניינת אותנו היא ההסתברות המותנית.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -497,7 +513,9 @@
 </table>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>ניזכר גם בטבלת השכיחות של שני משתנים בדידים X ו-Y. אפשר לחלץ כל הסתברות מטבלה זו. השוליות של X ושל Y נמצאות אכן בשוליים, והן הסכום של השורה או של העמודה.</p>
+<p>ההתפלגות המשותפת נמצאת בתוך התאים, כל תא מתאר את הסתברות החיתוך של מאורע העמודה ומאורע השורה.</p>
+<p>וההתפלגות המותנית לפי חוק בייס היא ההסתברות המשותפת בכל שורה, מחולקת בהסתברות השורה. או ההסתברות המשותפת בכל עמודה, מחולקת בהסתברות העמודה.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -525,7 +543,10 @@
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>ואם כבר הזכרנו את חוק בייס נכתוב אותו שוב במפורש: ההסתברות המותנית Y שווה ל-y קטן, בהינתן שX קיבל ערך x ספציפי, היא הסתברות החיתוך חלקי ההסתברות השולית של X. וזה אומר ההסתברות המותנית ההפוכה של X בהינתן Y, כפול ההסתברות של Y, חלקי ההסתברות של X.</p>
+<p>הרבה פעמים ההסתברות השולית של X שנמצאת במכנה מצריכה עוד חישוב באמצעות איסוף של הסתברויות מותנות באמצעות חוק ההסתברות השלמה, שהוא בעצם ממוצע משוקלל של הסתברויות מותנות.</p>
+<p>אפשר לשלב בין שני החוקים, באמצעות הצבת נוסחת ההסתברות השלמה במכנה של חוק בייס.</p>
+<p>וכך קיבלנו קשר בין ההסתברות של X בהינתן Y להסתברות של Y בהינתן X.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -600,7 +621,11 @@
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>אז בואו ניתן דוגמא לכמה מתעתעת הסתברות מותנית יכולה להיות.</p>
+<p>נניח שיש לנו בדיקה לנגיף הקורונה. ונתון לנו שהבדיקה מדויקת מאוד. כמה מדויקת? 99 אחוז מהנשאים של הנגיף יקבלו תשובה חיובית, ו-99 אחוז מהאנשים הבריאים יקבלו תשובה שלילית!</p>
+<p>אבל נשאלת השאלה: נניח שקיבלתי תשובה חיובית. מה הסיכוי שאני באמת נשא של הנגיף? רוב האנשים יגידו מיד “סיכוי גבוה מאוד”. הבדיקה הרי כל כך מדויקת. יכול להיות שהם צודקים. אבל אם נפרמל את הנתונים שקיבלנו נראה שאי אפשר לדעת, ולמעשה יכול להיות שהסיכוי שאני נשא של הנגיף אם קיבלתי תשובה חיובית - הוא נמוך מאוד.</p>
+<p>למשל, מה אם אוסיף את טבלת השכיחות הבאה, בלי הסתברויות, עם כמויות מוחלטות:</p>
+<p>כעת אנחנו רואים שהנגיף נדיר למדי. הסיכוי להיות נשא הוא 1 לאלף! הנתונים עצמם לא משקרים: חשבו ותראו שאכן מתוך 100 אלף אנשים בריאים 99 אחוז יקבלו תשובה שלילית, ו-99 אחוז מהאנשים החולים יקבלו תשובה חיובית. אבל מה ההסתברות המבוקשת? מתוך 1099 אנשים שיקבלו תשובה חיובית רק 99 חולים! כלומר פחות מעשרה אחוזים!</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -623,18 +648,18 @@
 <ul>
 <li class="fragment"><span class="math inline">\(Y \in \{0,1\}\)</span> — carrier or not ; <span class="math inline">\(X \in \{0,1\}\)</span> — positive test or not</li>
 </ul></li>
-<li class="fragment"><p>Given values:</p>
-<ul>
-<li class="fragment"><span class="math display">\[ Pr(X=1|Y=1) = Pr(X=0|Y=0) = 0.99\;,\;\; Pr(Y=1) = 0.001\]</span></li>
-</ul></li>
-<li class="fragment"><p>We are interested in <span class="math inline">\(Pr(Y=1|X=1)\)</span>, using our formulas above we get:</p></li>
-<li class="fragment"><p><span class="math display">\[ Pr(Y=1|X=1) = \frac{Pr(X=1|Y=1)Pr(Y=1)}{Pr(X=1)} = \frac{0.99 \cdot 0.001}{0.99 \cdot 0.001 + 0.01\cdot0.999} = 0.0902.\]</span></p></li>
+<li class="fragment"><p>Given values: <span class="math display">\[Pr(X=1|Y=1) = Pr(X=0|Y=0) = 0.99\;,\;\; Pr(Y=1) = 0.001\]</span></p></li>
+<li class="fragment"><p>We are interested in <span class="math inline">\(Pr(Y=1|X=1)\)</span>, using our formulas above we get: <span class="math display">\[ Pr(Y=1|X=1) = \frac{Pr(X=1|Y=1)Pr(Y=1)}{Pr(X=1)} = \frac{0.99 \cdot 0.001}{0.99 \cdot 0.001 + 0.01\cdot0.999} = 0.0902.\]</span></p></li>
 <li class="fragment"><p>Conclusion: If you get a positive result in this accurate test, you still have <span class="math inline">\(&lt;10\%\)</span> chance of being an actual carrier</p></li>
 </ul>
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>אז בואו נראה את זה בצורה קצת יותר פורמלית.</p>
+<p>נגדיר שני משתני ברנולי: Y יהיה נשא נגיף או לא, 1 או אפס. X יהיה בדיקה חיובית או לא, 1 או אפס.</p>
+<p>הנתון של 99 אחוז תשובה חיובית אם אתה חולה, ו-99 אחוז בדיקה שלילית אם אתה לא, נרשום כך: ההסתברות שX הבדיקה הוא 1 בהינתן Y 1 הוא 0.99, וההסתברות המותנית שX שווה 0 בהינתן Y שווה 0 היא 0.99. כמו-כן הנתון שהמחלה נדירה כל כך מיתרגם לסיכוי שY שווה 1, הוא 0.001 או 1 לאלף.</p>
+<p>ההסתברות המבוקשת, היא שY, מצב הנבדק יהיה שווה 1 בהינתן שהבדיקה X חיובית, היא 1. לפי חוק בייס במונה יש לנו את ההסתברות ההפוכה שX שווה ל1 בהינתן Y שווה 1, היא 0.99, כפול המשקולת המאוד קטנה שY שווה 1, 1 לאלף. במכנה אנחנו רוצים את ההסתברות הכללית לקבל תשובה חיובית. לפי נוסחת ההסתברות השלמה זה שווה לסיכוי להיות חולה כפול הסיכוי של חולה לקבל תשובה חיובית, ועוד הסיכוי להיות בריא כפול הסיכוי של בריא לקבל תשובה חיובית.</p>
+<p>התוצאה המפתיעה היא שהסיכוי להיות נשא של הנגיף או חולה גם בבדיקה מאוד מדויקת אם קיבלת תשובה חיובית, הוא פחות מעשרה אחוז. והסיבה לזה נעוצה בסיכוי האפריורי להיות בכלל חולה, שאם לא מתחשבים בו, עלולים להגיע למסקנות מוטעות מאוד.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -650,6 +675,21 @@
 </section>
 <section id="simpsons-paradox" class="slide level2 title-slide center">
 <h2>Simpson’s Paradox</h2>
+<aside class="notes">
+<div style="direction:rtl; font-size:16px">
+<p>תופעה הסתברותית נוספת שגם כן קשורה בהסתברות מותנית, יכולה להיות כל כך לא אינטואיטיבית, שיש שמכנים אותה פרדוקס - הפרדוקס של סימפסון.</p>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section class="slide level2">
 
@@ -657,12 +697,12 @@
 <ul>
 <li>A well known research studying relation between:
 <ul>
-<li>Gender (<span class="math inline">\(X\)</span>)</li>
-<li>Admission to Berkeley (<span class="math inline">\(Y\)</span>)</li>
-<li>Department (<span class="math inline">\(Z\)</span>)</li>
+<li>Gender</li>
+<li>Admission to Berkeley</li>
+<li>Department</li>
 </ul></li>
 </ul>
-<p>When checking relation between <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>:</p>
+<p>When checking relation between Gender and Admission:</p>
 <div class="fragment">
 <table style="width:82%;">
 <colgroup>
@@ -706,7 +746,10 @@
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>ניתן פה דוגמא אמיתית אבל עם נתונים מומצאים, על נתוני הקבלה של גברים ונשים לאוניברסיטת ברקלי, ב-1973.</p>
+<p>מחקר בדק את הקשר בין מין המועמדים, סיכויי הקבלה שלהם והמחלקה אליה ניסו להתקבל. כששמים את התוצאות בטבלת 2 על 2 ובודקים את הקשר בין מין המועמד לקבלה, מתקבלת תמונה מאוד מוזרה:</p>
+<p>בקרב 370 גברים שניסו להתקבל 220 התקבלו כלומר כ60 אחוז. בקרב נשים שניסו להתקבל רק 150 התקבלו, כומר כ40 אחוז.</p>
+<p>אז האם יש הטיה באוניברסיטת ברקלי לקבל יותר גברים?</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -724,7 +767,7 @@
 
 <h3 id="uc-berkeley-gender-bias-study-1">UC Berkeley Gender Bias Study</h3>
 <ul>
-<li>When conditioning on Department (<span class="math inline">\(Z\)</span>), the conclusion reverses:</li>
+<li>When conditioning on Department, the conclusion reverses:</li>
 </ul>
 <div class="fragment">
 <table style="width:96%;">
@@ -795,7 +838,11 @@
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>לא בהכרח! כשמתנים את הנתונים על המחלקה, כלומר רואים את הטבלת 2 על 2 שלנו בנפרד לכל מחלקה, לא רק שגברים לא מופלים לטובה בברקלי, הם אולי אפילו מופלים לרעה!</p>
+<p>בנתונים המומצאים שלנו יש לנו שתי מחלקות A ו-B. בקרב המועמדים של מחלקה A 20 מתוך 70 גברים התקבלו, כלומר כ28 אחוזים, ואילו 100 מתוך 300 נשים התקבלו, כלומר כ33 אחוזים.</p>
+<p>ואילו במחלקה B 200 מ-300 גברים התקבלו, כ66 אחוזים, ו50 מתוך 70 נשים התקבלו כלומר יותר מ70 אחוזים.</p>
+<p>אז איך זה קורה? התשובה נעוצה בהסתברות מותנית שוב. נשים לב שהסיכוי להתקבל במחלקה A מלכתחילה היא נמוכה מאוד, רק 120 מתוך 370, קצת פחות מ33 אחוז. ואילו הסיכוי להתקבל למחלקה B מלכתחילה הוא גבוה יחסית, 250 מתוך 370, כ67 אחוז. ולאן רוב הבנות מנסות להתקבל? למחלקה A, שמאוד קשה להתקבל אליה!</p>
+<p>זהו פרדוקס סימפסון: אנחנו רואים איזושהי תופעה, טרנד כשאנחנו מסתכלים על השורה התחתונה של הנתונים, באופן שולי, אבל כשמסתכלים לעומק, בחלוקה לקבוצות, התופעה נעלמת ואולי אפילו מתהפכת.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -826,7 +873,8 @@
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>כמנהגנו ננסה לפרמל את הבעיה ולהשיג יותר תובנות: מין המועמד יהיה X, הקבלה לברקלי תהיה Y והמחלקה תהיה Z.</p>
+<p>מה שאנחנו רואים זה שכשאנחנו מתנים את Y הקבלה על X המין, הסיכוי להתקבל גבוה יותר אצל גברים. אבל: כשמתנים גם על המשתנה Z כיוון האי-שוויון מתהפך: בקרב המועמדים במחלקה A וגם בקרב המועמדים במחלקה B, הסיכוי להתקבל בקרב נשים גבוה יותר.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -855,7 +903,8 @@ Pr(Y = yes | X = F) &amp;= Pr(Y = yes | X = F, Z = A) \cdot \bf{Pr(Z = A | X = F
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>איך זה יכול להיות? הטריק הוא להבין לפי חוק בייס ונוסחת ההסתברות השלמה, שההסתברות שמותנית רק על משתנה אחד, רק על משתנה X המין, היא עדיין ממוצע משוקלל של הסתברויות, כאשר המשקולות הן ההסתברויות המותנות של Z לפי X, או מה הסיכוי מלכתחילה שמועמדות נשים ינסו להתקבל למחלקה A ולמחלקה B.</p>
+<p>נשים מנסות להתקבל יותר למחלקה A שקשה להתקבל אליה, מה שמגדיל הרבה יותר את המשקולת של ההסתברות הקטנה יותר.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -882,15 +931,16 @@ Pr(Y = yes | X = F) &amp;= Pr(Y = yes | X = F, Z = A) \cdot \bf{Pr(Z = A | X = F
 <li class="fragment">but: <span class="math inline">\(Pr(Y = 1 | X = x_1, Z = z) &lt; Pr(Y = 1 | X = x_2, Z = z),\;\; \forall z\)</span></li>
 </ul></li>
 <li class="fragment"><p>So in this situation, is <span class="math inline">\(x_1\)</span> or <span class="math inline">\(x_2\)</span> a better support for <span class="math inline">\(Y = 1\)</span>?</p></li>
-<li class="fragment"><p>Back to basic formulas, the key is the weighting:</p>
-<ul>
-<li class="fragment"><span class="math display">\[ Pr(Y = y | X = x) = \sum_z Pr(Y = y | X = x, Z = z) {\bf Pr(Z = z | X = x)}\]</span></li>
-</ul></li>
+<li class="fragment"><p>Back to basic formulas, the key is the weighting: <span class="math display">\[ Pr(Y = y | X = x) = \sum_z Pr(Y = y | X = x, Z = z) {\bf Pr(Z = z | X = x)}\]</span></p></li>
 </ul>
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>באופן כללי אנחנו מסתכלים על קשר בין שלושה משתנים X, Y ו-Z.</p>
+<p>אפשר לבחור להתנות משתנה Y בX בלבד או בX וגם בZ.</p>
+<p>הפרדוקס הוא שהסתברות של Y להיות 1 בהינתן X1 גדולה יותר מההסתברות של Y בהינתן X2, אבל כשמתנים גם על Z, וזה לכל Z, ההסתברות של Y בהינתן X1 קטנה יותר מההסתברות של Y בהינתן X2.</p>
+<p>ואז נשאלת השאלה מה יביא להסתברות גבוהה יותר שY יהיה 1? X1 או X2? התשובה היא שכמובן שX2, בכל רמה של Z הוא מביא להסתברות גבוהה יותר ש-Y יהיה שווה 1.</p>
+<p>המפתח הוא להבין שגם הסתברות מותנית על משתנה אחד אפשר לראות כהסתברות שולית שהיא ממוצע משוקלל של הסתברויות מותנות על משתנה נוסף. ואם יש לנו נתונים לגבי משתנה נוסף - אסור לנו להתעלם ממנו! אחרת אנחנו יכולים להגיע למסקנות שטחיות ומוטעות.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -907,17 +957,18 @@ Pr(Y = yes | X = F) &amp;= Pr(Y = yes | X = F, Z = A) \cdot \bf{Pr(Z = A | X = F
 <section class="slide level2">
 
 <h3 id="another-example-corona-mortality">Another example: Corona mortality</h3>
-<div>
 <ul>
-<li class="fragment"><p>We have two countries (call them <em>Italy</em> and <em>Germany</em>)</p></li>
-<li class="fragment"><p>In Italy the mortality rate among Corona patients is higher than in Germany</p></li>
-<li class="fragment"><p>But in Germany the mortality rate is higher than in Italy both among young patients and among old patients</p></li>
-<li class="fragment"><p>How can that be?</p></li>
+<li><p>We have two countries (call them <em>Italy</em> and <em>Germany</em>)</p></li>
+<li><p>In Italy the mortality rate among Corona patients is higher than in Germany</p></li>
+<li><p>But in Germany the mortality rate is higher than in Italy both among young patients and among old patients</p></li>
+<li><p>How can that be?</p></li>
 </ul>
-</div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>דוגמא נוספת מהזמן האחרון: תמותה מקורונה.</p>
+<p>יש לנו שתי ארצות, איטליה וגרמניה, ודווח בתקשורת שאחוז התמותה מקורונה באיטליה גבוה יותר מאחוז התמותה בגרמניה. יכול להיות שזה נכון. אבל מדען נתונים טוב, יבקש לראות עוד נתונים, לדוגמא גיל.</p>
+<p>מסתבר, שאם מסתכלים על אחוז התמותה לפי קבוצות גיל, גם בקרב צעירים וגם בקרב מבוגרים, התופעה מתהפכת, אחוז התמותה בגרמניה גדול יותר!</p>
+<p>נסו לחשוב בעזרת מה שלמדנו: איך זה יכול להיות?</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -947,7 +998,10 @@ Pr(Y = yes | X = F) &amp;= Pr(Y = yes | X = F, Z = A) \cdot \bf{Pr(Z = A | X = F
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>נסמן בY את מצב החולה, מת או חי. בX את הארץ, גרמניה או איטליה. ובZ את הגיל, צעיר או מבוגר.</p>
+<p>שוב נגדיר מה אנחנו רואים: כשאנחנו מתנים רק על X, הארץ, אחוז המתים באיטליה גבוה יותר. אבל כשאנחנו מתנים גם על גיל החולה, מתקבלת התופעה ההפוכה: הסיכוי שY החולה ימות באיטליה נמוך יותר, גם בקרב צעירים וגם בקרב מבוגרים.</p>
+<p>ומה עומד מאחורי זה? בגרמניה יש הרבה יותר תושבים צעירים! הסיכוי של Z להיות צעיר בהינתן שX הארץ הוא גרמניה, גבוה הרבה יותר מאשר הסיכוי של Z להיות צעיר כשX הארץ הוא איטליה.</p>
+<p>והתמותה בקרב צעירים מקורונה היתה נמוכה משמעותית, כלומר בגרמניה יש יותר תושבים עם נטייה למות פחות מקורונה מה שמשפיע על השורה התחתונה ומעוות את התמונה, אם לא מסתכלים גם על משתנה הגיל.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -976,7 +1030,8 @@ Pr(Y = yes | X = F) &amp;= Pr(Y = yes | X = F, Z = A) \cdot \bf{Pr(Z = A | X = F
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>בתרגול תראו שפרדוקס סימפסון מתקיים גם מעבר לשלישיות של משתנים בדידים. כאן אנחנו רואים קשר בין שני משתנים רציפים X ו-Y. כשאנחנו מסתכלים עליהם בצורה חסרה, בצורה שולית, יש קשר יורד בין המשתנים מאוד ברור. אבל אם אנחנו מסתכלים על הקשר בכל תת-קבוצה של משתנה בדיד נוסף Z, התופעה הפוכה, ואנחנו רואים שלמעשה הקשר בין X ל-Y הוא קשר חיובי.</p>
+<p>דרך נוחה לחשוב על זה הוא באמצעות תוחלת מותנית, שתתרגלו בתרגול. כשאנחנו מסתכלים על התוחלת המותנית של Y בהינתן ערך נמוך X1, אנחנו רואים שהיא גבוהה יותר מאשר התוחלת אם נתון ערך גבוה יותר X2. אבל אם מתנים גם על משתנה נוסף Z, לכל ערך של Z, ההבדל בין התוחלות המותנות מתהפך. Y עולה כש-X עולה, לכל רמה של Z.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -992,6 +1047,22 @@ Pr(Y = yes | X = F) &amp;= Pr(Y = yes | X = F, Z = A) \cdot \bf{Pr(Z = A | X = F
 </section>
 <section id="anscombes-quartet" class="slide level2 title-slide center">
 <h2>Anscombe’s Quartet</h2>
+<aside class="notes">
+<div style="direction:rtl; font-size:16px">
+<p>התופעה השלישית והאחרונה שנדבר עליה, לאו דוקא קשורה להסתברות מותנית. אבל היא בוודאי ובודאי קשורה להסתכלות שטחית על נתונים.</p>
+<p>זוכרים שנתנו עצה תמיד תמיד להעיף מבט בנתונים, רצוי בתרשים, ולא להסתפק בתמציות שמסכמות אותם? בואו נראה מה יכול לקרות אם לא עושים את זה.</p>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section class="slide level2">
 
@@ -1060,7 +1131,9 @@ Pr(Y = yes | X = F) &amp;= Pr(Y = yes | X = F, Z = A) \cdot \bf{Pr(Z = A | X = F
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>סטטיסטיקאי בריטי בשם אנסקומב פרסם רביעיית זוגות נתונים של X ו-Y, במטרה להמחיש מה קורה כשלא מסתכלים על הנתונים.</p>
+<p>למרות שכל זוג של X ושל Y שונים לחלוטין, אם מסתכלים רק על מדדים כמו: ממוצע, סטיית תקן, ומתאם, זה נראה שהם זהים לחלוטין.</p>
+<p>אנסקומב רצה להדגים גם את הבעייתיות בהסתכלות שטחית על נתונים וגם את הסכנה בתצפיות חריגות, אאוטליירז, כמו שאפשר לראות בזוגות השלישי והרביעי. רוב הנקודות נמצאות בטרנד מסוים, ורק בגלל נקודה אחת שכאילו אינה במקומה מתקבל רושם אחר לגמרי אם מסתכלים רק על המדדים השוליים כמו מתאם למשל. בתרשים השלישי המתאם בין X לY בנכוי התצפית החריגה גדול הרבה יותר מ-0.82, ובתרשים הרביעי הוא קטן הרבה יותר.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1081,7 +1154,8 @@ Pr(Y = yes | X = F) &amp;= Pr(Y = yes | X = F, Z = A) \cdot \bf{Pr(Z = A | X = F
 
 <img data-src="images/DinoSequentialSmaller.gif" class="r-stretch"><aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>לפני כמה שנים עדכנו צמד סטטיסטיקאים את האנליזה של אנסקומב והוסיפו כמו זוגות של X ו-Y מרשימים משלהם. כפי שניתן לראות גם כאן, הממוצעים וסטיות התקן של X ושל Y כמעט זהים וכך גם המתאם ביניהם. אבל דפוס הנתונים שונה לחלוטין בכל אחד מזוגות הנתונים!</p>
+<p>ואחד מהם הוא אפילו ציור של דינוזאור!</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1095,8 +1169,8 @@ Pr(Y = yes | X = F) &amp;= Pr(Y = yes | X = F, Z = A) \cdot \bf{Pr(Z = A | X = F
           display:block!important;
       }</style></aside>
 </section>
-<section id="pitfalls-sumary" class="slide level2 title-slide center">
-<h2>Pitfalls Sumary</h2>
+<section id="pitfalls-summary" class="slide level2 title-slide center">
+<h2>Pitfalls Summary</h2>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
 
@@ -1123,7 +1197,10 @@ Pr(Y = yes | X = F) &amp;= Pr(Y = yes | X = F, Z = A) \cdot \bf{Pr(Z = A | X = F
 </ul>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>נסכם מה רצינו להגיד ביחידה הזאת:</p>
+<p>התפלגויות מותנות הן חשובות מאוד בניתוח נתונים ויכולות להיות מעט לא אינטואיטיביות.</p>
+<p>כשמנתחים נתונים, חשוב להציג את כל הנתונים, ולהתנות על כל המשתנים עד כמה שאפשר לפני שמגיעים למסקנות.</p>
+<p>לבסוף, תראו כמה חשיבה בצורה פורמלית עזרה לנו. ברגע שאתם מסמנים משתנים באמצעות אותיות ומשתמשים בחוקי ההסתברות אתם יכולים לזקק מסקנות יפות בניתוח נתונים.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1142,13 +1219,16 @@ Pr(Y = yes | X = F) &amp;= Pr(Y = yes | X = F, Z = A) \cdot \bf{Pr(Z = A | X = F
 <h3 id="dependence-and-causality">Dependence and causality</h3>
 <ul>
 <li><p>A well known but often misunderstood fact is that correlation/dependence is not the same as causality</p></li>
-<li><p>Example: Assume we study X=smoking and Y=lung disease and find a strong correlation between them: people who smoke more have more lung disease</p></li>
+<li><p>Example: Assume we study <span class="math inline">\(X\)</span>=smoking and <span class="math inline">\(Y\)</span>=lung disease and find a strong correlation between them: people who smoke more have more lung disease</p></li>
 <li><p>Assume for now the connection is real and replicable in multiple studies</p></li>
 <li><p>Is it correct to conclude that smoking causes lung disease?</p></li>
 </ul>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>נקנח באזהרה אחרונה על כך שהתלות שאנחנו מודדים עם הסתברות מותנית או מתאם, איננה מעידה בהכרח על סיבתיות.</p>
+<p>לדוגמא, משתנה X יהיה עישון, ומשתנה Y יהיה לחלות בסרטן ריאות, ואנחנו רואים מתאם גבוה בין שניהם: אנשים שמעשנים יותר, חולים יותר בסרטן הריאות.</p>
+<p>אפילו בהינתן שהקשר אמיתי, כל הקשרים שראינו היום היו אמיתיים – האם נכון לקפוץ להסיק שעישון גורם לסרטן הריאות רק על סמך הסיפור הזה שסיפרתי לכם?</p>
+<p>עצרו וחשבו איזה עוד גורם יכול להשפיע על הנתונים האלה.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1168,7 +1248,8 @@ Pr(Y = yes | X = F) &amp;= Pr(Y = yes | X = F, Z = A) \cdot \bf{Pr(Z = A | X = F
 
 <img data-src="images/Cause.png" class="r-stretch"><aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>יכול בהחלט להיות למשל, שאנחנו רואים השפעה של עישון על סרטן ריאות, אבל שזה קורה בגלל שלא הסתכלנו במשתנה מתערב אחר שמשפיע על שניהם כמו מעמד סוציו אקונומי. יכול מאוד להיות שאנשים ממעמד סוציואקונומי נמוך נוטים לעשן יותר, ולאנשים ממעמד סוציואקונומי נמוך יש נטייה לחלות יותר בסרטן הריאות.</p>
+<p>כך ששוב אנחנו רואים את השורה התחתונה, השולית, ואם לא נחקור יותר לעומק אנחנו עלולים להגיע למסקנות מוטעות.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1196,7 +1277,7 @@ Pr(Y = yes | X = F) &amp;= Pr(Y = yes | X = F, Z = A) \cdot \bf{Pr(Z = A | X = F
 </ul>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>סיבתיות או קוזליטי היא תחום מחקר מאוד חם עכשיו - איך אנחנו מבצעים ניסויים שכן יכולים להגיע למסקנה, שגורם א אכן גורם לתופעה ב ולא בגלל קשר נסיבתי. מי שרוצה לקרוא עוד על התופעה מוזמן לקרוא למשל בספרו המצוין של יהודה פרל, causality. בקורס שלנו כאן אנחנו עוצרים.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
