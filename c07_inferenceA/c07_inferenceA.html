@@ -407,7 +407,7 @@
 <h3 id="stat.-and-or-department-tau">Stat. and OR Department, TAU</h3>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>הסקה סטטיסטית היא נושא מורכב שאפשר להקדיש לו סמסטר אחד לפחות. בקורס שלנו אנחנו רוצים לתת מבט על על הנושא, ולהשתמש כמה שניתן בתכנות כדי להבהיר את המושגים שנדון בהם.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -445,7 +445,7 @@
 
 <img data-src="images/sampling_inference_diagram.png" class="r-stretch"><aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>התרשים שלפנינו מתאר בצורה פשוטה את מטרת ההסקה הסטטסיטית. אנחנו מניחים שיש בעולם מציאות מסוימת, אוכלוסיה, שבה המדד שמעניין אותנו מתפלג בצורה מסוימת, לזה קראנו התפלגות. העולם הזה כל כך גדול שלא ניתן לראות את כולו, יש לנו איזשהן מגבלות כמו קיבולת או תקציב, לדגום רק מדגם סופי מהאוכלוסיה הזאת. ובעזרת המדגם הקטן, היינו רוצים להסיק בחזרה אל ההתפלגות הגדולה. התהליך הזה של דגימה והסקה הוא המוקד שלנו. ננסה ביחידה הזאת לדבר על כמה מושגים באמצעות סימולציה וקוד, לפני שאנחנו נכנסים לנוסחאות.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -478,7 +478,8 @@
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>אילו דוגמאות יש לעולם, לאוכלוסיה, להתפלגות, עליהם אנחנו רוצים ללמוד? בזמן בחירות למשל לראשות הממשלה בין שני מועמדים, נרצה לדעת לפני יום הבחירות לאיזה מהמועמדים יש רוב באוכלוסיה. כשזה נוגע לציורים שלנו, נרצה לדוגמא באיזה סגנון נמצא רמות גבוהות יותר של פיקסלים בשכבה האדומה: לציורים אימפרסיוניסטיים או ריאליסטיים. בשני המקרים האלה כמעט בלתי אפשרי לאסוף את כל האוכלוסיה, ויש צורך לאסו, מדגם ממנה.</p>
+<p>ומהו המדגם? במקרה של בחירות זה יהיה אחד מסקרי הבחירות שאנחנו שומעים עליהם כל כך הרבה. במקרה של הציורים אנחנו נניח שיש לנו תקציב לבדוק את רמת האדום רק ב30 ציורים אימפרסיוניסטיים ו30 ציורים ריאליסטיים.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -506,7 +507,7 @@
 <p>We want to use the sample to determine whether to reject the null:</p>
 <ul>
 <li>Does the sample <strong>convincingly indicate</strong> that candidate 1 has higher support?</li>
-<li>Does the sample contain <strong>clear evidence</strong> of more red in girls?</li>
+<li>Does the sample contain <strong>clear evidence</strong> of more red in impressionist paintings?</li>
 </ul>
 </div>
 <div class="fragment">
@@ -515,7 +516,10 @@
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>הפרדיגמה שלנו נקראת בדיקת השערות.</p>
+<p>יש לנו עולם שנקרא לו עולם האפס, עולם הnull, אפשר לחשוב עליו כברירת מחדל, משהו שניתן להניח וכולם יודעים, ולהגיד משהו חדש ומעניין זה בעצם לנסות להתרחק מהעולם הזה. בדוגמא של בחירות לראשות הממשלה ההנחה היא שלמועמדים לראשות הממשלה יש תמיכה זהה. בדוגמא של הציורים ברירת המחדל תהיה שיש לציורים אימפרסיוניסטיים וריאליסטיים אותה רמה של פיקסלים אדומים.</p>
+<p>היינו רוצים כחוקרים להגיד משהו חדש. שהמדגם שלנו ישמש אותנו לדחייה של העולם הזה ש”כולם יודעים”, וכך לקדם את הידע שלנו: בדוגמת הבחירות האם המדגם משכנע מספיק שלמועמד מסוים יש יותר תמיכה בקרב האוכלוסיה? בדוגמא של הציורים נשאל האם המדגם מהווה עדות מספקת שיש יותר אדום למשל דווקא בציורים אימפרסיוניסטיים.</p>
+<p>הרבה פעמים נכמת את מידת ההפתעה הזאת באמצעות כמות שנקראת pvalue. אפשר לראות בpvalue כמודד עד כמה המדגם קונסיסטנטי עם השערת האפס, עם מה שכולנו כביכול אמורים לדעת והוא איננו חדשות. ככל שהוא יהיה קטן יותר כך נהיה מופתעים יותר תחת העולם הזה של השערת האפס, תחת ההנחות הידועות שלנו, ואולי נדחה אותן.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -544,7 +548,9 @@
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>דוגמא שעוזרת הרבה פעמים לסטודנטים להבין את הפרדיגמה של בדיקת השערות היא מעולם המשפט.</p>
+<p>בבית המשפט, חשוד לא מורשע אלא אם כן הוכחה אשמתו מעל לאיזשהו סף ספק סביר. אפשר לראות את ברירת המחדל שהחשוד חף מפשע כהשערת האפס. המדגם או הנתונים, הם הראיות. והשאיפה של התובע להוכיח את אשמת החשוד מעבר לספק סביר היא בעצם הניסיון שלו להראות שהראיות, הדאטא, לא תואמות את הנחת החפות. ההבדל הוא שברוב המשפטים הדבר שיכריע האם הדאטא מרחיק אותנו מהשערת החפות הוא הניסיון והאינטואיציה של השופט. בעולם מדעי הנתונים אנחנו השופטים, וכדי לקבוע אם לדחות את השערת האפס נראה שנחשב הסתברויות.</p>
+<p>אבל הדוגמא הזאת מדגימה עוד עיקרון מפתח בפרדיגמה שלנו: שתי ההשערות, האפס והאלטרנטיבית אינו סימטריות! אין כאן הכרעה בין שני מצבים שכל אחד יכול להחליף את השני, בדרך כלל השערת האפס היא כאמור ברירת מחדל, היא הנחת מוצא, שאנחנו צריכים כחוקרים לעבוד קשה כדי לצאת ממנה, אל ההשערה האלטרנטיבית. לכן גם מקפידים על הז’רגון הזה של לדחות או לא לדחות את השערת האפס.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -579,7 +585,9 @@
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>למי שעוד לא מתמצא בעולם של מחקר מדעי, הפרדיגמה הזאת של בדיקת השערות חשובה ונפוצה כל כך, עד שנסתכן ונאמר שכיום כמעט כל גילוי מדעי חייב להשתמש בה. נראה גם ביקורת על המצב הזה. השערת האפס היא בדרך כלל לא גילינו שום דבר חדש, הנתונים האלה תואמים את הידע המדעי הקיים. בדוגמא של חלקיק ההיגס בוזון החוקרים הניחו שהחלקיק שלפניהם מוכר, בדוגמא מתחום הגנטיקה חוקרים מניחים שאין השפעה של מוטציה גנטית שהם בודדו על מחלה מסוימת. הpvalue הוא מדד לחוזק העדות שכן יש כאן משהו חדש.</p>
+<p>דוגמא נוספת היא כל מחקר קליני בתחום התרופות. השערת האפס היא שלתרופה אין השפעה על המחלה או על כמות הכולסטרול בדם. מחקר אופייני יחלק קבוצה אקראית של חולים לקבוצה שתקבל את התרופה וקבוצה שתקבל פלסבו, תרופת דמה. והpvalue יכמת בעצם עד כמה התרופה היתה יעילה יותר בהורדת הכולסטרול מהפלסבו.</p>
+<p>ננתח עכשיו לעומק את דוגמת הציורים שתלווה אותנו בהמשך.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -623,7 +631,10 @@
 </ul>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>כאמור ראינו שציירים אימפרסיוניסטים נטו להשתמש ביותר צבע לצייר סיטואציות עליזות יותר, לעומת העולם הריאליסטי הקודר של המהפכה התעשייתית במאה ה19. ונרצה לבחון האם יש באמת יותר אדום, צבע עליז, בציורים אימפרסיוניסטיים.</p>
+<p>כדי לבצע סימולציה, נניח שהעולם שלנו הוא אלפי הציורים שהורדנו מאתר wikiart, במדגם הלמידה יש לנו שם שמות אלפים ציורים ריאליסטיים ושמונת אלפים ציורים אימפרסיוניסטיים, סך הכל אוכלוסייה של 16 אלף ציורים.</p>
+<p>דוגמא שהבדיקה ידנית, דמיינו שלא ניתן לעבור ציור ציור ולקבוע כמה אדום יש בו.</p>
+<p>ניתן לקחת רק מדגם, ולשאול האם הוא מהווה עדות חזקה מספיק כדי להגיד שציורים אימפרסיוניסטיים הם אדומים יותר בממוצע, ואת זאת נעשה עם הפרדיגמה של בדיקת השערות באמצעות מדגם.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -640,8 +651,8 @@
 <section class="slide level2">
 
 <div class="cell" data-execution_count="2">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>real_sample <span class="op">=</span> get_images_matrix(folder <span class="op">+</span> <span class="st">'realism_train.csv'</span>, folder <span class="op">+</span> <span class="st">'realism'</span>, n <span class="op">=</span> <span class="dv">30</span>, seed <span class="op">=</span> <span class="dv">1977</span>)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>impr_sample <span class="op">=</span> get_images_matrix(folder <span class="op">+</span> <span class="st">'impressionism_train.csv'</span>, folder <span class="op">+</span> <span class="st">'impressionism'</span>, n <span class="op">=</span> <span class="dv">30</span>, seed <span class="op">=</span> <span class="dv">1977</span>)</span>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>real_sample <span class="op">=</span> get_images_matrix(folder <span class="op">+</span> <span class="st">'realism_train.csv'</span>, folder <span class="op">+</span> <span class="st">'realism'</span>, n <span class="op">=</span> <span class="dv">30</span>, seed <span class="op">=</span> <span class="dv">1976</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>impr_sample <span class="op">=</span> get_images_matrix(folder <span class="op">+</span> <span class="st">'impressionism_train.csv'</span>, folder <span class="op">+</span> <span class="st">'impressionism'</span>, n <span class="op">=</span> <span class="dv">30</span>, seed <span class="op">=</span> <span class="dv">1976</span>)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>real_red <span class="op">=</span> real_sample[:, :, :, <span class="dv">0</span>].mean(axis <span class="op">=</span> (<span class="dv">1</span>, <span class="dv">2</span>))</span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>impr_red <span class="op">=</span> impr_sample[:, :, :, <span class="dv">0</span>].mean(axis <span class="op">=</span> (<span class="dv">1</span>, <span class="dv">2</span>))</span>
@@ -649,10 +660,10 @@
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(real_red[:<span class="dv">10</span>])</span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(impr_red[:<span class="dv">10</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[126.2373 144.1572 179.3338 203.9788 191.6487 105.5144  70.1566  99.5667
- 132.5792 148.0175]
-[125.2964 148.967  151.2754 102.2348 147.8281 119.9497 122.4399 113.5083
- 144.7585 193.5472]</code></pre>
+<pre><code>[161.3162 147.0798 140.2261 122.5448 191.0334  52.9117  96.4099 110.3566
+ 171.9048  78.3864]
+[ 51.7256  99.2127  95.8073 105.3173  81.8901 125.3137 128.208   78.7658
+  81.1359 201.9115]</code></pre>
 </div>
 </div>
 <div class="fragment">
@@ -661,18 +672,19 @@
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Impressionist paintings mean red value: </span><span class="sc">{</span>impr_red<span class="sc">.</span>mean()<span class="sc">:.2f}</span><span class="ss">'</span>)</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Means difference: </span><span class="sc">{</span>impr_red<span class="sc">.</span>mean() <span class="op">-</span> real_red<span class="sc">.</span>mean()<span class="sc">: .2f}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Realist paintings mean red value: 124.46
-Impressionist paintings mean red value: 142.46
-Means difference:  18.00</code></pre>
+<pre><code>Realist paintings mean red value: 115.47
+Impressionist paintings mean red value: 130.75
+Means difference:  15.28</code></pre>
 </div>
 </div>
 </div>
 <div class="fragment">
-<p>It looks as you expected, girls average red pixel is higher by about 15 points, but if you do it again, results would be different, wouldn’t they?</p>
+<p>It looks as you expected, impressionist paintings average red pixel is higher by about 15 points, but if you do it again, results would be different, wouldn’t they?</p>
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>והנה אנחנו לוקחים את המדגם. מדגם של 30 ציורים ריאליסטיים, ומדגם של 30 ציורים אימפרסיוניסטיים. אנחנו לוקחים רק את השכבת צבע הראשונה שהוא הצבע האדום, ומקבלים רמה ממוצעת של אדום לכל ציור וציור. כאן אני מדפיס את הרמה של אדום שמדדנו בעשרת הציורים הריאליסטיים הראשונים ועשרת הציורים האימפרסיוניסטיים הראשונים. נזכור שרמת כל צבע היא מספר בין 0 ל-255 כך שהמספרים הגיוניים, וככל שהמספר גבוה יותר כך יש יותר מאותו הצבע בציור.</p>
+<p>אנחנו מחשבים את ממוצע הצבע האדום במדגם הריאליסטי ובמדגם האימפרסיוניסטי, ומגלים שאכן, בהתאם להשערה האלטרנטיבית שלנו, שיש יותר אדום בציורים אימפרסיוניסטיים מאשר בציורים ריאליסטיים. כמה יותר? בערך 15 נקודות. אבל זה לא ממש משכנע, נכון? אם נדגום שוב נקבל בטח תוצאה אחרת.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -689,8 +701,8 @@ Means difference:  18.00</code></pre>
 <section class="slide level2">
 
 <div class="cell" data-execution_count="4">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>real_sample2 <span class="op">=</span> get_images_matrix(folder <span class="op">+</span> <span class="st">'realism_train.csv'</span>, folder <span class="op">+</span> <span class="st">'realism'</span>, n <span class="op">=</span> <span class="dv">30</span>, seed <span class="op">=</span> <span class="dv">1979</span>)</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>impr_sample2 <span class="op">=</span> get_images_matrix(folder <span class="op">+</span> <span class="st">'impressionism_train.csv'</span>, folder <span class="op">+</span> <span class="st">'impressionism'</span>, n <span class="op">=</span> <span class="dv">30</span>, seed <span class="op">=</span> <span class="dv">1979</span>)</span>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>real_sample2 <span class="op">=</span> get_images_matrix(folder <span class="op">+</span> <span class="st">'realism_train.csv'</span>, folder <span class="op">+</span> <span class="st">'realism'</span>, n <span class="op">=</span> <span class="dv">30</span>, seed <span class="op">=</span> <span class="dv">1961</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>impr_sample2 <span class="op">=</span> get_images_matrix(folder <span class="op">+</span> <span class="st">'impressionism_train.csv'</span>, folder <span class="op">+</span> <span class="st">'impressionism'</span>, n <span class="op">=</span> <span class="dv">30</span>, seed <span class="op">=</span> <span class="dv">1961</span>)</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>real_red2 <span class="op">=</span> real_sample2[:, :, :, <span class="dv">0</span>].mean(axis <span class="op">=</span> (<span class="dv">1</span>, <span class="dv">2</span>))</span>
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>impr_red2 <span class="op">=</span> impr_sample2[:, :, :, <span class="dv">0</span>].mean(axis <span class="op">=</span> (<span class="dv">1</span>, <span class="dv">2</span>))</span>
@@ -699,9 +711,9 @@ Means difference:  18.00</code></pre>
 <span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Impressionist paintings mean red value: </span><span class="sc">{</span>impr_red2<span class="sc">.</span>mean()<span class="sc">:.2f}</span><span class="ss">'</span>)</span>
 <span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Means difference: </span><span class="sc">{</span>impr_red2<span class="sc">.</span>mean() <span class="op">-</span> real_red2<span class="sc">.</span>mean()<span class="sc">: .2f}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Realist paintings mean red value: 109.95
-Impressionist paintings mean red value: 134.56
-Means difference:  24.62</code></pre>
+<pre><code>Realist paintings mean red value: 125.98
+Impressionist paintings mean red value: 134.96
+Means difference:  8.98</code></pre>
 </div>
 </div>
 <div class="fragment">
@@ -710,7 +722,8 @@ Means difference:  24.62</code></pre>
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>נדגום שוב ונגלה שאכן אפשר לקבל תוצאה שונה.</p>
+<p>נדמיין שהדגימה יקרה כמו שקורה פעמים רבות במציאות במחקר או בתשעייה. ויש לנו תקציב לדגימה של 60 ציורים בלבד, פעם אחת בלבד. איך נדע שההבדל שאנחנו רואים במדגם אחד הוא חשוב, הוא מובהק, שהוא מעיד על כך שברירת המחדל שלשני סגנונות הציור יש אותה רמה של אדום בהם - היא לא נכונה? לפני שניכנס לנוסחאות - יש לנו בקורס שלנו להדגים את התשובה הזאתף באמצעות סימולצית מחשב.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -728,7 +741,7 @@ Means difference:  24.62</code></pre>
 <h2>The Null Distribution by Simulation</h2>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>אז איך בונים את השערת האפס, את התפלגות האפס, באמצעות סימולציה?</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -768,7 +781,8 @@ Means difference:  24.62</code></pre>
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>תחת השערת האפס הרי אין הבדל בין ציורים ריאליסטיים וציורים אימפרסיוניסטיים מבחינת כמות האדום בהם. אנחנו יכולים לקחת את אלפי התמונות שלנו ולאחד אותן, לתוך עולם מלאכותי אחד ויחיד של 16 אלף תמונות. בעולם כזה כל פעם שנדגום שתי קבוצות של 30 ציורים ונקרא להם אימפרסיוניסטיים ו-30 ציורים שנקרא להם ריאליסטיים, אנחנו יודעים, שרמת האדום היא זהה בין שתי הקבוצות. זה עולם מלאכותי.</p>
+<p>כאן אנחנו יוצרים את העולם הזה בפייתון, 16 אלף תמונות של ציורים זה לא כל כך נורא, אנחנו קוראים את כולם לזיכרון, מחשבים את רמת האדום הממוצעת בהם, ומאחדים אותם ל16 אלף מספרים של רמת אדום. לאוביקט הזה אנחנו קוראים במרכאות אוכלוסיה, population.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -793,7 +807,7 @@ Means difference:  24.62</code></pre>
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>אם נצייר היסטוגרמה של האוכלוסיה, זו רמת האדום הממוצעת ב16 אלף ציורים, היא נראית כך, די סימטרית וערכים בן 0 ל-255. חשוב לי להדגיש שהיא רק במקרה סימטרית ויפה, היא לא היתה חייבת להיראות ככה בכלל ועדיין היינו ממשיכים כרגיל.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -817,7 +831,7 @@ Means difference:  24.62</code></pre>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>impr_red_null <span class="op">=</span> np.random.choice(population, <span class="dv">30</span>, replace<span class="op">=</span><span class="va">False</span>)</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Means difference: </span><span class="sc">{</span>impr_red_null<span class="sc">.</span>mean() <span class="op">-</span> real_red_null<span class="sc">.</span>mean()<span class="sc">: .2f}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Means difference:  4.60</code></pre>
+<pre><code>Means difference:  7.64</code></pre>
 </div>
 </div>
 <div class="fragment">
@@ -833,14 +847,16 @@ Means difference:  24.62</code></pre>
 <span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>impr_red_null <span class="op">=</span> np.random.choice(population, <span class="dv">30</span>, replace<span class="op">=</span><span class="va">False</span>)</span>
 <span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Means difference: </span><span class="sc">{</span>impr_red_null<span class="sc">.</span>mean() <span class="op">-</span> real_red_null<span class="sc">.</span>mean()<span class="sc">: .2f}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Means difference: -10.09
-Means difference:  4.21</code></pre>
+<pre><code>Means difference: -16.27
+Means difference:  4.52</code></pre>
 </div>
 </div>
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>כעת נדגום שני מדגם של 30 ציורים אימפרסיוניסטיים לכאורה -30 ציורים ריאליסטיים לכאורה, ונסתכל על ההבדל ברמת האדום שלהם. ושוב, למה לכאורה? כי הדגימה נעשית מתוך אוכלוסיה אחת גדולה של ציורים!</p>
+<p>כאן אני משתמש בפונקציה np.random.choice, שנותנת לי מדגם של 30 ציורים ללא החזרה, ועוד אחד, ובודק את הפרש הממוצעים של האדום ביניהם, ומקבל מספר ששונה מאפס.</p>
+<p>אני יודע שהמספר הזה שונה מאפס רק בגלל אקראיות, ואכן, אם אחזור על הדגימה שוב ושוב אקבל מספרים אחרים!</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -859,7 +875,7 @@ Means difference:  4.21</code></pre>
 <h3 id="the-null-distribution">The Null Distribution</h3>
 <ul>
 <li><p>We want to know how is <em>our</em> original average difference of about 15 points is in comparison to these <strong>null</strong> average differences between groups coming from the same population.</p></li>
-<li><p>So we’ll make a lot of the them and look at their distribution, the Null Distribution of the means difference:</p></li>
+<li><p>So we’ll make a lot of the them and look at their distribution, the null distribution of the means difference:</p></li>
 </ul>
 <div class="fragment">
 <div class="cell" data-execution_count="9">
@@ -873,8 +889,8 @@ Means difference:  4.21</code></pre>
 <span id="cb14-8"><a href="#cb14-8"></a><span class="bu">print</span>(<span class="ss">f'Max null mean diff: </span><span class="sc">{</span><span class="bu">max</span>(null_mean_diffs)<span class="sc">: .2f}</span><span class="ss">'</span>)</span>
 <span id="cb14-9"><a href="#cb14-9"></a><span class="bu">print</span>(<span class="ss">f'Min null mean diff: </span><span class="sc">{</span><span class="bu">min</span>(null_mean_diffs)<span class="sc">: .2f}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Max null mean diff:  45.17
-Min null mean diff: -41.88</code></pre>
+<pre><code>Max null mean diff:  39.27
+Min null mean diff: -37.85</code></pre>
 </div>
 </div>
 </div>
@@ -885,7 +901,10 @@ Min null mean diff: -41.88</code></pre>
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>כעת שימו לב לנקודה הבאה: היינו רוצים לדעת כמה הערך המקורי שקיבלנו, של הפרש 15, הוא חריג ביחס למדגמים כאלה, מאוכלוסיית האפס, שבה לא אמור להיות הבדל ביניהם. אז מה שנעשה זה נדגום הרבה זוגות של מדגמים מהאוכלוסיה הגדולה, נחשב את הפרש האדום ביניהם, נסתכל על ההתפלגות של ההפרשים האלה, וזו תהיה התפלגות האפס שלנו.</p>
+<p>בקוד שלפנינו אני שם את הדגימה מהאוכלוסיה של שני מדגמים בתוך פונקציה שנקראת sample_null_mean_diff, היא עושה בדיוק את מה שראינו. קח מדגם ועוד מדגם וחשב את ההפרש בין הממוצעים.</p>
+<p>וכעת אני חוזר על זה 10000 פעמים, כדי לקבל 10000 הפרשי ממוצע. ברשימה הזאת של null_mean_diffs, יש בעצם את התפלגות האפס שלי, של 10000 הפרשי ממוצעים, תחת הידיעה שלא אמור להיות בין שני המדגמים הבדל.</p>
+<p>הדפסתי כאן קודם כל את המקסימיום והמינימום של ההתפלגות הזאת. באופן מדהים, אפילו בהתפלגות האפס יש הפרשים גדולים הרבה יותר מ15 הנקודות שאנחנו קיבלנו! אפשר לקבל באקראי גם הפרשים של מעל 30 ו-40! אז האם ההפרש שלנו של 15, שהתקבל מזוג מדגמים אמיתי של ציורים ריאליסטיים ואימפרסיוניסטיים, הוא כל כך חריג?</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -901,7 +920,7 @@ Min null mean diff: -41.88</code></pre>
 </section>
 <section class="slide level2">
 
-<p>Let’s look at the Null Distirbution histogram:</p>
+<p>Let’s look at the null distribution histogram:</p>
 <div class="cell" data-execution_count="10">
 <details>
 <summary>Code</summary>
@@ -922,7 +941,7 @@ Min null mean diff: -41.88</code></pre>
 <p>It seems like our original value of 15 points difference is not that extreme. There’s a measure for that:</p>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>באופן מפורש יותר נביט בכל ההתפלגות של ההפרשים עם היסטוגרמה, ונסמן את הערך שאנחנו קיבלנו, של 15 נקודות הפרש. ונראה ש15 נקודות הפרש זה לא ערך כל כך קיצוני תחת התפלגות האפס. כמה קיצוני? בשביל זה יש לנו את מדד הpvalue.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -944,22 +963,22 @@ Min null mean diff: -41.88</code></pre>
 </ul>
 <div class="fragment">
 <ul>
-<li>What is the probability under the Null Distribution, where there is no difference between “realist” and “impressionist”, of getting 15 or higher?</li>
+<li>What is the probability under the null distribution, where there is no difference between “realist” and “impressionist”, of getting 15 or higher?</li>
 </ul>
 </div>
 <div class="fragment">
 <div class="cell" data-execution_count="11">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>one_sided_p_value <span class="op">=</span> np.mean(null_mean_diffs <span class="op">&gt;=</span> <span class="dv">18</span>)</span>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>one_sided_p_value <span class="op">=</span> np.mean(null_mean_diffs <span class="op">&gt;=</span> <span class="dv">15</span>)</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'P(mean_diff &gt;= 15 | H0) = </span><span class="sc">{</span>one_sided_p_value<span class="sc">: .2f}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>P(mean_diff &gt;= 15 | H0) =  0.04</code></pre>
+<pre><code>P(mean_diff &gt;= 15 | H0) =  0.07</code></pre>
 </div>
 </div>
 </div>
 <div class="fragment">
 <ul>
-<li>It looks like the chance of getting a difference of 15 points or higher, when there is no difference, is ~7%. Does that convince you that there actually is a difference, that indeed the realist and impressionist samples came from two different, separate, distributions?</li>
+<li>It looks like the chance of getting a difference of 15 points or higher, when there is no difference, is ~6-7%. Does that convince you that there actually is a difference, that indeed the realist and impressionist samples came from two different, separate, distributions?</li>
 </ul>
 </div>
 <div class="fragment">
@@ -969,7 +988,10 @@ Min null mean diff: -41.88</code></pre>
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>הpvalue, הוא הסיכוי לקבל ערך קיצוני כפי שקיבלנו או קיצוני יותר, תחת התפלגות האפס. בתרשים שראינו אפשר לחשוב עליו כשטח האדום בהיסטוגרמה, מעל הערך שקיבלנו, 15.</p>
+<p>נחשב את השטח הזה כך: מה יחס המספרים שהם מעל 15. לp-value כזה אנחנו קוראים pvalue חד צדדי, כי אנחנו מעוניינים רק בתוצאות שהן קיצוניות לכיוון שבו ציורים אימפרסיוניסטיים הם אדומים יותר מציורים ריאליסטיים.</p>
+<p>וכאן, הוא יוצא שבעה אחוז בערך. כלומר, גם תחת השערת האפס שאין הבדל בין ציורים אימפרסיוניסטיים לריאליסטיים ברמת האדום, אפשר בסיכוי לא רע של 7 אחוזים לקבל הפרש של 15 נקודות אדום בין שני מדגמים אקראיים. אז האם זה משכנע אתכם שיש הבדל בין ציורים אימפרסיוניסטיים לריאליסטיים באוכלוסיה? שציורים אימפרסיוניטיים וציורים ריאליסטיים באים משתי התפלגויות שונות?</p>
+<p>מקובל באקדמיה להשוות את הpvalue לאיזשהו סף נמוך כמו אחד אחוז או חמישה אחוזים, ותחת המבחן, הערך שקיבלנו של 15 נקודות לא מרשים מספיק, ולא היינו דוחים את השערת האפס.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1002,13 +1024,17 @@ Min null mean diff: -41.88</code></pre>
 </div>
 <div>
 <ul>
-<li class="fragment"><p>14% chance of observing a result like 15 points or more extreme, at random, when there is no difference. 15 points doesn’t look convincing.</p></li>
+<li class="fragment"><p>13-14% chance of observing a result like 15 points or more extreme, at random, when there is no difference. 15 points doesn’t look convincing.</p></li>
 <li class="fragment"><p>But in real life we only have that one hard-earned sample. We don’t have the population. And from here, the rest is mathematical approximation for getting that p-value and other measures, with what we have.</p></li>
 </ul>
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>הזכרנו שההשערה שלנו היתה חד צדדית. ראינו שציורים אימפרסיוניסטיים צבעוניים יותר, ותהינו אם באמת יהיה בהם יותר אדום. ההשערה שלנו יכלה להיות גם דו-צדדית, כלומר האם יש רמת אדום שונה בין ציורים ריאליסטיים לציורים אימפרסיוניסטיים, מבלי להתחייב על כיוון.</p>
+<p>במקרה כזה היינו צריכים לחשוב p-value דו צדדי, כלומר מה ההסתברות לקבל 15 או יותר, בערך מוחלט.</p>
+<p>זה מה שאנחנו עושים כאן, ובהתפלגות אפס כל כך סימטרית כמו שראינו זה אומר בעצם להכפיל בקירוב את הpvalue פי 2 ולקבל בערך 14 אחוזים.</p>
+<p>ו-14 אחוז לקבל ערך קיצוני כמו שלנו במדגם המקורי או יותר, הוא סיכוי לא קטן, ולא היינו דוחים את השערת האפס שהמדגם שלנו מגיע מההתפלגות המסומלצת הזאת.</p>
+<p>עד כאן העולם שבו יכולנו לסמלץ את התפלגות האפס. במציאות באמת יש לנו רק מדגם אחד שיקר להשיג, ואנחנו לא רואים את כל האוכלוסיה. כל מה שאנחנו עושים מרגע זה זה קירוב מתמטי, מבוסס על הידע שלנו בהסתברות, להגיע לאותה התפלגות אפס.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1026,7 +1052,7 @@ Min null mean diff: -41.88</code></pre>
 <h2>Binomial Example</h2>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>בואו נראה דוגמא לסיטואציה שבה אנחנו יכולים לסמלץ את התפלגות האפס, אבל אנחנו יכולים לחילופין גם להניח שזאת התפלגות די מוכרת עם חוקים ידועים: ההתפלגות הבינומית.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1057,7 +1083,11 @@ Min null mean diff: -41.88</code></pre>
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>נניח שמישהו נותן לי מטבע ואני רוצה לבדוק האם הוא הוגן, כלומר האם הסיכוי לקבל heads או tails, עץ או פלי, שווה.</p>
+<p>אני מטיל את המטבע 10 פעמים ומקבל 8 פעמים heads.</p>
+<p>אפשר לסמן את השערת האפס כך, עם H0, ולשאול האם זה נכון שהסיכוי לheads הוא חצי. ואז נשאל האם המדגם שלנו הוא עדות מספיקה כדי לדחות את H0?</p>
+<p>כאשר תהיה לי את התפלגות האפס כשהמטבע הוגן, אני אוכל לראות באיזה אחוז מהמקרים אני מקבל תוצאה קיצונית כמו 8 פעמים heads או יותר.</p>
+<p>זה קל לסמלץ התפלגות כזאת? ממש.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1077,28 +1107,34 @@ Min null mean diff: -41.88</code></pre>
 <div class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>null_res <span class="op">=</span> np.random.binomial(<span class="dv">10</span>, <span class="fl">0.5</span>, size<span class="op">=</span><span class="dv">10000</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="fragment">
 <div class="cell" data-execution_count="14">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>pd.value_counts(null_res, normalize<span class="op">=</span><span class="va">True</span>).sort_index()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="14">
-<pre><code>0     0.0008
-1     0.0107
-2     0.0464
-3     0.1201
-4     0.1977
-5     0.2481
-6     0.1995
-7     0.1212
-8     0.0454
-9     0.0088
-10    0.0013
+<div class="cell-output cell-output-stdout">
+<pre><code></code></pre>
+</div>
+</div>
+<div class="fragment">
+<div class="cell" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>pd.value_counts(null_res, normalize<span class="op">=</span><span class="va">True</span>).sort_index()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="15">
+<pre><code>0     0.0011
+1     0.0083
+2     0.0421
+3     0.1214
+4     0.2086
+5     0.2458
+6     0.2003
+7     0.1170
+8     0.0456
+9     0.0087
+10    0.0011
 dtype: float64</code></pre>
 </div>
 </div>
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>אנחנו יכולים לעשות את זה בשורה אחת של קוד, עם הפונקציה np.random.binomial, לבקש את תוצאות הניסוי של משתנה בינומי עם 10 הטלות בסיכוי שווה חצי, עשרת אלפים פעם. באוביקט null_res, יש לנו עשרת אלפים שחזורים של הניסוי הזה, תחת השער האפס שהמטבע הוגן.</p>
+<p>כך זה נראה, התוצאה שלנו 8 התקבלה למשל בכ4% מהמקרים אבל אפילו תוצאה כמו 10 heads מתוך 10 התקבלה כמה פעמים, באקראי, למרות שהמטבע הוגן!</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1114,37 +1150,38 @@ dtype: float64</code></pre>
 </section>
 <section class="slide level2">
 
-<div class="cell" data-execution_count="15">
+<div class="cell" data-execution_count="16">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>N, bins, patches <span class="op">=</span> ax.hist(null_res, bins<span class="op">=</span>np.arange(<span class="dv">0</span>, <span class="dv">11</span>, <span class="fl">0.5</span>))</span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>, <span class="dv">15</span>):</span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>    patches[i].set_facecolor(<span class="st">'blue'</span>)</span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">15</span>, <span class="dv">19</span>):</span>
-<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>    patches[i].set_facecolor(<span class="st">'red'</span>)</span>
-<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>N, bins, patches <span class="op">=</span> ax.hist(null_res, bins<span class="op">=</span>np.arange(<span class="dv">0</span>, <span class="dv">11</span>, <span class="fl">0.5</span>))</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>, <span class="dv">15</span>):</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>    patches[i].set_facecolor(<span class="st">'blue'</span>)</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">15</span>, <span class="dv">19</span>):</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>    patches[i].set_facecolor(<span class="st">'red'</span>)</span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
-<p><img data-src="c07_inferenceA_files/figure-revealjs/cell-16-output-1.png" width="509" height="411"></p>
+<p><img data-src="c07_inferenceA_files/figure-revealjs/cell-17-output-1.png" width="509" height="411"></p>
 </div>
 </div>
 <div class="fragment">
-<div class="cell" data-execution_count="16">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>one_sided_p_value <span class="op">=</span> np.mean(null_res <span class="op">&gt;=</span> <span class="dv">8</span>)</span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'P(heads &gt;= 8 | H0) = </span><span class="sc">{</span>one_sided_p_value<span class="sc">: .3f}</span><span class="ss">'</span>)</span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>two_sided_p_value <span class="op">=</span> np.mean(null_res <span class="op">&gt;=</span> <span class="dv">8</span>) <span class="op">+</span> np.mean(null_res<span class="op">&lt;=</span><span class="dv">2</span>)</span>
-<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'P(heads&gt;=8 or heads&lt;=2 | H0) = </span><span class="sc">{</span>two_sided_p_value<span class="sc">: .3f}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>one_sided_p_value <span class="op">=</span> np.mean(null_res <span class="op">&gt;=</span> <span class="dv">8</span>)</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'P(heads &gt;= 8 | H0) = </span><span class="sc">{</span>one_sided_p_value<span class="sc">: .3f}</span><span class="ss">'</span>)</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>two_sided_p_value <span class="op">=</span> np.mean(null_res <span class="op">&gt;=</span> <span class="dv">8</span>) <span class="op">+</span> np.mean(null_res<span class="op">&lt;=</span><span class="dv">2</span>)</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'P(heads&gt;=8 or heads&lt;=2 | H0) = </span><span class="sc">{</span>two_sided_p_value<span class="sc">: .3f}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>P(heads &gt;= 8 | H0) =  0.056
-P(heads&gt;=8 or heads&lt;=2 | H0) =  0.113</code></pre>
+<pre><code>P(heads &gt;= 8 | H0) =  0.055
+P(heads&gt;=8 or heads&lt;=2 | H0) =  0.107</code></pre>
 </div>
 </div>
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>כעת נצייר שוב היסטוגרמה של התפלגות האפס. במקרה שלנו יש רק 11 תוצאות אפשריות מאפס עד 10 אז אפשר לצייר גרף מקלות או בארצ’ארט. 8 לא נראית כבר תוצאה כל כך קיצונית,</p>
+<p>ואכן אם נחשב את הpvalue, את השכיחות של תוצאות קיצוניות כמו 8 או יותר, נקבל גם במקרה החד-צדדי וגם במקרה הדו-צדדי, ערך שלא עומד במבחן הסף של 5 אחוז. זה פשוט משהו שיקרה 1 ל10 פעמים גם במטבע הוגן!</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1177,7 +1214,10 @@ P(heads&gt;=8 or heads&lt;=2 | H0) =  0.113</code></pre>
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>אבל יש כאן עניין של מה בא קודם, הביצה או התרנגולת. אם אנחנו כבר מניחים שההתפלגות של תוצאת הניסוי שלנו תחת השערת האפס היא בינומית, אפשר להשתמש בחוקי ההתפלגות הבינומית לחשב הסתברות מדויקת.</p>
+<p>X יהיה תוצאת הניסוי, מספר ההדז ב10 הטלות, והסיכוי החד-צדדי המבוקש הוא שX יהיה גדול או שווה ל-8. מציבים בנוסחת ההתפלגות הבינומית ומקבלים pvalue מאוד דומה למה שקיבלנו בסימולציה.</p>
+<p>מטעמי סימטריה הpvalue הדו צדדי, או הסיכוי לקבל 8 או יותר ועוד הסיכוי לקבל 2 או פחות, זה בעצם הכפלה פי 2 של הpvalue החד צדדי ומקבלים כ11 אחוזים, בדומה לסימולציה.</p>
+<p>לפני שנמשיך הנה לקח חשוב: סימולציה טובה, אמורה לתת תוצאות בהתאם לניתוח מתמטי. אחרת, יש טעות באחד מהם. אבל כשזה קורה אתם חייבים להודות שזה די מספק לראות!</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1195,7 +1235,7 @@ P(heads&gt;=8 or heads&lt;=2 | H0) =  0.113</code></pre>
 <h2>Type-I and Type-II Errors</h2>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>כשאנחנו מבצעים בדיקת השערות, אנחנו יכולים לחשוב על שני סוגי טעויות: טעות אחת היא שהיינו צריכים לדחות את השערת האפס ולא נדחה אותה. זו טעות מסוג ראשון. טעות מסוג שני היא כאשר השערת האפס היא נכונה וכן נדחה אותה. ניתן שמות לטעויות האלה וננסה להקטין את הסיכוי לעשות אותן.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1222,7 +1262,10 @@ P(heads&gt;=8 or heads&lt;=2 | H0) =  0.113</code></pre>
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>בואו נכתוב לגבי ההשערות שראינו בשיעור הזה גם את ההשערה האלטרנטיבית, בצורה מעט יותר פורמלית.</p>
+<p>בדוגמת בית המשפט השערת האפס, H0, היא שהנאשם חף מפשע, וההשערה האלטנטיבית H1 היא שהוא אשם.</p>
+<p>בדוגמת המטבע השערת האפס היא שהסיכוי לקבל הדז הוא חצי כלומר המטבע הוגן, ואפשר לחשוב על השערה אלטרנטיבית פשוטה כמו: הסיכוי להדז הוא דווקא 0.8.</p>
+<p>בדוגמת הציורים שיערנו בעצם על ההפרש בכמות האדום בין ציורים לריאליסטיים ואימפרסיוניסטיים, אפשר לחשוב שיש פרמטר כזה באוכלוסית הציורים של רמת אדום אימפרסיוניסטים פחות רמת אדום ריאליסטיים ולסמן אותו כמיו, ואז לכתוב במפורש: תחת השערת האפס מיו, תוחלת ההפרשים הזאת היא אפס, ותחת ההשערה האלטרנטיבית מיו הוא חיובי, נאמר 20 נקודות הבדל ברמת האדום לטובת ציורים אימפרסיוניסטיים.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1279,7 +1322,11 @@ P(heads&gt;=8 or heads&lt;=2 | H0) =  0.113</code></pre>
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>כעת אפשר לפרמל את הטעויות שדיברנו עליהן:</p>
+<p>לדחות את H0 כשזו נכונה, זו טעות מסוג ראשון, מסומנת כאלפא: ההסתברות לדחות בהנחה שH0 נכונה.</p>
+<p>הטעות האחרת היא לא לדחות את H0 כשצריך, מסומנת בד”כ כבטא: ההסתברות לדחות H0 כאשר H1 היא הנכונה.</p>
+<p>ניתן בעצם לחלק את הפרדיגמה שלנו לטבלת 2 על 2, מה מתקיים בעולם, לעומת האם החלטנו לדחות או לא את השערת האפס: אם בעולם H0 מתקיימת והחלטנו לדחות, הסיכוי לזה היא האלפא, טעות מסדר ראשון. הסיכוי לא לדחות הוא אם כך 1 פחות אלפא, זה נקרא רמת הבטחון או confidence ונדבר עליה בהמשך. ואם בעולם H1 מתקיימת, אז הסיכוי לא לדחות את H0 זו טעות מסדר שני, הבטא, והסיכוי כן לדחות את H0, כלומר לבצע את הדבר הנכון - זו עוצמת המבחן, 1 פחות בטא.</p>
+<p>עוצמת המבחן, הpower, היא כמות חשובה מאוד, היינו רוצים שתהיה כמה שיותר גדולה. מסמנים אותה הרבה פעמים כפאי והיא כאמור הסיכוי לדחות את H0 כשH1 נכונה, כשבעולם באמת מתקיימת תופעה חדשה כמו חלקיק חדש, או שהנאשים באמת אשם בפשע.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1315,7 +1362,9 @@ P(heads&gt;=8 or heads&lt;=2 | H0) =  0.113</code></pre>
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>האם אנחנו תמיד שולטים על הטעויות מסדר ראשון ושני? לא בהכרח.</p>
+<p>יש שתי גישות מקובלות לבדיקת השערות. התחלנו בראשונה, שבה ערכנו ניסוי כמו דגימה של ציורים, חישבנו את ערך הpvalue, הסיכוי לקבל תוצאה חריגה כמו שהתקבלה במדגם או יותר תחת השערת האפס. ואז השווינו את הערך הזה לאיזשהו סף שכעת נקרא לו אלפא, או רמת המובהקות. אם הpvalue קטן מאלפא נדחה את H0, ואם לא, לא נדחה.</p>
+<p>דרך אחרת לבדוק השערות היא קודם כל לקבע את ערך האלפא, הסיכוי לטעות מסוג ראשון שמעניין אותנו. ואם אנחנו יודעים מראש איך מתפלג איזשהו סטטיסטי של המדגם שלנו, T(X), לדוגמא ממוצע המדגם: נוכל לחלץ ממנו מהו הערך הקריטי המקסימלי שהוא יכול להיות כדי לשמור על אלפא, איזשהו ערך C. רק כעת נבצע את הניסוי, נחשב את הסטטיסטי שלנו, ונקבל מבחן כזה: אם הסטטיסטי שלנו, לדוגמא ממוצע המדגם גדול מC, אז הוא מרשים מספיק וזו דחייה של השערת האפס. ואם לא אז לא נדחה את השערת האפס. כל זה נכון כמובן להשערה חד-צדדית, בהשערה דו-צדדית נסתכל על הסטטיסטי בערך מוחלט.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1339,8 +1388,12 @@ P(heads&gt;=8 or heads&lt;=2 | H0) =  0.113</code></pre>
 </ul>
 <div class="fragment">
 <ul>
-<li><p>Set <span class="math inline">\(\alpha = 0.01\)</span></p></li>
-<li><p>Extract <span class="math inline">\(C\)</span>: <span class="math display">\[\alpha = 0.01 \approx P(X \ge C) \Rightarrow C = 9\]</span></p></li>
+<li>Set <span class="math inline">\(\alpha = 0.01\)</span></li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li>Extract <span class="math inline">\(C\)</span>: <span class="math display">\[\alpha = 0.01 \approx P(X \ge C) \Rightarrow C = 9\]</span></li>
 </ul>
 </div>
 <div class="fragment">
@@ -1361,7 +1414,12 @@ P(heads&gt;=8 or heads&lt;=2 | H0) =  0.113</code></pre>
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>אז בדוגמת המטבע שלנו עשינו בדיקת השערות באמצעות סימולציה, ובאמצעות חישוב pvalue. בואו נבצע אותה בדרך שלישית שדיברנו עליה, דרך שבעצם קובעת לנו איזור דחייה rejection area, וכל שנותר לנו הוא לבדוק אם נפלנו באיזור הדחייה או לא.</p>
+<p>נסמן שוב את תוצאת המדגם של 10 הטלות ב-X. מודל סביר לX הוא התפלגות בינומית עם סיכוי p, ותחת השערת האפס p הוא חצי, כלומר מטבע הוגן.</p>
+<p>נראה שסטטיסטי המדגם הכי נוח להסתכל עליו הוא X עצמו. כעת נקבע את הסיכוי לטעות מסוג ראשון שאנחנו מעונינים לניסוי שלנו, לדוגמא 1 אחוז. המשמעות היא שאנחנו מוכנים שאם נחזור על הניסוי הרבה פעמים, גם אם המטבע הוגן, יש לנו אם נבצע את המבחן שלנו יש סיכוי של 1 למאה שנטעה ונדחה את השערת האפס.</p>
+<p>ומתוך העובדה שקבענו את אלפא על 1 אחוז, נראה מהו הערך הקריטי תחת השערת האפס של מטבע הוגן, של מספר הדז שיתקבלו ב10 הטלות, שאם נקבל אותו או יותר - נגיד שנפלנו באיזור הדחייה ואנחנו דוחים את H0. חישוב זריז מההתפלגות הבינומית יראה לכם ש1 אחוז זה בערך הסיכוי לקבל 9 או 10 הדז, כשהמטבע הוגן.</p>
+<p>וזהו איזו הדחייה, אם נקבל בניסוי 9 הדז ומעלה, נדחה את השערת האפס, ואם פחות לא נדחה. קיבלנו 8 הדז ולכן לא נדחה.</p>
+<p>נקודה חשובה מאוד לפני שממשיכים: האם השתמשנו כאן בהשערה האלטרנטיבית H1? לא! כל החישובים עד כה היו תחת H0, כלומר לא היינו צריכים לפרט איזושהי השערה אלטרנטיבית שהסיכוי להדז הוא גדול יותר, למשל 0.8. עד כאן, היינו צריכים רק את התפלגות הייחוס, התפלגות האפס, ורצינו לראות אם אנחנו קיצוניים יחסית אליה או לא.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1380,12 +1438,16 @@ P(heads&gt;=8 or heads&lt;=2 | H0) =  0.113</code></pre>
 <h3 id="or-by-simulation">Or by simulation</h3>
 <p>Back to paintings, set <span class="math inline">\(\alpha = 0.01\)</span> and extract <span class="math inline">\(C\)</span> the 99th quantile of the null:</p>
 <div class="fragment">
-<div class="cell" data-execution_count="17">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'C (above which 1% of null distribution) = </span><span class="sc">{</span>np<span class="sc">.</span>quantile(null_mean_diffs, <span class="fl">0.99</span>)<span class="sc">: .2f}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="18">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'C (above which 1% of null distribution) = </span><span class="sc">{</span>np<span class="sc">.</span>quantile(null_mean_diffs, <span class="fl">0.99</span>)<span class="sc">: .2f}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell fragment" data-execution_count="18">
 <div class="cell-output cell-output-stdout">
-<pre><code>C (above which 1% of null distribution) =  23.67</code></pre>
+<pre><code>C (above which 1% of null distribution) =  23.47</code></pre>
 </div>
 </div>
+</div>
+<div class="fragment">
 <p>We got 15 points difference, so.</p>
 </div>
 <div class="fragment">
@@ -1393,7 +1455,10 @@ P(heads&gt;=8 or heads&lt;=2 | H0) =  0.113</code></pre>
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>את הגישה של איזור דחייה ניתן להחיל גם על הסימולציה שלנו של ציורים. לא היתה לנו התפלגות מדויקת אבל היתה לנו התפלגות מסומלצת באוביקט nukk_mean_diffs, שדגמנו הרבה הרבה הפרשי ממוצעים תחת השערת האפס.</p>
+<p>המשמעות של קביעת אלפא מראש על 1 אחוז, וממנה לחלץ את איזור הדחיה, היא לשאול מהו האחוזון ה-99 של התפלגות זו. מהו הערך הכל כך גבוה, שמעליו אפילו אם השערת האפס נכונה הסיכוי לראות הבדל כל כך גדול בין שני מדגמים של ציורים, הוא לכל היותר 1 אחוז?</p>
+<p>כאן הערך הזה הוא כ23, ואנחנו קיבלנו 15, אז לא נדחה את השערת האפס.</p>
+<p>ושוב נשאל: האם היינו צריכים לפרט מהי ההשערה האלטרנטיבית H1? איזושהי אמונה או הערכה שלנו על מהו באמת ההפרש ברמת הצבע האדום בין סוגי הציורים? לא.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1435,7 +1500,12 @@ P(heads&gt;=8 or heads&lt;=2 | H0) =  0.113</code></pre>
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>מתי כן אנחנו צריכים לתת איזושהי הערכה ספציפית למהי ההשערה האלטרנטיבית H1? רק כשאנחנו רוצים לעשות חישובי עוצמה, כדי שהסיכוי שלנו לדחות את H0 אם באמת צריך יהיה כמה שיותר גדול.</p>
+<p>עוד נדבר על עוצמת המבחן בהרחבה, בינתיים בואו נראה דוגמא פשוטה:</p>
+<p>בניסוי המטבע נפרט שמישהו אומר לנו שהוא דווקא מאמין שהסיכוי להדז הוא 0.8, זו ההשערה האלטרנטיבית.</p>
+<p>עדיין מבחן הדחייה לא קשור לH1, והסף הקריטי שנקבע עומד על 9 הדז. אם נקבל 9 הדז או יותר נדחה את H0 ואם נקבל ערך קטן יותר לא נדחה את H0.</p>
+<p>במה בכל זאת הועלנו? שכעת אנחנו יכולים לחשב את העוצמה הסטטיסטית של מבחן כזה. העוצמה, היא הסיכוי ליפול באזור הדחייה, ולדחות את H0 תחת H1. במקרה שלנו זה הסיכוי לקבל 9 הדז או יותר, תחת התפלגות בינומית עם סיכוי 0.8. נציב בנוסחת ההתפלגות הבינומית ונקבל שהסיכוי הוא 38 אחוז בערך.</p>
+<p>מה המשמעות? שאם נערוך את המבחן הזה הרבה פעמים, גם אם החשד שלנו נכון והמטבע איננו הוגן, והסיכוי לקבל הדז הוא למעשה 0.8, בפחות מ40 אחוז מהמבחנים נגיע למסקנה הנכונה, שהמטבע אינו הוגן. וזו - לא עוצמה גדולה בכלל.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1457,7 +1527,8 @@ P(heads&gt;=8 or heads&lt;=2 | H0) =  0.113</code></pre>
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>ונאמר שהיינו רוצים לעשות את אותו חישוב של עוצמת המבחן בדוגמא של הציורים. שם יש לנו רק את הכלי של הסימולציה. איך היינו מחשבים את זה בצורת סימולציה? היינו צריכים לפרט איזושהי התפלגות אלטרנטיבית H1 ולסמלץ גם אותה!</p>
+<p>זה, מתחיל להישמע כבר הרבה יותר מורכב, איך מסמלצים התפלגות כזאת. ונראה שנזדקק לכלים הסתברותיים קצת יותר מתקדמים על מנת לחשב את עוצמת המבחן גם במקרה של הציורים. על כך ועוד, ביחידה הבאה.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
