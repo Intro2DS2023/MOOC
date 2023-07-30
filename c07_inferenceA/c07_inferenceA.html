@@ -831,7 +831,7 @@ Means difference:  8.98</code></pre>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>impr_red_null <span class="op">=</span> np.random.choice(population, <span class="dv">30</span>, replace<span class="op">=</span><span class="va">False</span>)</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Means difference: </span><span class="sc">{</span>impr_red_null<span class="sc">.</span>mean() <span class="op">-</span> real_red_null<span class="sc">.</span>mean()<span class="sc">: .2f}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Means difference:  7.64</code></pre>
+<pre><code>Means difference:  0.29</code></pre>
 </div>
 </div>
 <div class="fragment">
@@ -847,8 +847,8 @@ Means difference:  8.98</code></pre>
 <span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>impr_red_null <span class="op">=</span> np.random.choice(population, <span class="dv">30</span>, replace<span class="op">=</span><span class="va">False</span>)</span>
 <span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Means difference: </span><span class="sc">{</span>impr_red_null<span class="sc">.</span>mean() <span class="op">-</span> real_red_null<span class="sc">.</span>mean()<span class="sc">: .2f}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Means difference: -16.27
-Means difference:  4.52</code></pre>
+<pre><code>Means difference:  0.62
+Means difference:  22.74</code></pre>
 </div>
 </div>
 </div>
@@ -889,8 +889,8 @@ Means difference:  4.52</code></pre>
 <span id="cb14-8"><a href="#cb14-8"></a><span class="bu">print</span>(<span class="ss">f'Max null mean diff: </span><span class="sc">{</span><span class="bu">max</span>(null_mean_diffs)<span class="sc">: .2f}</span><span class="ss">'</span>)</span>
 <span id="cb14-9"><a href="#cb14-9"></a><span class="bu">print</span>(<span class="ss">f'Min null mean diff: </span><span class="sc">{</span><span class="bu">min</span>(null_mean_diffs)<span class="sc">: .2f}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Max null mean diff:  39.27
-Min null mean diff: -37.85</code></pre>
+<pre><code>Max null mean diff:  34.39
+Min null mean diff: -34.65</code></pre>
 </div>
 </div>
 </div>
@@ -935,7 +935,7 @@ Min null mean diff: -37.85</code></pre>
 <span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
-<p><img data-src="c07_inferenceA_files/figure-revealjs/cell-11-output-1.png" width="509" height="411"></p>
+<p><img data-src="c07_inferenceA_files/figure-revealjs/cell-11-output-1.png" width="509" height="415"></p>
 </div>
 </div>
 <p>It seems like our original value of 15 points difference is not that extreme. There’s a measure for that:</p>
@@ -1116,17 +1116,17 @@ Min null mean diff: -37.85</code></pre>
 <div class="cell" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>pd.value_counts(null_res, normalize<span class="op">=</span><span class="va">True</span>).sort_index()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="15">
-<pre><code>0     0.0011
-1     0.0083
-2     0.0421
-3     0.1214
-4     0.2086
-5     0.2458
-6     0.2003
-7     0.1170
-8     0.0456
-9     0.0087
-10    0.0011
+<pre><code>0     0.0012
+1     0.0096
+2     0.0453
+3     0.1190
+4     0.2032
+5     0.2482
+6     0.2038
+7     0.1135
+8     0.0446
+9     0.0104
+10    0.0012
 dtype: float64</code></pre>
 </div>
 </div>
@@ -1173,8 +1173,8 @@ dtype: float64</code></pre>
 <span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>two_sided_p_value <span class="op">=</span> np.mean(null_res <span class="op">&gt;=</span> <span class="dv">8</span>) <span class="op">+</span> np.mean(null_res<span class="op">&lt;=</span><span class="dv">2</span>)</span>
 <span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'P(heads&gt;=8 or heads&lt;=2 | H0) = </span><span class="sc">{</span>two_sided_p_value<span class="sc">: .3f}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>P(heads &gt;= 8 | H0) =  0.055
-P(heads&gt;=8 or heads&lt;=2 | H0) =  0.107</code></pre>
+<pre><code>P(heads &gt;= 8 | H0) =  0.056
+P(heads&gt;=8 or heads&lt;=2 | H0) =  0.112</code></pre>
 </div>
 </div>
 </div>
@@ -1352,7 +1352,7 @@ P(heads&gt;=8 or heads&lt;=2 | H0) =  0.107</code></pre>
 </ol>
 <div class="fragment">
 <ol start="2" type="1">
-<li>Looking at some statistic of the sample <span class="math inline">\(T(X)\)</span>, by fixing <span class="math inline">\(\alpha\)</span> at some “significance level”, extract a critical value <span class="math inline">\(C\)</span> and compare to it:
+<li>Rejection area: looking at some statistic of the sample <span class="math inline">\(T(X)\)</span>, by fixing <span class="math inline">\(\alpha\)</span> at some “significance level”, extract a critical value <span class="math inline">\(C\)</span> and compare to it:
 <ul>
 <li>If <span class="math inline">\(T(X) \ge C \Rightarrow\)</span> reject <span class="math inline">\(H_0\)</span></li>
 <li>If <span class="math inline">\(T(X) &lt; C \Rightarrow\)</span> don’t reject <span class="math inline">\(H_0\)</span></li>
@@ -1364,7 +1364,7 @@ P(heads&gt;=8 or heads&lt;=2 | H0) =  0.107</code></pre>
 <div style="direction:rtl; font-size:16px">
 <p>האם אנחנו תמיד שולטים על הטעויות מסדר ראשון ושני? לא בהכרח.</p>
 <p>יש שתי גישות מקובלות לבדיקת השערות. התחלנו בראשונה, שבה ערכנו ניסוי כמו דגימה של ציורים, חישבנו את ערך הpvalue, הסיכוי לקבל תוצאה חריגה כמו שהתקבלה במדגם או יותר תחת השערת האפס. ואז השווינו את הערך הזה לאיזשהו סף שכעת נקרא לו אלפא, או רמת המובהקות. אם הpvalue קטן מאלפא נדחה את H0, ואם לא, לא נדחה.</p>
-<p>דרך אחרת לבדוק השערות היא קודם כל לקבע את ערך האלפא, הסיכוי לטעות מסוג ראשון שמעניין אותנו. ואם אנחנו יודעים מראש איך מתפלג איזשהו סטטיסטי של המדגם שלנו, T(X), לדוגמא ממוצע המדגם: נוכל לחלץ ממנו מהו הערך הקריטי המקסימלי שהוא יכול להיות כדי לשמור על אלפא, איזשהו ערך C. רק כעת נבצע את הניסוי, נחשב את הסטטיסטי שלנו, ונקבל מבחן כזה: אם הסטטיסטי שלנו, לדוגמא ממוצע המדגם גדול מC, אז הוא מרשים מספיק וזו דחייה של השערת האפס. ואם לא אז לא נדחה את השערת האפס. כל זה נכון כמובן להשערה חד-צדדית, בהשערה דו-צדדית נסתכל על הסטטיסטי בערך מוחלט.</p>
+<p>דרך אחרת לבדוק השערות היא למצוא קודם איזור דחיה. נקבע את ערך האלפא, הסיכוי לטעות מסוג ראשון שמעניין אותנו. ואם אנחנו יודעים מראש איך מתפלג איזשהו סטטיסטי של המדגם שלנו, T(X), לדוגמא ממוצע המדגם: נוכל לחלץ ממנו מהו הערך הקריטי המקסימלי שהוא יכול להיות כדי לשמור על אלפא, איזשהו ערך C. רק כעת נבצע את הניסוי, נחשב את הסטטיסטי שלנו, ונקבל מבחן כזה: אם הסטטיסטי שלנו, לדוגמא ממוצע המדגם גדול מC, אז הוא מרשים מספיק וזו דחייה של השערת האפס. ואם לא אז לא נדחה את השערת האפס. כל זה נכון כמובן להשערה חד-צדדית, בהשערה דו-צדדית נסתכל על הסטטיסטי בערך מוחלט.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1443,7 +1443,7 @@ P(heads&gt;=8 or heads&lt;=2 | H0) =  0.107</code></pre>
 </div>
 <div class="cell fragment" data-execution_count="18">
 <div class="cell-output cell-output-stdout">
-<pre><code>C (above which 1% of null distribution) =  23.47</code></pre>
+<pre><code>C (above which 1% of null distribution) =  23.57</code></pre>
 </div>
 </div>
 </div>
