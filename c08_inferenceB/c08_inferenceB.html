@@ -421,8 +421,8 @@
           display:block!important;
       }</style></aside>
 </section>
-<section id="the-normal-distribution" class="slide level2 title-slide center">
-<h2>The Normal Distribution</h2>
+<section id="last-time-on-hypothesis-testing" class="slide level2 title-slide center">
+<h2>Last time on Hypothesis Testing</h2>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
 
@@ -441,7 +441,7 @@
 </section>
 <section class="slide level2">
 
-<h3 id="last-time-on-hypothesis-testing">Last time on Hypothesis Testing…</h3>
+<h3 id="last-time-on-hypothesis-testing-1">Last time on Hypothesis Testing…</h3>
 <ul>
 <li><p>Either calculate a <strong>p-value</strong> under <span class="math inline">\(H_0\)</span> (simulation, analytical calculation) and reject if too small (surprising)</p></li>
 <li><p>Or decide beforehand on a <strong>rejection area</strong> under <span class="math inline">\(H_0\)</span> for some statistic of the sample <span class="math inline">\(T(X)\)</span> and reject if <span class="math inline">\(T(X)\)</span> is in rejection area</p></li>
@@ -475,7 +475,12 @@
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>ביחידה האחרונה התחלנו ללמוד על בדיקת השערות. ניסינו לתת אינטואיציה למושגים השונים באמצעות סימולציה של אוכלוסיה ומדגם, או כאשר התפלגות הסטטיסטי שלנו פשוטה וידועה.</p>
+<p>ראינו שיש שתי גישות עיקריות לבדיקת השערות, או שאנחנו מחשבים את ערך הpvalue תחת השערת האפס, שמבטא עד כמה סביר תחת עולם ברירת המחדל המוכר, לקבל תוצאה קיצונית כמו שקיבלנו במדגם או יותר. ואם הpvalue היה קטן מאיזשהו ערך סף, דחינו את השערת האפס.</p>
+<p>הדרך השניה היתה לבנות מראש איזור דחיה של סטטיסטי המדגם שבו אנחנו מתמקדים, באמצעות קיבוע הסף לסיכוי של טעות מסוג ראשון: הטעות שעושים כאשר העשרת האפס נכונה ודוחים אותה. אם ניפול באיזור הדחיה, נדחה את השערת האפס, ואם לא - לא נדחה.</p>
+<p>עצרנו בטבלה הזאת שמבטאת מה קיים בעולם ומה אנחנו מחליטים בסופו של דבר לעשות: או שהשערת האפס נכונה, או שהשערה אלטרנטיבית נכונה. או שנחליט לדחות את H0 או שנחליט לא לדחות אותה. נשים לב שוב לז’רגון, בפרדיגמה שלנו לרוב אין סימטריה בין שתי ההשערות, H0 היא ברירת מחדל, והשאלה היא אם יש מספיק עדות לצאת מברירת המחדל.</p>
+<p>יכולנו לחשב את ההסתברויות האלה או במצבים פשוטים כמו סימולציה שבה כל האוכלוסיה נתונה לנו או הטלת מטבע שדי ברורה מהי ההתפלגות של התוצאה, היא היתה בינומית.</p>
+<p>והגענו למסקנה אנחנו צריכים לדעת לחשב את כל האלמנטים האלה, בלי שאנחנו יודעים בדיוק את ההתפלגות שממנה נלקחו הנתונים.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -512,7 +517,7 @@
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>בואו נחזור לדוגמה שמלווה אותנו: אנחנו משערים שיש יותר אדום בציורים בסגנון אימפרסיוניסטי, כי התרשמנו שהם עליזים ומתארים סיטואציות יומיומיות כמו גידול ילדים, ונופים פסטורליים. אם נסמן את תוחלת ההפרשים של צבע אדום בציורים אימפרסיוניסטיים פחות צבע אדום בציורים ריאליסטיים באות מיו, השערת האפס, ברירת המחדל, היא שאין הבדלים, מיו שווה אפס. היה לנו תקציב דמיוני לקחת רק 60 ציורים, 30 ריאליסטיים ו-30 אימפרסיוניסטיים, לכל ציור נתנו רמת אדום ממוצעת וחישבנו את ההפרש בין הממוצעים – יצא לנו שאכן לציורים אימפרסיוניסטים היתה רמת אדום גבוהה יותר ב15 נקודות. בשלב הזה עשינו סימולציה של התפלגות הייחוס שלנו, של השערת האפס. כתבנו בפונקציה כיצד אנחנו דוגמים שני מדגמים אקראיים מתוך האוכלוסיה של 16 אלף ציורים, ומחשבים את הפרש הממוצעים של אדם בין שני המדגמים. ועל הפוקנציה הזאת חזרנו 10000 פעמים ליצירת התפלגות האפס, התפלגות הייחוס.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -532,7 +537,7 @@
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>plt.hist(null_mean_diffs, bins<span class="op">=</span>np.arange(<span class="op">-</span><span class="dv">45</span>, <span class="dv">45</span>, <span class="dv">5</span>))</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<p><img data-src="c08_inferenceB_files/figure-revealjs/cell-4-output-1.png" width="509" height="412"></p>
+<p><img data-src="c08_inferenceB_files/figure-revealjs/cell-4-output-1.png" width="509" height="413"></p>
 </div>
 </div>
 <div>
@@ -544,7 +549,9 @@
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>ראינו, שההבדל של 15 נקודות הפרש ממוצעים שאנחנו קיבלנו לא היה כל כך מרשים בהשוואה להתפלגות הייחוס המסומלצת, הסיכוי לקבל אותו או הפרש גדול יותר, הpvalue, היה בערך 7 אחוז, ולא דחינו את השערת האפס.</p>
+<p>נשים לב שההתפלגות של הפרשי ממוצעים שסימלצנו, היא סימטרית באופן מחשיד ובצורת פעמון – במילים אחרות היא נראית נורמלית.</p>
+<p>אם יכולנו איכשהו לדעת שהתפלגות כזאת תיראה תמיד נורמלית בקירוב – זה היה עוזר לנו מאוד, לחישוב כל ההסתברויות שראינו, איזור דחייה, ערך קריטי, עוצמת המבחן. למזלנו, מסתבר שהדבר אכן כך. ובזה אנחנו מתחילים את היחידה הזאת.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -558,12 +565,31 @@
           display:block!important;
       }</style></aside>
 </section>
-<section id="the-normal-distribution-refresher" class="slide level2">
-<h2>The Normal Distribution: Refresher</h2>
+<section id="the-normal-distribution" class="slide level2 title-slide center">
+<h2>The Normal Distribution</h2>
+<aside class="notes">
+<div style="direction:rtl; font-size:16px">
+<p>אני מקווה שכולם זוכרים את תכונות ההתפלגות הנורמלית מלימודי ההסתברות שלהם. ההתפלגות הנורמלית היא מהותית לנושא בדיקת ההשערות ולכן אם אתם לא בטוחים שאתם מתמצאים בנושא הזה - מומלץ מאוד לחזור עליו. כאן נעשה רק רענון.</p>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2">
+
+<h3 id="the-normal-distribution-refresher">The Normal Distribution: Refresher</h3>
 <ul>
 <li><p>With Discrete RVs we usually talk about “Probability Mass Function” (PMF).</p></li>
 <li><p>With Continuous RVs we talk about “Probability Density Function” (PDF).</p></li>
-<li><p>If <span class="math inline">\(X \sim N(\mu, \sigma^2)\)</span> its desnsity function is defined as: <span class="math display">\[f(x) = \frac{1}{{\sigma \sqrt{2\pi}}}e^{\frac{-({x - \mu})^2}{2\sigma^2}}\]</span></p></li>
+<li><p>If <span class="math inline">\(X \sim N(\mu, \sigma^2)\)</span> its density function is defined as: <span class="math display">\[f(x) = \frac{1}{{\sigma \sqrt{2\pi}}}e^{\frac{-({x - \mu})^2}{2\sigma^2}}\]</span></p></li>
 </ul>
 <div class="fragment">
 <ul>
@@ -573,7 +599,10 @@
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>ניזכר שבמשתנים בדידים ההתפלגות שדיברנו עליה היא של הסתברויות, ערכים בין 0 ל-1.</p>
+<p>עבור משתנים רציפים אנחנו מדברים פונקצית צפיפות.</p>
+<p>לדוגמא, משתנה נורמלי עם תוחלת מיו ושונות סיגמא בריבוע, זוהי הנוסחה לפונקצית הצפיפות שלו, שמסומנת ב-f קטן.</p>
+<p>מקרה פרטי של התפלגות נורמלית שמעניין אותנו הוא כאשר התוחלת מיו היא באפס, והשונות היא 1, ואז מקבלית את ההתפלגות הנורמלית-סטנדרטית, N(0,1). אם תציבו בפונקצית הצפיפות אפס למיו ו-1 לסיגמה בריבוע תקבלו את הנוסחה הבאה. וכשנצייר את הצפיפות נקבל את עקומת הפעמון המוכרת:</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -604,7 +633,8 @@
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>כאן אנחנו משתמשים במודול stats.norm של ספרית scipy ובמתודה pdf - probability density function שלו, כדי לצייר את פונקצית הצפיפות.</p>
+<p>ניתן לראות שהיא בצורת פעמון, המרכז שלה הוא התוחלת, כאן 0, ויש לה אסימפטוטה בצד ימין ובצד שמאל אל אפס. כמו-כן נזכיר שפונקצית צפיפות היא תמיד ממשית, חיובית, והשטח בינה לבין ציר הX צריך להסתכם ב-1.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -632,7 +662,9 @@
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>ושוב נזהיר: מדובר בצפיפות, לא הסתברות! כדי לחלץ הסתברות לטווח ערכים מסוים מפונקצית הצפיפות צריך לחשב שטח תחתיה, מה שאומר מבחינתנו לעשות אינטגרציה. לדוגמא ההסתברות שX יהיה קטן או שווה לאיזשהו ערך A היא האינטגרל ממינוס אינסוף עד A של פונקצית הצפיפות.</p>
+<p>האינטגרל הזה ידוע גם כפונקצית ההתפלגות המצטברת, cumulative distribution function או CDF בקיצור.</p>
+<p>הוא מאוד מאוד חשוב לנו אבל אין לו פתרון סגור, רק מקורב. כשאנחנו מדברים על ההתפלגות הנורמלית הסטדנרטית מגדירים אותו פעמים רבות כפונקציה של הערך A ומסמנים באות פי. פי של A הוא שטח ההתפלגות הנורמלית סטנדרטית עד הנקודה A. בואו נראה את הפונקציה פי</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -650,17 +682,20 @@
 
 <div class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>plt.plot(x, stats.norm.cdf(x, <span class="dv">0</span>, <span class="dv">1</span>))</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'a'</span>)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'$\Phi(a)$'</span>)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<p><img data-src="c08_inferenceB_files/figure-revealjs/cell-6-output-1.png" width="496" height="411"></p>
+<p><img data-src="c08_inferenceB_files/figure-revealjs/cell-6-output-1.png" width="515" height="429"></p>
 </div>
 </div>
 <div class="fragment">
-<p>If <span class="math inline">\(X\sim N(\mu, \sigma^2)\)</span> then you can create <span class="math inline">\(Z\sim N(0, 1)\)</span> by <em>standardizing</em>: <span class="math display">\[Z = \frac{X - \mu}{\sigma} \sim N(0, 1)\]</span></p>
+<p>If <span class="math inline">\(X\sim N(\mu, \sigma^2)\)</span> then you can create <span class="math inline">\(Z\sim N(0, 1)\)</span> by <em>standardizing</em>: <span class="math inline">\(Z = \frac{X - \mu}{\sigma} \sim N(0, 1)\)</span></p>
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>כדי לקבל את פי אני משתמש במתודה cdf של המודול stats.norm. אנחנו יכולים לראות שהיא מתחילה בערך במינוס 3 בערך אפס, כי הסיכוי לקבל ערך פחות ממינוס 3 הוא אפסי, והיא עולה מונוטונית עד אסימפטוטה בערך 1 בערך בערך A=3, כי הסיכוי לקבל ערכים קטנים או שווים ל3 כבר שואף ל1.</p>
+<p>איך אנחנו מקבלים מכל משתנה נורמלי עם תוחלת מיו ושונות סיגמא בריבוע את ההתפלגות הנורמלית הסטנדרטית? על-ידי תקנון: אנחנו מחסרים מאיקס את התוחלת שלו ומחלקים בשורש השונות, היא סטיית התקן. ומשתנה נורמלי סטנדרטי שכזה נסמן פעמים רבות באות Z.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -684,7 +719,8 @@
 
 <img data-src="images/normal_dist.png" class="r-stretch"><aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>בואו נדבר עוד קצת על התוחלת והשונות של ההתפלגות הנורמלית. שני הפרמטרים האלה מספיקים כדי להגדיר באופן חד משמעי את ההתפלגות, אפשר לראות את זה בנוסחת פונקצית הצפיפות.</p>
+<p>יותר מזה, ראינו שעבור התפלגות נורמלית סטנדרטית הערכים יהיו כמעט כולם בין מינוס לפלוס שלוש, ואפשר להכליל את התופעה: בכל התפלגות נורמלית כמעט מאה אחוז מהערכים יהיו בין מינוס לפלוס 3 סטיות תקן מהתוחלת מיו, כ95 אחוז יהיו בין מינוס לפלוס 2 סטיות תקן מהתוחלת. וכ-68 אחוזים יהיו במרחק עד סטיית תקן אחת מהתוחלת.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -710,16 +746,17 @@
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Mean of mean differences: </span><span class="sc">{</span>mu<span class="sc">: .2f}</span><span class="ss">'</span>)</span>
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'SD of mean differences: </span><span class="sc">{</span>sigma<span class="sc">: .2f}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Mean of mean differences: -0.01
-SD of mean differences:  10.11</code></pre>
+<pre><code>Mean of mean differences: -0.06
+SD of mean differences:  10.12</code></pre>
 </div>
 </div>
 <ul>
-<li>We could fit the Normal distribution with these parameters over the histogram, and see if the fit is “good”:</li>
+<li>We could fit the Normal distribution with these parameters over the (normalized) histogram, and see if the fit is “good”:</li>
 </ul>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>לדוגמא, באוכלוסית הפרשי הממוצעים שלנו, אם אנחנו טוענים שהיא מתנהגת כמו התפלגות נורמלית, אנחנו אמורים להיות מסוגלים להלביש עליה במרכאות התפלגות כזאת ולראות התאמה לא רעה.</p>
+<p>נאמוד את התוחלת מיו עם ממוצע ההתפלגות, יוצא בערך אפס באופן לא מפתיע. נאמוד את סטיית התקן סיגמא עם סטיית התקן של ההתפלגות, יוצא בערך 10.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -747,7 +784,7 @@ SD of mean differences:  10.11</code></pre>
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>וכשאנחנו מלבישים פונקצית צפיפות עם הערכים האלה על היסטוגרמה מנורמלת של האוכלוסיה שלנו, ההתאמה נראית טובה.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -769,15 +806,16 @@ SD of mean differences:  10.11</code></pre>
 <div class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'(</span><span class="sc">{</span>mu <span class="op">-</span> <span class="dv">2</span> <span class="op">*</span> sigma<span class="sc">: .2f}</span><span class="ss">, </span><span class="sc">{</span>mu <span class="op">+</span> <span class="dv">2</span> <span class="op">*</span> sigma<span class="sc">: .2f}</span><span class="ss">)'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>(-20.24,  20.22)</code></pre>
+<pre><code>(-20.30,  20.18)</code></pre>
 </div>
 </div>
 <ul>
-<li>Our original samples means difference of 16 points is well within these boundaries.</li>
+<li>Our original samples means difference of 15 points is well within these boundaries.</li>
 </ul>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>אם ההתאמה טובה, ואפשר לקרב את התפלגות ההפרשים המסומלצת שלנו באמצעות התפלגות נורמלית, אפשר למשל להגיד אמירה כמו 95 אחוזים מהערכים יהיו במרחק שתי סטיות תקן מהתוחלת. לחשב ולראות שזה יוצא בערך מינוס עד פלוס 20, ולחזור אל הפרדיגמה של בדיקת השערות, להגיד שהתוצאה של הפרש 15 בין שני מדגמים אמיתיים שקיבלנו, היא בהחלט בתחום הזה של פלוס מינוס 20 ולכן היא לא נראית חריגה!</p>
+<p>אז אנחנו מבינים למה היינו רוצים שהתפלגויות ייחוס כאלה יתנהגו נורמלית, זאת התפלגות שנוחה לנו מאוד. אבל עדיין לא אמרנו למה שזה יקרה. נראה שיש לנו משפט שאומר בדיוק את זה: משפט הגבול המרכזי.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -827,7 +865,11 @@ SD of mean differences:  10.11</code></pre>
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>משפט הגבול המרכזי, או הcentral limit theorem, טוען שעבור כל מדגם בגודל n תצפיות בלתי תלויות, שבא מהתפלגות עם תוחלת מיו ושונות סופית סיגמא בריבוע, אם n גודל המדגם גדול מספיק, ממוצע המדגם יתפלג בקירוב נורמלית, עם התוחלת המקורית מיו, ושונות קטנה פי n.</p>
+<p>הרבה פעמים נשתמש בגירסה המתוקננת של המשפט, אם נחסר מממוצע המדגם את התוחלת ונחלק בסטיית התקן כלומר סיגמא חלקי שורש n, הכמות הזאת מתפלגת נורמלית סטנדרטית.</p>
+<p>יש לנו שם לסטיית התקן של ממוצע המדגם, standard error או טעות התקן, וכאמור לכמות המתוקננת הזאת אנחנו קוראים סטטיסטי Z.</p>
+<p>אני לא יודע אם סטודנטים ששומעים לראשונה על משפט הגבול המרכזי מתרשמים ממנו כמו שראוי לו. התוצאה הזאת היא בעלת השלכות אדירות, כי תשימו לב שהמשפט נכון לכל התפלגות מקורית של X, תהא צורתה אשר תהא, ובלבד שהשונות שלה סופית.</p>
+<p>הגירסא הראשונה של משפט הגבול המרכזי הוכחה כבר במאה ה18 על-ידי דה-מואבר, ואחר כך במאה ה19 על-ידי לפלאס. המילה מרכזי בשם המשפט הוכנסה שם במאה העשרים כשכבר הבינו כמה הוא מהותי לבדיקת השערות והתקדמות המדע.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -858,7 +900,13 @@ SD of mean differences:  10.11</code></pre>
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>נראה את משפט הגבול המרכזי קודם על התפלגויות ידועות, למשל התפלגות ברנולי.</p>
+<p>יש לנו מדגם בעל n תצפיות X1 עד Xn, שכל אחת תוצאה של ניסוי ברנולי שיכול להצליח כלומר לקבל את הערך 1 בהסתברות p, ונניח שהיא חצי.</p>
+<p>לפי חוקי ההתפלגות התוחלת ידועה והיא p עצמו כלומר חצי, והשונות היא p(1-p) כלומר רבע.</p>
+<p>אנחנו יודעים כבר, שסכום התצפיות הוא התפלגות אחרת מוכרת לנו, התפלגות בינומית עם n ניסויים וסיכוי להצלחה חצי.</p>
+<p>והנה, לפי משפט הגבול המרכזי, סכום התצפיות חלקי n שזה הממוצע, מתפלג בקירוב נורמלית עם תוחלת חצי, ושונות רבע חלקי n.</p>
+<p>אם נכפול את התוצאה הזאת בn נקבל שסכום התצפיות מתפלג נורמלית עם תוחלת חצי n ושנות רבע n.&nbsp;בדקו שאתם מבינים מדוע.</p>
+<p>אבל זה אומר, שמצאנו את מה שקרוי הקירוב לנורמלי של משתנה בינומי! משתנה בינומי עם סיכוי חצי, מתפלג נורמלית עם תוחלת חצי n ושונות רבע n, אם מספר הניסויים גדול מספיק!</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -890,7 +938,9 @@ SD of mean differences:  10.11</code></pre>
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>לאברהם דה-מואבר שגילה את התופעה הזאת במאה ה18 לא היה מחשב. לנו, יש פייתון ובאמצעות כמה שורות של קוד אפשר להדגים את התוצאה הזאת, גם אם אנחנו לא מוכיחים אותה באופן פורמלי.</p>
+<p>כאן אנחנו דוגמים את התוצאה של משתנה בינומי עם n = 20 לדוגמא וסיכוי חצי, אנחנו עושים את זה עשרת אלפים פעמים ומציירים את ההיסטוגרמה של התוצאות לראות את ההתפלגות.</p>
+<p>ההתפלגות נראית כמו התפלגות נורמלית, ואכן, אם נחשב לפי משפט הגבול המרכזי את התוחלת וסטיית התקן שלה ונצייר את התוצאה מעליה, נראה התאמה מרשימה</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -924,7 +974,9 @@ SD of mean differences:  10.11</code></pre>
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>נראה דוגמא נוספת, הפעם מהתפלגות רציפה ומאוד מאוד לא נורמלית - התפלגות אקספוננציאלית.</p>
+<p>אם איקס מתפלג אקספוננציאלית עם פרמטר למדא חיובי זה אומר: שאיקס יכול לקבל ערכים מאפס עד אינסוף, יש לנו נוסחה לפונקצית הצפיפות שלו ואפילו נוסחה סגורה לפונקצית ההתפלגות המצטברת. התוחלת שלו היא 1 חלקי למדא והשונות 1 חלקי למדא בריבוע.</p>
+<p>לדוגמא, נהוג הרבה פעמים למדל זמן עד שיקרה אירוע מסוים כמשתנה אקספוננציאלי. כאן הזמן בין שתי רכבות מתל אביב לחיפה מתפלג אקספוננציאלית. בממוצע אנחנו יודעים שאנחנו ממתינים כעשרים דקות בין שתי רכבות. לכן התוחלת היא שליש והפרמטר למדא של ההתפלגות הוא ההופכי של שליש, שלוש.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -943,15 +995,16 @@ SD of mean differences:  10.11</code></pre>
 <p>How it looks (definitely not normal):</p>
 <div class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> np.arange(<span class="dv">0</span>, <span class="dv">10</span>, <span class="fl">0.01</span>)</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>plt.plot(x, stats.expon.pdf(x, scale <span class="op">=</span> <span class="dv">3</span>))</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>plt.plot(x, stats.expon.pdf(x, scale <span class="op">=</span> <span class="dv">1</span><span class="op">/</span><span class="dv">3</span>))</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<p><img data-src="c08_inferenceB_files/figure-revealjs/cell-11-output-1.png" width="505" height="411"></p>
+<p><img data-src="c08_inferenceB_files/figure-revealjs/cell-11-output-1.png" width="496" height="411"></p>
 </div>
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>וכך נראית פונקצית הצפיפות של התפלגות אקספוננציאלית עם פרמטר למדא שווה 3. נשים לב שאני מצייר אותה עם המתודה pdf של המודול stats.expon מספריית scipy. ונשים לב שהפרמטריזציה של המתודה הזאת מעט מבלבלת, כדי לקבל למדא 3 צריך להזין לתוכה דווקא את התוחלת, 1 חלקי למדא, או שליש.</p>
+<p>לבסוף נשים לב שההתפלגות הזאת מאוד לא סימטרית, מאוד לא נורמלית!</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -972,7 +1025,8 @@ SD of mean differences:  10.11</code></pre>
 
 <img data-src="images/clt_exp3_n30.gif" class="r-stretch"><aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>והנה לפנינו סימולציה שלוקחת עוד ועוד מדגם בגדול n = 30 מהתפלגות אקספוננציאלית עם למדא שווה 3, ומציירת את התפלגות ממוצעי המדגם.</p>
+<p>תזכרו שההתפלגות המקורית האקספוננציאלית היא לא נורמלית בכלל. אבל התפלגות הממוצעים כן! היא נורמלית סביב התוחלת המקורית שליש.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -993,7 +1047,8 @@ SD of mean differences:  10.11</code></pre>
 
 <img data-src="images/clt_exp3_n5.gif" class="r-stretch"><aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>כאן אנחנו רואים סימולציה זהה רק הפעם גודל המדגם הוא n = 5. באופן מדהים, גם כאן היא די סימטרית, אבל לוקח לה הרבה יותר זמן או מדגמים כדי להיראות ממש נורמלית, ואם תבדקו תגלו שהפיזור שלה גדול יותר סביב התוחלת וזה הגיוני, הרי טעות התקן, היא סטיית התקן של הממוצע, היא סיגמא חלקי שורש n, וככל שn גדול יותר כך טעות התקן קטנה יותר. כאן n ממש קטן ונצפה לראות פיזור גדול.</p>
+<p>נכון שמשפט הגבול המרכזי הוא תוצאה מרשימה? נראה כעת איך להשתמש בו בבדיקת השערות.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1011,7 +1066,7 @@ SD of mean differences:  10.11</code></pre>
 <h2>Z-Test</h2>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>היישום המיידי של משפט הגבול המרכזי בבדיקת השערות הוא מבחן Z.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1043,7 +1098,12 @@ SD of mean differences:  10.11</code></pre>
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>נחזור שוב לדוגמא של הזמן ביו שתי רכבות מתל-אביב לחיפה. האם הוא באמת בתוחלת 20 דקות? לאחרונה זה נראה לי יותר. כלומר יש כאן מצב של בדיקת השערות: השערת האפס, ברירת המחדל, מה שמספרים לנו, היא תוחלת של 20 דקות. וההשערה האלטרנטיבית היא חד צדדית, יותר מ20 דקות.</p>
+<p>אני דוגם בצורה אקראית 30 זמני המתנה, מחשב ממוצא ומקבל: ארבע תשיעיות השעה, או 26 דקות ו-40 שניות. נשים לב שזה די גבוה, הרי אמרו לנו 20 דקות, ואנחנו הגענו ל26 דקות בממוצע! אבל אולי זה קרה במקרה? זה בדיוק מה שאנחנו מנסים להעריך, אבל בשביל להעריך את זה אנחנו צריכים לדעת איך מתפלג ממוצע המדגם?</p>
+<p>לפי משפט הגבול המרכזי ממוצע המדגם מתקרב בקירוב נורמלית תחת השערת האפס עם התוחלת המקורית של ההתפלגות האקספוננציאלית שליש, ושונות קטנה פי 30 מהשונות המקורית, או תשיעית חלקי 30.</p>
+<p>או בצורה המתקוננת, אני מחסר מהממוצע שליש ומחלק בטעות התקן, והכמות הזאת כבר מתפלגת בקירוב נורמלי סטנדרטי.</p>
+<p>כעת אני מציב ממוצע 4 תשיעיות, ומקבל ערך Z של 1.825.</p>
+<p>הערך הזה מתקבל מהתפלגות נורמלית סטנדרטית ואין לי שום בעיה לחשב לו pvalue. הpvalue יהיה הסיכוי לקבל ערך קיצוני כמו 1.82 או יותר תחת ההתפלגות הנורמלית הסטנדרטית. לכל התהליך הזה, קוראים מבין Z, ואפשר לעשות אותו אם השונות ידועה.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1079,7 +1139,9 @@ SD of mean differences:  10.11</code></pre>
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>בפייתון, אפשר להשתמש במתודה cdf שראינו שבעצם מחזירה את פי, האינטגרל שאנחנו רוצים. אבל בפייתון לא חייבים לתקנן את המשתנה. אפשר לשאול מה ההסתברות לקבל 4 תשיעיות או יותר במשתנה נורמלי סטנדרטי שזו התוחלת שלו וזו סטיית התקן. ואפשר לשאול מה הסיכוי לקבל את ערך הZ שקיבלנו, 1.82 או יותר, תחת ההתפלגות הנורמלית סטנדרטית.</p>
+<p>בכל מקרה הכמות שאנחנו מחפשים, תחת השערת האפס, היא כ3 אחוז. זה הpvalue החד צדדי, והוא נראה קטן מאוד, בודאי קטן מרמת מובהקות אלפא של 5 אחוז, ואנחנו דוחים את השערת האפס, אכן ממוצע של 30 זמני המתנה שעומד על 26 דקות, זה עדות מספקת שזמני ההמתנה הם בתוחלת יותר מ20 דקות.</p>
+<p>לפני שנמשיך, מה היה קורה אם זמן ההמתנה הממוצע שהיינו מקבלים היה 2 תשיעיות או בערך 13 דקות, כלומר פחות מ20 דקות? אפשר היה להמשיך כרגיל ולחשב pvalue. אבל אם תחשבו על זה, התוצאה הזאת היא בכלל לא בכיוון ההשערה האלטרנטיבית, של זמן המתנה יותר מ20 דקות. ברור שהpvalue יצא גדול מאוד ולא נדחה את השערת האפס ולכן אין טעם לחשב אותו במקרה כזה. שימו לב שאחרי כל העבודה הקשה של איסוף נתונים למדגם, התקבלה תוצאה שעוצרת את המחקר על הסף. אם הממוצע עצמו לא גדול מ20 דקות, אין סיבה להמשיך, ההשערה נדחית על הסף.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1098,14 +1160,17 @@ SD of mean differences:  10.11</code></pre>
 <h3 id="back-to-red-paintings-1">Back to Red Paintings</h3>
 <ul>
 <li><p>Let <span class="math inline">\(X\)</span> be the red pixel level of impressionist paintings images.</p></li>
-<li><p>Let <span class="math inline">\(Y\)</span> be the red pixel level of real paintings images.</p></li>
+<li><p>Let <span class="math inline">\(Y\)</span> be the red pixel level of realist paintings images.</p></li>
 <li><p>(They don’t have a normal distribution, which is fine).</p></li>
 <li><p>Under <span class="math inline">\(H_0\)</span> they both come from the same distribution with <span class="math inline">\(E(X) = E(Y) = \mu\)</span> and <span class="math inline">\(Var(X) = Var(Y) = \sigma^2\)</span>.</p></li>
 <li><p>Sample size was <span class="math inline">\(n = 30\)</span> for both independent samples.</p></li>
 </ul>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>בחזרה לציורים שלנו, הפעם בלי סימולציה של התפלגות האפס.</p>
+<p>X יהיה רמת האדום בציורים אימפרסיוניסטיים. Y יהיה רמת האדום בציורים ריאליסטיים. אנחנו ממש לא מניחים שX או Y או שניהם הם בעלי התפלגות נורמלית - יותר מזה, אם תחזרו לשיעור הראשון תראו שכבר סרטטנו את ההתפלגות הזאת והיא ממש לא היתה נורמלית, אפילו לא סימטרית. אבל זה בסדר, כי יש לנו את משפט הגבול המרכזי.</p>
+<p>תחת השערת האפס התוחלות של X ושל Y זהות לאיזשהו מיו, ואנחנו נניח שהשוניות גם זהות לאיזשהו סיגמא בריבוע.</p>
+<p>גודל המדגם שלנו הוא 30 לשני המדגמים.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1132,7 +1197,10 @@ SD of mean differences:  10.11</code></pre>
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>כעת בלי סימולציה נטען לפי משפט הגבול המרכזי שממוצע כל אחד מהמדגמים מתפלג בקירוב נורמלית עם התוחלת הזה מיו והשונות הזהה סיגמא בריבוע חלקי n.</p>
+<p>אנחנו מעונינים בהתפלגות הסטטיסטי ממוצע X פחות ממוצע Y. לפי חוקי ההתפלגות הנורמלית סכום או הפרש שני משתנים נורמליים בלתי תלויים מתפלג גם הוא נורמלית עם סכום או הפרש התוחלות, וסכום השונויות. במקרה שלנו הפרש התוחלות תחת השערה האפס הוא מיו פחות מיו, אפס.</p>
+<p>לכן תחת השערת האפס נסכם שהסטטיסטי שלנו חלקי שורש של שני סיגמא בריבוע חלקי n מתפלג נורמלית סטנדרטית.</p>
+<p>רק בעיה אחת קטנה: אנחנו לא יודעים מה זה סיגמא. שימו לב שאנחנו גם לא יודעים מהו מיו אבל תחת השערת האפס הוא נעלם בהפרש.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1181,7 +1249,10 @@ SD of mean differences:  10.11</code></pre>
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>אז נניח לעת עתה שאנחנו כן יודעים מהי סיגמא, ובמקרה שלנו אפשר פשוט לחשב אותה על סמך 16 אלף ציורים, זה יוצא 39.3. נציב את זה ונראה שתחת השערת האפס הפרש הממוצעים מתפלג נורמלית עם תוחלת אפס וסטיית תקן 10.15. או בצורה המתוקננת, הפרש הממוצעים חלקי 10.15 מתפלג נורמלית סטנדרטית.</p>
+<p>הפרש הממוצעים שהתקבל הוא בערך 15 נקודות, מחולק ב15 זה אומר שסטטיסטי Z במבחן Z שלנו הוא קצת פחות מ1.5.</p>
+<p>בפייתון אפשר או להשתמש בערך המקורי של 15 או בערך המתוקנן 1.48 כדי לקבל את הpvalue, ואנחנו מקבלים בערך 7 אחוזים pvalue. זה מאוד דומה לערך שקיבלנו בסימולציה, ובכל מקרה לא מספיק קטן ומרשים ולא נדחה את השערת האפס.</p>
+<p>אבל זה לא סביר שנדע את סטיית התקן של ההתפלגות המקורית, נכון? במקרה כזה אנחנו עושים התאמות ובמקום מבחן Z מקבלים את מבחן T.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1226,7 +1297,9 @@ SD of mean differences:  10.11</code></pre>
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>אז מה עושים כשההתפלגות המקורית והשונות שלה לא באמת ידועות?</p>
+<p>במקרה הזה נהוג להחליף את סיגמא בריבוע בנוסחאות שלנו באמצעות האומד לשונות שהתקבל מהמדגם שמסומן בS בריבוע. והוא סכום המרחקים הריבועיים של X מממוצע המדגם חלקי n פחות 1. למה n פחות 1? מי שירצה ללמוד על הדברים האלה לעומק יוכיח שבמקרה כזה האומד שלנו לסיגמא ריבוע הוא אומד חסר הטיה, כלומר התוחלת של הסטטיסטי הזה שווה לסיגמא בריבוע.</p>
+<p>אבל, כשאנחנו מחליפים את סיגמא בסטטיסטי Z שלנו באמצעות S, הוא כבר לא מתפלג נורמלית סטנדרטית, אלא הוא מתפלג T, עם פרמטר שנקרא דרגות חופש והוא n פחות 1. מי שירצה להרחיב בקורס מתקדם יראה שלהתפלגות הזאת גם יש פונקצית צפיפות מעניינת, אנחנו פשוט קוראים לה student’s T או T בקיצור על שום החוקר שניסח אותה לראשונה william Gosset.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1258,7 +1331,8 @@ SD of mean differences:  10.11</code></pre>
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>לפונקצית הצפיפות של T עם n - 1 דרגות חופש יש צורה שמזכירה מאוד את ההתפלגות הנורמלית, היא פשוט רחבה יותר, או הזנבות שלה עבים יותר. אפשר לראות את זה כתוצאה של עוד אי-ודאות שנכנסה לתהליך ההסתברותי, הרי אנחנו אומדים כעת את סטיית התקן S והיא לא נתונה לנו כמקודם.</p>
+<p>כאן, אני מצייר את ההפתגות T עם 5 דרגות חופש בכחול, ולידה את ההתפלגות T עם 120 דרגות חופש בירוק. אני מצייר גם את ההתפלגות הנורמלית הסטנדרטית באדום אבל היא ממש בלתי מובחן מההתפלגות T עם 120 דרגות חופש בירוק. הסיבה היא שככל שגודל המדגם או דרגות החופש גדלות, כך ההתפלגות T נעשית רזה ורזה יותר ושואפת להתפלגות הנורמלית סטנדרטית. כך שעבור מדגמים גדולים מספיק זה כבר לא משנה כל כך אם משתמשים במבחן Z עם הנחה שסטיית התקן ידועה או משתמשים במבחן T.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1284,7 +1358,9 @@ SD of mean differences:  10.11</code></pre>
 </ul>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>אז מהו מבחן T?</p>
+<p>הסטטיסטי T מתקבל כאשר מחסרים מהממוצע את התוחלת תחת השערת האפס, ומחלקים בטעות התקן הנאמדת, S בריבוע חלקי N. תחת השערת האפס הסטטיסטי T מתפלג T עם n - 1 דרגות חופש, ואם רוצים לקבל אותו ואת הp-value שמקושר אליו אפשר להשתמש במתודה ttest_1samp מספריית statsmodels.</p>
+<p>לדוגמא אם תחת השערת האפס התוחלת היא אפס, והמדגם שלנו נמצא באוביקט x, כך נבצע מבחן t לראות אם התוחלת שונה מאפס.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1314,7 +1390,10 @@ SD of mean differences:  10.11</code></pre>
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>אם יש לנו שני מדגמים, המבחן הראוי הוא מבחן T למדגמים בלתי תלויים. יש לנו מדגם X או רמת האדום בציורים אימפרסיוניסטיים בגודל n_x, ומדגם Y בגודל n_y, במקרה שלנו שני הn-ים זהים והם 30 אבל זה לא חייה להיות כך. השערת האפס היא שתוחלת איקס שווה לתוחלת וואי. נניח גם שוויון שונויות, סיגמא בריבוע של X שווה לסיגמא בריבוע של Y.</p>
+<p>תחת הנחת שוויון שונויות, הסטטיסטי שלנו מתקונן הוא הפרש הממוצעים, פחות הפרש התוחלות, חלקי טעות התקן שמקבלת כאן צורה שכזאת. זה היה מתפלג בקירוב נורמלית סטנדרטית תחת משפט הגבול המרכזי.</p>
+<p>אבל אנחנו לא יודעים מהי השונות המשותפת ומחליפי אותה באומד שנקרא S pooled, שהוא בעצם ממוצע משוקלל של האומד לשונות של מדגם X ושל מדגם Y.</p>
+<p>הסטטיסטי הסופי שלנו הוא הפרש הממוצעים פחות הפרש התוחלות תחת השערת האפס, מחולק באומד לטעות התקן. הדבר הזה תחת השערת האפס מתפלג T עם n_x + n_y -2 דרגות חופש. נשים לב שהרבה פעמים השערת האפס היא שמיו איקס שווה למיו וואי, ולכן בפועל הפרש התוחלות יהיה אפס, וזה יפשט קצת את המונה.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1339,7 +1418,8 @@ SD of mean differences:  10.11</code></pre>
 <p>Where: <span class="math inline">\(df'=\frac{\left(\frac{S_x^2}{n_x}+\frac{S_y^2}{n_y}\right)^{2}}{\frac{\left(S_x^2/n_x\right)^2}{n_x-1}+\frac{\left(S_y^2/n_{2}\right)^{2}}{n_y-1}}\)</span></p>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>מה קורה אם אנחנו לא מניחים שוויון שונויות?</p>
+<p>אם אנחנו לא מניחים שוויון שונויות אז האומד לטעות התקן שלנו משתנה מעט, אנחנו כבר לא מחשבים את s-pooled. ואז מקובל לבצע תיקון בחישוב דרגות החופש שמסומנות כאן כdf, degrees of freedom. יש נוסחה לא מאוד סימפטית לזה, לא תצטרכו בקורס שלנו לחשב אותה ידנית כי בכל מקרה נחשב בפייתון.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1393,7 +1473,9 @@ P(mean_diff &gt;= 15 | H0) =  0.086</code></pre>
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>בחזרה לציורים שלנו: השערת האפס שלנו היא אכן שהתוחלות של רמת האדום בציורים אימפרסיוניסטיים וריאליסטיים הן זהות או במילים אחרות הפרש התוחלות הוא אפס. הנה עשר התצפיות הראשונות מכל מדגם:</p>
+<p>בצורה ידנית, כדי לראות שהנוסחאות עובדות, ניתן לחשב את סטטיסטי טי: הפרש הממוצעים, חלקי האומד לטעות התקן בדיוק כפי שכתבנו. הסטטיסטי יוצא בערך 1.38, ובאמצעות המתודה cdf במודול stats.t, אנחנו מחשבים את הp-value החד-צדדי, כלומר הסיכוי לקבל בהתפלגות T עם 58 דרגות חופש 1.38 או יותר –</p>
+<p>וזה יוצא כשמונה וחצי אחוזים.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1431,7 +1513,10 @@ P(mean_diff &gt;= 15 | H0) =  0.086</code></pre>
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>את כל החישוב המסורבל הזה אפשר לבצע בשורה אחת עם הפונקציה ttest_ind גם היא מהמודול stats של ספריית scipy.</p>
+<p>אבל כדי לבצע מבחן חד-צדדי צריך לפרט alternative = ‘greater’. בכל מקרה קיבלנו בדיוק את התוצאה של המבחן הידני.</p>
+<p>וpvalue של 8.5 אחוזים הוא לא מרשים במיוחד ואנחנו לא דוחים את השערת האפס.</p>
+<p>נשים לב שהpvalue שקיבלנו של 8.5 אחוזים גדול יותר מהpvalue של המבחן Z המדויק שיצא כ7 אחוזים. זה לא במקרה. ויתרנו על הנחת השונות הידועה, זה בא לידי ביטוי בתיאוריה שלנו שהובילה אותה להתפלגות t שיש לה זנבות עבים יותר, כלומר הסיכוי לקבל בה תוצאות קיצוניות יותר גדול יותר. מה שאומר שכדי לדחות השערות בהתפלגות T צריך תוצאות קיצוניות יותר.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1480,7 +1565,10 @@ P(mean_diff &gt;= 15 | H0) =  0.086</code></pre>
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>ביחידה זו נדבר על רווחי סמך. אחת הבעיות עם חישובי pvalue או איזורי דחייה, היא שעדיין בסופו של דבר מדובר במבחן החלטה בינארי שאיננו אינפורמטיבי. אם מגדילים את מרחב המדגם, גם אפקטים קטנים מאוד יכולים להיות “מובהקים סטטיסטית” - תראו לזה דוגמאות בהמשך ובתרגול. וזה שאפקט הוא מובהק סטטיסטית, לא אומר שהוא אכן מעניין מדעית, מה שמביא הרבה פעמים מדענים לעשות רדוקציה למחקר המדעי שלהם, למעבר של הערך הזה, ותו לא.</p>
+<p>אולי עדיף לתאר איזשהו אומד לפרמטר עליו מתבצע המבחן. זה יכולה להיות תוחלת של משתנה או הפרש התוחלות כמו במקרה של הציורים שלנו. ולא דיווח רק על הpvalue והאם הוא קטן יותר מרמת המובהקות אלפא או לא.</p>
+<p>הבעיה היא שממוצע המדגם או הפרש ממוצעי המדגם הם אומד נקודתי שהוא בסבירות גבוהה לא נכון!, ולכן היינו רוצים לדווח טווח, שנקרא רווח סמך:</p>
+<p>האמירה תהיה התוחלת מיו נמצאת בטווח X גג פלוס-מינוס איזשהו אפסילון, ברמת ביטחון של 95% או 90%. איך אנחנו מוצאים טווח כזה?</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1513,7 +1601,10 @@ P(mean_diff &gt;= 15 | H0) =  0.086</code></pre>
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>לדוגמא במבחן Z, נרצה ערכים lower bound ו-upper bound, שמבוססים על המדגם X, שאנחנו נטען שבהסתברות 1 מינוס אלפא, מכסים איזשהו פרמטר אמיתי תטא אותו אנחנו מנסים להעריך. טווח כזה ייקרא רווח סמך ברמת ביטחון 100 כפול 1 מינוס אלפא אחוז.</p>
+<p>בדרך כלל אלפא יהיה 0.05 או 0.1, ורווח הסמך שלנו יהיה סימטרי סביב איזשהו אומד X האט לתטא שמבוסס על המדגם, למשל ממוצע המדגם.</p>
+<p>עבור מבחן Z, אנחנו יודעים ממשפט הגבול המרכזי שהממוצע המתוקנן נמצא בין האחוזון ה-2.5 לבין האחוזון ה97.5 בהסתברות 0.95. אחרי קצת משחק אלגברי והעברת אגפים תקבלו שני ערכים lower ו-upper bounds, שעונים בדיוק על ההגדרה המבוקשת: הם מכסים את הפרמטר מיו בהסתברות 0.95.</p>
+<p>וזה אומר שהם מהווים רווח סמך ברמת בטחון 0.95 עבור התוחלת מיו. מאחר שהאחוזונים של ההתפלגות הנורמלית סטנדרטית הם סימטריים, הקטן הוא מינוס 1.96 והגדול הוא פלוס 1.96, וכך אנו מגיעים לרווח סמך שציפינו להגיע אליו לפרמטר התוחלת: ממוצע המדגם פלוס מינוס איזשהו אפסילון.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1545,7 +1636,9 @@ P(mean_diff &gt;= 15 | H0) =  0.086</code></pre>
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>בדוגמת זמני ההמתנה של הרכבת, תחת השערת האפס זמן ההמתנה מתפלג אקספוננציאלית עם איזשהו פרמטר למדא, והממוצע מתפלג נורמלית בקירוב ממשפט הגבול המרכזי. נניח גם שסטיית התקן נשארת כפי שהיא והיא ידועה, שליש. ממוצע המדגם שהתקבל הוא ארבע תשיעיות, גודל המדגם היה 30, מציבים בנוסחת רווח הסמך, ומקבלים שתוחלת זמן ההמתנה בין 0.32 שעה, לבין 0.56, שזה אומר בערך בין 19.5 דקות לבין לכמעט 34 דקות.</p>
+<p>חדי העין ביניכם ודאי שמים לב שהזמן מהשערת האפס – 20 דקות – נמצא ברווח הסמך הזה, כלומר בסיכוי 0.95 אנחנו לא פוסלים את האפשרות הזאת. אבל אם אתם זוכרים דחינו את השערת האפס כשביצענו בדיקת השערות לנתונים האלה במבחן Z. אבל, אנחנו ביצענו בדיקת השערות חד-צדדית, כלומר שיערנו מראש שמני ההמתנה ארוכים יותר. ואם היינו עודים בדיקת השערות דו-צדדית, שזמן ההמתנה פשוט השתנה, אכן לא היינו דוחים את השערת האפס, גם בגישת הpvalue. יש קשר הדוק בין בדיקת השערות דו-צדדית לבין הימצאות או אי-הימצאות הפרמטר מהשערת האפס ברווח הסמך. תדברו על זה עוד בתרגול.</p>
+<p>בינתיים נסכים שאמירה כמו זמן ההמתנה הממוצע הוא בין 19.5 ל34 דקות ברמת ביטחון 95 אחוז היא אמירה מעניינת יותר מדחינו או לא דחינו את השערת האפס.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1573,7 +1666,10 @@ P(mean_diff &gt;= 15 | H0) =  0.086</code></pre>
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>טעות נפוצה שעושים כולם בתחום, מסטודנטים ועד מדענים היא להגיד: ההסתברות שמיו נמצא בין 0.33 ל-0.56 היא 95 אחוז.</p>
+<p>מבחינה הסתברותית זו אמירה בעייתית ביותר וחשוב לי שתימנעו ממנה. מיו, התוחלת, היא פרמטר. היא או נמצאת ברווח הסמך או שלא. היא לא משתנה מקרי! זה כמו להגיד 2 נמצא בהסתברות 0.95 בין 3 ל-4 – הוא או נמצא שם או לא.</p>
+<p>אז למה כן אנחנו מתכוונים כשאנחנו אומרים “רווח סמך ברמת ביטחון 95%” אנחנו אומרים שאם היינו עורכים הרבה מדגמים בצורה דומה, ב95% מהם הרווח סמך שאנחנו בונים עם הערך העליון והתחתון שלנו, היו מכסים את הפרמטר האמיתי מיו. כך שהאמירה ההסתברות היא על גבולות רווח הסמך, הם (!) המשתנים המקריים, לא הפרמטר.</p>
+<p>נדגים: לפנינו הרבה הרבה ניסויים חוזרים של המדגם שלנו, לקחת 30 תצפיות מהתפלגות אקספוננציאלית עם פרמטר למדא שווה 3, ולבנות מממוצע המדגם רווח סמך לתוחלת, שאנחנו יודעים שהיא שליש, כי ככה הגרלנו את הנתונים. אפשר לראות, שלמרות שהנתונים מגיעים מהתפלגות ידועה רווח הסמך מכסה את התוחלת רק ב95% מהמקרים בקירוב. ולזה אנחנו מתכוונים כשאנחנו מדברים על רמת סמך או רמת ביטחון.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1602,7 +1698,8 @@ P(mean_diff &gt;= 15 | H0) =  0.086</code></pre>
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>עבור מבחן T למדגם בודד יש לנו נוסחה לרווח הסמך לתוחלת מיו. אפשר לראות שעדיין הצורה היא ממוצע המדגם פלוס מינוס איזשהו אפסילון רק שהפעם סטיית התקן לא ידועה והיא נאמדת באמצעות S, והאחוזונים מגיעים מהתפלגות T עם n - 1 דרגות חופש ולא Z.</p>
+<p>אותו דבר למבחן T למדגמים בלתי תלויים, ואנחנו רוצים לבנות רווח סמך להפרש התוחלות. עדיין יש לנו איזשהו סטטיסטי כאן הפרש הממוצעים פלוס מינוס איזשהו טווח.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1632,7 +1729,9 @@ P(mean_diff &gt;= 15 | H0) =  0.086</code></pre>
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>במקרה של הציורים שלנו נותר רק להציב בנוסחה כדי לתת רווח סמך להפרש רמת האדום בין הסגנון האימפרסיוניסטי לריאליסטי.</p>
+<p>ניזכר שהפרש ממוצעי המדגמים היה 15 נקודות, גודל שני המדגמים היה 30 (והם לא חייבים להיות זהים!), וגם חישבנו כבר את S-pooled ויצא 1824. לכן רווח סמך להפרש התוחלות אימפרסיוניסטי פחות ריאליסטי יהיה בין -6.8 לבין 37.4.</p>
+<p>ושוב נשים לב רווח הסמך כולל את האפשרות 0 בתוכו, האפשרות שמשמעותה היא שאין הבדל ברמת האדום בין שני הסגנונות ציור, ואפשר להגיד שמכאן לא היינו דוחים השערת אפס דוצדדית שהתוחלות שוות. אבל האמירה הכרוכה ברווח סמך, מדעית, היא מעניינת יותר.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1650,7 +1749,7 @@ P(mean_diff &gt;= 15 | H0) =  0.086</code></pre>
 <h2>Power</h2>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>הנושא האחרון שנעסוק בו בבדיקת השערות הוא עוצמת המבחן. הבנה של העוצמה הסטטיסטית של מבחן מדעי היא אקוטית לכל חוקרת שרוצה לבצע ניסויים, ורצוי לדעת מהי עוצמת המבחן של הניסוי שאת מבצעת לפני שאת מבצעת אותו, ולא כשהוא עובדה מוגמרת! הרבה פעמים מדענים מערבים אינטואיציה לא נכונה בחישוב עוצמת המבחן, לא מבצעים חישובים מדויקים, ומסתבר להם רק בדיעבד שהשקיעו הרבה זמן ומשאבים במבחן בעל עוצמה נמוכה.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1673,15 +1772,15 @@ P(mean_diff &gt;= 15 | H0) =  0.086</code></pre>
 <div class="cell" data-execution_count="19">
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>true_mean_diff <span class="op">=</span> np.mean(impr_red_all) <span class="op">-</span> np.mean(real_red_all)</span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'True means difference: </span><span class="sc">{</span>true_mean_diff<span class="sc">: .2f}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell fragment" data-execution_count="19">
 <div class="cell-output cell-output-stdout">
 <pre><code>True means difference:  15.35</code></pre>
 </div>
 </div>
-<ul>
-<li>Surprise: it <em>is</em> in fact higher, by 15 points.</li>
-</ul>
 <div>
 <ul>
+<li class="fragment"><p>Surprise: it <em>is</em> in fact higher, by 15 points.</p></li>
 <li class="fragment"><p>Let’s assume for the time being that this is “interesting” (is it, though?)</p></li>
 <li class="fragment"><p>It turns out the null hypothesis, which we have not rejected, was wrong, impressionist paintings <em>are</em> “redder”</p></li>
 <li class="fragment"><p>Why did we fail to reject the null hypothesis, and would likely fail again?</p></li>
@@ -1690,7 +1789,11 @@ P(mean_diff &gt;= 15 | H0) =  0.086</code></pre>
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>ניזכר מהי עוצמת המבחן באמצעות הדוגמא של הציורים. זכרו שכאן כל האוכלוסיה היא בעצם בכף ידנו, ושורה אחת של קוד בפייתון תגלה לנו מהו באמת ההבדל ברמת האדום בין ציורים אימפרסיוניסטים לריאליסטיים. אני לוקח כאן את רמת האדום של כל הציורים האימפרסיוניסטיים פחות רמת האדום של כל הציורים הריאליסטיים, וראו זה פלא: יש אכן הבדל, של קצת יותר מ15 נקודות, בין רמת האדום של שני הסגנונות. זאת האמת.</p>
+<p>נניח לרגע שזה הבדל מעניין מבחינה מדעית, למראות שבסקאלת אדום של 0 עד 255 – לא כל כך בטוח.</p>
+<p>זה אומר שהשערת האפס שלנו, אותה לא דחינו, היתה שגויה, וביצענו טעות מסוג ראשון.</p>
+<p>למה טעינו? ואם היינו עורכים את הניסוי שוב - האם סביר שהיינו טועים שוב?</p>
+<p>התשובה נעוצה בעוצמת המבחן: ההסתברות לדחות את השערת האפס כשזו באמת לא נכונה. כאן, תיכף נראה, ההסתברות הזאת – עוצמת המבחן – היתה קטנה. ואם היינו אומדים אותה מראש אולי יכולנו לתכנן ניסוי טוב יותר.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1708,7 +1811,7 @@ P(mean_diff &gt;= 15 | H0) =  0.086</code></pre>
 
 <h4 id="impressionist-and-realist-paintings---power-analysis---simulation">Impressionist and Realist Paintings - Power Analysis - Simulation</h4>
 <p><span class="math inline">\(\pi = P(\text{reject} H_0 | H_1 \text{ true}) = ?\)</span></p>
-<p>Let’s simulate before we compute. We have the “population”, we can just take many impressionist and realist <span class="math inline">\(n=30\)</span> samples, perform a T-test and see the percentage of times we reject the null hypothesis, i.e.&nbsp;p-value &lt; <span class="math inline">\(\alpha\)</span>:</p>
+<p>Let’s simulate before we compute. We have the “population”, we can just take many impressionist and realist <span class="math inline">\(n=30\)</span> samples, perform a T-test and see the percentage of times we reject the null hypothesis, i.e.&nbsp;p-value <span class="math inline">\(&lt; \alpha\)</span>:</p>
 <div class="fragment">
 <div class="cell" data-execution_count="20">
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> random_sample_t_test(alpha, n):</span>
@@ -1724,8 +1827,10 @@ P(mean_diff &gt;= 15 | H0) =  0.086</code></pre>
 <span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a>rejections <span class="op">=</span> [random_sample_t_test(alpha, n) <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n_simulations)]</span>
 <span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Power = P(reject H0 | H1 ) = </span><span class="sc">{</span>np<span class="sc">.</span>mean(rejections)<span class="sc">: .2f}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell fragment" data-execution_count="20">
 <div class="cell-output cell-output-stdout">
-<pre><code>Power = P(reject H0 | H1 ) =  0.46</code></pre>
+<pre><code>Power = P(reject H0 | H1 ) =  0.45</code></pre>
 </div>
 </div>
 </div>
@@ -1734,7 +1839,11 @@ P(mean_diff &gt;= 15 | H0) =  0.086</code></pre>
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>אז עוצמת המבחן שמסומנת כאן בפאי, היא ההסתברות לדחות את H0 כשהיא באמת לא נכונה, כלומר תחת H1, המצב האלטרנטיבי.</p>
+<p>במקרה שלנו אפשר קודם לראות את זה עם סימולציה: הרעיון הוא לבצע את הניסוי שכולל לקיחת שני מדגמים בגודל של התקציב שלנו, שוב ושוב, לבצע כל פעם מבחן T למדגמים בלתי תלויים, ולראות באיזה אחוז מהפעמים נדחה בצדק את השערת האפס:</p>
+<p>כאן אנחנו מדגימים פונקציה שעושה דגימה ומבצעת מבחן T חד-צדדי כמו שעשינו ומחזירה האם יש דחייה או לא, ערך בינארי, בבת אחת. ואנחנו עושים את זה עשרת אלפים פעמים. ומחשבים כמה פעמים מתוך 10000 דחינו בצדק את השערת האפס.</p>
+<p>אנחנו מקבלים סיכוי של 45 אחוז!</p>
+<p>עוצמה של 45 אחוז פירושה שבערך באחד מכל שני מבחנים לא נדחה את H0 כשהמציאות היא H1, שצריך לדחות את H0. אם היינו יודעים שזאת עוצמת המבחן שלנו סביר להניח שהיינו רוצים לשנות את הניסוי כדי להגדיל אותה.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1759,7 +1868,9 @@ P(mean_diff &gt;= 15 | H0) =  0.086</code></pre>
 <p><span class="math inline">\(\pi = P(\text{reject} H_0 | H_1 \text{ true}) = P(\text{ getting p-value }&lt; \alpha |\text{ true mean difference is 15 points}) = ?\)</span></p>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>בפועל אין לנו את כל האוכלוסיה, אנחנו לא יכולים לחזור על הניסוי 10000 פעמים, והכי מאתגר זה שאנחנו לא באמת יודעים את הפרש התוחלות באוכלוסיה גם אם נניח שהוא חיובי.</p>
+<p>גישה נפוצה במקרה כזה היא לחשב את עוצמת המבחן לפי פרמטר שנקרא גודל אפקט. ולנסות להתחשב בכמה גדלי אפקט כאלה. גודל האפקט הוא הפרש התוחלות כשמקובל לעשות לו סטנדרטיזציה, לחלק אותו בסטיית התקן או אומדן לסטיית התקן.</p>
+<p>נניח למשל שהפרש התוחלות הוא 15 נקודות, ונשאל מה הסיכוי לדחות את H0 תחת האפקט הזה, כלומר לקבל pvalue קטן מאלפא רמת המובהקות כשהפרש התוחלות הוא 15.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1789,7 +1900,9 @@ P(mean_diff &gt;= 15 | H0) =  0.086</code></pre>
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>אפשר להגיע לנוסחה סופית במקרה של מבחן T למדגמים בלתי תלויים עם קצת מאמץ, ורשמתי כאן את הפיתוח למי שרוצה להתעמק. נשים לב שההסתברות מתחילה בדיוק בכלל של מבחן T למדגמים בלתי תלויים: האם הסטטיסטי של הפרש ממוצעי המדגמים, מחולק באומד לטעות התקן, גדול הערך T הקריטי של מבחן T, אם הפרש התוחלות האמיתי הוא 15 נקודות.</p>
+<p>בסופו של דבר זה למצוא הסתברות תחת התפלגות T עם כך וכך דרגות חופש, שהססטיסטי שלנו קטן מאיזשהו ביטוי שמסומן כאן.</p>
+<p>מציבים אותו בביטוי בפייתון ומקבלים שהעוצמה היא 0.38, דומה למה שקיבלנו, כלומר רק בכ40 אחוז מהניסויים, תחת האפקט הזה של 15 נקודות, היינו דוחים בצדק את השערת האפס.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1819,7 +1932,7 @@ P(mean_diff &gt;= 15 | H0) =  0.086</code></pre>
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>ברור שיש לנו פונקציה שעושה את זה, יש לנו קלאס מספריית statsmodels שנקרא TTestIndPower, שאפשר להזין לתוכו את הנתונים שיש לנו ולבקש את הנתון החסר. במקרה הזה אנחנו יודעים שגודל האפקט הוא 15 נקודות, מחולק באומד לסטיית התקן, מספר התצפיות בשתי הקבוצות הוא 30, האלפא המבוקשת היא 0.05 וההשערה שלנו היא חד-צדדית. הערך החסר הוא העוצמה, ונקבל כמו בחישוב הידני 0.38.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1863,7 +1976,10 @@ P(mean_diff &gt;= 15 | H0) =  0.086</code></pre>
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>איך אפשר להגדיל את עוצמת המבחן?</p>
+<p>ניזכר בטבלה שמסכמת את הקשר בין ההסתברויות, וכעת כשאנחנו יודעים שההתפלגויות עצמן ניתן לצייר כהתפלגויות נורמלית, אפשר לייצג את הטבלה הזאת בעצם באמצעות גרף.</p>
+<p>תחת השערת האפס הפרש התוחלות הוא אפס. תחת ההשערה האלטרנטיבית הערך הזה חיובי, איזשהו דלתא. אם נעבור בהפרש ממוצעי המדגם איזשהו ערך סף קריטי C נדחה את השערת האפס ונגיד שאנחנו בעצם באיזור ההשערה האלטרנטיבית שמימין. אם אנחנו טועים, הרי שביצענו טעות מסוג ראשון, אנחנו עדיין תחת השערת האפס אבל אנחנו בשטח האלפא שהוא בדרך כלל 1 או 5 אחוזים. אם לא עברנו את הערך הקריטי, לא מדחה את השערת האפס. אם אנחנו טועים, אנחנו עושים טעות מסוג שני. אנחנו בעצם תחת ההשערה האלטרנטיבית אבל בקצה השמאלי שלה תחת השטח המסומן בבטא. ואם צדקנו, זה מצוין, אנחנו בשטח עוצמת המבחן.</p>
+<p>מהגרף הזה קל יותר לראות מה יגדיל את עוצמת המבחן: אם ההתפלגויות היו רחוקות יותר זו מזו, כלומר גודל אפקט גדול ככל הניתן. אם ההתפלגויות היו רזות יותר, כלומר עם סטיית תקן קטנה ככל האפשר. ואם אלפא היתה גדולה ככל הניתן, כלומר להקטין את הערך הקריטי ובכך להגדיל את הסיכוי לטעות מסדר ראשון.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1892,7 +2008,12 @@ P(mean_diff &gt;= 15 | H0) =  0.086</code></pre>
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>אפשר לראות את זה גם חישובית מהנוסחה שהגענו אליה: יש כאן ביטוי, שאנחנו רוצים שההסתברות מעליו תהיה גדולה כמה שיותר, כלומר אנחנו רוצים שיהיה כמה שיותר קטן.</p>
+<p>אני אשאיר לכם לראות את זה מתמטית ואסכם:</p>
+<p>ככל שגודל האפקט גדול יותר כך גדלה העוצמה. במילים אחרות, ככל שהתופעה שאנחנו מודדים גדולה ברורה ומובחנת יותר, כך גדלה עוצמת המבחן.</p>
+<p>ככל שסטיית התקן של התופעה קטנה או האומד לה קטן, כך גדלה עוצמת המבחן - וזה הגיוני ככל שאפשר להקטין את שונות התופעה בניסוי מתוכנן היטב כך יהיה קל יותר להבחין בהבדלים דקים יותר.</p>
+<p>הדרך המקובלת ביותר להקטין את הפיזור זה באמצעות הגדלת גודל המדגם, זו הדרך הקלה ביותר של החוקר להגדיל את העוצמה אף על פי שהיא קשורה בקשר ישיר לתקציב הניסוי.</p>
+<p>לבסוף כמו שאמרנו זה נכון שככל שנגדיל את אלפא, רמת המובהקות או הסיכוי לטעות מסוג ראשון כך תגדל העוצמה – אבל זה נחשב למנהג פסול. את רוצה שהניסוי שלך יצליח בגלל מדע טוב, לא כי זה היה ניסוי שהיית מוכנה לטעות בו הרבה.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1919,7 +2040,7 @@ P(mean_diff &gt;= 15 | H0) =  0.086</code></pre>
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>מקובל לעשות ניתוחי עוצמה לפני שעורכים את הניסוי כאמור. באמצעות המתודה plot_power ניתן לקבל עקומות עוצמה עבר ערכים שונים ולנסות להבין היכן אנחנו נמצאים. כאן למשל אני מבקש לדעת מה תהיה העוצמה עבור גדלי מדגם שונים וגודל אפקט שונה במונחים של סטיות תקן. אפשר לראות למשל שעבור גודל אפקט צנוע של חמישית סטיית תקן, אם אנחנו רוצים עוצמה של 80 אחוז לפחות, אנחנו צריכים גודל מדגם של 400 לפחות.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1956,7 +2077,9 @@ P(mean_diff &gt;= 15 | H0) =  0.086</code></pre>
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>לסיום, נזכיר שוב, שלמרות הכל מובהקות סטטיסטית היא לא מובהקות מדעית. זה שמאמר מדווח על מובהקות סטטיסטית לא פוטר אותנו מלקרוא אותו קריאה ביקורתית ולראות אם הממצא שהוא מתאר אכן מעניין מדעית.</p>
+<p>לדוגמא, בדוגמא עם הציורים, נניח שרמת האדום בציורים אימפרסיוניסטים היתה גדולה מרמת האדום של ציורים ריאליסטיים בחצי נקודה בלבד. כלומק גודל אפקט של 0.01 – מאית סטיית תקן בלבד!</p>
+<p>עדיין, אם נבצע ניתוח עוצמה, נראה שעבור מדגם גדול מספיק, אם n היה גדול למשל מ150 אלף, היינו מקבלים תוצאה מובהקת סטטיסטית בעוצמה של למעלה מ80 אחוז. הלקח הוא לא לרדוף רק אחרי מובהקות סטטיסטית, לתכנן ניסוי שהוא גם בעל ערך מדעי, ולדווח על גודל האפקט ורווח סמך לפרמטר, לא רק על הpvalue!</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
