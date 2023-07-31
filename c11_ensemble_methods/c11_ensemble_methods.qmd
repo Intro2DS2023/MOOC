@@ -303,3 +303,347 @@ plt.show()
 :::
 
 ---
+
+## Boosting {.title-slide}
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### Boosting: intuitive idea
+
+- We gradually and iteratively build the overall model as a sum of smaller models called *weak learners*
+
+- Each weak learner seeks to improve the model we have so far
+
+- Weak learners can be any predictive model, most widely used: trees
+
+- How do we capture the notion of *improve the model we have so far*?
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### Boosting: overall scheme
+
+1. Initialize $F^{(0)}(x) = 0,\; \forall x$
+2. At stage $t \geq 1$:<br>    
+    a. Calculate $Y^{(t)} = (y_1^{(t)},\ldots,y_n^{(t)})$ capturing what the model $F^{(t-1)}$ **has not yet explained**<br>
+    b. Fit a weak learner $\hat{f}^{(t)}$ to $T^{(t)} = (X,Y^{(t)})$<br>
+    c. Update $F^{(t)} = F^{(t-1)} + \epsilon \hat{f}^{(t)}$
+    
+Details: How to determine $Y^{(t)}$? Which weak learner to use? What is $\epsilon$?
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### Example: Tree boosting for regression
+
+- Defining $Y^{(t)}$ as $y_i^{(t)} = (y_i - F^{(t-1)}(x_i))$ the current residual (what the model does not explain)
+
+- Weak learner: trees, usually small --- two- or three-level trees as $\hat{f}^{(t)}$
+
+- Make $\epsilon$ as small as possible ($\epsilon$-boosting): tradeoff between accuracy and computation
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+#### Boosted trees: depth 2
+
+```{python}
+#| code-line-numbers: "|6|7-9|11|12-13|14-15|16-17|20|"
+
+ntr = NE_Xtr_noNAN.shape[0]
+nte = NE_Xte_noNAN.shape[0]
+tr_err = []
+te_err = []
+
+Ytr_now = NE_Ytr
+yhat_tr = np.zeros(ntr)
+yhat_te = np.zeros(nte)
+eps = 0.05
+
+for iter_num in range(200):
+    tree = DecisionTreeRegressor(max_depth = 2)
+    tree.fit(NE_Xtr_noNAN, Ytr_now)
+    yhat_tr_now = tree.predict(NE_Xtr_noNAN)
+    yhat_te_now = tree.predict(NE_Xte_noNAN)
+    yhat_tr += eps * yhat_tr_now
+    yhat_te += eps * yhat_te_now    
+    tr_err.append(np.sqrt(np.sum((yhat_tr - NE_Ytr)**2) / ntr))
+    te_err.append(np.sqrt(np.sum((yhat_te - NE_Yte)**2) / nte))
+    Ytr_now = NE_Ytr - yhat_tr
+```
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+```{python}
+plt.figure(figsize=(4, 3))
+plt.plot(range(200), tr_err, color='darkorange', lw=2, label='train' )
+plt.plot(range(200), te_err, color='navy', lw=2, label='test')
+plt.ylim([0.3, 1.3])
+plt.xlabel('iteration')
+plt.ylabel('RMSE')
+plt.title('Tree boosting on Netflix - depth 2')
+plt.legend(loc="upper right")
+plt.show() 
+
+print(f'test RMSE iter 0: {te_err[0]: .2f}, iter 10: {te_err[10]:.2f}, iter 100: {te_err[100]:.2f}, iter 199: {te_err[199]:.2f}')
+```
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+#### Boosted trees: depth 3
+
+```{python}
+#| code-line-numbers: "|11|"
+tr_err = []
+te_err = []
+
+Ytr_now = NE_Ytr
+
+yhat_tr = np.zeros(ntr)
+yhat_te = np.zeros(nte)
+eps = 0.05
+
+for iter_num in range(200):
+    tree = DecisionTreeRegressor(max_depth = 3)
+    tree.fit(NE_Xtr_noNAN, Ytr_now)
+    yhat_tr_now = tree.predict(NE_Xtr_noNAN)
+    yhat_te_now = tree.predict(NE_Xte_noNAN)
+    yhat_tr += eps * yhat_tr_now
+    yhat_te += eps * yhat_te_now    
+    tr_err.append(np.sqrt(np.sum((yhat_tr - NE_Ytr)**2) / ntr))
+    te_err.append(np.sqrt(np.sum((yhat_te - NE_Yte)**2) / nte))
+    Ytr_now = NE_Ytr - yhat_tr
+```
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+```{python}
+plt.figure(figsize=(4,3))
+plt.plot(range(200), tr_err, color='darkorange', lw=2, label='train' )
+plt.plot(range(200), te_err, color='navy', lw=2, label='test')
+plt.ylim([0.3, 1.3])
+plt.xlabel('iteration')
+plt.ylabel('RMSE')
+plt.title('Tree boosting on Netflix - depth 3')
+plt.legend(loc="upper right")
+plt.show() 
+
+print(f'test RMSE iter 0: {te_err[0]: .2f}, iter 10: {te_err[10]:.2f}, iter 100: {te_err[100]:.2f}, iter 199: {te_err[199]:.2f}')
+```
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+#### Boosted trees: depth 15 
+```{python}
+#| code-line-numbers: "|11|"
+tr_err = []
+te_err = []
+
+Ytr_now = NE_Ytr
+
+yhat_tr = np.zeros(ntr)
+yhat_te = np.zeros(nte)
+eps = 0.05
+
+for iter_num in range(100):
+    tree = DecisionTreeRegressor(max_depth = 15)
+    tree.fit(NE_Xtr_noNAN, Ytr_now)
+    yhat_tr_now = tree.predict(NE_Xtr_noNAN)
+    yhat_te_now = tree.predict(NE_Xte_noNAN)
+    yhat_tr += eps * yhat_tr_now
+    yhat_te += eps * yhat_te_now    
+    tr_err.append(np.sqrt(np.sum((yhat_tr - NE_Ytr)**2) / ntr))
+    te_err.append(np.sqrt(np.sum((yhat_te - NE_Yte)**2) / nte))
+    Ytr_now = NE_Ytr - yhat_tr
+```
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+```{python}
+plt.figure(figsize=(4, 3))
+plt.plot(range(100), tr_err, color='darkorange', lw=2, label='train' )
+plt.plot(range(100), te_err, color='navy', lw=2, label='test')
+plt.ylim([0.3, 1.3])
+plt.xlabel('iteration')
+plt.ylabel('RMSE')
+plt.title('Tree boosting on Netflix - depth 15')
+plt.legend(loc="upper right")
+plt.show() 
+
+print(f'test RMSE iter 0: {te_err[0]: .2f}, iter 10: {te_err[10]:.2f}, iter 100: {te_err[99]:.2f}')
+```
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### A more disciplined view
+
+- For regression, taking the residual as $y_i^{(t)}$  makes sense
+
+- What is an analogy for classification? 
+
+- What about a more rigorous mathematical explanation of what we are doing? 
+
+- There are several approaches of varying mathematical complexity for describing and analyzing boosting
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### The additive model view
+
+- Start with a very large (possibly infinite) set of $q$ candidate "weak learners": $h_1(x), \dots, h_q(x)$
+
+- We are looking for a "linear" model of the form $\hat{f}(x) = \sum_{k=1}^q \hat{\beta}_k h_k(x)$ 
+
+- In boosted trees example the $h_k$'s are *all possible trees of the given depth*
+
+- Since $q$ is huge we cannot directly find a good $\hat{\beta} \in \mathbb{R}^q$
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### Additive model via boosting
+
+- At each iteration $t$ we find a "good" candidate $h_{k_t}$ and add $\epsilon h_{k_t}$ to the current model
+
+- After $T$ iterations we have a model where $\hat{\beta}_k = \epsilon \times \# \{k_t = k\}$ (the number of times $k$ was chosen)
+
+::: {.incremental}
+- How do we define a good $h_{k_t}$ to update its coefficient? 
+
+- One option: given the current model $F^{(t-1)}$, which $h_k$ improves the model fit the *fastest* when we add it to the model? 
+
+- This can be captured by using the derivative of the loss which measures the fit. Derivative of the RSS (squared loss): 
+$$\left.\frac{\partial RSS(F^{(t-1)})}{\partial \hat{y}_i}\right|_{\hat{y}_i= F^{(t-1)}(x_i)} = -2 (y_i - F^{(t-1)}(x_i))$$
+:::
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### The Gradient Boosting Paradigm
+
+- Choose a loss function for modeling (like RSS for regression)
+
+- At each iteration: calculate the (negative) gradient of the loss function at the current model, use that as $Y^{(t)}$ for the next weak learner
+
+::: {.fragment}
+- Interpretation: trying to find a weak learner $h_{k_t}$ which "behaves like" the negative gradient, which is the direction of *fastest decrease* of the loss
+
+- Can be applied with different loss functions for regression or classification (In the HW -- classification on wikiart paintings)
+:::
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### Boosting for Netflix (Regression)
+
+```{python}
+from sklearn.ensemble import GradientBoostingRegressor
+
+GBR = GradientBoostingRegressor(loss='squared_error', learning_rate=0.05,
+    n_estimators=200, max_depth=3)
+GBR.fit(NE_Xtr_noNAN, NE_Ytr)
+
+yhat_tr = GBR.predict(NE_Xtr_noNAN)
+yhat_te = GBR.predict(NE_Xte_noNAN)
+
+RMSE_tr = np.sqrt(np.sum((yhat_tr - NE_Ytr)**2) / ntr)
+RMSE_te = np.sqrt(np.sum((yhat_te - NE_Yte)**2) / nte)
+print(f'200 trees, depth 3: train RMSE: {RMSE_tr: .2f}, test RMSE: {RMSE_te: .2f}')
+
+```
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### Trees-based Ensembles: RF vs Boosting
+
+::: {.fragment}
+RF: Average trees which are *as different as possible*
+
+1. Randomization is key
+2. Big, highly variable trees
+3. Average effectively: many trees
+:::
+
+::: {.fragment}
+Boosting: Adaptively build additive model over trees
+
+1. Trees should not be too big
+2. Learn slowly: Small $\epsilon$, many trees
+:::
+
+::: {.incremental}
+- Both of them take a bunch of bad predictive models (trees) and combine them into a good model!
+- What does this say in terms of implementation and model-size on disk?
+::: 
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::

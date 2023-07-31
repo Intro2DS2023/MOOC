@@ -751,8 +751,518 @@
           display:block!important;
       }</style></aside>
 </section>
+<section id="boosting" class="slide level2 title-slide center">
+<h2>Boosting</h2>
+<aside class="notes">
+<div style="direction:rtl; font-size:16px">
+
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
 <section class="slide level2">
 
+<h3 id="boosting-intuitive-idea">Boosting: intuitive idea</h3>
+<ul>
+<li><p>We gradually and iteratively build the overall model as a sum of smaller models called <em>weak learners</em></p></li>
+<li><p>Each weak learner seeks to improve the model we have so far</p></li>
+<li><p>Weak learners can be any predictive model, most widely used: trees</p></li>
+<li><p>How do we capture the notion of <em>improve the model we have so far</em>?</p></li>
+</ul>
+<aside class="notes">
+<div style="direction:rtl; font-size:16px">
+
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2">
+
+<h3 id="boosting-overall-scheme">Boosting: overall scheme</h3>
+<ol type="1">
+<li>Initialize <span class="math inline">\(F^{(0)}(x) = 0,\; \forall x\)</span></li>
+<li>At stage <span class="math inline">\(t \geq 1\)</span>:<br>
+<ol type="a">
+<li>Calculate <span class="math inline">\(Y^{(t)} = (y_1^{(t)},\ldots,y_n^{(t)})\)</span> capturing what the model <span class="math inline">\(F^{(t-1)}\)</span> <strong>has not yet explained</strong><br></li>
+<li>Fit a weak learner <span class="math inline">\(\hat{f}^{(t)}\)</span> to <span class="math inline">\(T^{(t)} = (X,Y^{(t)})\)</span><br></li>
+<li>Update <span class="math inline">\(F^{(t)} = F^{(t-1)} + \epsilon \hat{f}^{(t)}\)</span></li>
+</ol></li>
+</ol>
+<p>Details: How to determine <span class="math inline">\(Y^{(t)}\)</span>? Which weak learner to use? What is <span class="math inline">\(\epsilon\)</span>?</p>
+<aside class="notes">
+<div style="direction:rtl; font-size:16px">
+
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2">
+
+<h3 id="example-tree-boosting-for-regression">Example: Tree boosting for regression</h3>
+<ul>
+<li><p>Defining <span class="math inline">\(Y^{(t)}\)</span> as <span class="math inline">\(y_i^{(t)} = (y_i - F^{(t-1)}(x_i))\)</span> the current residual (what the model does not explain)</p></li>
+<li><p>Weak learner: trees, usually small — two- or three-level trees as <span class="math inline">\(\hat{f}^{(t)}\)</span></p></li>
+<li><p>Make <span class="math inline">\(\epsilon\)</span> as small as possible (<span class="math inline">\(\epsilon\)</span>-boosting): tradeoff between accuracy and computation</p></li>
+</ul>
+<aside class="notes">
+<div style="direction:rtl; font-size:16px">
+
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2">
+
+<h4 id="boosted-trees-depth-2">Boosted trees: depth 2</h4>
+<div class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb6" data-code-line-numbers="|6|7-9|11|12-13|14-15|16-17|20|"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1"></a>ntr <span class="op">=</span> NE_Xtr_noNAN.shape[<span class="dv">0</span>]</span>
+<span id="cb6-2"><a href="#cb6-2"></a>nte <span class="op">=</span> NE_Xte_noNAN.shape[<span class="dv">0</span>]</span>
+<span id="cb6-3"><a href="#cb6-3"></a>tr_err <span class="op">=</span> []</span>
+<span id="cb6-4"><a href="#cb6-4"></a>te_err <span class="op">=</span> []</span>
+<span id="cb6-5"><a href="#cb6-5"></a></span>
+<span id="cb6-6"><a href="#cb6-6"></a>Ytr_now <span class="op">=</span> NE_Ytr</span>
+<span id="cb6-7"><a href="#cb6-7"></a>yhat_tr <span class="op">=</span> np.zeros(ntr)</span>
+<span id="cb6-8"><a href="#cb6-8"></a>yhat_te <span class="op">=</span> np.zeros(nte)</span>
+<span id="cb6-9"><a href="#cb6-9"></a>eps <span class="op">=</span> <span class="fl">0.05</span></span>
+<span id="cb6-10"><a href="#cb6-10"></a></span>
+<span id="cb6-11"><a href="#cb6-11"></a><span class="cf">for</span> iter_num <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">200</span>):</span>
+<span id="cb6-12"><a href="#cb6-12"></a>    tree <span class="op">=</span> DecisionTreeRegressor(max_depth <span class="op">=</span> <span class="dv">2</span>)</span>
+<span id="cb6-13"><a href="#cb6-13"></a>    tree.fit(NE_Xtr_noNAN, Ytr_now)</span>
+<span id="cb6-14"><a href="#cb6-14"></a>    yhat_tr_now <span class="op">=</span> tree.predict(NE_Xtr_noNAN)</span>
+<span id="cb6-15"><a href="#cb6-15"></a>    yhat_te_now <span class="op">=</span> tree.predict(NE_Xte_noNAN)</span>
+<span id="cb6-16"><a href="#cb6-16"></a>    yhat_tr <span class="op">+=</span> eps <span class="op">*</span> yhat_tr_now</span>
+<span id="cb6-17"><a href="#cb6-17"></a>    yhat_te <span class="op">+=</span> eps <span class="op">*</span> yhat_te_now    </span>
+<span id="cb6-18"><a href="#cb6-18"></a>    tr_err.append(np.sqrt(np.<span class="bu">sum</span>((yhat_tr <span class="op">-</span> NE_Ytr)<span class="op">**</span><span class="dv">2</span>) <span class="op">/</span> ntr))</span>
+<span id="cb6-19"><a href="#cb6-19"></a>    te_err.append(np.sqrt(np.<span class="bu">sum</span>((yhat_te <span class="op">-</span> NE_Yte)<span class="op">**</span><span class="dv">2</span>) <span class="op">/</span> nte))</span>
+<span id="cb6-20"><a href="#cb6-20"></a>    Ytr_now <span class="op">=</span> NE_Ytr <span class="op">-</span> yhat_tr</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<aside class="notes">
+<div style="direction:rtl; font-size:16px">
+
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2">
+
+<div class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">4</span>, <span class="dv">3</span>))</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>plt.plot(<span class="bu">range</span>(<span class="dv">200</span>), tr_err, color<span class="op">=</span><span class="st">'darkorange'</span>, lw<span class="op">=</span><span class="dv">2</span>, label<span class="op">=</span><span class="st">'train'</span> )</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>plt.plot(<span class="bu">range</span>(<span class="dv">200</span>), te_err, color<span class="op">=</span><span class="st">'navy'</span>, lw<span class="op">=</span><span class="dv">2</span>, label<span class="op">=</span><span class="st">'test'</span>)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>plt.ylim([<span class="fl">0.3</span>, <span class="fl">1.3</span>])</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'iteration'</span>)</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'RMSE'</span>)</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Tree boosting on Netflix - depth 2'</span>)</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>plt.legend(loc<span class="op">=</span><span class="st">"upper right"</span>)</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>plt.show() </span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'test RMSE iter 0: </span><span class="sc">{</span>te_err[<span class="dv">0</span>]<span class="sc">: .2f}</span><span class="ss">, iter 10: </span><span class="sc">{</span>te_err[<span class="dv">10</span>]<span class="sc">:.2f}</span><span class="ss">, iter 100: </span><span class="sc">{</span>te_err[<span class="dv">100</span>]<span class="sc">:.2f}</span><span class="ss">, iter 199: </span><span class="sc">{</span>te_err[<span class="dv">199</span>]<span class="sc">:.2f}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img data-src="c11_ensemble_methods_files/figure-revealjs/cell-11-output-1.png" width="366" height="302"></p>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>test RMSE iter 0:  3.56, iter 10: 2.23, iter 100: 0.78, iter 199: 0.77</code></pre>
+</div>
+</div>
+<aside class="notes">
+<div style="direction:rtl; font-size:16px">
+
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2">
+
+<h4 id="boosted-trees-depth-3">Boosted trees: depth 3</h4>
+<div class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb9" data-code-line-numbers="|11|"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1"></a>tr_err <span class="op">=</span> []</span>
+<span id="cb9-2"><a href="#cb9-2"></a>te_err <span class="op">=</span> []</span>
+<span id="cb9-3"><a href="#cb9-3"></a></span>
+<span id="cb9-4"><a href="#cb9-4"></a>Ytr_now <span class="op">=</span> NE_Ytr</span>
+<span id="cb9-5"><a href="#cb9-5"></a></span>
+<span id="cb9-6"><a href="#cb9-6"></a>yhat_tr <span class="op">=</span> np.zeros(ntr)</span>
+<span id="cb9-7"><a href="#cb9-7"></a>yhat_te <span class="op">=</span> np.zeros(nte)</span>
+<span id="cb9-8"><a href="#cb9-8"></a>eps <span class="op">=</span> <span class="fl">0.05</span></span>
+<span id="cb9-9"><a href="#cb9-9"></a></span>
+<span id="cb9-10"><a href="#cb9-10"></a><span class="cf">for</span> iter_num <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">200</span>):</span>
+<span id="cb9-11"><a href="#cb9-11"></a>    tree <span class="op">=</span> DecisionTreeRegressor(max_depth <span class="op">=</span> <span class="dv">3</span>)</span>
+<span id="cb9-12"><a href="#cb9-12"></a>    tree.fit(NE_Xtr_noNAN, Ytr_now)</span>
+<span id="cb9-13"><a href="#cb9-13"></a>    yhat_tr_now <span class="op">=</span> tree.predict(NE_Xtr_noNAN)</span>
+<span id="cb9-14"><a href="#cb9-14"></a>    yhat_te_now <span class="op">=</span> tree.predict(NE_Xte_noNAN)</span>
+<span id="cb9-15"><a href="#cb9-15"></a>    yhat_tr <span class="op">+=</span> eps <span class="op">*</span> yhat_tr_now</span>
+<span id="cb9-16"><a href="#cb9-16"></a>    yhat_te <span class="op">+=</span> eps <span class="op">*</span> yhat_te_now    </span>
+<span id="cb9-17"><a href="#cb9-17"></a>    tr_err.append(np.sqrt(np.<span class="bu">sum</span>((yhat_tr <span class="op">-</span> NE_Ytr)<span class="op">**</span><span class="dv">2</span>) <span class="op">/</span> ntr))</span>
+<span id="cb9-18"><a href="#cb9-18"></a>    te_err.append(np.sqrt(np.<span class="bu">sum</span>((yhat_te <span class="op">-</span> NE_Yte)<span class="op">**</span><span class="dv">2</span>) <span class="op">/</span> nte))</span>
+<span id="cb9-19"><a href="#cb9-19"></a>    Ytr_now <span class="op">=</span> NE_Ytr <span class="op">-</span> yhat_tr</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<aside class="notes">
+<div style="direction:rtl; font-size:16px">
+
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2">
+
+<div class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">4</span>,<span class="dv">3</span>))</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>plt.plot(<span class="bu">range</span>(<span class="dv">200</span>), tr_err, color<span class="op">=</span><span class="st">'darkorange'</span>, lw<span class="op">=</span><span class="dv">2</span>, label<span class="op">=</span><span class="st">'train'</span> )</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>plt.plot(<span class="bu">range</span>(<span class="dv">200</span>), te_err, color<span class="op">=</span><span class="st">'navy'</span>, lw<span class="op">=</span><span class="dv">2</span>, label<span class="op">=</span><span class="st">'test'</span>)</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>plt.ylim([<span class="fl">0.3</span>, <span class="fl">1.3</span>])</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'iteration'</span>)</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'RMSE'</span>)</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Tree boosting on Netflix - depth 3'</span>)</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>plt.legend(loc<span class="op">=</span><span class="st">"upper right"</span>)</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>plt.show() </span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'test RMSE iter 0: </span><span class="sc">{</span>te_err[<span class="dv">0</span>]<span class="sc">: .2f}</span><span class="ss">, iter 10: </span><span class="sc">{</span>te_err[<span class="dv">10</span>]<span class="sc">:.2f}</span><span class="ss">, iter 100: </span><span class="sc">{</span>te_err[<span class="dv">100</span>]<span class="sc">:.2f}</span><span class="ss">, iter 199: </span><span class="sc">{</span>te_err[<span class="dv">199</span>]<span class="sc">:.2f}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img data-src="c11_ensemble_methods_files/figure-revealjs/cell-13-output-1.png" width="366" height="302"></p>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>test RMSE iter 0:  3.56, iter 10: 2.23, iter 100: 0.77, iter 199: 0.77</code></pre>
+</div>
+</div>
+<aside class="notes">
+<div style="direction:rtl; font-size:16px">
+
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2">
+
+<h4 id="boosted-trees-depth-15">Boosted trees: depth 15</h4>
+<div class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb12" data-code-line-numbers="|11|"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1"></a>tr_err <span class="op">=</span> []</span>
+<span id="cb12-2"><a href="#cb12-2"></a>te_err <span class="op">=</span> []</span>
+<span id="cb12-3"><a href="#cb12-3"></a></span>
+<span id="cb12-4"><a href="#cb12-4"></a>Ytr_now <span class="op">=</span> NE_Ytr</span>
+<span id="cb12-5"><a href="#cb12-5"></a></span>
+<span id="cb12-6"><a href="#cb12-6"></a>yhat_tr <span class="op">=</span> np.zeros(ntr)</span>
+<span id="cb12-7"><a href="#cb12-7"></a>yhat_te <span class="op">=</span> np.zeros(nte)</span>
+<span id="cb12-8"><a href="#cb12-8"></a>eps <span class="op">=</span> <span class="fl">0.05</span></span>
+<span id="cb12-9"><a href="#cb12-9"></a></span>
+<span id="cb12-10"><a href="#cb12-10"></a><span class="cf">for</span> iter_num <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">100</span>):</span>
+<span id="cb12-11"><a href="#cb12-11"></a>    tree <span class="op">=</span> DecisionTreeRegressor(max_depth <span class="op">=</span> <span class="dv">15</span>)</span>
+<span id="cb12-12"><a href="#cb12-12"></a>    tree.fit(NE_Xtr_noNAN, Ytr_now)</span>
+<span id="cb12-13"><a href="#cb12-13"></a>    yhat_tr_now <span class="op">=</span> tree.predict(NE_Xtr_noNAN)</span>
+<span id="cb12-14"><a href="#cb12-14"></a>    yhat_te_now <span class="op">=</span> tree.predict(NE_Xte_noNAN)</span>
+<span id="cb12-15"><a href="#cb12-15"></a>    yhat_tr <span class="op">+=</span> eps <span class="op">*</span> yhat_tr_now</span>
+<span id="cb12-16"><a href="#cb12-16"></a>    yhat_te <span class="op">+=</span> eps <span class="op">*</span> yhat_te_now    </span>
+<span id="cb12-17"><a href="#cb12-17"></a>    tr_err.append(np.sqrt(np.<span class="bu">sum</span>((yhat_tr <span class="op">-</span> NE_Ytr)<span class="op">**</span><span class="dv">2</span>) <span class="op">/</span> ntr))</span>
+<span id="cb12-18"><a href="#cb12-18"></a>    te_err.append(np.sqrt(np.<span class="bu">sum</span>((yhat_te <span class="op">-</span> NE_Yte)<span class="op">**</span><span class="dv">2</span>) <span class="op">/</span> nte))</span>
+<span id="cb12-19"><a href="#cb12-19"></a>    Ytr_now <span class="op">=</span> NE_Ytr <span class="op">-</span> yhat_tr</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<aside class="notes">
+<div style="direction:rtl; font-size:16px">
+
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2">
+
+<div class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">4</span>, <span class="dv">3</span>))</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>plt.plot(<span class="bu">range</span>(<span class="dv">100</span>), tr_err, color<span class="op">=</span><span class="st">'darkorange'</span>, lw<span class="op">=</span><span class="dv">2</span>, label<span class="op">=</span><span class="st">'train'</span> )</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>plt.plot(<span class="bu">range</span>(<span class="dv">100</span>), te_err, color<span class="op">=</span><span class="st">'navy'</span>, lw<span class="op">=</span><span class="dv">2</span>, label<span class="op">=</span><span class="st">'test'</span>)</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>plt.ylim([<span class="fl">0.3</span>, <span class="fl">1.3</span>])</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'iteration'</span>)</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'RMSE'</span>)</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Tree boosting on Netflix - depth 15'</span>)</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>plt.legend(loc<span class="op">=</span><span class="st">"upper right"</span>)</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>plt.show() </span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'test RMSE iter 0: </span><span class="sc">{</span>te_err[<span class="dv">0</span>]<span class="sc">: .2f}</span><span class="ss">, iter 10: </span><span class="sc">{</span>te_err[<span class="dv">10</span>]<span class="sc">:.2f}</span><span class="ss">, iter 100: </span><span class="sc">{</span>te_err[<span class="dv">99</span>]<span class="sc">:.2f}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img data-src="c11_ensemble_methods_files/figure-revealjs/cell-15-output-1.png" width="368" height="302"></p>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>test RMSE iter 0:  3.56, iter 10: 2.24, iter 100: 0.90</code></pre>
+</div>
+</div>
+<aside class="notes">
+<div style="direction:rtl; font-size:16px">
+
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2">
+
+<h3 id="a-more-disciplined-view">A more disciplined view</h3>
+<ul>
+<li><p>For regression, taking the residual as <span class="math inline">\(y_i^{(t)}\)</span> makes sense</p></li>
+<li><p>What is an analogy for classification?</p></li>
+<li><p>What about a more rigorous mathematical explanation of what we are doing?</p></li>
+<li><p>There are several approaches of varying mathematical complexity for describing and analyzing boosting</p></li>
+</ul>
+<aside class="notes">
+<div style="direction:rtl; font-size:16px">
+
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2">
+
+<h3 id="the-additive-model-view">The additive model view</h3>
+<ul>
+<li><p>Start with a very large (possibly infinite) set of <span class="math inline">\(q\)</span> candidate “weak learners”: <span class="math inline">\(h_1(x), \dots, h_q(x)\)</span></p></li>
+<li><p>We are looking for a “linear” model of the form <span class="math inline">\(\hat{f}(x) = \sum_{k=1}^q \hat{\beta}_k h_k(x)\)</span></p></li>
+<li><p>In boosted trees example the <span class="math inline">\(h_k\)</span>’s are <em>all possible trees of the given depth</em></p></li>
+<li><p>Since <span class="math inline">\(q\)</span> is huge we cannot directly find a good <span class="math inline">\(\hat{\beta} \in \mathbb{R}^q\)</span></p></li>
+</ul>
+<aside class="notes">
+<div style="direction:rtl; font-size:16px">
+
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2">
+
+<h3 id="additive-model-via-boosting">Additive model via boosting</h3>
+<ul>
+<li><p>At each iteration <span class="math inline">\(t\)</span> we find a “good” candidate <span class="math inline">\(h_{k_t}\)</span> and add <span class="math inline">\(\epsilon h_{k_t}\)</span> to the current model</p></li>
+<li><p>After <span class="math inline">\(T\)</span> iterations we have a model where <span class="math inline">\(\hat{\beta}_k = \epsilon \times \# \{k_t = k\}\)</span> (the number of times <span class="math inline">\(k\)</span> was chosen)</p></li>
+</ul>
+<div>
+<ul>
+<li class="fragment"><p>How do we define a good <span class="math inline">\(h_{k_t}\)</span> to update its coefficient?</p></li>
+<li class="fragment"><p>One option: given the current model <span class="math inline">\(F^{(t-1)}\)</span>, which <span class="math inline">\(h_k\)</span> improves the model fit the <em>fastest</em> when we add it to the model?</p></li>
+<li class="fragment"><p>This can be captured by using the derivative of the loss which measures the fit. Derivative of the RSS (squared loss): <span class="math display">\[\left.\frac{\partial RSS(F^{(t-1)})}{\partial \hat{y}_i}\right|_{\hat{y}_i= F^{(t-1)}(x_i)} = -2 (y_i - F^{(t-1)}(x_i))\]</span></p></li>
+</ul>
+</div>
+<aside class="notes">
+<div style="direction:rtl; font-size:16px">
+
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2">
+
+<h3 id="the-gradient-boosting-paradigm">The Gradient Boosting Paradigm</h3>
+<ul>
+<li><p>Choose a loss function for modeling (like RSS for regression)</p></li>
+<li><p>At each iteration: calculate the (negative) gradient of the loss function at the current model, use that as <span class="math inline">\(Y^{(t)}\)</span> for the next weak learner</p></li>
+</ul>
+<div class="fragment">
+<ul>
+<li><p>Interpretation: trying to find a weak learner <span class="math inline">\(h_{k_t}\)</span> which “behaves like” the negative gradient, which is the direction of <em>fastest decrease</em> of the loss</p></li>
+<li><p>Can be applied with different loss functions for regression or classification (In the HW – classification on wikiart paintings)</p></li>
+</ul>
+</div>
+<aside class="notes">
+<div style="direction:rtl; font-size:16px">
+
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2">
+
+<h3 id="boosting-for-netflix-regression">Boosting for Netflix (Regression)</h3>
+<div class="cell" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.ensemble <span class="im">import</span> GradientBoostingRegressor</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>GBR <span class="op">=</span> GradientBoostingRegressor(loss<span class="op">=</span><span class="st">'squared_error'</span>, learning_rate<span class="op">=</span><span class="fl">0.05</span>,</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    n_estimators<span class="op">=</span><span class="dv">200</span>, max_depth<span class="op">=</span><span class="dv">3</span>)</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>GBR.fit(NE_Xtr_noNAN, NE_Ytr)</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>yhat_tr <span class="op">=</span> GBR.predict(NE_Xtr_noNAN)</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>yhat_te <span class="op">=</span> GBR.predict(NE_Xte_noNAN)</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>RMSE_tr <span class="op">=</span> np.sqrt(np.<span class="bu">sum</span>((yhat_tr <span class="op">-</span> NE_Ytr)<span class="op">**</span><span class="dv">2</span>) <span class="op">/</span> ntr)</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>RMSE_te <span class="op">=</span> np.sqrt(np.<span class="bu">sum</span>((yhat_te <span class="op">-</span> NE_Yte)<span class="op">**</span><span class="dv">2</span>) <span class="op">/</span> nte)</span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'200 trees, depth 3: train RMSE: </span><span class="sc">{</span>RMSE_tr<span class="sc">: .2f}</span><span class="ss">, test RMSE: </span><span class="sc">{</span>RMSE_te<span class="sc">: .2f}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>200 trees, depth 3: train RMSE:  0.71, test RMSE:  0.77</code></pre>
+</div>
+</div>
+<aside class="notes">
+<div style="direction:rtl; font-size:16px">
+
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2">
+
+<h3 id="trees-based-ensembles-rf-vs-boosting">Trees-based Ensembles: RF vs Boosting</h3>
+<div class="fragment">
+<p>RF: Average trees which are <em>as different as possible</em></p>
+<ol type="1">
+<li>Randomization is key</li>
+<li>Big, highly variable trees</li>
+<li>Average effectively: many trees</li>
+</ol>
+</div>
+<div class="fragment">
+<p>Boosting: Adaptively build additive model over trees</p>
+<ol type="1">
+<li>Trees should not be too big</li>
+<li>Learn slowly: Small <span class="math inline">\(\epsilon\)</span>, many trees</li>
+</ol>
+</div>
+<div>
+<ul>
+<li class="fragment">Both of them take a bunch of bad predictive models (trees) and combine them into a good model!</li>
+<li class="fragment">What does this say in terms of implementation and model-size on disk?</li>
+</ul>
+</div>
+<aside class="notes">
+<div style="direction:rtl; font-size:16px">
+
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 
 <img src="../Intro2DS_logo_white.jpg" class="slide-logo r-stretch"><div class="footer footer-default">
 <p><a href="https://intro2ds2023.github.io/mooc/" target="_blank">Intro to Data Science</a></p>
