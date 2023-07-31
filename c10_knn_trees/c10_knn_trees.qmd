@@ -1,0 +1,612 @@
+---
+format:
+  revealjs:
+    slide-number: true
+    chalkboard: true
+    fig-width: 6
+    fig-asp: 0.618
+    template-partials:
+      - "../title-slide.html"
+css: "../slides_quarto.css"
+standalone: false
+include-in-header: "../header_quarto.html"
+logo: "../Intro2DS_logo_white.jpg"
+pagetitle: "Local Modeling: KNN and Decision Trees"
+callout-appearance: simple
+smaller: true
+execute:
+  eval: true
+  echo: true
+code-line-numbers: false
+code-block-border-left: true
+highlight-style: github
+footer: "[Intro to Data Science](https://intro2ds2023.github.io/mooc/){target='_blank'}"
+---
+
+## {.logo-slide}
+
+## Introduction to Data Science {.title-slide}
+
+### Local Modeling: KNN and Decision Trees - Class 10
+
+### Giora Simchoni
+
+#### `gsimchoni@gmail.com` and add `#intro2ds` in subject
+
+### Stat. and OR Department, TAU
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+## K-Nearest Neighbour (KNN) {.title-slide}
+
+---
+
+### Global vs local modeling
+
+- So far we have learned two predictive modeling techniques: OLS regression and logistic regression 
+
+- Common theme: Global, parametric models (+ probabilistic model for inference) --- lots of assumptions!
+
+::: {.fragment}
+- A different approach: *Local* modeling: I am similar to my neighbors
+:::
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### Simple example: 1-nearest neighbor
+
+1. Define a distance over the $\cal{X}$ space. For $x\in \mathbb{R}^p$ can simply choose the Euclidean distance: 
+$$d(x,u) = \|x-u\|^2$$
+2. For a prediction point (say $x_0 \in Te$), find its nearest neighbor in the $Tr$
+$$ i_0 = \arg\min_i d(x_0,x_i)$$
+3. Predict $x_0$ as the response at the nearest neighbor $\hat{y}_0 = y_{i_0}$
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### K-nearest neighbor (KNN) methods
+
+- Repeat the same steps, but instead of finding the nearest neighbor only, find the $k$ nearest points in $Tr$ to $x_0$. Assume their indexes are $i_{01},\dots,i_{0k}$
+
+::: {.incremental}
+- For regression predict the average: 
+$$\hat{y}_0 = \frac{1}{k} \sum_{j=1}^k y_{i_{0j}}$$
+
+- For classification predict the majority: 
+$$\hat{y}_0 = \left\{\begin{array}{ll} 1 & \mbox{if } \frac{1}{k} \sum_{j=1}^k y_{i_{0j}} > 1/2\\
+0 & \mbox{otherwise}\end{array} \right.$$
+:::
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### Reminder: SAHeart Data
+
+```{python}
+#| echo: false
+
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from scipy.stats import pearsonr
+import warnings
+from sklearn.model_selection import train_test_split
+
+saheart = pd.read_table("../datasets/SAheart.data", header = 0, sep=',', index_col=0)
+saheart.index = saheart.index.rename('index')
+
+saheart_X=pd.get_dummies(saheart.iloc[:, :9]).iloc[:, :9]
+saheart_X.columns = [*saheart_X.columns[:-1], 'famhist']
+saheart_y=saheart.iloc[:, 9]
+```
+
+```{python}
+print(saheart_X.head())
+```
+
+```{python}
+print(saheart_y.head())
+```
+
+```{python}
+SA_Xtr, SA_Xte, SA_Ytr, SA_Yte = train_test_split(saheart_X, saheart_y, test_size=0.2, random_state=41)
+
+print(f'No. of train rows: {SA_Xtr.shape[0]}, no. train of cols: {SA_Xtr.shape[1]}')
+print(f'No. of test rows: {SA_Xte.shape[0]}, no. test of cols: {SA_Xte.shape[1]}')
+print(f'no. of obs in train y: {SA_Ytr.shape[0]}')
+print(f'no. of obs in test y: {SA_Yte.shape[0]}')
+```
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### KNN for SAHeart (Classification)
+
+```{python}
+#| code-line-numbers: "|1|5-7|10-11|12-13|14-15|"
+from sklearn.neighbors import KNeighborsClassifier
+
+ntr = SA_Xtr.shape[0]
+nte = SA_Xte.shape[0]
+tr_err = []
+te_err = []
+kvals = [1, 3, 5, 10, 50, 100, 200]
+
+for k in kvals:
+    knn = KNeighborsClassifier(n_neighbors = k)
+    knn.fit(SA_Xtr, SA_Ytr)
+    yhat_tr = knn.predict(SA_Xtr) > 0.5
+    yhat = knn.predict(SA_Xte) > 0.5
+    tr_err.append(np.sum(yhat_tr != SA_Ytr) / ntr)
+    te_err.append(np.sum(yhat != SA_Yte) / nte)
+```
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+```{python}
+#| output-location: fragment
+#| code-line-numbers: "|2-3|"
+plt.figure(figsize=(4, 4))
+plt.plot(kvals, tr_err, color='darkorange', lw=2, label='train' )
+plt.plot(kvals, te_err, color='navy', lw=2, label='test')
+plt.ylim([0.0, 0.5])
+plt.xlabel('k')
+plt.ylabel('Misclass. Err.')
+plt.title('KNN on SAheart')
+plt.legend(loc="lower right")
+plt.show()
+```
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### Reminder: Netflix Data
+
+```{python}
+#| echo: false
+
+ratings = pd.read_csv('../datasets/netflix/train_ratings_all.csv', header = None)
+miss_cong = pd.read_csv('../datasets/netflix/train_y_rating.csv', header = None, names = ['score'])
+movies = pd.read_csv('../datasets/netflix/movie_titles.csv', header = None, names = ['year', 'title'])
+
+ratings[np.isnan(ratings)] = 0
+
+netflix_X = ratings.iloc[:, :14]
+netflix_X.columns = movies['title'][:14]
+netflix_Y = miss_cong.iloc[:, 0]
+```
+
+```{python}
+print(netflix_X.iloc[:5, :3])
+```
+
+```{python}
+print(netflix_Y.head())
+```
+
+```{python}
+NE_Xtr, NE_Xte, NE_Ytr, NE_Yte = train_test_split(netflix_X, netflix_Y, test_size=0.2, random_state=42)
+
+print(f'No. of train rows: {NE_Xtr.shape[0]}, no. train of cols: {NE_Xtr.shape[1]}')
+print(f'No. of test rows: {NE_Xte.shape[0]}, no. test of cols: {NE_Xte.shape[1]}')
+print(f'no. of obs in train y: {NE_Ytr.shape[0]}')
+print(f'no. of obs in test y: {NE_Yte.shape[0]}')
+```
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### KNN for Netflix (Regression)
+
+```{python}
+#| code-line-numbers: "|1|7|10-11|12-13|14-15|"
+from sklearn.neighbors import KNeighborsRegressor
+
+ntr = NE_Xtr.shape[0]
+nte = NE_Xte.shape[0]
+tr_err = []
+te_err = []
+kvals = [1, 3, 5, 10, 50, 100, 200, 500]
+
+for k in kvals:
+    knn = KNeighborsRegressor(n_neighbors = k)
+    knn.fit(NE_Xtr, NE_Ytr)
+    yhat_tr = knn.predict(NE_Xtr)
+    yhat = knn.predict(NE_Xte)
+    tr_err.append(np.sqrt(np.sum((yhat_tr - NE_Ytr)**2) / ntr))
+    te_err.append(np.sqrt(np.sum((yhat - NE_Yte)**2) / nte))
+```
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+```{python}
+plt.figure(figsize=(4, 4))
+plt.plot(kvals, tr_err, color='darkorange', lw=2, label='train' )
+plt.plot(kvals, te_err, color='navy', lw=2, label='test')
+plt.ylim([0, 1])
+plt.xlabel('k')
+plt.ylabel('RMSE')
+plt.title('KNN on Netflix')
+plt.legend(loc="lower right")
+plt.show() 
+```
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### The problems with KNN? 
+
+1. What is the appropriate distance metric?
+
+2. If the data are "sparse" in the space, nearest neighbors are far and the results can be very bad
+
+- *Curse of dimensionality*: if the dimension $p$ is high,  data are by definition sparse
+
+- KNN fails in these settings
+
+Interesting solution to both problems: Adaptive local methods 
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+## Decision Trees {.title-slide}
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### Adaptive local methods: Trees
+
+- The idea: split the space $\cal{X}$ into *neighborhoods* by recursive partioning
+
+- Each time: pick a region and split it into two (or more) regions
+
+- Can be described using a tree --- binary tree if all splits are in two. Titanic example: 
+
+::: {.fragment}
+![](images/CART_tree_titanic_survivors.png)
+:::
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### Tree for SAHeart (Classification)
+
+
+```{python}
+#| code-line-numbers: "|1|3-4|5|"
+#| output-location: fragment
+
+from sklearn.tree import DecisionTreeClassifier, plot_tree
+
+tree = DecisionTreeClassifier(max_depth = 2)
+tree.fit(SA_Xtr, SA_Ytr)
+plot_tree(tree, feature_names=SA_Xtr.columns)
+plt.show() 
+```
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+```{python}
+ntr = SA_Xtr.shape[0]
+nte = SA_Xte.shape[0]
+tr_err = []
+te_err = []
+ds = [2, 3, 5, 7, 10, 15]
+
+for depth in ds:
+    tree = DecisionTreeClassifier(max_depth = depth)
+    tree.fit(SA_Xtr, SA_Ytr)
+    yhat_tr = tree.predict(SA_Xtr) > 0.5
+    yhat = tree.predict(SA_Xte) > 0.5
+    tr_err.append(np.sum(yhat_tr != SA_Ytr) / ntr)
+    te_err.append(np.sum(yhat != SA_Yte) / nte)
+```
+
+```{python}
+#| echo: false
+
+plt.figure(figsize=(4, 4))
+plt.plot(ds, tr_err, color='darkorange', lw=2, label='train' )
+plt.plot(ds, te_err, color='navy', lw=2, label='test')
+plt.ylim([0.0, 0.5])
+plt.xlabel('depth')
+plt.ylabel('Misclass. Err.')
+plt.title('Trees on SAheart')
+plt.legend(loc="lower right")
+plt.show() 
+```
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### Tree for Netflix (Regression)
+
+```{python}
+from sklearn.tree import DecisionTreeRegressor
+
+tree = DecisionTreeRegressor(max_depth = 2)
+tree.fit(NE_Xtr, NE_Ytr)
+plt.figure(figsize=(10, 6))
+plot_tree(tree, feature_names=NE_Xtr.columns)
+plt.show()
+```
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+```{python}
+ntr = NE_Xtr.shape[0]
+nte = NE_Xte.shape[0]
+tr_err = []
+te_err = []
+ds = [2, 3, 5, 7, 10, 15]
+
+for depth in ds:
+    tree = DecisionTreeRegressor(max_depth = depth)
+    tree.fit(NE_Xtr, NE_Ytr)
+    yhat_tr = tree.predict(NE_Xtr)
+    yhat = tree.predict(NE_Xte)
+    tr_err.append(np.sqrt(np.sum((yhat_tr - NE_Ytr)**2) / ntr))
+    te_err.append(np.sqrt(np.sum((yhat - NE_Yte)**2) / nte))
+```
+
+```{python}
+#| echo: false
+
+plt.figure(figsize=(4, 4))
+plt.plot(ds, tr_err, color='darkorange', lw=2, label='train' )
+plt.plot(ds, te_err, color='navy', lw=2, label='test')
+plt.ylim([0.3,1.3])
+plt.xlabel('depth')
+plt.ylabel('RMSE')
+plt.title('Trees on Netflix')
+plt.legend(loc="upper left")
+plt.show()
+```
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### Defining a decision tree algorithm
+
+There are three main aspects to designing a decision tree algorithm for classification or regression:
+
+1. How do we choose a split at each node of the tree?
+2. How do we decide when to stop splitting?
+3. How do we fit a value $\hat{y}$ for each terminal node (*leaf*)?
+
+::: {.fragment}
+Some well known decision tree algorithms: 
+
+- ID3, C4.5, C5.0: for classification only, invented in the CS/machine learning community
+
+- Classification and regression trees (CART): invented in the statistics community
+
+- We are going to mostly describe CART, which is the basis for modern methods we discuss later
+:::
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### CART for regression: splitting process
+
+::: {.incremental}
+- Criterion: Minimize RSS on training. 
+
+- Given set of $r$ observations in current node, define for a variable $j$ and possible split point $s$: 
+$$L(j,s) = \{i\leq r: x_{ij} \leq s\}\;,\;\; R(j,s) = \{i\leq r: x_{ij} > s\}$$
+$$\bar{y}_L =\frac{\sum_{i \in L(j,s)} y_i}{|L(j,s)|}\;,\; \bar{y}_R=\frac{\sum_{i \in R(j,s)} y_i}{|R(j,s)|}$$
+$$RSS(j,s) = \sum_{i \in L(j,s)} (y_i - \bar{y}_L)^2 + \sum_{i \in R(j,s)} (y_i - \bar{y}_R)^2$$
+
+- And find the pair $j, s$ which minimize this RSS among all possible pairs --- this is the split we do
+
+- Split the node into two according to the chosen split and continue
+:::
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### CART for regression: fits at leaves
+
+::: {.incremental}
+- Similar to OLS, we want to estimate $\hat{y}(x) \approx E(y|x)$ 
+
+- We interpret the splitting as finding *homogeneous areas* with similar $y$ values in our data, hence hopefully similar $E(y|x).$
+
+- Consequently, given a leaf (terminal node) with set of observations $Q \subseteq \{1,\dots,n\}$, we estimate: 
+$$\hat{y} = \bar{y}_Q = \frac{\sum_{i \in Q} y_i}{|Q|}$$
+:::
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### CART for regression: stopping criteria
+
+- Why limit tree size?
+
+::: {.incremental}
+- Overfitting, computation,...
+
+- In the examples above: *max_depth* of tree
+
+- Other options: size of nodes not too small, improvement in RSS not too small,...
+
+- Interesting approach of CART: grow a very big tree and *prune* it to smaller tree using test set performance (actually cross-validation, which we have not yet discussed)
+:::
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### CART and others for classification
+
+- various splitting criteria: Gini, information gain, log-likelihood, all give similar trees
+
+- Not a good idea: using misclassification rate as splitting criterion
+
+- Fits at leaves: usually empirical % of classes (or majority if need hard classification)
+
+- Stopping criteria: similar ideas to regression
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### Important properties of trees
+
+#### 1. categoraical features
+
+- Real life data often includes categorical features that have many values but are important for prediction, like: 
+1. City of residence
+2. University/department
+3. Customer class
+
+::: {.fragment}
+- CART always does binary splits. For a categorical variable with $K$ values ${\cal G} = \{g_1,\dots,g_K\}$  it divides $\cal G$ into two groups $\cal G_1, \cal G_2$ so that:
+$$L(j) = \{i : x_{ij} \in \cal G_1\}\;,\;\;R(j) = \{i : x_{ij} \in \cal G_2\}.$$
+
+- C4.5/C5.0 do multi-way non-binary splits
+
+- Presents interesting computational and statistical challenges
+:::
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### Important properties of trees:
+
+#### 2. missing data
+
+- Many methods struggle dealing with missing data, trees have nice solutions
+
+- Solution 1 (C4.5): if I want to split on feature $j$ and I don't know $x_{ij}$, send observation $i$ both left and right
+
+- Solution 2 (CART): in addition to the split I want to do, find similar *surrogate splits* on other variables, and if I don't see $x_{ij}$ I can use surrogate split on $x_{ik}$
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### Summary: Decision Trees
+
+Advantages:
+
+1. Intuitive and appealing: divide the space into *flexible* neighborhoods
+2. Flexible: categorical variables, missing data, regression or classification, big or small,...
+3. Big trees are a very rich class of models: can describe well many true models for $E(y|x)$.
+
+Disadvantages:
+
+1. Intuitive appeal is misleading: very unstable and high variance 
+2. Not a good prediction model: a single tree is usually not competitive!
+
+::: { .fragment}
+Conclusions and next steps:
+
+1. We do not really want to use trees as our prediction models
+2. Can we take advantage of their good properties and mitigate the problems?
+:::
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
