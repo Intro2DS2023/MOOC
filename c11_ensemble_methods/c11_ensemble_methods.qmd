@@ -1,0 +1,305 @@
+---
+format:
+  revealjs:
+    slide-number: true
+    chalkboard: true
+    fig-width: 6
+    fig-asp: 0.618
+    template-partials:
+      - "../title-slide.html"
+css: "../slides_quarto.css"
+standalone: false
+include-in-header: "../header_quarto.html"
+logo: "../Intro2DS_logo_white.jpg"
+pagetitle: "Ensemble Methods: Random Forest and Boosting"
+callout-appearance: simple
+smaller: true
+execute:
+  eval: true
+  echo: true
+code-line-numbers: false
+code-block-border-left: true
+highlight-style: github
+footer: "[Intro to Data Science](https://intro2ds2023.github.io/mooc/){target='_blank'}"
+---
+
+## {.logo-slide}
+
+## Introduction to Data Science {.title-slide}
+
+### Ensemble Methods: Random Forest and Boosting - Class 11
+
+### Giora Simchoni
+
+#### `gsimchoni@gmail.com` and add `#intro2ds` in subject
+
+### Stat. and OR Department, TAU
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+## Random Forest {.title-slide}
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### Ensemble methods: using trees as subroutines
+
+Instead of a single tree being a model, combine many trees into a model:
+
+1. Bagging and Random Forest: Fit different trees to the data and average them
+2. Boosting: Adaptively build a model from adding more and more trees
+
+::: {.fragment}
+- We will focus now on Random Forest (also Bagging), later discuss boosting
+
+- Main idea of Random Forest: Take advantage of the instability and high variance of the trees
+
+- Trees are unstable and greedy: if we change the data a little bit, the tree can change a lot
+
+- Now we intentionally change (randomize) the data to get a different tree every time, and average them
+:::
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### Reminder: the value of averaging
+
+- This is captured through different things we learned: CLT, LLN, variance of the average...
+
+- Assume $z_i \sim F$ has some distribution with mean $\mu$ and variance $\sigma^2$
+
+- If $z_1,...,z_m \sim F$ are independent, then $Var(\bar{z}) = \sigma^2 / m$, so $\bar{z}$ is close to $\mu$ for large $m$ 
+
+::: {.incremental}
+- Slightly more complex setting: assume $z_1,...,z_m$ are *somewhat* dependent $Cov(z_i,z_j) = \rho \sigma^2,\;\rho<1$
+
+- Now we still get some variance reduction from averaging: 
+$$Var(\bar{z}) \approx \rho\sigma^2 + (1-\rho)\sigma^2/ m$$
+
+- This is exactly the intuition behind Random Forest
+:::
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### Random forest algorithm
+
+- Repeat many times: 
+1. Randomize the data (by taking a subsample or a **bootstrap** sample)
+2. Build a tree on the randomized data, also randomize tree building (e.g. by randomly choosing variables to consider at each node)
+
+::: {.fragment}
+- To predict at new $x_0$, apply each tree and average their predictions
+:::
+::: {.fragment}
+- Intuition: trees are different because of randomization, they are like $z_1,...z_n \stackrel{\cdot}{\sim} P(y|x_0)$
+1. Related ($\rho > 0$) because it's the same training set $T$
+2. Still different from each other ($\rho < 1$) because of randomization and instability of trees
+:::
+::: {.fragment}
+- Hence we expect (and indeed see!) that Random Forest gives more accurate predictions of $E(y|x)$ or $P(y=1|x)$ than single trees
+:::
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### RF for Netflix (Regression)
+
+```{python}
+#| echo: false
+
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from scipy.stats import pearsonr
+import warnings
+from sklearn.model_selection import train_test_split
+
+ratings = pd.read_csv('../datasets/netflix/train_ratings_all.csv', header = None)
+miss_cong = pd.read_csv('../datasets/netflix/train_y_rating.csv', header = None, names = ['score'])
+movies = pd.read_csv('../datasets/netflix/movie_titles.csv', header = None, names = ['year', 'title'])
+
+netflix_X = ratings.iloc[:, :14]
+netflix_X.columns = movies['title'][:14]
+netflix_Y = miss_cong.iloc[:, 0]
+
+NE_Xtr, NE_Xte, NE_Ytr, NE_Yte = train_test_split(netflix_X, netflix_Y, test_size=0.2, random_state=42)
+```
+```{python}
+#| code-line-numbers: "|1|7|10-12|13-14|15-16|"
+
+from sklearn.ensemble import RandomForestRegressor
+
+ntr = NE_Xtr.shape[0]
+nte = NE_Xte.shape[0]
+tr_err = []
+te_err = []
+ntrees = [1, 10, 50, 100, 500, 1000]
+
+for ntree in ntrees: 
+    RF = RandomForestRegressor(n_estimators=ntree, min_samples_split=2,
+        min_samples_leaf=1, max_features=0.33,  bootstrap=True)
+    RF = RF.fit(NE_Xtr, NE_Ytr)
+    yhat_tr = RF.predict(NE_Xtr)
+    yhat = RF.predict(NE_Xte)
+    tr_err.append(np.sqrt(np.sum((yhat_tr - NE_Ytr)**2) / ntr))
+    te_err.append(np.sqrt(np.sum((yhat - NE_Yte)**2) / nte))
+```
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+```{python}
+fig = plt.figure(figsize=(4, 4))
+ax = fig.add_subplot(1,1,1)
+ax.set_xscale('log')
+plt.plot(ntrees, tr_err, color='darkorange', lw=2, label='train' )
+plt.plot(ntrees, te_err, color='navy', lw=2, label='test')
+plt.ylim([0.3, 1.3])
+plt.xlabel('Number trees')
+plt.ylabel('RMSE')
+plt.title('RF on Netflix')
+plt.legend(loc="upper right")
+plt.show() 
+```
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+#### Let's try it bravely on the full 99 dimensions! 
+
+```{python}
+from sklearn.tree import DecisionTreeRegressor
+
+ratings[np.isnan(ratings)] = 0
+NE_Xtr_noNAN, NE_Xte_noNAN = train_test_split(ratings, test_size=0.2, random_state=42)
+```
+
+A single tree can only get you so far:
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+```{python}
+tr_err = []
+te_err = []
+ds = [2, 3, 5, 7, 10, 15]
+
+for depth in ds:
+    Netree = DecisionTreeRegressor(max_depth=depth)
+    Netree = Netree.fit(NE_Xtr_noNAN, NE_Ytr)
+    yhat_tr = Netree.predict(NE_Xtr_noNAN)
+    yhat = Netree.predict(NE_Xte_noNAN)
+    tr_err.append(np.sqrt(np.sum((yhat_tr - NE_Ytr)**2) / ntr))
+    te_err.append(np.sqrt(np.sum((yhat - NE_Yte)**2) / nte))
+```
+```{python}
+#| echo: false
+
+plt.figure(figsize=(4, 4))
+plt.plot(ds, tr_err, color='darkorange', lw=2, label='train' )
+plt.plot(ds, te_err, color='navy', lw=2, label='test')
+plt.ylim([0.3,1.3])
+plt.xlabel('depth')
+plt.ylabel('RMSE')
+plt.title('Trees on Netflix -- 99 features')
+plt.legend(loc="upper left")
+plt.show()
+```
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+```{python}
+tr_err = []
+te_err = []
+ntrees = [1, 10, 50, 100, 500, 1000]
+
+for ntree in ntrees: 
+    RF = RandomForestRegressor(n_estimators=ntree, min_samples_split=5,
+        min_samples_leaf=2, max_features=10,  bootstrap=True)
+    RF = RF.fit(NE_Xtr_noNAN, NE_Ytr)
+    yhat_tr = RF.predict(NE_Xtr_noNAN)
+    yhat = RF.predict(NE_Xte_noNAN)
+    tr_err.append(np.sqrt(np.sum((yhat_tr - NE_Ytr)**2) / ntr))
+    te_err.append(np.sqrt(np.sum((yhat-NE_Yte)**2) / nte))
+```
+
+```{python}
+#| echo: false
+
+fig = plt.figure(figsize=(4, 4))
+ax = fig.add_subplot(1,1,1)
+ax.set_xscale('log')
+plt.plot(ntrees, tr_err, color='darkorange', lw=2, label='train')
+plt.plot(ntrees, te_err, color='navy', lw=2, label='test')
+plt.ylim([0.3,1.3])
+plt.xlabel('Number trees')
+plt.ylabel('RMSE')
+plt.title('RF on Netflix -- 99 features')
+plt.legend(loc="upper right")
+plt.show()
+```
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### Summary of Random Forest 
+
+- Uses advantages of trees, mitigates their shortcomings
+
+- RF trees should be as different as possible from each other: 
+1. Uses the high-variance property of trees
+2. Add randomization: subsampling of training data for each tree; randomizations in tree splitting
+
+- Add diversity by making trees bigger, control variance by averaging, therefore: 
+1. Trees should be as big as possible
+2. Should build and average as many of them as computationally possible
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
