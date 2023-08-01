@@ -1,121 +1,28 @@
----
-format:
-  revealjs:
-    slide-number: true
-    chalkboard: true
-    fig-width: 6
-    fig-asp: 0.618
-    template-partials:
-      - "../title-slide.html"
-css: "../slides_quarto.css"
-standalone: false
-include-in-header: "../header_quarto.html"
-logo: "../Intro2DS_logo_white.jpg"
-pagetitle: "Probabilistic Thinking"
-callout-appearance: simple
-smaller: true
-execute:
-  eval: true
-  echo: true
-code-line-numbers: false
-code-block-border-left: true
-highlight-style: github
-footer: "[Intro to Data Science](https://intro2ds2023.github.io/mooc/){target='_blank'}"
----
+=== 1. הסתברות מותנית ===
 
-## {.logo-slide}
-
-## Introduction to Data Science {.title-slide}
-
-### Probabilistic Thinking - Class 6
-
-### Giora Simchoni
-
-#### `gsimchoni@gmail.com` and add `#intro2ds` in subject
-
-### Stat. and OR Department, TAU
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 יש הרבה דרכים שהסתברות וסטטיסטיקה יכולות להטעות אותנו. ושום קורס שעוסק שבהן, לא שלם בלי לתת לפחות אזהרה, לגבי התופעות האלה.
 ביחידה זו נתמקד בשלוש דרכים שנתונים יכולים להטעות אם לא מסתכלים עליהם בצורה מקיפה ונכונה. אנחנו קוראים לזה: חשיבה הסתברותית.
+
 :::
-:::
 
----
-
-## Conditional Probability {.title-slide}
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 הסתברות בכלל היא מושג לא קל לתפיסה. הרי במציאות דברים מתרחשים או לא מתרחשים, אז מה המשמעות של המשפט מחר ירד גשם בסיכוי 80 אחוז. ואם אנשים לא מצטיינים בפירוש אמירות הסתברותיות, כשזה נוגע להסתברות מותנית התפיסה שלנו עלולה להטעות אותנו אפילו יותר.
-:::
-:::
----
 
-### Reminder: Discrete Empirical Distributions
-
-::: {.incremental}
-- Marginal distribution: $P(X = x_k)$, $P(Y = y_l)$
-- Joint distribution: $P(X = x_k, Y = y_l)$
-- Conditional distribution: $P(Y = y_l | X = x_k)$, $P(X = x_k | Y = y_l)$
-
-- Most interesting: conditional distribution
 :::
 
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 ניזכר בשלוש ההתפלגויות האמפיריות שלמדנו עליהן: ההתפלגות השולית, המרג'ינל, של X ושל Y. ההתפלגות המשותפת, הג'וינט, שהיא בעצם הסתברות החיתוך. וההסתברות המותנית, הקונדישיונל - אם ידוע לי שX קיבל ערך מסוים, מה כעת ההסתברות שY יקבל ערך אחר, האם היא שונה.
 
 כאמור הכי מעניינת אותנו היא ההסתברות המותנית.
+
 :::
-:::
 
----
-
-### Reminder: The Contingency Table
-
-+----------+---------------+---------------+---------------+-------------+
-| $Y/X$    | $x_1$         | $x_2$         | $x_3$         | Total       |
-+==========+===============+===============+===============+=============+
-| $y_1$    | $P(x_1, y_1)$ | $P(x_2, y_1)$ | $P(x_3, y_1)$ | $P(Y = y_1)$|
-+----------+---------------+---------------+---------------+-------------+
-| $y_2$    | $P(x_1, y_2)$ | $P(x_2, y_2)$ | $P(x_3, y_2)$ | $P(Y = y_2)$|
-+----------+---------------+---------------+---------------+-------------+
-| Total    | $P(X = x_1)$  | $P(X = x_2)$  | $P(X = x_3)$  |  $\large{1}$|
-+----------+---------------+---------------+---------------+-------------+
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 ניזכר גם בטבלת השכיחות של שני משתנים בדידים X ו-Y. אפשר לחלץ כל הסתברות מטבלה זו. השוליות של X ושל Y נמצאות אכן בשוליים, והן הסכום של השורה או של העמודה.
 
 ההתפלגות המשותפת נמצאת בתוך התאים, כל תא מתאר את הסתברות החיתוך של מאורע העמודה ומאורע השורה.
 
 וההתפלגות המותנית לפי חוק בייס היא ההסתברות המשותפת בכל שורה, מחולקת בהסתברות השורה. או ההסתברות המשותפת בכל עמודה, מחולקת בהסתברות העמודה.
-:::
-:::
 
----
-
-### Reminder: Important Laws
-
-::: {.incremental}
-Given two random variables $X,Y,$ we have:
-
-- Bayes' Law: 
-$$ Pr (Y=y|X=x) = \frac{Pr(Y=y,X=x)}{Pr(X=x)} = \frac{Pr(X=x|Y=y)Pr(Y=y)}{Pr(X=x)}$$
-
-- Law of total probability: 
-$$ Pr(X=x) = \sum_y Pr(X=x,Y=y)=\sum_y Pr(X=x|Y=y) Pr(Y=y)$$
-
-- The two are often combined to give:
-$$ Pr (Y=y_1|X=x) = \frac{Pr(X=x|Y=y_1)Pr(Y=y_1)}{\sum_y Pr(X=x|Y=y) Pr(Y=y)}$$
-
-- In this way, knowing only about $Pr(X|Y)$ and $Pr(Y)$ teaches us about $Pr(Y|X)$
 :::
 
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 ואם כבר הזכרנו את חוק בייס נכתוב אותו שוב במפורש: ההסתברות המותנית Y שווה ל-y קטן, בהינתן שX קיבל ערך x ספציפי, היא הסתברות החיתוך חלקי ההסתברות השולית של X. וזה אומר ההסתברות המותנית ההפוכה של X בהינתן Y, כפול ההסתברות של Y, חלקי ההסתברות השולית של X.
 
 הרבה פעמים ההסתברות השולית של X שנמצאת במכנה מצריכה עוד חישוב באמצעות איסוף של הסתברויות מותנות באמצעות נוסחת ההסתברות השלמה, שהיא בעצם ממוצע משוקלל של הסתברויות מותנות.
@@ -123,43 +30,9 @@ $$ Pr (Y=y_1|X=x) = \frac{Pr(X=x|Y=y_1)Pr(Y=y_1)}{\sum_y Pr(X=x|Y=y) Pr(Y=y)}$$
 אפשר לשלב בין שני החוקים, באמצעות הצבת נוסחת ההסתברות השלמה במכנה של חוק בייס.
 
 וכך קיבלנו קשר בין ההסתברות של Y בהינתן X להסתברות של X בהינתן Y.
-:::
-:::
-
----
-
-### Example: Corona testing 
-
-Assume we have a Corona test described as **super accurate**  meaning:
-
-- 99% of people who are carriers test positive
-- 99% of people who are healthy test negative
-
-::: {.fragment}
-- Question: given I get randomly tested and get a positive test, what is the probability that I am actually a carrier?
-:::
-
-::: {.fragment}
-- What if I add in this contingency table?
-
-+----------------+-----------------+-------------+---------+
-|                | predict healthy | predict sick| Total   |
-+================+=================+=============+=========+
-| really healthy | 99000           | 1000        | 100000  |
-+----------------+-----------------+-------------+---------+
-| really sick    | 1               | 99          | 100     |
-+----------------+-----------------+-------------+---------+
-| Total          | 99001           | 1099        | 100100  |
-+----------------+-----------------+-------------+---------+
 
 :::
 
-::: {.fragment}
-- Answer: Assuming the disease is rare (say 1/1000 = 0.001), that probability is very small even for an *accurate* test!
-:::
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 אז בואו ניתן דוגמא לכמה מתעתעת הסתברות מותנית יכולה להיות.
 
 נניח שיש לנו בדיקה לנגיף הקורונה. ונתון לנו שהבדיקה מדויקת מאוד. כמה מדויקת? 99 אחוז מהנשאים של הנגיף יקבלו תשובה חיובית, ו-99 אחוז מהאנשים הבריאים יקבלו תשובה שלילית!
@@ -169,28 +42,9 @@ Assume we have a Corona test described as **super accurate**  meaning:
 למשל, מה אם אוסיף את טבלת השכיחות הבאה, בלי הסתברויות, עם כמויות מוחלטות:
 
 כעת אנחנו רואים שהנגיף נדיר למדי. הסיכוי להיות נשא הוא 1 לאלף! הנתונים עצמם לא משקרים: חשבו ותראו שאכן מתוך 100 אלף אנשים בריאים 99 אחוז יקבלו תשובה שלילית, ומתוך 100 חולים, 99 אחוז יקבלו תשובה חיובית. אבל מה ההסתברות המבוקשת? מתוך 1099 אנשים שיקבלו תשובה חיובית רק 99 חולים! כלומר פחות מעשרה אחוזים!
-:::
-:::
 
----
-
-### Formulation in terms of conditional probabilities
-
-::: {.incremental}
-- Define two Bernoulli variables: 
-    - $Y \in \{0,1\}$  --- carrier or not   ;  $X \in \{0,1\}$  --- positive test or not 
-
-- Given values: 
-$$Pr(X=1|Y=1) = Pr(X=0|Y=0) = 0.99\;,\;\; Pr(Y=1) = 0.001$$
-
-- We are interested in $Pr(Y=1|X=1)$, using our formulas above we get: 
-$$ Pr(Y=1|X=1) = \frac{Pr(X=1|Y=1)Pr(Y=1)}{Pr(X=1)} = \frac{0.99 \cdot 0.001}{0.99 \cdot 0.001 + 0.01\cdot0.999} = 0.0902.$$
-
-- Conclusion: If you get a positive result in this accurate test, you still have $<10\%$ chance of being an actual carrier
 :::
 
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 אז בואו נראה את זה בצורה קצת יותר פורמלית.
 
 נגדיר שני משתני ברנולי: Y יהיה נשא נגיף או לא, 1 או אפס. X יהיה בדיקה חיובית או לא, 1 או אפס.
@@ -200,48 +54,13 @@ $$ Pr(Y=1|X=1) = \frac{Pr(X=1|Y=1)Pr(Y=1)}{Pr(X=1)} = \frac{0.99 \cdot 0.001}{0.
 ההסתברות המבוקשת, היא שY, מצב הנבדק יהיה שווה 1 בהינתן שהבדיקה X חיובית, היא 1. לפי חוק בייס במונה יש לנו את ההסתברות ההפוכה שX שווה ל1 בהינתן Y שווה 1, היא 0.99, כפול המשקולת המאוד קטנה שY שווה 1, 1 לאלף. במכנה אנחנו רוצים את ההסתברות הכללית לקבל תשובה חיובית. לפי נוסחת ההסתברות השלמה זה שווה לסיכוי להיות חולה כפול הסיכוי של חולה לקבל תשובה חיובית, ועוד הסיכוי להיות בריא כפול הסיכוי של בריא לקבל תשובה חיובית.
 
 התוצאה המפתיעה היא שהסיכוי להיות נשא של הנגיף או חולה גם בבדיקה מאוד מדויקת אם קיבלת תשובה חיובית, הוא פחות מעשרה אחוז. והסיבה לזה נעוצה בסיכוי האפריורי להיות בכלל חולה, שאם לא מתחשבים בו, עלולים להגיע למסקנות מוטעות מאוד.
-:::
-:::
 
----
+=== 2. הפרדוקס של סימפסון ===
 
-## Simpson's Paradox {.title-slide}
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 תופעה הסתברותית נוספת שגם כן קשורה בהסתברות מותנית, יכולה להיות כל כך לא אינטואיטיבית, שיש שמכנים אותה פרדוקס - הפרדוקס של סימפסון.
-:::
-:::
 
----
-
-### UC Berkeley Gender Bias Study
-
-- A well known research studying relation between:
-    - Gender
-    - Admission to Berkeley
-    - Department
-
-When checking relation between Gender and Admission:
-
-::: {.fragment}
-+----------------+-----------------+-------------+---------+
-|                | Men             | Women       | Total   |
-+================+=================+=============+=========+
-| Not Admitted   | 150             | 220         | 370     |
-+----------------+-----------------+-------------+---------+
-| Admitted       | 220             | 150         | 370     |
-+----------------+-----------------+-------------+---------+
-| Total          | 370             | 370         | 540     |
-+----------------+-----------------+-------------+---------+
 :::
 
-::: {.fragment}
-Men applying are more likely to be admitted?
-:::
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 ניתן פה דוגמא אמיתית אבל עם נתונים מומצאים, על נתוני הקבלה של גברים ונשים לאוניברסיטת ברקלי, ב-1973.
 
 מחקר בדק את הקשר בין מין המועמדים, סיכויי הקבלה שלהם והמחלקה אליה ניסו להתקבל. כששמים את התוצאות בטבלת 2 על 2 ובודקים את הקשר בין מין המועמד לקבלה, מתקבלת תמונה מאוד מוזרה:
@@ -249,42 +68,9 @@ Men applying are more likely to be admitted?
 בקרב 370 גברים שניסו להתקבל 220 התקבלו כלומר כ60 אחוז. בקרב נשים שניסו להתקבל רק 150 התקבלו, כלומר כ40 אחוז.
 
 אז האם יש הטיה באוניברסיטת ברקלי לקבל יותר גברים?
-:::
-:::
 
----
-
-### UC Berkeley Gender Bias Study
-
-- When conditioning on Department, the conclusion reverses:
-
-::: {.fragment}
-+----------------+----------------+-----------------+-------------+---------+
-|   Department   |                | Men             | Women       | Total   |
-+================+================+=================+=============+=========+
-| A              | Not Admitted   | 50              | 200         | 250     |
-+----------------+----------------+-----------------+-------------+---------+
-|                | Admitted       | 20              | 100         | 120     |
-+================+================+=================+=============+=========+
-| B              | Not Admitted   | 100             | 20          | 120     |
-+----------------+----------------+-----------------+-------------+---------+
-|                | Admitted       | 200             | 50          | 250     |
-+----------------+----------------+-----------------+-------------+---------+
-| Total          | Total          | 370             | 370         | 540     |
-+----------------+----------------+-----------------+-------------+---------+
 :::
 
-::: {.fragment}
-- Conclusion: Women applied more for department A, with lower admission rates!
-:::
-
-::: {.fragment}
-- Simpson's Paradox: a trend appears marginally, and disappears or completely reverses when checking by group
-:::
-
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 לא בהכרח! כשמתנים את הנתונים על המחלקה, כלומר רואים את הטבלת 2 על 2 שלנו בנפרד לכל מחלקה, לא רק שגברים לא מופלים לטובה בברקלי, הם אולי אפילו מופלים לרעה!
 
 בנתונים המומצאים שלנו יש לנו שתי מחלקות A ו-B. בקרב המועמדים של מחלקה A 20 מתוך 70 גברים התקבלו, כלומר כ28 אחוזים, ואילו 100 מתוך 300 נשים התקבלו, כלומר כ33 אחוזים.
@@ -294,77 +80,23 @@ Men applying are more likely to be admitted?
 אז איך זה קורה? התשובה נעוצה בהסתברות מותנית שוב. נשים לב שהסיכוי להתקבל במחלקה A מלכתחילה הוא נמוך מאוד, רק 120 מתוך 370, קצת פחות מ33 אחוז. ואילו הסיכוי להתקבל למחלקה B מלכתחילה הוא גבוה יחסית, 250 מתוך 370, כ67 אחוז. ולאן רוב הבנות מנסות להתקבל? למחלקה A, שמאוד קשה להתקבל אליה!
 
 זהו פרדוקס סימפסון: אנחנו רואים איזושהי תופעה, טרנד כשאנחנו מסתכלים על השורה התחתונה של הנתונים, באופן שולי, אבל כשמסתכלים לעומק, בחלוקה לקבוצות, התופעה נעלמת ואולי אפילו מתהפכת.
-:::
-:::
 
----
-
-### Formulizing the UC Berkeley Example
-
-- $X$ -- Gender ($M/F$)
-- $Y$ -- Admission to Berkeley ($yes/no$)
-- $Z$ -- Department ($A/B$)
-
-::: {.incremental}
-- $Pr(Y = yes | X = M) > Pr(Y = yes | X = F)$, but:
-- $Pr(Y = yes | X = M, Z = A) < Pr(Y = yes | X = F, Z = A)$
-- $Pr(Y = yes | X = M, Z = B) < Pr(Y = yes | X = F, Z = B)$
 :::
 
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 כמנהגנו ננסה לפרמל את הבעיה ולהשיג יותר תובנות:
 מין המועמד יהיה X, הקבלה לברקלי תהיה Y והמחלקה תהיה Z.
 
 מה שאנחנו רואים זה שכשאנחנו מתנים את Y הקבלה על X המין, הסיכוי להתקבל גבוה יותר אצל גברים. אבל:
 כשמתנים גם על המשתנה Z כיוון האי-שוויון מתהפך: בקרב המועמדים במחלקה A וגם בקרב המועמדים במחלקה B, הסיכוי להתקבל בקרב נשים  גבוה יותר.
-:::
-:::
 
----
-
-### How can that be?
-
-The probabilities which are not conditioned on Department are still **weighted averages** (Bayes Law):
-
-$$
-\begin{aligned}
-Pr(Y = yes | X = F) &= Pr(Y = yes | X = F, Z = A) \cdot \bf{Pr(Z = A | X = F)} \\
-    &+ Pr(Y = yes | X = F, Z = B) \cdot \bf{Pr(Z = B | X = F)}
-\end{aligned}
-$$
-
-::: {.fragment}
-The paradox occurs due to these weights! (women applying to more competitive departments)
 :::
 
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 איך זה יכול להיות? הטריק הוא להבין לפי חוק בייס ונוסחת ההסתברות השלמה, שההסתברות שמותנית רק על משתנה אחד, רק על משתנה X המין, היא עדיין ממוצע משוקלל של הסתברויות, כאשר המשקולות הן ההסתברויות המותנות של Z לפי X, או מה הסיכוי מלכתחילה שמועמדות נשים ינסו להתקבל למחלקה A ולמחלקה B. 
 
 נשים מנסות להתקבל יותר למחלקה A שקשה להתקבל אליה, מה שמגדיל הרבה יותר את המשקולת של ההסתברות הקטנה יותר.
-:::
-:::
 
----
-
-### Simpson's paradox: the effect of additional conditioning
-
-::: {.incremental}
-- In general assume now we have three random variables $X, Y, Z$
-- We can consider two conditional distributions: $Pr(Y|X)$ and $Pr(Y|X,Z)$
-- The paradox, which is not really a paradox, says that we can reach "conflicting" conclusions, for example: 
-    - $Pr(Y = 1 | X = x_1) > Pr(Y = 1 | X = x_2)$ 
-    - but: $Pr(Y = 1 | X = x_1, Z = z) < Pr(Y = 1 | X = x_2, Z = z),\;\; \forall z$
-
-- So in this situation, is $x_1$ or $x_2$ a better support for $Y = 1$?
-
-- Back to basic formulas, the key is the weighting: 
-$$ Pr(Y = y | X = x) = \sum_z Pr(Y = y | X = x, Z = z) {\bf Pr(Z = z | X = x)}$$
 :::
 
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 באופן כללי אנחנו מסתכלים על קשר בין שלושה משתנים X, Y ו-Z.
 
 אפשר לבחור להתנות משתנה Y בX בלבד או בX וגם בZ.
@@ -374,24 +106,9 @@ $$ Pr(Y = y | X = x) = \sum_z Pr(Y = y | X = x, Z = z) {\bf Pr(Z = z | X = x)}$$
 ואז נשאלת השאלה מה יביא להסתברות גבוהה יותר שY יהיה 1? X1 או X2? התשובה היא שכמובן שX2, בכל רמה של Z הוא מביא להסתברות גבוהה יותר ש-Y יהיה שווה 1.
 
 המפתח הוא להבין שגם הסתברות מותנית על משתנה אחד אפשר לראות כהסתברות שולית שהיא ממוצע משוקלל של הסתברויות מותנות על משתנה נוסף. ואם יש לנו נתונים לגבי משתנה נוסף - אסור לנו להתעלם מהם! אחרת אנחנו יכולים להגיע למסקנות שטחיות ומוטעות.
+
 :::
-:::
 
----
-
-### Another example: Corona mortality
-
-- We have two countries (call them *Italy* and *Germany*) 
-
-- In Italy the mortality rate among Corona patients is higher than in Germany
-
-- But in Germany the mortality rate is higher than in Italy both among young patients and among old patients
-
-- How can that be?
-
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 דוגמא נוספת מהזמן האחרון: תמותה מקורונה.
 
 יש לנו שתי ארצות, איטליה וגרמניה, ודווח בתקשורת שאחוז התמותה מקורונה באיטליה גבוה יותר מאחוז התמותה בגרמניה. יכול להיות שזה נכון. אבל מדען נתונים טוב, יבקש לראות עוד נתונים, לדוגמא גיל.
@@ -399,28 +116,9 @@ $$ Pr(Y = y | X = x) = \sum_z Pr(Y = y | X = x, Z = z) {\bf Pr(Z = z | X = x)}$$
 מסתבר, שאם מסתכלים על אחוז התמותה לפי קבוצות גיל, גם בקרב צעירים וגם בקרב מבוגרים, התופעה מתהפכת, אחוז התמותה בגרמניה גדול יותר!
 
 נסו לחשוב בעזרת מה שלמדנו: איך זה יכול להיות?
-:::
-:::
 
----
-
-### Another example: Corona mortality
-
-::: {.incremental}
-- Let $Y$ = Dead/Alive, $X$ = Country, $Z$ = Young/Old and we are considering only Corona patients:
-
-- $Pr(Y=D|X=I) > Pr(Y=D|X=G)$, but:
-- $Pr(Y=D|X=I, Z=Yo) < Pr(Y=D|X=G, Z=Yo)$
-- $Pr(Y = D | X=I, Z=O) <  Pr(Y=D|X=G, Z=O)$
 :::
 
-::: {.fragment}
-Solution: Germany has a lot of young patients, Italy a lot of old: 
-    $$ Pr(Z=Yo | X=G) \gg Pr(Z=Yo | X=I).$$
-:::
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 נסמן בY את מצב החולה, מת או חי. בX את הארץ, גרמניה או איטליה. ובZ את הגיל, צעיר או מבוגר.
 
 שוב נגדיר מה אנחנו רואים: כשאנחנו מתנים רק על X, הארץ, אחוז המתים באיטליה גבוה יותר.
@@ -429,155 +127,35 @@ Solution: Germany has a lot of young patients, Italy a lot of old:
 ומה עומד מאחורי זה? בגרמניה יש הרבה יותר תושבים צעירים! הסיכוי של Z להיות צעיר בהינתן שX הארץ הוא גרמניה, גבוה הרבה יותר מאשר הסיכוי של Z להיות צעיר כשX הארץ הוא איטליה.
 
 והתמותה בקרב צעירים מקורונה היתה נמוכה משמעותית, כלומר בגרמניה יש יותר תושבים עם נטייה למות פחות מקורונה מה שמשפיע על השורה התחתונה ומעוות את התמונה, אם לא מסתכלים גם על משתנה הגיל.
-:::
-:::
 
----
-
-### Simpson's paradox beyond binary variables
-
-Continuous distributions with clusters (example in recitation)
-
-![](images/simpsons-paradox.gif)
-
-[source](https://simplystatistics.org/posts/2017-08-08-code-for-my-educational-gifs/)
-
-::: {.fragment}
-When $Y$ is numeric: we may be interested in conditional expectation, with "paradox":
-
-- $\mathbb E(Y|X=x_1) > \mathbb E(Y|X=x_2)$, but:
-- $\mathbb E(Y|X=x_1, Z=z) < \mathbb E(Y|X=x_2, Z=z),\;\; \forall z$
 :::
 
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 בתרגול תראו שפרדוקס סימפסון מתקיים גם מעבר לשלישיות של משתנים בדידים. כאן אנחנו רואים קשר בין שני משתנים רציפים X ו-Y. כשאנחנו מסתכלים עליהם בצורה חסרה, בצורה שולית, יש קשר יורד בין המשתנים מאוד ברור. אבל אם אנחנו מסתכלים על הקשר בכל תת-קבוצה של משתנה בדיד נוסף Z, התופעה הפוכה, ואנחנו רואים שלמעשה הקשר בין X ל-Y הוא קשר חיובי.
 
 דרך נוחה לחשוב על זה היא באמצעות תוחלת מותנית, שתתרגלו בתרגול. כשאנחנו מסתכלים על התוחלת המותנית של Y בהינתן ערך נמוך X1, אנחנו רואים שהיא גבוהה יותר מאשר התוחלת אם נתון ערך גבוה יותר X2. אבל אם מתנים גם על משתנה נוסף Z, לכל ערך של Z, ההבדל בין התוחלות המותנות מתהפך. Y עולה כש-X עולה, לכל רמה של Z.
-:::
-:::
 
----
+=== 3. הרביעייה של אנסקומב ===
 
-## Anscombe's Quartet {.title-slide}
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 התופעה השלישית והאחרונה שנדבר עליה, לאו דוקא קשורה להסתברות מותנית. אבל היא בוודאי ובודאי קשורה להסתכלות שטחית על נתונים.
 
 זוכרים שנתנו עצה תמיד תמיד להעיף מבט בנתונים, רצוי בתרשים, ולא להסתפק בתמציות שמסכמות אותם? בואו נראה מה יכול לקרות אם לא עושים את זה.
+
 :::
-:::
 
----
-
-### Anscombe's Quartet
-
-:::: {.columns}
-::: {.column width="70%"}
-```{python}
-#| code-fold: true
-
-import matplotlib.pyplot as plt
-import numpy as np
-
-x = [10, 8, 13, 9, 11, 14, 6, 4, 12, 7, 5]
-y1 = [8.04, 6.95, 7.58, 8.81, 8.33, 9.96, 7.24, 4.26, 10.84, 4.82, 5.68]
-y2 = [9.14, 8.14, 8.74, 8.77, 9.26, 8.10, 6.13, 3.10, 9.13, 7.26, 4.74]
-y3 = [7.46, 6.77, 12.74, 7.11, 7.81, 8.84, 6.08, 5.39, 8.15, 6.42, 5.73]
-x4 = [8, 8, 8, 8, 8, 8, 8, 19, 8, 8, 8]
-y4 = [6.58, 5.76, 7.71, 8.84, 8.47, 7.04, 5.25, 12.50, 5.56, 7.91, 6.89]
-
-datasets = {
-    'I': (x, y1),
-    'II': (x, y2),
-    'III': (x, y3),
-    'IV': (x4, y4)
-}
-
-fig, axs = plt.subplots(2, 2, sharex=True, sharey=True, figsize=(6, 6),
-                        gridspec_kw={'wspace': 0.08, 'hspace': 0.08})
-axs[0, 0].set(xlim=(0, 20), ylim=(2, 14))
-axs[0, 0].set(xticks=(0, 10, 20), yticks=(4, 8, 12))
-
-for ax, (label, (x, y)) in zip(axs.flat, datasets.items()):
-    ax.text(0.1, 0.9, label, fontsize=20, transform=ax.transAxes, va='top')
-    ax.tick_params(direction='in', top=True, right=True)
-    ax.plot(x, y, 'o')
-
-    # linear regression
-    p1, p0 = np.polyfit(x, y, deg=1)  # slope, intercept
-    ax.axline(xy1=(0, p0), slope=p1, color='r', lw=2)
-
-    # add text box for the statistics
-    stats = (f'X Mean = {np.mean(x):.2f}\n'
-             f'Y Mean = {np.mean(y):.2f}\n'
-             f'X SD = {np.std(x):.2f}\n'
-             f'Y SD = {np.std(y):.2f}\n'
-             f'Corr = {np.corrcoef(x, y)[0][1]:.2f}')
-    bbox = dict(boxstyle='round', fc='blanchedalmond', ec='orange', alpha=0.5)
-    ax.text(0.95, 0.07, stats, fontsize=9, bbox=bbox,
-            transform=ax.transAxes, horizontalalignment='right')
-
-plt.show()
-```
-:::
-::: {.column width="30%"}
-::: {.fragment}
-- Beware of looking at just summary statistics!
-- Be careful of outliers!
-- Plot first!
-:::
-:::
-::::
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 סטטיסטיקאי בריטי בשם אנסקומב פרסם רביעיית זוגות נתונים של X ו-Y, במטרה להמחיש מה קורה כשלא מסתכלים על הנתונים.
 
 למרות שכל זוג של X ושל Y שונים לחלוטין, אם מסתכלים רק על מדדים כמו: ממוצע, סטיית תקן, ומתאם, זה נראה שהם זהים לחלוטין.
 
 אנסקומב רצה להדגים גם את הבעייתיות בהסתכלות שטחית על נתונים וגם את הסכנה בתצפיות חריגות, אאוטליירז, כמו שאפשר לראות בזוגות השלישי והרביעי. רוב הנקודות נמצאות בטרנד מסוים, ורק בגלל נקודה אחת שכאילו אינה במקומה מתקבל רושם אחר לגמרי אם מסתכלים רק על המדדים השוליים כמו מתאם למשל. בתרשים השלישי המתאם בין X לY בנכוי התצפית החריגה גדול הרבה יותר מ-0.82, ובתרשים הרביעי הוא קטן הרבה יותר.
+
 :::
-:::
 
----
-
-### Datasaurus Dozen
-
-A modern Anscombe's Quartet by Matejka and George (2017):
-
-![](images/DinoSequentialSmaller.gif)
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 לפני כמה שנים עדכנו צמד סטטיסטיקאים את האנליזה של אנסקומב והוסיפו כמו זוגות של X ו-Y מרשימים משלהם. כפי שניתן לראות גם כאן, הממוצעים וסטיות התקן של X ושל Y כמעט זהים וכך גם המתאם ביניהם. אבל הדפוס שונה לחלוטין בכל אחד מזוגות הנתונים!
 
 ואחד מהם הוא אפילו ציור של דינוזאור!
-:::
-:::
 
----
+=== 4. סיכום ===
 
-## Pitfalls Summary {.title-slide}
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
-:::
-:::
-
----
-
-### Conclusions about probabilistic thinking
-
-- Conditional distributions are very important for interpretation and not very intuitive sometimes
-
-- It is critical to carefully consider which direction and level of conditioning is relevant to reasoning about data
-
-- It is important to be able to write the information, questions and answers explicitly as statements about conditional probabilities or expectations, and use the laws of probability correctly
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 נסכם מה רצינו להגיד ביחידה הזאת:
 
 התפלגויות מותנות הן חשובות מאוד בניתוח נתונים ויכולות להיות מעט לא אינטואיטיביות.
@@ -585,23 +163,9 @@ A modern Anscombe's Quartet by Matejka and George (2017):
 כשמנתחים נתונים, חשוב להציג את כל הנתונים, ולהתנות על כל המשתנים עד כמה שאפשר לפני שמגיעים למסקנות.
 
 לבסוף, תראו כמה חשיבה בצורה פורמלית עזרה לנו. ברגע שאתם מסמנים משתנים באמצעות אותיות ומשתמשים בחוקי ההסתברות אתם יכולים לזקק מסקנות יפות בניתוח נתונים.
+
 :::
-:::
 
----
-
-### Dependence and causality
-
-- A well known but often misunderstood fact is that correlation/dependence is not the same as causality
-
-- Example: Assume we study $X$=smoking and $Y$=lung disease and find a strong correlation between them: people who smoke more have more lung disease 
-
-- Assume for now the connection is real and replicable in multiple studies
-
-- Is it correct to conclude that smoking causes lung disease? 
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 נקנח באזהרה אחרונה על כך שהתלות שאנחנו מודדים עם הסתברות מותנית או מתאם, איננה מעידה בהכרח על סיבתיות.
 
 לדוגמא, משתנה X יהיה עישון, ומשתנה Y יהיה לחלות בסרטן ריאות, ואנחנו רואים מתאם גבוה בין שניהם: אנשים שמעשנים יותר, חולים יותר בסרטן הריאות.
@@ -609,41 +173,17 @@ A modern Anscombe's Quartet by Matejka and George (2017):
 אפילו בהינתן שהקשר אמיתי, כל הקשרים שראינו היום היו אמיתיים -- האם נכון לקפוץ להסיק שעישון גורם לסרטן הריאות רק על סמך הסיפור הזה שסיפרתי לכם?
 
 עצרו וחשבו איזה עוד גורם יכול להשפיע על הנתונים האלה.
+
 :::
-:::
 
----
-
-### Causal and (example of) non-causal relationships 
-
-![](images/Cause.png)
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 יכול בהחלט להיות למשל, שאנחנו רואים השפעה של עישון על סרטן ריאות, אבל שזה קורה בגלל שלא הסתכלנו במשתנה מתערב אחר שמשפיע על שניהם כמו מעמד סוציו אקונומי. יכול מאוד להיות שאנשים ממעמד סוציואקונומי נמוך נוטים לעשן יותר, ולאנשים ממעמד סוציואקונומי נמוך יש נטייה לחלות יותר בסרטן הריאות.
 
 כך ששוב אנחנו רואים את השורה התחתונה, השולית, ואם לא נחקור יותר לעומק אנחנו עלולים להגיע למסקנות מוטעות.
+
 :::
-:::
 
----
-
-### How and when can we infer causality?
-
-- This is an area of active research, there are many theories and practical methods:
-
-    - Clinical trials that guarantee found relations are causal
-
-    - Instrumental variable methods
-
-    - Causal inference methods by Judea Pearl and others
-
-- We will not discuss these in more detail in this course
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 סיבתיות או קוזליטי היא תחום מחקר מאוד חם עכשיו - איך אנחנו מבצעים ניסויים שכן יכולים להגיע למסקנה, שתופעה א אכן גורם לתופעה ב ולא בגלל קשר נסיבתי. מי שרוצה לקרוא עוד על התופעה מוזמן לקרוא למשל בספרו המצוין של יהודה פרל, causality. 
 
 בקורס שלנו כאן אנחנו עוצרים.
-:::
+
 :::
