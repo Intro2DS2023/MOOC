@@ -1,369 +1,81 @@
----
-format:
-  revealjs:
-    slide-number: true
-    chalkboard: true
-    fig-width: 6
-    fig-asp: 0.618
-    template-partials:
-      - "../title-slide.html"
-css: "../slides_quarto.css"
-standalone: false
-include-in-header: "../header_quarto.html"
-logo: "../Intro2DS_logo_white.jpg"
-pagetitle: "Collecting, Exploring and Cleaning Data"
-callout-appearance: simple
-smaller: true
-execute:
-  eval: true
-  echo: true
-code-line-numbers: false
-code-block-border-left: true
-highlight-style: github
-footer: "[Intro to Data Science](https://intro2ds2023.github.io/mooc/){target='_blank'}"
----
+=== 1. פורמטים של נתונים ======
 
-## {.logo-slide}
-
-## Introduction to Data Science {.title-slide}
-
-### Collecting, Exploring and Cleaning Data - Class 3
-
-### Giora Simchoni
-
-#### `gsimchoni@gmail.com` and add `#intro2ds` in subject
-
-### Stat. and OR Department, TAU
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 איך משיגים נתונים? מה כדאי לעשות דבר ראשון כשמקבלים קובץ נתונים, ומה יכול להיות כל כך לא נקי בנתונים שצריך לנקות אותם? היום נלמד כמה עקרונות בסיס בנתונים, הם חומר הגלם של דאטא סיינס.
-:::
-:::
----
 
-## Common Data Formats in Data Science {.title-slide}
+:::
 
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 נתחיל בללמוד על פורמטים נפוצים שבהם נתונים מגיעים.
-:::
-:::
----
 
-### CSV: Comma Separated Values
-
-::: {.fragment}
-<img src = "images/csv.png" style="width: 70%">
-:::
-::: {.fragment}
-```{python}
-#| output-location: fragment
-
-import pandas as pd
-
-df = pd.read_csv('../datasets/drugs.csv')
-
-print(df.head())
-```
 :::
 
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 פורמט נפוץ מאוד הוא comma separated values, או CSV.
 
 אם תפתחו CSV בתכנת עריכה הפשוטה ביותר הוא ייראה לכם כמו ג'ונגל של נתונים, אבל האמת שזה פורמט מצוין לדאטה בצורת טבלה. כאן יש לנו דאטה שבו לקוחות תיארו את החוויות שלהם עם תרופות שונות ודירגו את אותן תרופות.
 
 אני קורא את הנתונים פנדאז, ה-ספרייה הטובה ביותר שיש לפייתון להציע כשזה נוגע לנתוני טבלה, כל עוד הם לא גדולים מדי, וגם על זה נדבר. אני משתמש בפקודה read_csv, ומבקש את השורות הראשונות של הדאטה עם המתודה head, והוא כבר נראה הרבה יותר ברור.
-:::
-:::
 
----
-
-### JSON: JavaScript Object Notation
-
-::: {.fragment}
-<img src = "images/json.png" width = "50%">
 :::
 
-::: {.fragment}
-```{python}
-#| output-location: fragment
-
-import json
-
-data = dict()
-
-with open('../datasets/test.json') as f:
-    data=json.load(f)
-
-data
-```
-:::
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 פורמט נוסף שחשוב להכיר כי הוא גמיש הרבה יותר, וזה גם פורמט שבו מגיעים הרבה פעמים נתונים כתוצאה מקריאות לשרתים באינטרנט - הוא ג'ייסון. ג'ייסון מתאים למידע מקונן או nested, כמו מילון, שבו יש קבוצה של צמדים של key ו-value. במקרה שלפנינו יש נתון מתוך מפקד אוכלוסין על אדם מסוים. והמפתחות הם מה השם שלו, כתובת, גיל וכולי. נשים לב שהערכים יכולים להיות מילונים בעצמם כמו הכתובת כאן, או רשימה של ערכים.
 
 בפייתון אפשר להשתמש במודול json ולפתוח את הקובץ עם הפקודה json.load. היופי בפייתון הוא שהדאטא נקרא ישר לתוך מילון dict של פייתון, שיש לו את כל הגמישות של מילון json.
-:::
-:::
 
----
-
-### Plain Text
-
-::: {.fragment}
-<img src = "images/txt.png">
 :::
 
-::: {.fragment}
-```{python}
-#| output-location: fragment
-
-with open('../datasets/test.txt') as f:
-    lines = f.readlines(1000)
-
-lines
-```
-:::
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 ניתן לקרוא נתונים גם מקובץ טקסט פשוט, זה בדרך כלל אכן מתאים לטקסט, לדוגמא לצורך ניתוחים של שפה או ייצור טקסט. במקרה הזה יש לנו קובץ טקסט פשוט של שיר, ואני משתמש בפקודה readlines לקרוא את השורות לתוך רשימה של מחרוזות. כל שורת טקסט היא מחרוזת.
-:::
-:::
 
----
-
-### HTML
-
-::: {.r-stack}
-![](images/black_friday_website.png){.fragment .fade-out}
-
-![](images/black_friday_html.png){.fragment width=80%}
 :::
 
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 נתונים נמצאים גם במקומות פחות צפויים. אפשר לחלץ נתונים כמעט מכל אתר אינטרנט. ואתרי אינטרנט כתובים בשפת html. בתרגול תלמדו יותר על מבנה html, שאפשר לראות אותו כמעין עץ של תכונות שבו כל ענף מתפרש לתת-ענפים וכך הדפדפן יודע להציג לנו את האתר.
 
 :::
-:::
 
----
-
-### HTML
-
-::: {.fragment}
-```{python}
-#| output-location: fragment
-
-from bs4 import BeautifulSoup
-
-with open('../datasets/test.html') as f:
-    soup = BeautifulSoup(f, 'html.parser')
-
-print(soup.prettify())
-```
-:::
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 כדי לקרוא את המידע באתר סטטי אפשר להשתמש בספריית beautifulsoup, כאן אני קורא קובץ html על-ידי העטיפה שלו בקלאס BeautifulSoup.
 
 הפעולה הזאת בעצם קוראת את העץ שהוא דף הhtml, לתוך אוביקט שכאן נקרא soup, כמו שמקובל בחבילה הזאת. אם אבקש את המתודה prettify על האוביקט הזה נראה שאכן כל קובץ הhtml נמצא בו בצורה מסודרת.
 
 למה שנרצה לקרוא אתר מהאינטרנט ומה הקשר לנתונים? על כך ביחידה הבאה.
 
-:::
-:::
+=== 2. איסוף נתונים ===
 
----
-
-## Collecting Data {.title-slide}
-
----
-
-### Where do(es) data come from?
-
-- Then: Manual Curation
-- Now: Automatic Curation
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 איך מגיעים אלינו נתונים? החיים הם לא קורס, ונתונים לא נמצאים פשוט כמו כאן באתר הקורס בקובץ מסודר ומחכים שננתח אותם!
 
 בעבר נתונים הגיעו כמעט תמיד כי מישהו אצר אותם בצורה ידנית. מישהו כתב אותם ביומן או ספר, שורה אחר שורה. היום בעידן הביג דאטא רוב הנתונים נאספים בצורה אוטומטית. בואו נראה כמה דוגמאות.
+
 :::
-:::
 
----
-
-### Then: Manual Curation (I)
-
-If your parents have not taken note, anywhere, of how tall you were at the age of 1 - we may never be able to extract this information.
-
-<img src = "images/height_marks.jpg" width = "70%">
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 גם היום, יש שפע דוגמאות של אוצרות נתונים ידנית. אם ההורים שלכם צירו על הקיר את הגובה שלכם מהרגע שנעמדתם על הרגליים - נראה את המידע הזה על הקיר. אחרת - לא יהיו לנו הנתונים.
+
 :::
-:::
 
----
-
-### Then: Manual Curation (II)
-
-If the US government had not seen fit to estimate and record the level of alcohol consumption of its citizens, we would never have known.
-
-<img src = "images/alcohol-consumption-per-person-us.png" width = "70%">
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 ברמה הלאומית נתונים תמיד הגיעו מממשלות שפשוט תיעדו את הקורה בתוך המדינה לצרכי ניתוח כלכלי. כאן אפשר לראות שיש לנו תיעוד מאמצע המאה ה19, על כמות צריכת האלכוהול השנתית של אזרח אמריקאי. נסו לחשוב על מה מעיד המידע החסר בשנת 1920 ועד אמצע שנות ה30 של המאה ה20. האם באותה תקופה הפסיקו האמריקאים לשתות אלכוהול?
+
 :::
-:::
 
----
-
-### Now: Automatic Curation (I)
-
-Have you ever opened up an Internet browser, searched for "Amazon", clicked on [amazon.com](amazon.com) and scrolled around to check the price of a T-shirt? You don't have to be logged in. You don't have to buy. You are data.
-
-<img src = "images/you_are_data.png">
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 כיום כאמור אנחנו מעריכים שמרבית הנתונים פיסית בעולם נאגרים בצורה אוטומטית. כל פעם שאתם נכנסים לאתר אינטרנט אפילו אם זה רק להסתכל על מחירים של חולצות, אתם מייצרים דאטא. עצם פתיחת הדפדפן מייצרת שורה במאגר נתונים של גוגל: מי אתם, מה המין, הגיל והמיקום שלכם ומתי פתחתם את הדפדפן. 
 
 אפילו גלילה באתרים מסוימים שיש להם את הקיבולת לאגור נתוני ענק, יכולה להיות שורה בבסיס נתונים: מתי גללתם, כמה גללתם, מה היתה הפעולה הבאה שלכם.
+
 :::
-:::
 
----
-
-### Web Scraping
-
-- Public APIs
-- Beautiful Soup
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 וגם אתם יכולים לייצר דאטא מהאינטרנט, באמצעות פעולה שנקראת web scraping. זה יכול להיות דרך שירותים של אתרים שנקראים APIs, וזה יכול להיות דרך קוד בbeautiful soup, באמצעות פעולה אקטיבית שלכם מול דף אונליין.
+
 :::
-:::
 
----
-
-### Public APIs (I)
-
-<img src = "images/google_trends01.png">
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 דוגמא לAPI שכזה הוא גוגל טרנדס. גוגל מאפשרת לכל גולש לקבל את דפוס החיפוש אחר מונח כלשהו לאורך תקופה, ואפילו להשוות למונחים אחרים. כאן חיפשתי את הטרנד של חיפוש אחר אוכל לחתולים מול אוכל לכלבים. יותר מזה, אתם יכולים בלחיצת כפתור להוריד את הנתונים כטבלה למחשב האישי בקובץ csv.
 
 בתרגול תראו דוגמאות לAPIs נוספים ולספריות פייתון שעוטפות אותם.
-:::
-:::
 
----
-
-### Beautiful Soup
-
-::: {.fragment}
-You may not even need an API. Would you look to have all the [Beatles](https://en.wikipedia.org/wiki/The_Beatles_discography){target="_blank"} records in a single table on your machine?
 :::
 
-::: {.fragment}
-The following code scrapes the Wikipedia page for the and creates a table, out of "thin air". See more advanced examples in recitation.
-
-```{python}
-#| code-line-numbers: "|7|8|"
-from bs4 import BeautifulSoup
-import requests
-import re
-import pandas as pd
-
-url = 'https://en.wikipedia.org/wiki/The_Beatles_discography'
-r = requests.get(url)
-soup = BeautifulSoup(r.content, 'html.parser')
-```
-:::
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 אם אין API, ואין לאתר מדיניות נוקשה נגד תוכנה שקוראת לו להוריד דאטא, אפשר להשתמש בכלים תכנותיים כדי להוריד דאטא.
 
 נסתכל על עמוד הוויקיפדיה של תקליטי הביטלס למשל. נחמד להסתכל על הטבלה, אבל אין לה ערך ממשי עבורנו בלי שנוכל למיין אותה, לקבץ אותה, לסכום אותה וכולי.
 
 הקוד שלפנינו מוריד את האתר של הערך בוויקיפדיה, ומהאתר נחלץ את הטבלה. אנחנו קוראים לאתר עם ספריית requests, ועוטפים את תוכן הקריאה עם הקלאס BeautifulSoup כפי שראינו, לתוך אוביקט שנקרא soup.
-:::
-:::
 
----
-
-```{python}
-#| echo: false
-
-def get_release_details(release_col):
-    release_date = None
-    release_label = None
-    if release_col is not None:
-        release_list = release_col.find('ul')
-        if release_list is not None:
-            release_list_elements = release_list.find_all('li')
-            for element in release_list_elements:
-                element_text = element.get_text()
-                if element_text.startswith('Released: '):
-                    release_date = re.search('Released: ([0-9a-zA-Z ]+)',\
-                                             element_text).group(1)
-                if element_text.startswith('Label: '):
-                    release_label = re.search('Label: ([0-9a-zA-Z,\(\) ]+)', \
-                                              element_text).group(1)
-    return release_date, release_label
-```
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
-:::
 :::
 
----
-
-```{python}
-#| code-line-numbers: "|1|4|5|9|10|11|18,22-23|"
-albums = dict()
-id = 0
-albums[id] = dict()
-tables = soup.find_all('table')
-for table in tables:
-    caption = table.find('caption')
-    if caption is not None:
-        header = caption.get_text()
-        if re.match(re.compile('^List of(.+?)albums'), header):
-            rows = table.find_all('tr')
-            for row in rows:
-                title_col = row.find('th')
-                if title_col is not None and 'scope' in title_col.attrs and\
-                title_col.attrs['scope'] == 'row':            
-                    title_cell = title_col.find('a')
-                    if title_cell is not None and title_cell.attrs is not None and\
-                    'title' in title_cell.attrs:
-                        albums[id]['name'] = title_cell.attrs['title']
-                        release_col = row.find('td')
-                        release_date, release_label = get_release_details(release_col)
-                        if release_date is not None or release_label is not None:
-                            albums[id]['release_date'] = release_date
-                            albums[id]['release_label'] = release_label
-                            id += 1
-                            albums[id] = dict()
-```
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 כעת נאתחל מילון ריק בשם albums. נמצא את כל הטבלאות בדף, כלומר את כל התגיות html בשם table.
 
 נעבור טבלה טבלה, נמצא את הכותרת שלה, ונשווה לכותרת שאנחנו מחפשים. אם מצאנו את הטבלה המבוקשת, נמצא את כל השורות שלה.
@@ -371,124 +83,37 @@ for table in tables:
 נעבור שורה שורה, ונרשום במילון שלנו את מה שאנחנו מחפשים: שם האלבום, תאריך ההוצאה והלייבל.
 
 זה בסדר אם אתם לא מבינים כרגע כל שורה ושורה מהקוד, בתרגול ובשיעורי הבית כאמור תתרגלו את הנושא.
+
 :::
-:::
 
----
-
-```{python}
-albums_df = pd.DataFrame.from_dict(albums, orient ='index')
-albums_df.head(5)
-```
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 כעת יש לנו מילון מקונן שבו כל מפתח הוא מזהה סידורי וכל ערך הוא מילון קטן בעצמו, עם ערכים כמו שם ותאריך הוצאה לכל אלבום. ניתן לעטוף מילון כזה בתוך דאטאפריים של פנדאז, והנה הטבלה שלנו, כבר לא רק בדף באינטרנט שאנחנו יכולים רק לבהות בו, אלא ממש על המחשב שלנו וניתן לשאול שאלות מעניינות על התקליטים של הביטלס ולענות עליהן באמצעותה.
-:::
-:::
 
----
+=== 3. ביג דאטא, סמול דאטא ===
 
-## Small Data, Big Data {.title-slide}
-
----
-
-### What's in a name?
-
-::: {.incremental}
-These definitions are constantly changing.
-
-* "Everything processed in Excel is small data." ([Rufus Pollock, The Guardian](https://www.theguardian.com/news/datablog/2013/apr/25/forget-big-data-small-data-revolution))
-* "[Big Data] is data so large it does not fit in main memory" (Leskovec et al., Mining of Massive Datasets)
-
-::: {.fragment}
-Or maybe we should define the size of our data according how easy it is to process and understand it?
-
-* "[Small Data is] data that has small enough size for human comprehension." ([jWork.ORG](jWork.ORG))
-* "data sets that are too large or complex for traditional data-processing application software to adequately deal with" ([Wikipedia](https://en.wikipedia.org/wiki/Big_data))
-:::
-:::
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 לפני שנמשיך כמה הערות על המונחים הפופולריים סמול דאטא וביג דאטא.
 
 יש כאלה שיטענו שדאטא הוא קטן או גדול לפי הגודל שהוא צורך פיסית, על הדיסק. לדוגמא אנחנו מביאים כאן הגדרה לדאטא קטן - זה דאטא שנכנס בקובץ אקסל. והגדרה לדאטא גדול - זה דאטא שלא נכנס בזיכרון של מחשב בודד.
 
 הגדרות אחרות חושבות על האופן בו אנחנו מעבדים את הדאטא. לדוגמא דאטא קטן הוא דאטא שאנשים יכולים להבין. או דאטא גדול זה דאטא ששיטות מסורתיות לעיבוד נתונים כבר לא יכולות לפעול עליו.
-:::
-:::
 
----
-
-### What's in a name? (II)
-
-::: {.incremental}
-The actual definition should probably merge both of the above.
-
-* Excel can fit 1M rows, 16K columns of double numbers. Try loading a matrix such as this into Matlab, Python or R, multiply and invert it - you can't. So isn't that Big?
-* Facebook generates 4 Petabytes of data, daily. That's 4K Terabytes or 4M Gigabytes. ([Brandwatch.com](https://www.brandwatch.com/blog/47-facebook-statistics/)) But a Facebook Data Scientist in daily life typically needs only a copy of some of these data, which fits in her PC. Isn't that small?
 :::
 
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 אם חייבים הגדרה מדויקת, היא בטח תכלול את שני הפרמטרים האלה.
 
 לדוגמא, דאטא שנכנס באקסל, עם מיליון שורות ו-16 אלף עמודות. נסו להזין מטריצה כזאת בזיכרון בפייתון, לכפול אותה, להפוך את התוצאה - לא בטוח שתצליחו. אז למרות שהנתונים נכנסים באקסל, הם לא גדולים מאוד?
 
 לחילופין, לפי מקור מסוים פייסבוק מייצרת כמה פטאבייטים של דאטא כל יום, או מיליוני ג'יגה-בייט. אבל אם נציץ מעבר לכתף של מדענית נתונים בפייסבוק, ספק אם היא משתמשת בצורה יומיומית בנתונים שהגודל שלהם הוא מעל מה שהמחשב שלה יכול להכיל, רוב הזמן אנחנו פועלים על איזו תת קבוצה קטנה של נתונים. אז גם דאטא של פייסבוק יכול להיות "קטן".
+
 :::
-:::
 
----
-
-### Web data is Big Data
-
-We can all agree *this* is big: ([Domo.com](https://www.domo.com/data-never-sleeps))
-    
-<img src = "images/domo.png" width = "40%">
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 אנחנו רוצים להגיד שזה לא מאוד חשוב, ולא תידרשו בקורס הזה להיצמד לאיזו הגדרה טכנית. כולנו יכולים להסכים שהנתונים שהאינטרנט מייצר הם נתוני ענק. בתרשים הזה שמתעדכן כל שנה אפשר לראות כמה דוגמאות: שכל דקה גוגל שומרת 6 מיליון חיפושים. אינסטגרם מפרסמת 66 אלף תמונות חדשות. או שיוטיוב מעלים 500 שעות של וידאו. כל דקה.
-:::
-:::
 
----
+=== 4. תחקור נתונים: תרשימים בסיסיים ===
 
-## Exploring Data: Basic Plots {.title-slide}
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 אחד הדברים הראשונים שנרצה לעשות עם נתונים, קטנים או גדולים, הוא למצות מהם כמה תרשימים. בתרשים ויזואלי אחד יש פוטנציאל לזהות המון דברים על הנתונים שלנו, ואולי גם בעיות. בחלק זה נחזור על כמה תרשימים בסיסיים למשתנים רציפים או כמותיים. לאחר מכן נראה כמה תרשימים מודרניים ומרגשים.
+
 :::
-:::
----
 
-### Boxplot
-
-```{python}
-import numpy as np
-import seaborn as sns
-import matplotlib.pyplot as plt
-```
-
-```{python}
-#| echo: false
-
-sns.set()
-X = np.random.chisquare(5, 1000)
-print()
-```
-
-```{python}
-sns.boxplot(y = X)
-plt.ylabel('X')
-plt.show()
-```
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 נשתמש בספריית seaborn שמתממשקת היטב עם פנדאז, ונצייר תרשים קופסה, או בוקספלוט.
 
 כאן אני מצייר בוקספלוט של משתנה אקראי X, ואני רוצה שהקופסה תהיה עומדת, בניגוד לשוכבת, אז אני מפרט y = X.
@@ -503,90 +128,25 @@ plt.show()
 כדי לקבל את השפם התחתון נעשה אותו דבר כלפי מטה: נמתח את השפם בערך הכי קרוב מלמעלה, לרבעון תחתון פחות 1.5 כפול ה-IQR.
 
 לבסוף נסמן את כל התצפיות שנפלו מעבר לגדר הזאת בין שני השפמים, אלה תצפיות יחסית חריגות.
+
 :::
-:::
 
----
-
-### Swarmplot
-
-```{python}
-sns.swarmplot(y = X)
-plt.ylabel('X')
-plt.show()
-```
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 תרשים פופולרי לאחרונה הוא הסוורם פלוט, סוורם מהמילה באנגלית לנחיל, כמו נחיל של דבורים. היתרון בסוורמפלוט הוא שכל תצפית מיוצגת על-ידי נקודה, וכך אפשר לראות את צורת ההתפלגות במדויק יותר. סוורמפלוט מתאים אולי יותר לדאטא קטן יותר, שאם נסרטט עליו בוקספלוט התמונה תהיה אולי קצת מטעה.
 
 :::
-:::
 
----
-
-### Histogram
-
-```{python}
-sns.distplot(X, kde = False)
-plt.ylabel('Frequency')
-plt.xlabel('X')
-plt.show()
-```
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 היסטוגרמה היא תרשים נפוץ להראות התפלגות, כאן אנחנו מציירים אותה עם הפקודה sns.distplot ואנחנו מפרטים kde = False, תיכף נדבר על זה.
 
 ההיסטוגרמה מחלקת את הטווח הרלוונטי למשתנה למקטעים שווים שנקראים גם bins, וסופרת כמה ערכים נמצאים בכל בין. בצורה כזאת קל לראות אם ההתפלגות סימטרית או לא, אולי יש לה זנב ימינה לכיוון ערכים גדולים, או זנב שמאלה לכיוון ערכים קטנים.
+
 :::
-:::
 
----
-
-### Density Plot
-
-```{python}
-sns.distplot(X, hist = False)
-plt.ylabel('Density')
-plt.xlabel('X')
-plt.show()
-```
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 כדי לראות את ההתפלגות בצורה חלקה יותר, נבקש מהפונקציה distplot, hist = False. זה יצייר לנו תרשים צפיפות.
 
 מהו תרשים צפיפות?
-:::
-:::
 
----
-
-### Density plot: kernel density estimation / convolution
-
-::: {.fragment}
-The way to get a smooth estimate of the distribution in density plot is by defining a kernel which "smoothes" the data. Mathematically we define a kernel weight function $w: \mathbb{R} \to \mathbb{R}^+$ as:
-
-::: {.incremental}
-1. Non-negative and symmetric: $w(x) = w(-x)$
-2. Integrates to 1: $\int_{\mathbb{R}} w(x)dx = 1$
-:::
 :::
 
-::: {.fragment}
-And then the density kernel estimate is: $J(x) = \frac{1}{n} \cdot \sum_{i=1}^n w(x_i - x)$.
-
-Nice property: $\int_{\mathbb{R}} J(x)dx = 1$
-:::
-
-::: {.fragment}
-- Wide $w$: smooth estimate, but it may not reflect the real data
-- Narrow $w$: very non-smooth description
-:::
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 תרשים צפיפות נוצר עם מה שקרוי קונבולוציה על הנתונים, או קרנל דנסיטי אסטימיישן.
 
 נגדיר איזושהי פונקציית גרעין, קרנל, w(x). הדרישות שלנו מהפונקציה שתהיה סימטרית, כלומר w(x) = w(-x), ושהאינטגרל עליה יתן 1.
@@ -600,80 +160,20 @@ Nice property: $\int_{\mathbb{R}} J(x)dx = 1$
 אם נבחר bandwidth קטן מדי כלומר חלון צר מידי, התרשים צפיפות יהיה ספציפי מדי ולא מספיק חלק.
 
 בואו נראה את זה.
+
 :::
-:::
 
----
-
-For example smoothing this same dataset with too narrow or too wide window:
-
-```{python}
-#| code-fold: true
-
-plt.figure(figsize =(14, 5))
-plt.subplot(1, 3, 1)
-sns.kdeplot(X, bw=0.1)
-plt.ylabel('Density')
-plt.xlabel('X')
-plt.title('Width=0.1: Too narrow')
-plt.subplot(1, 3, 2)
-sns.kdeplot(X, bw=1)
-plt.ylabel('Density')
-plt.xlabel('X')
-plt.title('Width=1: About right')
-plt.subplot(1, 3, 3)
-sns.kdeplot(X, bw=10)
-plt.ylabel('Density')
-plt.xlabel('X')
-plt.title('Width=10: Too wide')
-plt.show()
-```
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 בדוגמא שלפניכם אני משתמש בפרמטר bw מהמילה bandwidth. אפשר לראות שכשהוא קטן מידי הצפיפות לא מספיק חלקה, הרבה קפיצות כנראה לא מאוד חשובות בנתונים.
 אם הפרמטר גדול מידי נוצרת התפלגות פעמון מושלמת וסימטרית, אבל היא ממש לא מייצגת את הנתונים. במקרה הזה נכון כנראה פרמטר bw באמצע, נאמר 1.
+
 :::
-:::
 
----
-
-### Scatterplot
-
-```{python}
-Y = X * 3 + 2 + np.random.normal(0, 10, 1000)
-sns.scatterplot(X, Y)
-plt.ylabel('Density')
-plt.xlabel('X')
-plt.show()
-```
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 תרשים חשוב בין זוג משתנים רציפים הוא תרשים פיזור או הסקאטרפלוט. כאן אני מדמה איזשהו משתנה Y על סמך משתנה X, מוסיף לו קצת רעש ומשתמש בsns.scatterplot ליצור תרשים פיזור ביניהם. בתרשים פיזור כל זוג ערכים X ו-Y הם נקודה שערך ה-X שלה הוא X וערך ה-Y שלה הוא Y.
 
 תרשים כזה מאפשר לראות קשר בין שני משתנים רציפים, ובפרט מה שיעניין אותנו מאוד - האם יש לו איזשהו דפוס, כמו עליה או ירידה.
-:::
-:::
 
----
-
-### What can we learn from simple plots?
-
-::: {.fragment}
-Look at outliers:
-
-![](images/Outliers.jpg){width=30%}
 :::
 
-::: {.fragment}
-See the shape and tail direction:
-
-![Age at heart attack (left) and cost of hospitalization (right)](images/Skew.jpg){width=50%}
-:::
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 מה ניתן ללמוד מתרשימים פשוטים? לא מעט.
 
 האם יש תצפיות חריגות, כמו בתרשים שלפנינו שמתאר התפלגות מספר תושבים ליחידת דיור, בערים שונות בארצות הברית. יש פה בבירור תצפית חריגה של כמה ערים שבהן המספר הזה קטן במיוחד, במקרה הזה מדובר למשל בניו יורק סיטי, שם גרים יותר רווקים ופחות משפחות.
@@ -681,33 +181,13 @@ See the shape and tail direction:
 כפי שאמרנו מעניין אותנו מאוד לדעת מה צורת ההתפלגות ואיזה זנב יש לה במידה שהיא לא סימטרית. כאן למשל רואים זנב שמאלי בהיסטוגרמה שמתארת גיל של נשים שלקו בהתקף לב - כי התופעה נדירה יותר בקרב צעירות.
 
 לעומת זאת בנתונים שמערבים כסף, כמו כאן בהיסטוגרמה שמתארת התפלגות ההוצאות של נשים שטופלו במחלקות לב, נראה הרבה פעמים זנב ימני - חריגות של ערכים גבוהים. ברוב המקרים לא יוגש לפציינטית חשבון שלילי, חשבון, כסף, זה דבר שיכול רק לגדול, לכן בנתונים פיננסיים נראה הרבה פעמים זנב ימני.
-:::
-:::
 
----
+=== 5. תחקור נתונים: נתוני תמצית ===
 
-## Exploring Data: Summary Statistics {.title-slide}
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 נדבר כעת על מספר אומדנים סטטיסטיים שחשובים לנו, את חלקם כבר ראינו בחזרה על הסתברויות בדידות, נתמקד עכשיו במשתנים רציפים.
+
 :::
-:::
----
 
-### Location
-
-"Where is this X located? Where is the central mass?"
-
-- Mean  of empirical distribution (=average): 
-$$Mean(X) = \bar{X} = \frac{1}{N}\sum\limits_{i=1}^N X_i$$
-- Median:
-$$Med(X) = m\space s.t. \space P(X \leq m) = P(X \geq m) = 0.5$$
-- Mode:
-$$Mode(X) = Most \space frequent \space value \space in \space a \space dataset$$
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 אומדנים של מיקום: היכן מרכז המסה של ההתפלגות?
 
 יש לנו את ממוצע המדגם, שמסומן בד"כ כאיקס באר.
@@ -715,52 +195,17 @@ $$Mode(X) = Most \space frequent \space value \space in \space a \space dataset$
 החציון, הוא הערך שמעליו חצי מההתפלגות ומתחתיו חצי, זה גם האחוזון ה-50.
 
 והשכיח - הערך הכי נפוץ במדגם.
+
 :::
-:::
 
----
-
-```{python}
-mean = np.mean(X)
-median = np.median(X)
-hist, _ = np.histogram(X, bins=range(20))
-mode = list(range(20))[hist.argsort()[::-1][0]]
-plt.figure(figsize= (4,4))
-sns.distplot(X, bins = range(20), kde = False)
-plt.plot([mean, mean], [0, 160], linewidth=2, color='r')
-plt.plot([median, median], [0, 160], linewidth=2, color='g')
-plt.plot([mode, mode], [0, 160], linewidth=2, color='b')
-plt.legend({'Mean':mean,'Median':median,'Mode':mode})
-plt.xlabel('X')
-plt.ylabel('Frequency')
-plt.show()
-```
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 למה שנרצה ערך אחד למיקום ולא אחר. לדוגמא בהתפלגות עם זנב ימני כמו כאן, נחשב את הממוצע, החציון והשכיח. הממוצע הוא ודאי הסטטיסטי המוכר מכולם אבל שימו לב כמה הוא מושפע מערכים קיצוניים בהתפלגות. הוא לא בהכרח מעיד מה שהיינו רוצים שהוא יעיד, סביב איזה ערך ממורכזת ההתפלגות.
 
 חציון לעומת זאת, אינו מושפע מערכים קיצוניים, גם אם נוסיף להתפלגות ערך מקסימלי גדול פי אלף מהנוכחי, החציון לא יזוז.
 
 לצרכים אחרים השכיח אולי הוא התשובה הטובה ביותר למיקום, אבל השכיח גם יכול להטעות, קל לחשוב על התפלגויות בהן השכיח הוא בעייתי מאוד כמדד למיקום.
+
 :::
-:::
 
----
-
-### Dispersion
-
-"Is X widely spread out? Does it concentrate narrowly around the mean?"
-
-- Quantiles/Percentiles:
-$$Q(X, q) = v\space s.t. \space P(X \leq v) = 1-P(X \geq v) = q$$
-- Range:
-$$Range(X) = Max(X) - Min(X)$$
-- Inter-Quartile-Range:
-$$IQR(X) = Q(X, 0.75) - Q(X, 0.25)$$
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 כשאנו מדברים על פיזור אפשר לשאול על ערכים במיקומים ספציפיים, כמו אחוזונים.
 
 האחוזון ה-q הוא הערך שמתחתיו q מההתפלגות האמפירית של המדגם, ומעליו אחת מינוס q.
@@ -770,360 +215,109 @@ $$IQR(X) = Q(X, 0.75) - Q(X, 0.25)$$
 מדד אחר יכול להיות הטווח של ההתפלגות, המקסימום פחות המינימום שלה.
 
 ומדד אחר כפי שראינו הוא ה-IQR או ה-interquartile range, שהוא הטווח שבו נמצאים חמישים האחוזים המרכזיים של ההתפלגות: אחוזון 75 פחות אחוזון 25.
-:::
-:::
 
----
-
-### Dispersion
-
-- (Empirical) Variance:
-$$Var(X) = \frac{1}{N}\sum\limits_{i=1}^N (X_i - Mean(X))^2$$
-- Standard Deviation:
-$$STD(X) = \sqrt{Var(X)}$$
-
-::: {.fragment}
-```{python}
-print(f'90th percentile: {np.percentile(X, 90) :.2f}')
-print(f'Range: {np.max(X) - np.min(X) :.2f}')
-print(f'IQR: {np.percentile(X, 75) - np.percentile(X, 25) :.2f}')
-print(f'Variance: {np.var(X) :.2f}')
-print(f'Standard Deviation: {np.std(X) :.2f}')
-```
 :::
 
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 לבסוף המדדים הנפוצים ביותר למדידת פיזור הם שונות המדגם, והשורש שלה סטיית התקן.
 
 לכל אחד מאלה יש פונקציה פשוטה מספריית numpy שכדאי להכיר.
-:::
-:::
 
----
-
-### Shape
-
-"Is X symmetric or not? How 'tailed' is it?"
-
-- Skewness:
-$$Skew(X) = \frac{1}{N}\frac{\sum\limits_{i=1}^N (X_i - Mean(X))^3}{STD(X)^3}$$
-
-::: {.fragment}
-```{python}
-from scipy import stats
-
-print(f'Skewness: {stats.skew(X) :.2f}')
-```
 :::
 
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 בשונות אנחנו שואלים מהו ממוצע הסטיות הריבועיות של X מהממוצע שלו. מסתבר שאם ניקח את ממוצע הסטיות בחזקת 3 של X מהממוצע שלו, נקבל כמות שיכולה למדוד עד כמה ההתפלגות שלנו רחוקה מסימטריה. קוראים לזה skewness. אם ההתפלגות סימטרית למדי נצפה לראות סקיונס של אפס בקירוב, אם יש לה זנב ימני, הסטיות החיוביות מהממוצע גדולות יותר, נצפה לראות סקיונס חיובי. כמו במקרה שלנו שבו לX יש זנב ימני.
 
 ולהיפך, זנב שמאלי יתבטא בסקיונס שלילי.
-:::
-:::
 
----
+=== 6. ויזואליזציה מתקדמת ===
 
-## Advanced Visualization {.title-slide}
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 משסיימנו לדבר על מדדים ותרשימים סטנדרטיים לנתונים כמותיים, אנחנו רוצים לגרות את הדמיון שלכם באמצעות כמה תרשימים מתקדמים למדי. התחום של ויזואליציה או סטוריטלינג תופס תאוצה בשנים האחרונות עד כדי כך שיש מדעני נתונים וחוקרים שהקריירה שלהם מוקדשת לדבר. דרכים שונות ומקוריות להציג נתונים צצות כל יום, בואו נתרשם מכמה שאהבנו.
+
 :::
-:::
----
 
-### Minard's Napoleon March
-
-<img src = "images/minard.png">
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 הדוגמא הקלאסית היא דווקא ישנה, מהמאה ה19, של מהנדס וגיאוגרף צרפתי בשם שארל ז'וזה מינארד. כאן הוא תאר את הצבא של נפוליאון והמסע שלו מפולין אל מוסקבה במטרה לכבוש את רוסיה. עובי הרצועה מתאר את גודל הצבא שכפי שאנחנו רואים התמעט בצורה אכזרית במסע חזרה. כיוון הרצועה והאורך שלה מתארים את הכיוון והמרחק בהם הצבא נע.
+
 :::
-:::
 
----
-
-### Heatmaps
-
-[source](https://towardsdatascience.com/exploring-infections-through-data-interactive-visualisation-of-measles-in-the-usa-6ae8d5949538)
-
-<img src = "images/heatmap.png">
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 מפות חום. גם תרשים זה מפורסם מאוד, הוא מתאר את שיעור מקרי החצבת במדינות שונות בארצות הברית החל מ-1928 ועד המאה ה-21. המיוחד בתרשים הוא כמובן ההיפסקות הכמעט מוחלטת של חצבת לאורך כל ארה"ב החל משנת 1963, השנה שבה פותח החיסון לחצבת.
+
 :::
-:::
 
----
-
-### Spotify: Total Eclipse of the Heart
-
-[source](https://insights.spotify.com/us/2017/08/24/data-viz-total-eclipse-of-the-heart-follows-the-eclipse/)
-
-<img src = "images/total_eclipse.gif">
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 הנה דוגמא לויזואליזציה מ-2017 שמדגימה מספר דברים יפים. את הויזואליזציה הזאת הכין מדען נתונים מספוטיפיי, חברת הסטרימינג של מוסיקה. והוא מראה לאורך ליקוי חמה מאוד בולט שהיה על אדמת ארצות הברית, את מספר ההשמעות של השיר total eclipse of the heart, בספוטיפיי. ניתן לראות איך הפיק עוקב אחרי ליקוי החמה בצורה אדוקה.
 
 דבר נוסף שהויזואליזציה הזאת מדגימה הוא שבעידן המחשב ויזואליזציה לא חייבת להיות סטטית. גם בפייתון, גם בשפות נוספות, ניתן ליצור כמה תרשימים ולחבר אותם לסרטון קצר שממחיש את התופעה טוב יותר.
+
 :::
-:::
 
----
-
-### Chernoff Faces
-
-[source](https://www.axios.com/the-emoji-states-of-america-1513302318-0ca61705-de75-4c8f-8521-5cbab12a45f2.html)
-
-<img src = "images/chernoff.png">
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 הנה עוד תרשים על גבול המגוחך: להביע נתונים באמצעות אימוג'י! כאן מדובר בנתונים על האוכלוסיה במדינות שונות בארצות הברית, כשכל מדינה מיוצגת על ידי פרצוף אחד
 
 כמה פרמטרים מוצגים כאן על כל פרצוף ופרצוף. לדוגמא גודל הסנטר מבטא את אחוז האנשים שסובלים מהשמנה במדינה. גוון הפרצוף מבטא את אחוז התושבים שאין להם ביטוח (ככל שהוא כהה יותר כך גדול האחוז). והאוריינטציה של הפה, מעצוב ועד צוחק מבטאת את אחוז התושבים מתחת לקו העוני. אם תלחצו על הלינק המצורף, תראו עוד דבר מיוחד בתרשים הזה, וזה שהוא אינטראקטיבי. כשנרחף על פני כל פרצוף נקבל את כל הנתונים שאנחנו צריכים על המדינה שהוא מייצג.
+
 :::
-:::
 
----
-
-### Ridge plot (a.k.a Joy plot)
-
-<img src = "images/ridge.png" width = "80%" height = "80%">
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 תרשים שצבר פופולריות לאחרונה הוא תרשים הרכסים, או הג'וי פלוט כפי שקוראים לו לפעמים, כי הוא מזכיר עטיפת אלבום מצוין של להקת רוק בשם ג'וי דיוויז'ן.
 
 היופי בתרשים הזה זה שהוא מורכב מהרבה תת-תרשימים שאנחנו מכירים - תרשימי צפיפות, שמסודרים אחד מעל השני כאן לפי החציון של ההתפלגות. במקרה שלפנינו השתמשו בתרשים רכסים כדי להשוות את המנעד הקולי של זמרות פופ מפורסמות, מבריטני ספירס ועד וויטני יוסטון, שהיה לה מנעד גם רחב מאוד וגם חציון התווים שהיא שרה היה כנראה הגבוה ביותר מבין אלה.
+
 :::
-:::
 
----
-
-### Flowing Data: A Day in the Life of Americans
-
-[source](https://flowingdata.com/2015/12/15/a-day-in-the-life-of-americans/)
-
-<iframe width="800" height="500" src="https://www.youtube.com/embed/k88d_fn3G-I" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 כאן אנחנו רואים ויזואליזציה שלקרוא לה תרשים יהיה ממש מגוחך. מדובר בסרטון שלם שמתאר מה אנשים עושים עושים במהלך כל שעה ביום, לפי סקר שנעשה בארצות הברית. ניתן לראות שבחצות רוב האנשים מתארים שהם ישנים. אם נעביר קצת קדימה את הזמן נראה שרוב האנשים מתארים כיצד הם מתעוררים והולכים לעבודה, וחוזר חלילה.
+
 :::
-:::
 
----
-
-### Pudding: Women's Pockets (and every single post on their site!)
-
-[source](https://pudding.cool/2018/08/pockets/)
-
-<img src ="images/pockets.png" width = "60%">
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 ויזואליזציות חזקות יכולות גם להעביר מסר, שמאוד קשה להעביר בצורות אחרות. מדעניות הנתונים מאחורי הויזואליזציה שלפנינו דגמו לא פחות מ-80 זוגות של ג'ינסים, ושרטטו את  מימדי הכיס. ניתן לתהות מדוע כיסים במכנסי ג'ינס שמיועדים לנשים הם קטנים כל כך עד כדי שהם לא פרקטיים בכלל. התרשים הזה הוא הוכחה ניצחת לתופעה.
+
 :::
-:::
 
----
-
-### The Gapminder story
-
-The history of the world encapsulated in a simple visualization:
-
-[source](https://www.gapminder.org/world)
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 לבסוף נראה ויזואליזציה של רופא ואפידמיולוג שבדי בשם האנס רוזלינג שהפכה מפורסמת מאוד, עד כדי כך שיש לה אתר משלה.
 
 (הסבר על gapminder)
-:::
-:::
 
----
+=== 7. הסכנות בנתונים מלוכלכים ===
 
-## Dangers of Dirty Data {.title-slide}
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 בחלק האחרון של יחידה זו נזהיר קצת מפני הסכנות החבויות בדאטא גדול, בודאי בדאטא שנאסף מהאינטרנט. ניקיון של דאטא מהווה חלק גדול משגרת יומו של מדען נתונים, והוא נושא מחקר גדול. אנחנו דנים בו כאן ממש על קצה המזלג.
+
 :::
-:::
----
 
-### What could be dirty about data?
-
-- The data itself
-- The data's structure
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 מה יכול להיות מלוכלך בנתונים שצריך לנקות אותם? נראה שאפשר לדבר גם על הנתונים עצמם, וגם על המבנה שלהם.
-:::
-:::
-
----
-
-### The data itself: Outliers
-
-::: {.fragment}
-- Numerical Outliers: This is a histogram of random ~2.3 million transactions on ebay US website in over a few weeks in 2013 ([source](https://users.soe.ucsc.edu/~draper/Reading-2015-Day-5.html)):
-
-<img src = "images/ebay_dist.png" width="35%">
 
 :::
 
-::: {.fragment}
-- Textual Outliers: The [Blog Authorship Corpus](http://u.cs.biu.ac.il/~schlerj/schler_springsymp06.pdf) consists of 19K posts by bloggers from blogger.com in 2004. These are actual words used in the 10-20 age group:
-
->aaaaaaaaaaaaaaaaaaaaaargh, lolzi, jfjgfjhgjhfjgfjf, roflmfao, duuuuuuh, walang, dunno
-
-:::
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 כשאנחנו מדברים על משתנים כמותיים, דאטא "לא נקי" יכול להיות דאטא עם תצפיות כל כך חריגות שנקרא להם outliers. אלה לא חייבות להיות תצפיות "לא חוקיות", או טעויות הקלדה, למרות שגם מכאלה צריך להתגונן. כאן למשל יש היסטוגרמה של כמה עשרות אלפי רכישות בדולרים באתר איביי במשך כמה שבועות ב-2013. הסיבה שאנחנו רואים כאן רק מקל סביב האפס היא כי אחת הרכישות האלה היתה של מכונית יוקרה בכ160 אלף דולר. המכונית הזאת היא כל כך חריגה ביחס לסכומי הרכישות האחרים, שהיא מעוותת את ההתפלגות לחלוטין ולא מאפשרת באמת לראות את צורתה, איפה נמצאת המסה של הרכישות.
 
 נתונים אחרים רועשים מאוד מהאינטרנט בפרט יכולים להיות נתוני טקסט. בדוגמא שלפנינו מופיעות מילים אמיתיות מתוך קובץ טקסטים שהם בלוגים מאתר blogger.com משנת 2004. אם ברצונכם לקחת את הטקסט הזה ולאמן אותו לצורך מודל שפה ולהתחשב בכל מילה ומילה שאיזה בלוגר כתב, אתם עלולים להיות בבעיה.
+
 :::
-:::
 
----
-
-### The data itself: Missing data
-
-[source](https://www.themarker.com/news/1.2593452)
-
-<img src = "images/elections.png" width = "80%" height = "80%">
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 נושא אחר שיכול לשמש כמוקד של קורס שלם הוא נושא הנתונים החסרים. כל מיני מנגנונים יכולים לעמוד מאחורי נתונים חסרים, ובהתאם למנגנון כך ראוי להתאים שיטת טיפול לנתונים. בקורס זה לא נעסוק בנושא בהרחבה, אבל כל מדען נתונים שעוסק עם דאטא אמיתי ייתקל בסופו של דבר בבעיה הזאת, שכן מודלים רבים מאלה שנלמד לא יודעים מה לעשות עם תצפית שבמשתנה מסוים הנתון שלה חסר.
 
 כאן אנחנו רואים דוגמא מפורסמת מהבחירות בישראל ב-2015, כאשר המדגמים טעו לגמרי לגבי הרכב הקואליציה המסתמן, והסוקרים טענו מאוחר יותר שכנראה שאנשים שמתכוונים להצביע בדרך מסוימת לא ענו או פשוט שיקרו.
+
 :::
-:::
 
----
-
-### The data's structure
-
-In a word: Excel.
-
-[source](https://medium.com/@miles.mcbain/tidying-the-australian-same-sex-marriage-postal-survey-data-with-r-5d35cea07962)
-
-<img src = "images/messy_excel.png" width = "60%">
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 לסיום נזכיר שלא רק הנתונים יכולים להיות רועשים או מלוכלכים. הרבה פעמים גם אם הנתונים מגיעים בלחיצת כפתור, הם מגיעים למשל בקובץ אקסל ששום תוכנת מחשב לא יכולה לקרוא כטבלה פשוטה שאפשר להתחיל לעבוד איתה.
 
 במקרה שלנו אלה נתונים אמיתיים של הלשכה המרכזית לסטטיסטיקה של אוסטרליה, והדרך המשונה שלהם לחלוק מידע עם הציבור. יש כאן לוגו, תאים ממוזגים, פסיקים בתוך מספרים, שורות סיכום ועוד הרבה אתגרים שלוקח זמן לטפל בהם. אתם מוזמנים להוריד קובץ נתונים מהלשכה המרכזית לסטטיסטיקה בישראל ולראות שהמצב שם לא מאוד שונה.
+
 :::
-:::
 
----
-
-### Spreadsheet Blunder
-
-[source](https://www.bbc.com/news/technology-54423988)
-
-<img src = "images/covid_uk_excel.png" width = "60%">
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 אקסל היא תוכנה נהדרת, אבל יש כל כך הרבה מקרים ששימוש לא אחראי בה הביא לתוצאות הרסניות ממש. באחד המקרים האחרונים מתקופת הקורונה בבריטניה, הפקידים בקופות החולים שהיו אחראים על איחוד התוצאות של בדיקות קורונה לא היו מודעים למגבלת השורות שיש באקסל, הם אפילו השתמשו בגירסה ישנה של אקסל עם מקסימום 64 אלף שורות. נוספו עוד ועוד שורות לקובץ האחוד, אבל אקסל לא קרא את כולם, הוא פשוט מחק שורות. ולקח זמן עד שהבינו שאלפי בדיקות פשוט נמחקו ככה מהדיסק.
-:::
-:::
 
----
-
-### Some advice on cleaning data
-
-::: {.fragment}
-Plot first:
-
-```{python}
-tips = sns.load_dataset('tips')
-sns.pairplot(tips, height=1.5)
-plt.show()
-```
 :::
 
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 אז מה אפשר לעשות לגבי נתונים שאנחנו חושדים שיש בהם תצפיות חריגות? קודם כל לצייר אותם. כאן אנחנו רואים דוגמא לתרשים pairplot, תרשים זוגות, שלוקח סט של נתונים ומצייר כל משתנה מול כל משתנה אחר. על האלכסון יופיעו התרשימים של כל משתנה בנפרד. אולי התרשמות מהירה כזאת תאפשר לכם לזהות אנומליות בנתונים כבר בהתחלה.
-:::
-:::
 
----
-
-### Some advice on cleaning data
-
-::: {.fragment}
-Apply common transformations:
-
-Here's how ebay's 2.3 million transactions look with a log transformation:
-
-::: {layout-ncol=2}
-![](images/ebay_dist.png){width=50%}
-
-![](images/ebay_log.png){width=50%}
-:::
 :::
 
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 אסטרטגיה נוספת שכדאי להיות מודעים לה כבר מעכשיו, היא שימוש בטרנספורמציות על הנתונים שלנו. כאן אנחנו רואים את אותם נתוני רכישות מאיביי, בלי ועם טרנספורמציית לוג. טרנספורמציות יכולות פעמים רבות לייצב שונות של משתנים, ואף לשפר ביצועים של מודלים שמשתמשים באותם נתונים. נדבר עוד על טרנספורמציות על נתונים בהמשך.
+
 :::
-:::
 
----
-
-### Some advice on cleaning data
-
-Use robust statistics (an entire field in Statistics):
-
-For example the Median is much more robust to extreme values than the mean:
-
-<img src = "images/median_mean_simulation.gif">
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 כדי לתאר מיקום של התפלגויות על נתונים גדולים, מומלץ להשתמש בחציון ולא רק בממוצע. מדדים אלה קלים לחישוב וההשוואה ביניהם לפעמים פוקחת עיניים. בסימולציה כאן אנחנו רואים כיצד הממוצע מושפע בקלות ככל שאנחנו מגדילים את המקסימום של איזה משתנה X.  הממוצע נע ימינה וימינה לעבר הערך הקיצון, עד כדי כך שהוא יוצא החוצה ממרכז ההתפלגות וכבר לא משקף את מה שאנחנו היינו רוצים שישקף.
 
 החציון לעומת זאת - לא מושפע.
+
 :::
-:::
 
----
-
-### Some advice on cleaning data
-
-Tidy your data:
-
-> Each variable is a column, each observation is a row, and each type of observational unit is a table. ([Hadley Wickham](http://vita.had.co.nz/papers/tidy-data.html))
-
-Untidy (wide):
-
-<img src = "images/untidy_data.png" width="40%">
-
-Tidy (long):
-
-<img src = "images/tidy_data.png" width="40%">
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 לבסוף מומלץ גם לחשוב על הדרך שבה אתם מזינים נתונים. תנגישו לאנשים נתונים בצורה שאתם הייתם רוצים שינגישו אותם לכם.
 
 אחת הגישות הפופולריות בתחום היא הtidy data. נקפיד ככל האפשר שכל משתנה יופיע  בעמודה משלו. כל תצפית תהיה שורה. וכל טבלה עוסקת בנושא אחד ויחיד.
@@ -1131,5 +325,4 @@ Tidy (long):
 בדוגמא כאן אנחנו רואים כיצד אפילו טבלה פשוטה אפשר לשמור בצורה שמסבכת את העניינים. נסו לחשוב למשל איך הייתם מחלצים את השמות של כל האנשים ששקלו לפני גיל 25 מתחת ל-70 קילוגרם... בטבלה השניה שעומדת בקריטריונים של גישת הtidy data, זה הרבה יותר קל.
 
 זהו להפעם! ביחידה הבאה ניקח את כל מה שלמדנו עד כה וננסה להפעיל אותו על סט נתונים אמיתי, מתוך תחרות מידול חשובה, של נטפליקס.
-:::
 :::
