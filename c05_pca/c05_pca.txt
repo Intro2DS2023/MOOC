@@ -1,141 +1,18 @@
----
-format:
-  revealjs:
-    slide-number: true
-    chalkboard: true
-    fig-width: 6
-    fig-asp: 0.618
-    template-partials:
-      - "../title-slide.html"
-css: "../slides_quarto.css"
-standalone: false
-include-in-header: "../header_quarto.html"
-logo: "../Intro2DS_logo_white.jpg"
-pagetitle: "Principal Components Analysis"
-callout-appearance: simple
-smaller: true
-execute:
-  eval: true
-  echo: true
-code-line-numbers: false
-code-block-border-left: true
-highlight-style: github
-footer: "[Intro to Data Science](https://intro2ds2023.github.io/mooc/){target='_blank'}"
----
-
-## {.logo-slide}
-
-## Introduction to Data Science {.title-slide}
-
-### Principal Components Analysis - Class 5
-
-### Giora Simchoni
-
-#### `gsimchoni@gmail.com` and add `#intro2ds` in subject
-
-### Stat. and OR Department, TAU
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
+=== 1. בעיית הPCA ===
 בשיעור זה נלמד על ניתוח גורמים ראשיים, או principal components analysis. אפשר לראות ב-PCA כשיטה מתקדמת לחקר של דאטא ולכן אנחנו לומדים אותה ממש כעת. אפשר גם לראות בה הרבה מעבר. PCA היא הבסיס להרבה מאוד אלגוריתמים מתקדמים בחזית המחקר, אלגוריתמים שעוסקים בלמידת ייצוגים ממימד נמוך, לדאטא ממימד עצום, על מנת שנוכל ללמוד מהדאטא הזה משהו.
 
 :::
-:::
----
 
-## The PCA Problem {.title-slide}
-
----
-
-### Some intuition
-
-I have $n$ points with $p = 2$ dimensions. I wish to represent each point with a **single** number, without losing much information.
-
-```{python}
-#| code-fold: true
-
-import numpy as np
-import matplotlib.pyplot as plt
-from sklearn.decomposition import PCA
-from sklearn.preprocessing import StandardScaler
-
-n = 50
-X1 = np.random.normal(size=n)
-X2 = 2 * X1 + 3 + np.random.normal(scale=1.0, size=n)
-X = np.concatenate([X1[:, np.newaxis], X2[:, np.newaxis]], axis=1)
-X = StandardScaler().fit_transform(X)
-X = np.concatenate([X, [[3, 3]]], axis=0)
-pca = PCA(n_components=1)
-T = pca.fit_transform(X)
-
-plt.figure(figsize =(6, 5))
-plt.scatter(X[:, 0], X[:, 1])
-plt.ylabel('X2')
-plt.xlabel('X1')
-plt.title('Original Data')
-plt.xlim((-3.5, 3.5))
-plt.ylim((-3.5, 3.5))
-plt.show()
-```
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 נתחיל בדוגמא פשוטה ונתקדם משם. יש לי דאטא עם n תצפיות ושני משתנים. אני רוצה לייצג כל תצפית לא עם שני משתנים אלא עם אחד. מספר אחד שימצה אותה, וזאת עם לאבד כמה שפחות מידע. כלומר: אני רוצה להוריד את המימד מ2 ל1.
 
 אם אני משרטט את הנתונים, ברור לי אינטואיטיבית מה הכיוון בהם, מה הקו או הוקטור ששומר את מקסימום המידע. זה הקו הזה.
+
 :::
-:::
 
----
-
-PCA will find the best direction to project the data on, while preserving the maximum "information":
-
-```{python}
-#| code-fold: true
-
-plt.figure(figsize =(13, 5))
-plt.subplot(1, 2, 1)
-plt.scatter(X[:, 0], X[:, 1])
-plt.plot([-3, 3], [-3, 3], linestyle='--', color='r')
-plt.ylabel('X2')
-plt.xlabel('X1')
-plt.title('Best Direction')
-plt.xlim((-3.5, 3.5))
-plt.ylim((-3.5, 3.5))
-plt.subplot(1, 2, 2)
-plt.scatter(T, np.repeat(0, n + 1))
-plt.ylabel('')
-plt.xlabel('T1')
-plt.tick_params(left = False , labelleft = False)
-plt.title('Projected Data')
-plt.show()
-```
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 PCA יעשה בדיוק את זה. הוא ימצא את הכיוון, או הוקטור שלאורכו נשמר מירב המידע בנתונים, וכשנמצא את הוקטור הזה, נוכל להטיל את הנתונים עליו, כלומר כל תצפית תקבל את הערך שלה על הקו החשוב הזה. וככה נקבל את מה שרצינו: דאטא במימד שני משתנים, הפך לדאטא במימד אחד, עם כמה שפחות איבוד מידע.
-:::
-:::
 
----
-
-### Advanced exploration: dimensionality reduction
-
-::: {.incremental}
-- We have $n$ points in $p$ dimensions. In the Netflix Dataset: $n=10^4, p=14$ (considering only the fully observed movies)
-- We want to reduce the data to $q \ll p$ dimensions (typically $q=2$ or $q=3$), to: 
-    - Identify **important dimensions** which summarize the data well
-    - **Visualize** the data (2-d or 3-d visualizations)
-    - Identify **structure** in the data, such as clusters
-
-- Naive way: select $q$ out of the original $p$ dimensions
-    - For $q=2$, we have been looking at pairwise plots of movies
-
-- Less Naive way: Look for interesting "projections": linear combinations of the variables which expose interesting information and patterns
 :::
 
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 באופן כללי יש לנו נתונים עם n תצפיות ו-p משתנים. זה מתרגם למטריצה X עם n שורות ו-p עמודות. בדוגמא של נטפליקס n יהיה 10 אלפים ו-p יהיה 14 אם ניקח רק את הסרטים לגביהם יש לנו את כל הנתונים.
 
 נרצה להוריד את המימד של הנתונים להיות q, כשq בדרך כלל קטן בהרבה מ-p, בד"כ 2 או 3. נראה שבדרך זו נוכל לזהות כיוונים חשובים בדאטא שמתמצתים אותו היטב, נוכל לעשות תרשים לדאטא בדו או תלת מימד (אי אפשר לצייר נקודות ב-14 מימד!) ואם אנחנו ברי מזל נוכל גם לראות מבנים בנתונים שלא היינו רואים אחרת, נראה את הנתונים שלנו ממש מתחלקים לאשכולות, לקלאסטרים.
@@ -143,29 +20,9 @@ PCA יעשה בדיוק את זה. הוא ימצא את הכיוון, או הו�
 איך מבצעים PCA? הדרך הנאיבית היא לבצע בחירה של q משתנים מתוך p. כל פעם שבחרנו שני סרטים בדאטא ועשינו תרשים פיזור של סרט אחד מול אחר זה בדיוק מה שעשינו! אבל איבדנו ככה המון מידע!
 
 הדרך הנאיבית פחות היא לעשות מה שעשינו בשקף הקודם רק על הרבה משתנים: לחפש הטלות, לחפש צירופים ליניאריים של המשתנים שיהוו כיוונים מעניינים בדאטא. בואו נפרמל את הבעיה הזאת.
-:::
-:::
 
----
-
-### Mathematical setup
-
-::: {.incremental}
-- We have $n$ vectors in ${\mathbb R}^p$: $\mathbf{x}_1, \dots, \mathbf{x}_n$
-
-- We can desribe them thorugh a matrix $X_{n \times p}$ (each row is an observation)
-
-- Assume for simplicity that the columns are centered: $\sum_i x_{ij} = 0,\;\forall j$, so our data is a cloud around $0$ in ${\mathbb R}^p$
-
-- Total dispersion (squared distance of points from their center): $\sum_{ij} x_{ij}^2 = ||\mathbf{x}_1||_2^2+ \dots + ||\mathbf{x}_n||_2^2 = \text{tr}(X'X)$
-
-- Possible goal: find $q \ll p$ good directions, such that **much of the dispersion** will be captured by these directions.
-
-- A direction in ${\mathbb R}^p$ is a vector $\mathbf{v}\in {\mathbb R}^p$ with $||\mathbf{v}||_2^2=1$
 :::
 
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 כל תצפית היא וקטור באורך p. יש לנו n תצפיות או וקטורים כאלה, x1 עד xn.
 
 אפשר לסדר את הוקטורים האלה אחד מתחת לשני במטריצה n על p, כאשר כל שורה היא וקטור.
@@ -177,32 +34,9 @@ PCA יעשה בדיוק את זה. הוא ימצא את הכיוון, או הו�
 אז יש לנו כמות לשמר, ואנחנו רוצים למצוא q כיוונים שאם נטיל את המטריצה שלנו עליהם, נשמר כמה שיותר מהכמות הזאת, מהפיזור הזה, מהשונות של הדאטא.
 
 וכשאנחנו אומרים כיוון, אנחנו מתכוונים לוקטור פי מימדי עם נורמה 1, כלומר וקטור מנורמל או וקטור יחידה. נסמן אותו ב-v.
-:::
-:::
-
----
-
-### The PCA Problem
-
-::: {.incremental}
-
-- Goal: Find the $q$ direction(s) with the most dispersion
-
-- Projection is direction $\mathbf{v}$: $X\mathbf{v} \in \mathbb R^n.$ Examples: 
-    - $\mathbf{v} = (1,0,\dots,0)'$: pick first coordinate from each observation
-    - $\mathbf{v} = (1/\sqrt{p},1/\sqrt{p},\dots,1/\sqrt{p})'$: project on diagonal (average all coordinates)
-
-
-- Dispersion in direction $\mathbf{v}$: $||X\mathbf{v}||^2 = \mathbf{v}'(X'X)\mathbf{v}.$
-
-- Finding the best direction which maximizes dispersion: $\mathbf{v}_1 = \arg\max_{\mathbf{v}:\|\mathbf{v}\|^2 =1} \|X\mathbf{v}\|^2$
-
-- $\mathbf{v}_1$ is the first Principal Component direction: the best direction to project on!
 
 :::
 
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 אז אנחנו רוצים למצוא את וקטור ההטלה ששומר על הכי הרבה פיזור. בואו ניתן דוגמאות:
 
 אם v יהיה למשל וקטור הבסיס הטריוויאלי בR^p, שיש בו 1 בקואורדינטה הראשונה ואפס בכל השאר - כשנטיל את המטריצה עליו דבר זה יהיה שקול לבחירת המשתנה הראשון. כלומר המספר שייצג כל תצפית יהיה הערך שלה בעמודה הראשונה.
@@ -214,29 +48,9 @@ PCA יעשה בדיוק את זה. הוא ימצא את הכיוון, או הו�
 לסיכום הנה הבעיה של PCA: נרצה לבחור את הכיוון v שימקסם את הפיזור של ההטלה v'X'Xv.
 
 כשנמצא אותו, נקרא לכיוון הזה הprinicipal component direction הראשון. זה הכיוון הטוב ביותר להטיל עליו!
-:::
-:::
 
----
-
-### How do we find the next principal component? 
-
-::: {.incremental}
-- Now we want a **different** direction $\mathbf{v}_2$ which maximizes dispersion after accounting for $\mathbf{v}_1$.
-
-- Require orthogonality: $\mathbf{v}_2 = \arg\max_{||\mathbf{v}||^2 =1, \mathbf{v}'\mathbf{v}_1 = 0}||X\mathbf{v}||^2$
-
-- This is the second principal direction
-
-- Can keep going looking for new directions
-
-- Assuming $p < n$, up to $p$ principal directions can be found this way, stack them into a $p \times p$ "loadings" matrix $W$
-
-- Data with reduced dimensionality: $T_{n \times q} = X_{n \times p}W_{p \times q}$ taking only the first $q$ principal directions
 :::
 
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 אבל זה רק כיוון ראשון. אמרנו שאנחנו רוצים q  כיוונים. איך נמצא את הכיוונים הבאים?
 
 הכיוון הבא v2  יהיה הכיוון שממקסם את פיזור ההטלה, אחרי שהתחשבנו כבר בכיוון v1.
@@ -248,34 +62,13 @@ PCA יעשה בדיוק את זה. הוא ימצא את הכיוון, או הו�
 כשנשיג q וקטורים כאלה, כל אחד באורך p, נוכל להציב אותם זה לצד זה ולקבל מטריצה שנסמן כW. קוראים למטריצה כזאת הרבה פעמים loadings, כי מה שיש בכל וקטור ווקטור שמצאנו הוא בעצם המשקולות לכל משתנה ומשתנה מהדאטא המקורי. אם בדאטא המקורי לדוגמא יש 3 משתנים, והוקטור v שאנחנו מצאנו הוא (1/sqrt(3), sqrt(2)/sqrt(3), 0), שהוא בערך (0.57, 0.81, 0), זה אומר שהמשתנה הראשון קיבל משקולת 0.57, המשתנה השני 0.81, והשלישי משקולת 0, הוא לא חשוב לכיוון הזה שמצאנו.
 
 ההטלה עצמה גם היא תהיה חשובה לנו: אם נכפול את הדאטא n על p שלנו במטריצת ההטלה W שבה יש את q הכיוונים הראשונים, נקבל דאטא ממימד נמוך יותר, מימד q. נקרא לו T.
-:::
-:::
 
----
+=== 2. PCA על הנתונים של נטפליקס ===
 
-## PCA on Netflix Dataset {.title-slide}
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 נעשה רגע הפסקה בכל האלגברה הזאת לראות את השורה התחתונה כדי שתהיה לנו מוטיבציה לחזור שוב לחלק המתמטי ולראות איך מוצאים את פתרון ה-PCA.
-:::
-:::
----
 
-### PCA on the Netflix data
-
-::: {.incremental}
-- Our Netflix dataset contains the 1-5 rankings made by 10,000 users to 99 movies.
-
-- Let $X$ be the data matrix for the first 14 movies to which all users gave ranking.
-
-- So: $n = 10000$ and $p = 14$. This isn't that "Big", however even with 14 variables it is almost impossible to see any latent structure hidden in the data.
-
-- Let's perform PCA!
 :::
 
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 ניזכר שוב בדאטא של התחרות של נטפליקס, שמכיל דירוגים מ-1 עד 5 על 99 סרטים.
 
 X יהיה המטריצה עם עשרת אלפים שורות על 14 הסרטים הראשונים אותם דירגו כל עשרת אלפים המשתמשים.
@@ -283,142 +76,21 @@ X יהיה המטריצה עם עשרת אלפים שורות על 14 הסרטי
 n שווה 10000, p שווה 14, זה לא כזה גדול אבל כאמור איך תעשו ויזואליזציה לדאטא 14 מימדי?!
 
 נבצע PCA עם פייתון.
-:::
-:::
 
----
-
-### Remember the Data
-
-```{python}
-import pandas as pd
-
-ratings = pd.read_csv('../datasets/netflix/train_ratings_all.csv', header = None)
-miss_cong = pd.read_csv('../datasets/netflix/train_y_rating.csv', header = None, names = ['score'])
-movies = pd.read_csv('../datasets/netflix/movie_titles.csv', header = None, names = ['year', 'title'])
-```
-
-```{python}
-#| echo: false
-print()
-```
-
-::: {.fragment}
-```{python}
-X = ratings.values[:,:14]
-
-print(X.shape)
-```
 :::
 
-```{python}
-#| echo: false
-print()
-```
-
-::: {.fragment}
-```{python}
-print(X[:5, :5])
-```
-:::
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 אנחנו קוראים את הנתונים כפי שעשינו ביחידה הקודמת, ומוודאים שהמימדים הם כפי שאנחנו מצפים, 10000 על 14.
 
 שוב נציץ לתוך הדאטא: יש כאן פשוט מספרים מ-1 עד 5.
-:::
-:::
 
----
-
-### Centering the Data
-
-```{python}
-# currently..
-X.mean(axis=0)
-```
-
-::: {.fragment}
-```{python}
-# centering X: subtracting the mean from each column
-X_centered = X - X.mean(axis=0)
-
-print(X_centered.mean(axis=0))
-```
 :::
 
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 ניזכר שניתוח PCA אנחנו עושים על מטריצת נתונים אחרי שהיא עברה מרכוז או סנטרינג. כרגע היא כמובן לא ממורכזת, הממוצע של כל עמודה שונה מאפס.
 
 כדי למרכז את הנתונים נחסר מכל עמודה את הממוצע שלה. כעת באוביקט X centered, יש את הנתונים שלנו אחרי מרכוז, אפשר לראות שהממוצע של כל עמודה הוא אפס מבחינה נומרית.
-:::
-:::
 
----
-
-### Performing PCA
-
-::: {.fragment}
-Performing PCA in 3 lines:
-```{python}
-#| eval: false
-#| code-line-numbers: "|1|3-4|6-7|"
-
-from sklearn.decomposition import PCA
-
-# instantiating PCA object
-pca = PCA()
-
-# performing PCA
-pca.fit(X_centered)
-```
 :::
 
-```{python}
-#| echo: false
-
-from sklearn.decomposition import PCA
-
-# instantiating PCA object
-pca = PCA()
-
-# performing PCA
-_ = pca.fit(X_centered)
-```
-
-::: {.fragment}
-What did we get?
-:::
-
-```{python}
-#| echo: false
-
-# Helper function for better pandas styling
-def color_negative_red(val):
-    """
-    Takes a scalar and returns a string with
-    the css property `'color: red'` for negative
-    strings, black otherwise.
-    """
-    color = 'red' if val < 0 else 'black'
-    return 'color: %s' % color
-```
-
-::: {.fragment}
-The $W$ matrix, a.k.a the "loadings", each column is a principal direction:
-```{python}
-W = pca.components_.T
-
-print(W.shape)
-```
-
-Let's see the W matrix first 2 principal directions alongside the movies: do you see anything interesting?
-:::
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 איך עושים PCA על הנתונים שלנו? זאת בעצם הפעם הראשונה שאנחנו נתקלים בספריית sklearn, זאת ספריית אופן סורס או קוד פתוח, למימוש מודלים סטטיסטיים ומודלים של למידת מכונה שעוד נלמד עליהם.
 
 כאן אני מייבא את הקלאס המתאים PCA ממודול של sklearn שנקרא decomposition.
@@ -432,23 +104,9 @@ Let's see the W matrix first 2 principal directions alongside the movies: do you
 קיבלנו את המטריצה W, בשדה components קו תחתון. נשים לב שמאחר שלא פירטנו מהו q כמה כיוונים אנחנו רוצים, קיבלנו את מקסימום הכיוונים האפשרי שזהוא p, לכן המטריצה W שלנו היא בגודל p על p. נשים לב גם שsklearn מחזיר את המטריצה כפי שאנחנו סימנו אותו עם טרנספוז, בגלל זה צריך לעשות על הארגומנט קומפוננטס טרנספוז אם רוצים לקבל את W כפי שאנחנו סיכמנו.
 
 אבל זה עדיין לא אומר מה קיבלנו. בדרך כלל מעניינים אותנו שניים-שלושה הכיוונים הראשונים, בואו נראה את המשקולות שלהם לכל סרט וסרט:
+
 :::
-:::
 
----
-
-```{python}
-#| code-fold: true
-means = pd.DataFrame(X.mean(axis = 0))
-means.columns = ['mean_rating']
-loadings2 = pd.DataFrame(W[:, :2], columns = ['PC1', 'PC2'])
-first_2_PCs = pd.concat([movies[:14]['title'], means, loadings2], axis = 1).set_index('title')
-
-first_2_PCs.head(10).style.applymap(color_negative_red).format("{:.2f}")
-```
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 בטבלה הזאת, מוצגים עשרת הסרטים הראשונים: השם שלהם, ממוצע הדירוג שלהם, והמשקולות שלהם במה שאנחנו קראנו v1 ו-v2, הם כיווני ה-PC הראשונים כלומר שתי העמודות הראשונות ב-W.
 
 למי שמעוניין הקוד מצורף כאן במצגת.
@@ -458,28 +116,9 @@ first_2_PCs.head(10).style.applymap(color_negative_red).format("{:.2f}")
 קצת קשה לראות את זה. ובכל זאת שימו לב שהמשקולות ב-PC הראשון הן כולן לאותו כיוון. והגודל שלהן קשור מאוד בפופולריות הכללית של הסרט. ככל שהדירוג הממוצע של הסרט גדול יותר, כך קטנות המשקלות בערך מוחלט. כלומר נראה שהכיוון בנתונים ששומר על הכי הרבה פיזור, אם היינו צריכים לתת מספר אחד לכל תצפית שהיא במקרה שלנו צופה שראתה 14 סרטים, היינו מסתכלים כמה הצופה הזאת מסכימה עם הממוצע!
 
 לגבי הכיוון השני, צריך קצת להכיר את הסרטים כדי לראות את זה. אבל בואו נראה את זה עם תרשים.
+
 :::
-:::
 
----
-
-### PC directions in a plot
-
-```{python}
-#| echo: false
-import matplotlib.pyplot as plt
-import seaborn as sns
-```
-```{python}
-ax = sns.scatterplot(x='PC1', y='PC2', size='mean_rating', data=first_2_PCs)
-for i, point in first_2_PCs.iterrows():
-    ax.text(point['PC1'], point['PC2'], str(i))
-plt.axhline(y=0, color='r', linestyle='--')
-plt.show()
-```
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 בתרשים הפיזור שלפנינו כל סרט הוא נקודה, שהגודל שלה נקבע על-ידי כמה הסרט פופולרי. רכיב הX של הנקודה הוא המשקל שלה בPC הראשון, ורכיב הY שלה הוא המשקל שלה בPC השני.
 
 את מה שראינו בטבלה אפשר לראות גם כאן, ככל שהסרט פופולרי יותר כך הנקודה קטנה בערך מוחלט.
@@ -489,55 +128,17 @@ plt.show()
 כלומר אחרי שהתחשבנו בכיוון הראשון שמבטא כמה צופה מדרגת סרטים פשוט על-פי הפופולריות שלהם, הכיוון השני מבדיל כנראה בין צופים שאוהבים סרטים רומנטיים לבין צופים שמעדיפים סרטי אקשן.
 
 חשוב להדגיש כבר עכשיו - זו פרשנות! כאן היא ממש קופצת מול העיניים, הרבה פעמים זה לא יהיה כל כך פשוט.
+
 :::
-:::
 
----
-
-### Projected Data
-
-```{python}
-T = X_centered @ W # make sure this is the same as pca.transform(X_centered)
-
-print(T.shape)
-```
-
-More typically we would want to **reduce** dimensionality:
-
-```{python}
-T = X_centered @ W[:, :2]
-
-print(T.shape)
-```
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 אמרנו שגם הדאטא של ההטלה מעניין אותנו. אחרי שנכפול את X בW נקבל את T שהיא מטריצה מסדר גודל עשרת אלפים על 14. בעצם קיבלנו שוב מטריצת נתונים מסדר גודל 10000 על 14 אבל כזאת שהעמודות שלה אורתוגנוליות זו לזו, והיא מחלקת את הפיזור או השונות המקוריים בצורה שונה לגמרי. העמודה הראשונה תהיה עם הפיזור הגדול ביותר, לאחר מכן השניה וכולי.
 
 בדרך כלל נתעניין בהורדת מימד, כלומר בהכפלה של X רק בעמודות הראשונות של W, כדי לקבל מטריצה T עם 2 עמודות בלבד.
 
 עכשיו אפשר סוף סוף לעשות ויזואליזציה לנתונים שלנו, עם תרשים פיזור פשוט:
-:::
-:::
 
----
-
-```{python}
-#| code-fold: true
-
-ax = sns.jointplot(x=T[:,0], y=T[:,1], height=3.5)
-ax.set_axis_labels('PC1: Popular Vote', 'PC2: Romance vs. Action', fontsize=10)
-plt.show()
-```
-
-::: {.incremental}
-- The first PC will indicate to what extent the user conforms with the general popular vote of movies
-- The second PC will indicate if the user is a romance-comedy-drama or action person
-- Are there interesting clusters or people worth pointing at? Would have been nice to see users' gender here!
 :::
 
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 על ציר האיקס הציון של כל צופה בPC הראשון, או עד כמה הצופה דומה בדירוגים שלו לדיעה הפופולרית.
 
 על ציר הוואי הציון של כל צופה בPC השני, עד כמה הוא מעדיף סרטים רומנטיים על פני סרטי אקשן.
@@ -545,33 +146,9 @@ plt.show()
 בשלב הזה פעמים רבות מתגלים אשכולות מעניינים בדאטא, או קלאסטרים. כאן קשה לראות אשכולות מעניינים אבל היה מעניין לצבוע את המגדר של הצופים כאן, ולראות האם אכן נכונה הסטיגמה שנשים אוהבות יותר סרטים רומנטיים וגברים אוהבים יותר סרטי אקשן. אם הסטיגמה נכונה נראה יותר נשים במעלה הגרף, ויותר גברים בתחתית הגרף.
 
 עדיין חשוב להבין מה מייצגות תצפיות הקצה לראות שהבנו: כאן (תצפית הכי עליונה) יש צופה שנותן ציונים גבוהים לסרטים רומנטיים וציונים נמוכים יחסית לסרטי אקשן. כאן (נקודה הכי ימנית) יש צופה שפשוט מצביע הפוך לדעת הרוב, מאחר שהציונים הממוצעים די גבוהים, הצופה הזה כנראה שונא את כל הסרטים. ואילו כאן (נקודה הכי שמאלית) נראה צופה שנותנת ציונים בתיאום עם הדעה הפופולרית, כנראה ציונים גבוהים באופן כללי לכל הסרטים. 
-:::
-:::
 
----
-
-### And now: Miss Congeniality!
-
-What do you expect the scores to be for users that are high on 1st PC (hate all films)?
-
-::: {.fragment}
-```{python}
-PC1_top_100 = T[:, 0].argsort()[-100:]
-print('Top PC1:', miss_cong.iloc[PC1_top_100, :].groupby('score').size())
-```
 :::
 
-What do you expect the scores to be for users that are low on 1st PC (love all films)
-
-::: {.fragment}
-```{python}
-PC1_bottom_100 = T[:, 0].argsort()[:100]
-print('Bottom PC1:', miss_cong.iloc[PC1_bottom_100, :].groupby('score').size())
-```
-:::
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 מה לגבי הסרט איזו מין שוטרת? אילו ציונים נצפה לראות מצופים שגבוהים בPC הראשון, כלומר שונאים את כל הסרטים?
 
 אם ניקח את מאה הצופים עם ציון הכי גבוה בPC הראשון נראה שהם אכן נתנו ציון נמוך מאוד גם לאיזו מין שוטרת.
@@ -579,83 +156,23 @@ print('Bottom PC1:', miss_cong.iloc[PC1_bottom_100, :].groupby('score').size())
 ומה לגבי 100 הצופים עם הציון הכי נמוך בPC הראשון, כלומר צופים שאוהבים הכל -- נראה שאכן הם אהבו גם את איזו מין שוטרת.
 
 :::
-:::
 
----
-
-What do you expect the scores to be for users that are high on 2nd PC (like romantic films)?
-
-::: {.fragment}
-```{python}
-PC2_top_100 = T[:, 1].argsort()[-100:]
-print('Top PC2:', miss_cong.iloc[PC2_top_100, :].groupby('score').size())
-```
-:::
-
-What do you expect the scores to be for users that are low on 2nd PC (like action films)
-
-::: {.fragment}
-```{python}
-PC2_bottom_100 = T[:, 1].argsort()[:100]
-print('Bottom PC2:', miss_cong.iloc[PC2_bottom_100, :].groupby('score').size())
-```
-:::
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 בשביל לצפות מה יהיו הציונים של צופים גבוהים או נמוכים בPC השני, צריך קודם להחליט האם איזו מין שוטרת הוא סרט רומנטי או סרט אקשן. מי שראה את הסרט ידע להגיד שזה לא חד משמעי, אבל בגדול זה סרט שהצד הרך שלו, הקומי-רומנטי, דומיננטי יותר. ולכן זה לא מפתיע שצופים שגבוהים בPC השני נותנים ציונים גבוהים יחסית לאיזו מין שוטרת, וצופים שנמוכים בPC השני נותנים ציונים נמוכים יחסית לאיזו מין שוטרת.
 
 לפני שנחזור לחלק המתמטי, אני מקווה שאתם מתרשמים איזה כלי מדהים זה PCA. מאוחר יותר נרצה אולי לחזות כיצד ידרג משתמש שלא ראינו בדאטא, את הסרט איזו מין שוטרת, על סמך שאר הדירוגים שלו. הכיוונים האלה שגילינו יכולים לעזור לנו מאוד, אפשר לומר שמצאנו משתנים חדשים בדאטא, משתנים שאנחנו יודעים שמשמרים הרבה מהשונות, ונוכל לבקש על הצופה הזה שאלה פשוטה שאולי לא היינו חושבים עליה בכלל - האם יש לך העדפה לסרטים רומנטיים על פני סרטי אקשן?
+
 :::
-:::
 
----
-
-### Scree Plot: % of explained variance
-
-```{python}
-plt.plot(np.arange(pca.n_components_) + 1, pca.explained_variance_ratio_, 'o-', linewidth=2, color='blue')
-plt.title('Scree Plot')
-plt.xlabel('Principal Component')
-plt.ylabel('% Variance Explained')
-plt.show()
-```
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 עוד תרשים שעשוי לעניין אתכם נקרא סקרי-פלוט, שמשתמש בשדה explained_variance_ratio_ של אוביקט ה-PCA. הסקריפלוט מצייר את אחוז השונות המוסברת של כל PC. בדרך כלל נראה דפוס יורד בחדות, הPC הראשונים מסבירים אחוז ניכר מהשונות, ואלה שבאים אחריהם מסבירים מעט מאוד.
 
 לפעמים נעזרים בתרשים כזה לדעת מה המימד הראוי לנתונים. ובכל מקרה אחוזי השונות המוסברת מסתכמים למאה.
-:::
-:::
 
----
+=== 3. PCA דרך פירוק SVD ===
 
-## PCA via SVD {.title-slide}
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 נצלול כעת לדרך שבה המחשב מבצע עבורינו PCA, דרך פירוק הSVD. בחלקים הבאים נשתמש בלא מעט ידע מאלגברה ליניארית, אם אתם מוצאים את עצמכם לא בטוחים בקשר לכמה מושגים, מומלץ לעצור ולחזור עליהם.
-:::
-:::
----
 
-### Calculating Principal Components: the SVD
-
-::: {.incremental}
-- We have the matrix $X_{n \times p}$ and want to find:
-$$\mathbf{v}_1 = \arg\max_{\mathbf{v}:\|\mathbf{v}\|^2 =1} \|X\mathbf{v}\|^2$$ 
-$$\mathbf{v}_2 = \arg\max_{\mathbf{v}:\|\mathbf{v}\|^2 =1, \mathbf{v}^T\mathbf{v}_1 = 0}\|X\mathbf{v}\|^2$$ 
-Etc. 
-
-- The key: the singular value decomposition (SVD) $X = U D V'$, where: 
-    - $U_{n\times p}$ is a matrix with orthonormal columns: $U'U = I_{p \times p}$
-    - $D_{p\times p}$ is a diagonal matrix with non-negative diagonal elements  (called the Singular Values)
-    - $V_{p\times p}$ is an orthogonal matrix: its columns are an orthonormal basis of $\mathbb R^p$, $V'V = V V' = I$. 
 :::
 
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 נסכם שוב את הבעיה של PCA. אנחנו רוצים וקטור v1 מנורמל, כך שיביא למקסימום פיזור של ההטלה של X עליו.
 
 כשנשיג אותו, נרצה את הוקטור הבא v2 שיהיה מנורמל, אורתגונלי לv1 וימקסם את הפיזור של ההטלה של X עליו, וכך הלאה, עד q וקטורים כאלה.
@@ -667,28 +184,9 @@ Etc.
 D היא מטריצה אלכסונית מסדר p על p, על האלכסון שלה נמצאים ערכים אי-שליליים שנקראים גם ערכים סינוגלריים.
 
 ו-V, מטריצה אורתוגונלית מסדר p על p. זה אומר שאם נכפול V'V וגם אם נכפול VV' נקבל את מטריצת היחידה. וזה גם אומר שהעמודות של V הן בסיס בR^p.
-:::
-:::
 
----
-
-### More on the SVD
-
-- The key: the Singular value decomposition (SVD) $X = U D V'$, where: 
-    - $U_{n\times p}$ is a matrix with orthonormal columns: $U'U = I_{p \times p}$
-    - $D_{p\times p}$ is a diagonal matrix with non-negative diagonal elements  (called the Singular Values)
-    - $V_{p\times p}$ is an orthogonal matrix: its columns are an orthonormal basis of $\mathbb R^p$, $V'V = V V' = I$.
-
-::: {.incremental}
-- Assuming $d_1 > d_2 > \dots > d_p$ on the diagonal of $D$ defines this decomposition uniquely.
-
-- Now denote the columns of $V=[\mathbf{v}_1, \dots, \mathbf{v}_p]$, a basis of $\mathbb R^p$, and the columns of $U=[\mathbf{u}_1, \dots, \mathbf{u}_p]$.
-
-- Key observation: $X\mathbf{v}_j = U D V' \mathbf{v}_j = UD \mathbf{e}_j = \mathbf{u}_j d_j$ because of orthogonality of $V$
 :::
 
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 כדי להגדיר את הפירוק באופן ייחודי, נחליט גם שהערכים הסינגולריים מסודרים מגדול לקטן. אם יש ביניהם חזרות זה מסבך מעט את הרישום לכן נניח שהם שונים.
 
 כעת נסמן את העמודות של V כv1 עד vp, ואת העמודות של U  u1 עד up.
@@ -700,28 +198,7 @@ D היא מטריצה אלכסונית מסדר p על p, על האלכסון ש
 כל מה שנשאר מהמכפלה הזאת זה רק הרכיב ה-j של המכפלה UD, כלומר הוקטור u_j, שמוכפל בסקלר d_j.
 
 :::
-:::
 
----
-
-### Using the SVD to find the PCA
-
-::: {.incremental}
-- Given a vector $\mathbf{v} \in \mathbb R^p$ with $\|\mathbf{v}\|^2=1$, express it in the $V$ columns basis:
-$\mathbf{v} = a_1\mathbf{v}_1 + \dots + a_p \mathbf{v}_p \mbox{ with } a_1^2 + \dots + a_p^2 = 1$
-
-- Now we can calculate its dispersion using the SVD:
-$X\mathbf{v} = a_1 d_1 \mathbf{u}_1 + \dots + a_p d_p \mathbf{u}_p \Rightarrow \|X\mathbf{v}\|^2 = a_1^2 d_1^2 + \dots + a_p^2 d_p ^2$
-
-- We know $a_1^2 + \dots + a_p^2=1$, hence: $\|X\mathbf{v}\|^2 \leq d_1^2.$
-
-- But we get equality when $\mathbf{v}=\mathbf{v}_1$, the first column of $V$, hence $\mathbf{v}_1$ is the first PC
-
-- Similarly the second PC is defined by $\mathbf{v}_2$ in $V$, and so on
-:::
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 כעת נחזור לבעיה שלנו. אחנו מעוניינים למצוא איזשהו וקטור מנורמל v. נביע את הוקטור הזה בבסיס של V, זה אומר כצירוף ליניארי בעמודה V, עם איזשהן משקלות a1 עד ap. קל לודא שסכום המשקולות האלה בריבוע חייב להיות 1.
 
 אבל אם כך, מהי בעצם ההטלה של X על אותו v שאנחנו רוצים שהפיזור שלה יהיה כמה שיותר גדול? ההטלה היא בעצם צירוף ליניארי של עמודות U, שהמשקולות שלו הן a1 כפול d1, עד ap כפול dp. ושוב, מאחר שהעמודות של u הן וקטורי יחידה, כשנחשב את הפיזור, או הנורמה של ההטלה הזאת, נגיע למסקנה שגם הוא שווה לסכום המשקולות האלה בריבוע.
@@ -734,45 +211,13 @@ $X\mathbf{v} = a_1 d_1 \mathbf{u}_1 + \dots + a_p d_p \mathbf{u}_p \Rightarrow \
 באופן דומה תגלו שכיוון הPC הבא הוא v2, העמודה השניה של המטריצה V מפירוק הSVD, וכולי.
 
 מה לא סיפרתי לכם? איך משיגים את פירוק SVD. אבל זה קצת יותר מדי בשביל הקורס שלנו. הדבר החשוב הוא שיש לנו אלגוריתמים מהירים בסקאלות מאוד מרשימות לעשות פירוק SVD, וזה אומר שאנחנו יכולים לבצע PCA על נתונים גדולים מאוד, מהר מאוד.
-:::
-:::
 
----
+=== 4. PCA דרך פירוק ערכים עצמיים ===
 
-## PCA via Eigendecomposition {.title-slide}
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 נושא ה-PCA מרתק גם מהרבה כיוונים אחרים. אפשר גם להגיע לפיתרון על-ידי פתרון בעיית ערכים עצמיים של מטריצה.
-:::
-:::
 
----
-
-### Eigendecomposition: Reminder
-
-::: {.fragment}
-A non-zero vector $\mathbf{v}$ is an eigenvector of a square $p \times p$ matrix $\mathbf{A}$ if it satisfies:
-$$\mathbf{A}\mathbf{v} = \lambda\mathbf{v},$$
-for some scalar $\lambda$.
 :::
 
-::: {.incremental}
-- Then $\lambda$ is called the eigenvalue corresponding to $\mathbf{v}$.
-
-- Geometrically speaking, the eigenvectors of $\mathbf{A}$ are the vectors that $\mathbf{A}$ merely elongates or shrinks, and the amount that they elongate/shrink by is the eigenvalue
-
-- An eigendecomposition of $\mathbf{A}$ is then: $\mathbf{A} = \mathbf{V}\mathbf{\Lambda}\mathbf{V}^{-1}$
-
-- where $\mathbf{V}$ is the square $p \times p$ matrix whose $j$th column is the eigenvector $\mathbf{v}_j$ of $\mathbf{A}$, and $\mathbf{\Lambda}$ is the diagonal matrix whose diagonal elements are the corresponding eigenvalues, $\mathbf{\Lambda}_{jj} = \lambda_j$
-
-- If $\mathbf{A}$ is real and symmetric, $\mathbf{V}$ is orthogonal, $\mathbf{A} = \mathbf{V}\mathbf{\Lambda}\mathbf{V}'$ and $\lambda_j$ are real scalars
-
-- If $\mathbf{A}$ is also positive semidefinite (PSD), then $\lambda_j \ge 0$
-:::
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 ניזכר בבעיית הערכים העצמיים בקצרה. נרצה למצוא וקטור עצמי, eigenvector, למטריצה A ריבועית, מסדר p על p.
 
 כאשר המטריצה A כופלת וקטור כזה, הדבר שקול בעצם פשוט להכפלה של הוקטור הזה באיזשהו סקלר למדא. ולמדא הוא הערך העצמי.
@@ -786,31 +231,9 @@ for some scalar $\lambda$.
 אם A היא מטריצה ממשית וסימטרית כמו שתיכף יהיה במקרה שלנו, V היא גם אורתוגונלית, וההופכי שלה הוא הטרנספוז של אז אפשר לרשום את הפירוק כך. יתרה מזאת, הערכים העצמיים שלה הם ממשיים.
 
 ואם המטריצה היא חיובית, פוזיטיב-סמידפיניט, כמו שתיכף יהיה במקרה שלנו - הערכים העצמיים הם אפילו אי-שליליים.
-:::
-:::
-
----
-
-### Calculating Principal Components: the Eigendecomposition
-
-::: {.incremental}
-- Look again at the PCA problem:
-$$\mathbf{v}_1 = \arg\max_{\mathbf{v}:\|\mathbf{v}\|^2 =1} \|X\mathbf{v}\|^2$$
-
-- Using Lagrange multiplier $\lambda_1$: $\max_{\mathbf{v}_1}{\mathbf{v}_1'X'X\mathbf{v}_1} + \lambda_1(1 - \mathbf{v}_1'\mathbf{v}_1)$
-
-- Take derivative with respect to $\mathbf{v}_1$, compare to 0:
-$$2X'X\mathbf{v}_1 - 2\lambda_1\mathbf{v}_1 = 0 \\
-X'X\mathbf{v}_1 = \lambda_1\mathbf{v}_1$$
-
-- So $\mathbf{v}_1$ must be an eigenvector of the square, real, PSD $X'X$ matrix, and $\lambda_1$ its eigenvalue!
-
-- Which eigenvalue and eigenvector?
 
 :::
 
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 אז מה הקשר לבעיה שלנו? נכתוב אותה שוב.
 
 אפשר לכתוב אותה כבעית אופטימיזציה, אם נשתמש בכופלי לגראנז'. אנחנו רוצים למקסם את הכמות v'X'Xv, עם אילוץ על v'v.
@@ -820,27 +243,9 @@ X'X\mathbf{v}_1 = \lambda_1\mathbf{v}_1$$
 לכן v1 חייב להיות וקטור עצמי של מטריצת הקווריאנס, ולמדא1 הערך העצמי שלה. ומאחר שכל מטריצת קווריאנס היא ממשית, סימטרית וחיובית, למדא גם חייב להיות אי-שלילי.
 
 איזה וקטור עצמי וערך עצמי ניקח? אם נכפול את הביטוי כאן ב v טרנספוז מצד שמאל נראה שהפיזור עצמו שווה לערך העצמי, ואנחנו רוצים פיזור כמה שיותר גדול, לכן ניקח את הוקטור העצמי שמתאים לערך העצמי הגדול ביותר. זכרו שהם אי-שליליים!
-:::
-:::
 
----
-
-- So we're looking for the set of $W_{p \times p}$ eigenvectors of $X'X$ with their corresponding eigenvalues $\lambda_1, \dots, \lambda_p$ ordered from largest to smallest.
-
-- One can also show the $\lambda_j$ themselves are the variances of the PCs
-
-::: {.incremental}
-- What is the relation to SVD?
-    - Let $X = UVD'$ as before
-    - $X'X = VD'U'UDV' = VD'DV' = VD^2V'$
-    - $D^2$ is $p \times p$ diagonal with **squared** singular values on diagonal
-    - Which means $V$ are eigenvectors of and they're also the required $W$ for PCA
-    - Eigenvalues $\lambda_1, \dots, \lambda_p$ are squared singular values $d_1^2, \dots, d_p^2$
-    - Either look at $\lambda_1, \dots, \lambda_p$ or $d_1^2, \dots, d_p^2$ for the PCs variance
 :::
 
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 נסכם: אנחנו מחפשים את המטריצה W שעמודותיה עם הוקטורים העצמיים של מטריצת הקווריאנס X'X, והערכים העצמיים שלה מסודרים מגדול עד קטן.
 
 הערכים העצמיים עצמם שווים לפיזור או לנורמה של הוקטורים העצמיים או כיווני הPC.
@@ -854,75 +259,13 @@ D בריבוע היא מטריצה אלכסונית p על p שעל האלכסו
 אבל זה בדיוק פירוק ערכים עצמיים שראינו! כלומר המטריצה מפירוק SVD היא בדיוק המטריצה V מפירוק הערכים העצמיים והמטריצה שאנחנו מחפשים.
 
 והערכים העצמיים הם הערכים הסינגולריים בריבוע, אפשר להסתכל על אלה או על אלה בשביל לראות את פיזור ההטלות.
-:::
-:::
 
----
+=== 5. PCA לא ליניארי ===
 
-## Non-Linear PCA {.title-slide}
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 בשקף אחד אחרון נזכיר שPCA במובן מסוים היא שיטה ליניארית. מה קורה אם הנתונים לא מסתדרים בצורה כזאת.
-:::
-:::
 
----
-
-### Non-linear Relation
-
-:::: {.columns}
-::: {.column width="50%"}
-Previously...
-
-```{python}
-#| echo: false
-
-n = 50
-X1 = np.random.normal(size=n)
-X2 = 2 * X1 + 3 + np.random.normal(scale=1.0, size=n)
-X = np.concatenate([X1[:, np.newaxis], X2[:, np.newaxis]], axis=1)
-X = StandardScaler().fit_transform(X)
-X = np.concatenate([X, [[3, 3]]], axis=0)
-plt.figure(figsize =(6, 5))
-plt.scatter(X[:, 0], X[:, 1])
-plt.ylabel('X2')
-plt.xlabel('X1')
-plt.xlim((-3.5, 3.5))
-plt.ylim((-3.5, 3.5))
-plt.show()
-```
 :::
 
-::: {.column width="50%"}
-Now:
-
-```{python}
-#| echo: false
-
-n = 50
-r = 1
-s = 0
-X1 = r * np.cos(np.linspace(s, s + 2 * np.pi, n))
-X2 = r * np.sin(np.linspace(s, s + 2 * np.pi, n)) + np.random.normal(scale = 0.1, size=n)
-X = np.concatenate([X1[:, np.newaxis], X2[:, np.newaxis]], axis=1)
-X = StandardScaler().fit_transform(X)
-
-plt.figure(figsize =(6, 5))
-plt.scatter(X[:, 0], X[:, 1])
-plt.ylabel('X2')
-plt.xlabel('X1')
-plt.show()
-```
-:::
-::::
-
-::: {.fragment}
-Try non-linear PCA: Kernel PCA, Autoencoders
-:::
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 קודם היה כיוון, וקטור ברור בנתונים שלנו X1 וX2. מה יקרה עם X1 וX2 יוצרים מעגל? עצרו וחשבו מה PCA יעשה?
 
 (להדגים) הוא ימצא את הכיוון הזה? הזה? כל אחד מהכיוונים האלה טוב כמו האחר, ועם זאת ברור שיש כיוון אחד שלאורכו הנתונים משתנים, הוא פשוט לא ניתן לביטוי כצירוף ליניארי של X1 ושל X2, הוא לא ניתן לביטוי כוקטור במערכת הצירים הזאת. אני מדבר כמובן על כך שהנתונים נוצרו באמצעות סיבוב, אפשר לחשוב שמישהו "הלך" כמה צעדים במימד יחיד של זווית, כל פעם שינה אותה קצת ויצר לאט לאט עיגול. אבל PCA לא ימצא את הכיוון הזה.
@@ -930,5 +273,4 @@ Try non-linear PCA: Kernel PCA, Autoencoders
 יש שיטות לnon-linear PCA, אתם מוזמנים לקרוא בצורה עצמאית על שיטות כמו Kernel PCA, ולאחר שנלמד על רשתות נוירונים, לקרוא על autoencoders, שבמובן מסוים מכלילים את PCA ליחסים לא ליניאריים.
 
 עד כאן PCA. אני יודע שזה הרבה לקלוט, אבל מדען נתונים שיש באמתחתו את הכלי הזה, ניתוח הנתונים שלו יהיה איכותי יותר, ויהיה לו קל הרבה יותר ללמוד שיטות מתקדמות להורדת מימד.
-:::
 :::

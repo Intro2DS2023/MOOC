@@ -543,7 +543,7 @@
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
 <p>באופן כללי יש לנו נתונים עם n תצפיות ו-p משתנים. זה מתרגם למטריצה X עם n שורות ו-p עמודות. בדוגמא של נטפליקס n יהיה 10 אלפים ו-p יהיה 14 אם ניקח רק את הסרטים לגביהם יש לנו את כל הנתונים.</p>
-<p>נרצה להוריד את המימד של הנתונים להיות q, כשq בדרך כלל קטן בהרבה מ-p, בד”כ 2 או 3. נראה שבדרך זה נוכל לזהות כיוונים חשובים בדאטא שמתמצתים אותו היטב, נוכל לעשות תרשים לדאטא בדו או תלת מימד (אי אפשר לצייר נקודות ב-14 מימד!) ואם אנחנו ברי מזל נוכל גם לראות מבנים בנתונים שלא היינו רואים אחרת, נראה את הנתונים שלנו ממש מתחלקים לאשכולות, לקלאסטרים.</p>
+<p>נרצה להוריד את המימד של הנתונים להיות q, כשq בדרך כלל קטן בהרבה מ-p, בד”כ 2 או 3. נראה שבדרך זו נוכל לזהות כיוונים חשובים בדאטא שמתמצתים אותו היטב, נוכל לעשות תרשים לדאטא בדו או תלת מימד (אי אפשר לצייר נקודות ב-14 מימד!) ואם אנחנו ברי מזל נוכל גם לראות מבנים בנתונים שלא היינו רואים אחרת, נראה את הנתונים שלנו ממש מתחלקים לאשכולות, לקלאסטרים.</p>
 <p>איך מבצעים PCA? הדרך הנאיבית היא לבצע בחירה של q משתנים מתוך p.&nbsp;כל פעם שבחרנו שני סרטים בדאטא ועשינו תרשים פיזור של סרט אחד מול אחר זה בדיוק מה שעשינו! אבל איבדנו ככה המון מידע!</p>
 <p>הדרך הנאיבית פחות היא לעשות מה שעשינו בשקף הקודם רק על הרבה משתנים: לחפש הטלות, לחפש צירופים ליניאריים של המשתנים שיהוו כיוונים מעניינים בדאטא. בואו נפרמל את הבעיה הזאת.</p>
 </div>
@@ -578,7 +578,7 @@
 <p>אפשר לסדר את הוקטורים האלה אחד מתחת לשני במטריצה n על p, כאשר כל שורה היא וקטור.</p>
 <p>נניח לרגע שכל עמודה ממורכזת, כלומר הסכום שלה או הממוצע שלה הוא אפס. אם כל משתנה ממורכז סביב האפס, ניתן לראות בנתונים שלנו מאין “ענן” סביב הראשית במרחב p מימדי. שוב כל פעם שהמילים מרחב p מימדי מרתיעות אתכם, חשבו על p = 2 או p = 3, מימדים שניתן לדמיין.</p>
 <p>דרך אחת לתאר כמה מידע יש במטריצה הזאת, מידע שנרצה לשמר, הוא הפיזור הריבועי של התצפיות מהמרכז שלהן. אם הנחנו שהמרכז שלהן באפס אז הכמות הזאת תהיה פשוט הוקטורים בריבוע, או הטרייס של X טרנספוז X, מטריצת הקווריאנס של המדגם הזה.</p>
-<p>אז יש לנו כמות לשמר, ואנחנו רוצים למצור q כיוונים שאם נטיל את המטריצה שלנו עליהם, נשמר כמה שיותר מהכמות הזאת, מהפיזור הזה, מהשונות של הדאטא.</p>
+<p>אז יש לנו כמות לשמר, ואנחנו רוצים למצוא q כיוונים שאם נטיל את המטריצה שלנו עליהם, נשמר כמה שיותר מהכמות הזאת, מהפיזור הזה, מהשונות של הדאטא.</p>
 <p>וכשאנחנו אומרים כיוון, אנחנו מתכוונים לוקטור פי מימדי עם נורמה 1, כלומר וקטור מנורמל או וקטור יחידה. נסמן אותו ב-v.</p>
 </div>
 <style type="text/css">
@@ -798,7 +798,7 @@
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-<p>ניזכר שניתוח PCA אנחנו עושים על מטריצת אחרי שהיא עברה מרכוז או סנטרינג. כרגע היא כמובן לא ממורכזת, הממוצע של כל עמודה שונה מאפס.</p>
+<p>ניזכר שניתוח PCA אנחנו עושים על מטריצת נתונים אחרי שהיא עברה מרכוז או סנטרינג. כרגע היא כמובן לא ממורכזת, הממוצע של כל עמודה שונה מאפס.</p>
 <p>כדי למרכז את הנתונים נחסר מכל עמודה את הממוצע שלה. כעת באוביקט X centered, יש את הנתונים שלנו אחרי מרכוז, אפשר לראות שהממוצע של כל עמודה הוא אפס מבחינה נומרית.</p>
 </div>
 <style type="text/css">
@@ -848,7 +848,7 @@
 <p>איך עושים PCA על הנתונים שלנו? זאת בעצם הפעם הראשונה שאנחנו נתקלים בספריית sklearn, זאת ספריית אופן סורס או קוד פתוח, למימוש מודלים סטטיסטיים ומודלים של למידת מכונה שעוד נלמד עליהם.</p>
 <p>כאן אני מייבא את הקלאס המתאים PCA ממודול של sklearn שנקרא decomposition.</p>
 <p>אני מאתחל את הקלאס באמצעות אובייקט שאני קורא לו pca. בשלב הזה יכולתי למשל לפרט מהו q הרצוי באמצעות פרמטר הn_components, לדוגמא n_components=2.</p>
-<p>פעולת הPCA עצמה קוראת רק כשאני קורא למתודה פיט של האוביקט, כשאני מכניס לתוכה את הנתונים שלי, X_centered. המתודה הזו מחזירה איזשהו טיפוס שלא מעניין אותנו כרגע ולכן אני קולט אותו עם קו תחתון.</p>
+<p>פעולת הPCA עצמה קורית רק כשאני קורא למתודה פיט של האוביקט, כשאני מכניס לתוכה את הנתונים שלי, X_centered.</p>
 <p>וזהו, עשינו PCA. אבל מה קיבלנו?</p>
 <p>קיבלנו את המטריצה W, בשדה components קו תחתון. נשים לב שמאחר שלא פירטנו מהו q כמה כיוונים אנחנו רוצים, קיבלנו את מקסימום הכיוונים האפשרי שזהוא p, לכן המטריצה W שלנו היא בגודל p על p.&nbsp;נשים לב גם שsklearn מחזיר את המטריצה כפי שאנחנו סימנו אותו עם טרנספוז, בגלל זה צריך לעשות על הארגומנט קומפוננטס טרנספוז אם רוצים לקבל את W כפי שאנחנו סיכמנו.</p>
 <p>אבל זה עדיין לא אומר מה קיבלנו. בדרך כלל מעניינים אותנו שניים-שלושה הכיוונים הראשונים, בואו נראה את המשקולות שלהם לכל סרט וסרט:</p>
@@ -879,21 +879,21 @@
 </details>
 <div class="cell-output cell-output-display" data-execution_count="13">
 <style type="text/css">
-#T_e2938_row0_col0, #T_e2938_row1_col0, #T_e2938_row2_col0, #T_e2938_row3_col0, #T_e2938_row4_col0, #T_e2938_row4_col2, #T_e2938_row5_col0, #T_e2938_row5_col2, #T_e2938_row6_col0, #T_e2938_row6_col2, #T_e2938_row7_col0, #T_e2938_row8_col0, #T_e2938_row9_col0, #T_e2938_row9_col2 {
+#T_96885_row0_col0, #T_96885_row1_col0, #T_96885_row2_col0, #T_96885_row3_col0, #T_96885_row4_col0, #T_96885_row4_col2, #T_96885_row5_col0, #T_96885_row5_col2, #T_96885_row6_col0, #T_96885_row6_col2, #T_96885_row7_col0, #T_96885_row8_col0, #T_96885_row9_col0, #T_96885_row9_col2 {
   color: black;
 }
-#T_e2938_row0_col1, #T_e2938_row0_col2, #T_e2938_row1_col1, #T_e2938_row1_col2, #T_e2938_row2_col1, #T_e2938_row2_col2, #T_e2938_row3_col1, #T_e2938_row3_col2, #T_e2938_row4_col1, #T_e2938_row5_col1, #T_e2938_row6_col1, #T_e2938_row7_col1, #T_e2938_row7_col2, #T_e2938_row8_col1, #T_e2938_row8_col2, #T_e2938_row9_col1 {
+#T_96885_row0_col1, #T_96885_row0_col2, #T_96885_row1_col1, #T_96885_row1_col2, #T_96885_row2_col1, #T_96885_row2_col2, #T_96885_row3_col1, #T_96885_row3_col2, #T_96885_row4_col1, #T_96885_row5_col1, #T_96885_row6_col1, #T_96885_row7_col1, #T_96885_row7_col2, #T_96885_row8_col1, #T_96885_row8_col2, #T_96885_row9_col1 {
   color: red;
 }
 </style>
 
-<table id="T_e2938" data-quarto-postprocess="true">
+<table id="T_96885" data-quarto-postprocess="true">
 <thead>
 <tr class="header">
 <th class="blank level0" data-quarto-table-cell-role="th">&nbsp;</th>
-<th id="T_e2938_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">mean_rating</th>
-<th id="T_e2938_level0_col1" class="col_heading level0 col1" data-quarto-table-cell-role="th">PC1</th>
-<th id="T_e2938_level0_col2" class="col_heading level0 col2" data-quarto-table-cell-role="th">PC2</th>
+<th id="T_96885_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">mean_rating</th>
+<th id="T_96885_level0_col1" class="col_heading level0 col1" data-quarto-table-cell-role="th">PC1</th>
+<th id="T_96885_level0_col2" class="col_heading level0 col2" data-quarto-table-cell-role="th">PC2</th>
 </tr>
 <tr class="odd">
 <th class="index_name level0" data-quarto-table-cell-role="th">title</th>
@@ -904,64 +904,64 @@
 </thead>
 <tbody>
 <tr class="odd">
-<td id="T_e2938_level0_row0" class="row_heading level0 row0" data-quarto-table-cell-role="th">Independence Day</td>
-<td id="T_e2938_row0_col0" class="data row0 col0">4.15</td>
-<td id="T_e2938_row0_col1" class="data row0 col1">-0.25</td>
-<td id="T_e2938_row0_col2" class="data row0 col2">-0.26</td>
+<td id="T_96885_level0_row0" class="row_heading level0 row0" data-quarto-table-cell-role="th">Independence Day</td>
+<td id="T_96885_row0_col0" class="data row0 col0">4.15</td>
+<td id="T_96885_row0_col1" class="data row0 col1">-0.25</td>
+<td id="T_96885_row0_col2" class="data row0 col2">-0.26</td>
 </tr>
 <tr class="even">
-<td id="T_e2938_level0_row1" class="row_heading level0 row1" data-quarto-table-cell-role="th">The Patriot</td>
-<td id="T_e2938_row1_col0" class="data row1 col0">4.11</td>
-<td id="T_e2938_row1_col1" class="data row1 col1">-0.26</td>
-<td id="T_e2938_row1_col2" class="data row1 col2">-0.06</td>
+<td id="T_96885_level0_row1" class="row_heading level0 row1" data-quarto-table-cell-role="th">The Patriot</td>
+<td id="T_96885_row1_col0" class="data row1 col0">4.11</td>
+<td id="T_96885_row1_col1" class="data row1 col1">-0.26</td>
+<td id="T_96885_row1_col2" class="data row1 col2">-0.06</td>
 </tr>
 <tr class="odd">
-<td id="T_e2938_level0_row2" class="row_heading level0 row2" data-quarto-table-cell-role="th">The Day After Tomorrow</td>
-<td id="T_e2938_row2_col0" class="data row2 col0">3.70</td>
-<td id="T_e2938_row2_col1" class="data row2 col1">-0.32</td>
-<td id="T_e2938_row2_col2" class="data row2 col2">-0.15</td>
+<td id="T_96885_level0_row2" class="row_heading level0 row2" data-quarto-table-cell-role="th">The Day After Tomorrow</td>
+<td id="T_96885_row2_col0" class="data row2 col0">3.70</td>
+<td id="T_96885_row2_col1" class="data row2 col1">-0.32</td>
+<td id="T_96885_row2_col2" class="data row2 col2">-0.15</td>
 </tr>
 <tr class="even">
-<td id="T_e2938_level0_row3" class="row_heading level0 row3" data-quarto-table-cell-role="th">Pirates of the Caribbean: The Curse of the Black Pearl</td>
-<td id="T_e2938_row3_col0" class="data row3 col0">4.35</td>
-<td id="T_e2938_row3_col1" class="data row3 col1">-0.15</td>
-<td id="T_e2938_row3_col2" class="data row3 col2">-0.03</td>
+<td id="T_96885_level0_row3" class="row_heading level0 row3" data-quarto-table-cell-role="th">Pirates of the Caribbean</td>
+<td id="T_96885_row3_col0" class="data row3 col0">4.35</td>
+<td id="T_96885_row3_col1" class="data row3 col1">-0.15</td>
+<td id="T_96885_row3_col2" class="data row3 col2">-0.03</td>
 </tr>
 <tr class="odd">
-<td id="T_e2938_level0_row4" class="row_heading level0 row4" data-quarto-table-cell-role="th">Pretty Woman</td>
-<td id="T_e2938_row4_col0" class="data row4 col0">4.07</td>
-<td id="T_e2938_row4_col1" class="data row4 col1">-0.23</td>
-<td id="T_e2938_row4_col2" class="data row4 col2">0.45</td>
+<td id="T_96885_level0_row4" class="row_heading level0 row4" data-quarto-table-cell-role="th">Pretty Woman</td>
+<td id="T_96885_row4_col0" class="data row4 col0">4.07</td>
+<td id="T_96885_row4_col1" class="data row4 col1">-0.23</td>
+<td id="T_96885_row4_col2" class="data row4 col2">0.45</td>
 </tr>
 <tr class="even">
-<td id="T_e2938_level0_row5" class="row_heading level0 row5" data-quarto-table-cell-role="th">Forrest Gump</td>
-<td id="T_e2938_row5_col0" class="data row5 col0">4.51</td>
-<td id="T_e2938_row5_col1" class="data row5 col1">-0.11</td>
-<td id="T_e2938_row5_col2" class="data row5 col2">0.01</td>
+<td id="T_96885_level0_row5" class="row_heading level0 row5" data-quarto-table-cell-role="th">Forrest Gump</td>
+<td id="T_96885_row5_col0" class="data row5 col0">4.51</td>
+<td id="T_96885_row5_col1" class="data row5 col1">-0.11</td>
+<td id="T_96885_row5_col2" class="data row5 col2">0.01</td>
 </tr>
 <tr class="odd">
-<td id="T_e2938_level0_row6" class="row_heading level0 row6" data-quarto-table-cell-role="th">The Green Mile</td>
-<td id="T_e2938_row6_col0" class="data row6 col0">4.46</td>
-<td id="T_e2938_row6_col1" class="data row6 col1">-0.16</td>
-<td id="T_e2938_row6_col2" class="data row6 col2">0.00</td>
+<td id="T_96885_level0_row6" class="row_heading level0 row6" data-quarto-table-cell-role="th">The Green Mile</td>
+<td id="T_96885_row6_col0" class="data row6 col0">4.46</td>
+<td id="T_96885_row6_col1" class="data row6 col1">-0.16</td>
+<td id="T_96885_row6_col2" class="data row6 col2">0.00</td>
 </tr>
 <tr class="even">
-<td id="T_e2938_level0_row7" class="row_heading level0 row7" data-quarto-table-cell-role="th">Con Air</td>
-<td id="T_e2938_row7_col0" class="data row7 col0">3.73</td>
-<td id="T_e2938_row7_col1" class="data row7 col1">-0.30</td>
-<td id="T_e2938_row7_col2" class="data row7 col2">-0.32</td>
+<td id="T_96885_level0_row7" class="row_heading level0 row7" data-quarto-table-cell-role="th">Con Air</td>
+<td id="T_96885_row7_col0" class="data row7 col0">3.73</td>
+<td id="T_96885_row7_col1" class="data row7 col1">-0.30</td>
+<td id="T_96885_row7_col2" class="data row7 col2">-0.32</td>
 </tr>
 <tr class="odd">
-<td id="T_e2938_level0_row8" class="row_heading level0 row8" data-quarto-table-cell-role="th">Twister</td>
-<td id="T_e2938_row8_col0" class="data row8 col0">3.75</td>
-<td id="T_e2938_row8_col1" class="data row8 col1">-0.30</td>
-<td id="T_e2938_row8_col2" class="data row8 col2">-0.14</td>
+<td id="T_96885_level0_row8" class="row_heading level0 row8" data-quarto-table-cell-role="th">Twister</td>
+<td id="T_96885_row8_col0" class="data row8 col0">3.75</td>
+<td id="T_96885_row8_col1" class="data row8 col1">-0.30</td>
+<td id="T_96885_row8_col2" class="data row8 col2">-0.14</td>
 </tr>
 <tr class="even">
-<td id="T_e2938_level0_row9" class="row_heading level0 row9" data-quarto-table-cell-role="th">Sweet Home Alabama</td>
-<td id="T_e2938_row9_col0" class="data row9 col0">3.67</td>
-<td id="T_e2938_row9_col1" class="data row9 col1">-0.30</td>
-<td id="T_e2938_row9_col2" class="data row9 col2">0.59</td>
+<td id="T_96885_level0_row9" class="row_heading level0 row9" data-quarto-table-cell-role="th">Sweet Home Alabama</td>
+<td id="T_96885_row9_col0" class="data row9 col0">3.67</td>
+<td id="T_96885_row9_col1" class="data row9 col1">-0.30</td>
+<td id="T_96885_row9_col2" class="data row9 col2">0.59</td>
 </tr>
 </tbody>
 </table>
@@ -997,15 +997,15 @@
 <span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>plt.axhline(y<span class="op">=</span><span class="dv">0</span>, color<span class="op">=</span><span class="st">'r'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>)</span>
 <span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<p><img data-src="c05_pca_files/figure-revealjs/cell-17-output-1.png" width="808" height="429"></p>
+<p><img data-src="c05_pca_files/figure-revealjs/cell-17-output-1.png" width="612" height="429"></p>
 </div>
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
 <p>בתרשים הפיזור שלפנינו כל סרט הוא נקודה, שהגודל שלה נקבע על-ידי כמה הסרט פופולרי. רכיב הX של הנקודה הוא המשקל שלה בPC הראשון, ורכיב הY שלה הוא המשקל שלה בPC השני.</p>
 <p>את מה שראינו בטבלה אפשר לראות גם כאן, ככל שהסרט פופולרי יותר כך הנקודה קטנה בערך מוחלט.</p>
-<p>אבל על “מדבר” הPC השני? אם אתם מכירים את הסרטים ברשימה זה די ברור: הPC השני מבדיל בין סרטים רומנטיים גמו אשה יפה, סוויט הום אלבמה, לבין סרטי אקשן, כמו קון איר וארמגדון.</p>
-<p>כלומר אחרי שהתחשבנו בכיוון הראשון שמבטא כמה צופה מדרגת סרטים פשוט על-פי הפופולריות שלהם, הכיוון השני מבדיל כנראה בין צופים שאוהבים סרטים רומנטיים לבין סרטים שמעדיפים סרטי אקשן.</p>
+<p>אבל על “מדבר” הPC השני? אם אתם מכירים את הסרטים ברשימה זה די ברור: הPC השני מבדיל בין סרטים רומנטיים כמו אשה יפה, סוויט הום אלבמה, לבין סרטי אקשן, כמו קון איר וארמגדון.</p>
+<p>כלומר אחרי שהתחשבנו בכיוון הראשון שמבטא כמה צופה מדרגת סרטים פשוט על-פי הפופולריות שלהם, הכיוון השני מבדיל כנראה בין צופים שאוהבים סרטים רומנטיים לבין צופים שמעדיפים סרטי אקשן.</p>
 <p>חשוב להדגיש כבר עכשיו - זו פרשנות! כאן היא ממש קופצת מול העיניים, הרבה פעמים זה לא יהיה כל כך פשוט.</p>
 </div>
 <style type="text/css">
@@ -1042,7 +1042,7 @@
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-<p>אמרנו שגם הדאטא של ההטלה מעניין אותנו. אחרי שנכפול את X בW נקבל את T שהיא מטריצה מסדר גודל עשרת אלפים על 14. בעצם קיבלנו שוב מטריצת נתונים מסדר גודל 10000 על 14 אבל כזאת שהעמודות שלה אורתוגנוליות זו לזה, והיא מחלקת את הפיזור או השונות המקוריים בצורה שונה לגמרי. העמודה הראשונה תהיה עם הפיזור הגדול ביותר, לאחר מכן השניה וכולי.</p>
+<p>אמרנו שגם הדאטא של ההטלה מעניין אותנו. אחרי שנכפול את X בW נקבל את T שהיא מטריצה מסדר גודל עשרת אלפים על 14. בעצם קיבלנו שוב מטריצת נתונים מסדר גודל 10000 על 14 אבל כזאת שהעמודות שלה אורתוגנוליות זו לזו, והיא מחלקת את הפיזור או השונות המקוריים בצורה שונה לגמרי. העמודה הראשונה תהיה עם הפיזור הגדול ביותר, לאחר מכן השניה וכולי.</p>
 <p>בדרך כלל נתעניין בהורדת מימד, כלומר בהכפלה של X רק בעמודות הראשונות של W, כדי לקבל מטריצה T עם 2 עמודות בלבד.</p>
 <p>עכשיו אפשר סוף סוף לעשות ויזואליזציה לנתונים שלנו, עם תרשים פיזור פשוט:</p>
 </div>
@@ -1083,7 +1083,7 @@
 <p>על ציר האיקס הציון של כל צופה בPC הראשון, או עד כמה הצופה דומה בדירוגים שלו לדיעה הפופולרית.</p>
 <p>על ציר הוואי הציון של כל צופה בPC השני, עד כמה הוא מעדיף סרטים רומנטיים על פני סרטי אקשן.</p>
 <p>בשלב הזה פעמים רבות מתגלים אשכולות מעניינים בדאטא, או קלאסטרים. כאן קשה לראות אשכולות מעניינים אבל היה מעניין לצבוע את המגדר של הצופים כאן, ולראות האם אכן נכונה הסטיגמה שנשים אוהבות יותר סרטים רומנטיים וגברים אוהבים יותר סרטי אקשן. אם הסטיגמה נכונה נראה יותר נשים במעלה הגרף, ויותר גברים בתחתית הגרף.</p>
-<p>עדיין חשוב להבין מה מייצגות תצפיות הקצה לראות שהבנו: כאן (תצפית הכי עליונה) יש צופה שנותן ציונים גבוהים לסרטים רומנטיים וציונים נמוכים יחסית לסרטי אקשן. כאן (נקודה הכי ימנית) יש צופה שפשוט מצביע הפוך לדעת הרוב, מאחר שהציונים הממוצעים די גבוהים, הצופה הזה כנראה שונא את כל הסרטים. ואילו כאן (נקודה הכי שמאלית) נראה צופה שנותנת ציונים בתיאום עם הדעה הפופולרית, כנראה ציונים גבוהים באופן כללי לכל הסרטים.PC הראשון.</p>
+<p>עדיין חשוב להבין מה מייצגות תצפיות הקצה לראות שהבנו: כאן (תצפית הכי עליונה) יש צופה שנותן ציונים גבוהים לסרטים רומנטיים וציונים נמוכים יחסית לסרטי אקשן. כאן (נקודה הכי ימנית) יש צופה שפשוט מצביע הפוך לדעת הרוב, מאחר שהציונים הממוצעים די גבוהים, הצופה הזה כנראה שונא את כל הסרטים. ואילו כאן (נקודה הכי שמאלית) נראה צופה שנותנת ציונים בתיאום עם הדעה הפופולרית, כנראה ציונים גבוהים באופן כללי לכל הסרטים.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1182,7 +1182,7 @@ dtype: int64</code></pre>
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-<p>בשביל לצפות מה יהיו הציונים של צופים גבוהים או נמוכים בPC הראשון, צריך קודם להחליט האם איזו מין שוטרת הוא סרט רומנטי או סרט אקשן. מי שראה את הסרט ידע להגיד שזה לא חד משמעי, אבל בגדול זה סרט שהצד הרך שלו, הקומי-רומנטי, דומיננטי יותר. ולכן זה לא מפתיע שצופים שגבוהים בPC השני נותנים ציונים גבוהים יחסית לאיזו מין שוטרת, וצופים שנמוכים בPC השני נותנים ציונים נמוכים יחסית לאיזו מין שוטרת.</p>
+<p>בשביל לצפות מה יהיו הציונים של צופים גבוהים או נמוכים בPC השני, צריך קודם להחליט האם איזו מין שוטרת הוא סרט רומנטי או סרט אקשן. מי שראה את הסרט ידע להגיד שזה לא חד משמעי, אבל בגדול זה סרט שהצד הרך שלו, הקומי-רומנטי, דומיננטי יותר. ולכן זה לא מפתיע שצופים שגבוהים בPC השני נותנים ציונים גבוהים יחסית לאיזו מין שוטרת, וצופים שנמוכים בPC השני נותנים ציונים נמוכים יחסית לאיזו מין שוטרת.</p>
 <p>לפני שנחזור לחלק המתמטי, אני מקווה שאתם מתרשמים איזה כלי מדהים זה PCA. מאוחר יותר נרצה אולי לחזות כיצד ידרג משתמש שלא ראינו בדאטא, את הסרט איזו מין שוטרת, על סמך שאר הדירוגים שלו. הכיוונים האלה שגילינו יכולים לעזור לנו מאוד, אפשר לומר שמצאנו משתנים חדשים בדאטא, משתנים שאנחנו יודעים שמשמרים הרבה מהשונות, ונוכל לבקש על הצופה הזה שאלה פשוטה שאולי לא היינו חושבים עליה בכלל - האם יש לך העדפה לסרטים רומנטיים על פני סרטי אקשן?</p>
 </div>
 <style type="text/css">
@@ -1213,7 +1213,7 @@ dtype: int64</code></pre>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
 <p>עוד תרשים שעשוי לעניין אתכם נקרא סקרי-פלוט, שמשתמש בשדה explained_variance_ratio_ של אוביקט ה-PCA. הסקריפלוט מצייר את אחוז השונות המוסברת של כל PC. בדרך כלל נראה דפוס יורד בחדות, הPC הראשונים מסבירים אחוז ניכר מהשונות, ואלה שבאים אחריהם מסבירים מעט מאוד.</p>
-<p>לפעמים נעזרים בתרשים כזה לדעת מה המימד הראוי לנתונים. ובכל מקרה אחוזי השונות המוסברת מסתכמים למאה אחוז.</p>
+<p>לפעמים נעזרים בתרשים כזה לדעת מה המימד הראוי לנתונים. ובכל מקרה אחוזי השונות המוסברת מסתכמים למאה.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1303,7 +1303,7 @@ dtype: int64</code></pre>
 <p>כדי להגדיר את הפירוק באופן ייחודי, נחליט גם שהערכים הסינגולריים מסודרים מגדול לקטן. אם יש ביניהם חזרות זה מסבך מעט את הרישום לכן נניח שהם שונים.</p>
 <p>כעת נסמן את העמודות של V כv1 עד vp, ואת העמודות של U u1 עד up.</p>
 <p>וכעת נשים לב מה קורה להטלה של X על אחד מוקטורי הבסיס של של V, vj:</p>
-<p>ההטלה של X על vj, היא בעצם UDV’v_j, אבל העמודה v_j יוצרת אפסר במכפלה עם כל העמודות ב-V כי V אורתגונולית, ואילו עם העמודה v_j היא יוצרת 1 כי v_j הוא וקטור יחידה, הנורמה שלו 1. זה אומר, שבמכפלה הזאת התוצאה תהיה וקטור שכולו אפסים, ו-1 רק במיקום ה-j, וקטור שמסמנים אותו בד”כ כe_j, וקטור בסיס סטנדרטי. כל מה שנשאר מהמכפלה הזאת זה רק הרכיב ה-j של המכפלה UD, כלומר הוקטור u_j, שמוכפל בסקלר d_j.</p>
+<p>ההטלה של X על vj, היא בעצם UDV’v_j, אבל העמודה v_j יוצרת אפס במכפלה עם כל העמודות ב-V כי V אורתגונולית, ואילו עם העמודה v_j היא יוצרת 1 כי v_j הוא וקטור יחידה, הנורמה שלו 1. זה אומר, שבמכפלה הזאת התוצאה תהיה וקטור שכולו אפסים, ו-1 רק במיקום ה-j, וקטור שמסמנים אותו בד”כ כe_j, וקטור בסיס סטנדרטי. כל מה שנשאר מהמכפלה הזאת זה רק הרכיב ה-j של המכפלה UD, כלומר הוקטור u_j, שמוכפל בסקלר d_j.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1332,7 +1332,7 @@ dtype: int64</code></pre>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
 <p>כעת נחזור לבעיה שלנו. אחנו מעוניינים למצוא איזשהו וקטור מנורמל v. נביע את הוקטור הזה בבסיס של V, זה אומר כצירוף ליניארי בעמודה V, עם איזשהן משקלות a1 עד ap. קל לודא שסכום המשקולות האלה בריבוע חייב להיות 1.</p>
-<p>אבל אם כך, מהי בעצם ההטלה של X על אותו v שאנחנו רוצים שהפיזור שלה יהיה כמה שיותר גדול? ההטלה היא בעצם צירוף ליניארי של עמודות U, שהמשקולות שלו הן a1 כפול d1, עד ap כפול dp. ושוב, מאחר שהעמודות של u הן וקטורי יחידה, כשנחשב את הפיזור, או הנורמה של ההטלה הזאת, נגיע למסקנה שגם סכום המשקולות האלה בריבוע הוא 1.</p>
+<p>אבל אם כך, מהי בעצם ההטלה של X על אותו v שאנחנו רוצים שהפיזור שלה יהיה כמה שיותר גדול? ההטלה היא בעצם צירוף ליניארי של עמודות U, שהמשקולות שלו הן a1 כפול d1, עד ap כפול dp. ושוב, מאחר שהעמודות של u הן וקטורי יחידה, כשנחשב את הפיזור, או הנורמה של ההטלה הזאת, נגיע למסקנה שגם הוא שווה לסכום המשקולות האלה בריבוע.</p>
 <p>אבל סכום המשקולות של a בריבוע הוא 1. וה-d, הערכים הסינגולריים שלנו מסודרים בערך יורד. זה אומר שהערך הכי גבוה שהפיזור יכול לקבל הוא אם a1 יהיה 1 ואז הפיזור יהיה שווה ל-d1 בריבוע!</p>
 <p>אבל מה המשמעות של a1 שווה לאחת? המשמעות היא ש-v, הוקטור שאנחנו מחפשים, הוא בעצם v1, וקטור העמודה הראשון של המטריצה V. כלומר גילינו שv1 הוא הוקטור PC הראשון, שיביא למקסימום את פיזור ההטלה, וגילינו גם שפיזור ההטלה כזאת יהיה בהכרח הערך הסינגולרי d1 בריבוע!</p>
 <p>באופן דומה תגלו שכיוון הPC הבא הוא v2, העמודה השניה של המטריצה V מפירוק הSVD, וכולי.</p>
@@ -1354,7 +1354,7 @@ dtype: int64</code></pre>
 <h2>PCA via Eigendecomposition</h2>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-<p>נושא ה-PCA מרתק גם מהרבה כיוונים אחרים. אפשר םג להגיע לפיתרון על-ידי פתרון בעיית ערכים עצמיים של מטריצה.</p>
+<p>נושא ה-PCA מרתק גם מהרבה כיוונים אחרים. אפשר גם להגיע לפיתרון על-ידי פתרון בעיית ערכים עצמיים של מטריצה.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1423,7 +1423,7 @@ X'X\mathbf{v}_1 = \lambda_1\mathbf{v}_1\]</span></p></li>
 <div style="direction:rtl; font-size:16px">
 <p>אז מה הקשר לבעיה שלנו? נכתוב אותה שוב.</p>
 <p>אפשר לכתוב אותה כבעית אופטימיזציה, אם נשתמש בכופלי לגראנז’. אנחנו רוצים למקסם את הכמות v’X’Xv, עם אילוץ על v’v.</p>
-<p>אם נגזור את הכמות הזאת לפי הרכיבים בv, נקבל את הביטוי שלפנינו, נשווה אותו לאפס ונגיע למסקנה שאנחנו מחפשים וקטור v שיקיים את המשווה שלפנינו. זאת בדיוק משוואה שמגדירה וקטור וערך עצמי של המטריצה X’X, מטריצת הקווריאנס של מדגם הנתונים!</p>
+<p>אם נגזור את הכמות הזאת לפי הרכיבים בv, נקבל את הביטוי שלפנינו, נשווה אותו לאפס ונגיע למסקנה שאנחנו מחפשים וקטור v שיקיים את המשוואה הזאת. זאת בדיוק משוואה שמגדירה וקטור וערך עצמי של המטריצה X’X, מטריצת הקווריאנס של מדגם הנתונים!</p>
 <p>לכן v1 חייב להיות וקטור עצמי של מטריצת הקווריאנס, ולמדא1 הערך העצמי שלה. ומאחר שכל מטריצת קווריאנס היא ממשית, סימטרית וחיובית, למדא גם חייב להיות אי-שלילי.</p>
 <p>איזה וקטור עצמי וערך עצמי ניקח? אם נכפול את הביטוי כאן ב v טרנספוז מצד שמאל נראה שהפיזור עצמו שווה לערך העצמי, ואנחנו רוצים פיזור כמה שיותר גדול, לכן ניקח את הוקטור העצמי שמתאים לערך העצמי הגדול ביותר. זכרו שהם אי-שליליים!</p>
 </div>
@@ -1450,7 +1450,7 @@ X'X\mathbf{v}_1 = \lambda_1\mathbf{v}_1\]</span></p></li>
 <li class="fragment">What is the relation to SVD?
 <ul>
 <li class="fragment">Let <span class="math inline">\(X = UVD'\)</span> as before</li>
-<li class="fragment"><span class="math inline">\(X'X = VD'U'UDV = VD'DV = VD^2V\)</span></li>
+<li class="fragment"><span class="math inline">\(X'X = VD'U'UDV' = VD'DV' = VD^2V'\)</span></li>
 <li class="fragment"><span class="math inline">\(D^2\)</span> is <span class="math inline">\(p \times p\)</span> diagonal with <strong>squared</strong> singular values on diagonal</li>
 <li class="fragment">Which means <span class="math inline">\(V\)</span> are eigenvectors of and they’re also the required <span class="math inline">\(W\)</span> for PCA</li>
 <li class="fragment">Eigenvalues <span class="math inline">\(\lambda_1, \dots, \lambda_p\)</span> are squared singular values <span class="math inline">\(d_1^2, \dots, d_p^2\)</span></li>
@@ -1526,6 +1526,7 @@ X'X\mathbf{v}_1 = \lambda_1\mathbf{v}_1\]</span></p></li>
 <p>קודם היה כיוון, וקטור ברור בנתונים שלנו X1 וX2. מה יקרה עם X1 וX2 יוצרים מעגל? עצרו וחשבו מה PCA יעשה?</p>
 <p>(להדגים) הוא ימצא את הכיוון הזה? הזה? כל אחד מהכיוונים האלה טוב כמו האחר, ועם זאת ברור שיש כיוון אחד שלאורכו הנתונים משתנים, הוא פשוט לא ניתן לביטוי כצירוף ליניארי של X1 ושל X2, הוא לא ניתן לביטוי כוקטור במערכת הצירים הזאת. אני מדבר כמובן על כך שהנתונים נוצרו באמצעות סיבוב, אפשר לחשוב שמישהו “הלך” כמה צעדים במימד יחיד של זווית, כל פעם שינה אותה קצת ויצר לאט לאט עיגול. אבל PCA לא ימצא את הכיוון הזה.</p>
 <p>יש שיטות לnon-linear PCA, אתם מוזמנים לקרוא בצורה עצמאית על שיטות כמו Kernel PCA, ולאחר שנלמד על רשתות נוירונים, לקרוא על autoencoders, שבמובן מסוים מכלילים את PCA ליחסים לא ליניאריים.</p>
+<p>עד כאן PCA. אני יודע שזה הרבה לקלוט, אבל מדען נתונים שיש באמתחתו את הכלי הזה, ניתוח הנתונים שלו יהיה איכותי יותר, ויהיה לו קל הרבה יותר ללמוד שיטות מתקדמות להורדת מימד.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
