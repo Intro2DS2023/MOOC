@@ -1,62 +1,9 @@
----
-format:
-  revealjs:
-    slide-number: true
-    chalkboard: true
-    fig-width: 6
-    fig-asp: 0.618
-    template-partials:
-      - "../title-slide.html"
-css: "../slides_quarto.css"
-standalone: false
-include-in-header: "../header_quarto.html"
-logo: "../Intro2DS_logo_white.jpg"
-pagetitle: "Case Study: the Netflix Dataset"
-callout-appearance: simple
-smaller: true
-execute:
-  eval: true
-  echo: true
-code-line-numbers: false
-code-block-border-left: true
-highlight-style: github
-footer: "[Intro to Data Science](https://intro2ds2023.github.io/mooc/){target='_blank'}"
----
+=== 1. התחרות של נטפליקס ===
 
-## {.logo-slide}
-
-## Introduction to Data Science {.title-slide}
-
-### Case Study: the Netflix Dataset - Class 4
-
-### Giora Simchoni
-
-#### `gsimchoni@gmail.com` and add `#intro2ds` in subject
-
-### Stat. and OR Department, TAU
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 נושא תחקור הנתונים, או EDA הוא כל כך חשוב, שאנחנו מקדישים לו יחידה נוספת שלמה, שבה נתחקר לעומק סט נתונים שמגיע מחברת נטפליקס.
-:::
-:::
----
 
-### The Netflix Prize
-
-::: {.incremental}
-- In 2006 Netflix was still a DVD-rental business
-- Users would rate the movies from 1 to 5
-- Netflix training data: 100,480,507 ratings that 480,189 users gave to 17,770 movies
-- Metric on predicted scores $\hat{y}$ vs. true scores $y$: $RMSE = \sqrt{\sum_i (\hat{y}_i - y_i)^2}$
-- Netflix algorithm acheived an RMSE of 0.95
-- "Beat our algorithm by over 10% and win \$1 million dollars!"
-- Over 20,000 teams, over 150 countries, over 13,000 submissions
-- Prize awarded in 2009 for the BellKor's Pragmatic Chaos team, with an RMSE of 0.855
 :::
 
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 ב2006 נטפליקס היתה עדיין חברה להשכרת דיוידי.
 
 המשתמשים היו מקבלים דיוידי פיסי בדואר, ובשאיפה מחזירים אותו לנטפליקס עם דירוג מ1 עד 5. 1 אומר מאוד לא אהבתי את הסרט, 5 אומר מאוד אהבתי את הסרט.
@@ -70,26 +17,12 @@ footer: "[Intro to Data Science](https://intro2ds2023.github.io/mooc/){target='_
 יותר מ20 אלף צוותים מיותר מ150 מדינות נרשמו לתחרות, והוגשו יותר מ13 אלף מודלים.
 
 בשנת 2009 הסתיימה התחרות בניצחון של חברת בלקור פרגמטיק כאוס עם RMSE של קצת יותר מ0.85, כלומר הם עמדו באתגר, וקיבלו מיליון דולר.
-:::
-:::
 
----
-
-### The Netflix (mini) Dataset
-
-::: {.fragment}
-![](images/miss_congeniality.jpg){width=25%}
-
-- 10,000 users, 99 movies
-- Can you predict the 100th movie's scores "Miss Congeniality"?
 :::
 
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 הדאטאסט שלנו לקוח מתוך הדאטא המקורי של התחרות אבל הוא יהיה צנוע יותר: יש לנו עשרת אלפים צופים או משתמשים של נטפליקס, ולהם דירוגים על 99 סרטים.
 
 המשימה שלנו תהיה לחזות את הדירוג של אותם משתמשים, לא על כל סרט אפשרי על על סרט אחד ספציפי: miss congeniality, או איזו מין שוטרת, כמו שקראו לו בישראל. איזו מין שוטרת הוא מעין קומדית פעולה רומנטית שהוקרנה בשנת 2000 בכיכובה של סנדרה בולוק. אם אף פעם לא ראיתם אותו - קשה לי להגיד שהוא מומלץ. בכל מקרה סנדרה בולוק מגלמת שם סוכנת FBI שמצטרפת כסוכנת סמויה לתחרות מלכת היופי של ארצות הברית, כדי לסכל איום טרור.
 
 ועוד דבר - ביחידה הזאת, נעבוד רק עם נוטבוק, בגוגל קולאב. קדימה לנתונים.
-:::
 :::
