@@ -1,67 +1,13 @@
----
-format:
-  revealjs:
-    slide-number: true
-    chalkboard: true
-    fig-width: 6
-    fig-asp: 0.618
-    template-partials:
-      - "../title-slide.html"
-css: "../slides_quarto.css"
-standalone: false
-include-in-header: "../header_quarto.html"
-logo: "../Intro2DS_logo_white.jpg"
-pagetitle: "Probability Refresher"
-callout-appearance: simple
-smaller: true
-execute:
-  eval: false
-  echo: false
-code-line-numbers: false
-code-block-border-left: true
-highlight-style: github
-footer: "[Intro to Data Science](https://intro2ds2023.github.io/mooc/){target='_blank'}"
----
+=== 1. הסתברות בדידה ======
 
-## {.logo-slide}
-
-## Introduction to Data Science {.title-slide}
-
-### Probability Refresher - Class 2
-
-### Giora Simchoni
-
-#### `gsimchoni@gmail.com` and add `#intro2ds` in subject
-
-### Stat. and OR Department, TAU
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 נעשה כעת חזרה מהירה על כמה מהנושאים החיוניים לנו מהסתברות.
 
 חשיבה הסתברותית היא אבן יסוד בעבודה עם נתונים. גם כשנעבוד עם מודלים שנראים כמו אלגוריתם טכני, שאין מאחוריו הנחות כלשהן של התפלגות, נראה שחשיבה הסתברותית עוזרת לנו להבין הרבה יותר טוב למה האלגוריתם הזה עובד ואיך אפשר לשפר אותו.
 
 אם יש סטודנטים שמרגישים שהמעבר כאן מהיר מדי עבורם, מומלץ לחזור על החומר של הקורס מבוא להסתברות.
-:::
-:::
----
 
-## Discrete Probability {.title-slide}
-
----
-
-### Discrete Probability
-
-::: {.incremental}
-- Sample space: A set $\Omega$, finite or countably infinite, of possible outcomes
-- Probability distribution: A real, non-negative function $F: \Omega \to [0,1]$, with $\sum_{\omega \in \Omega}F(\omega) = 1$
-- For every subgroup $A \subseteq \Omega$ define $F(A) = \sum_{\omega \in A}F(\omega)$
-- Random variable (RV) $X$ is distributed $F$ (marked $X \sim F$) if:
-$$Pr(X \in A) = F(A)$$
 :::
 
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 נתחיל עם מספר מושגים מהסתברות בדידה.
 
 מרחב המדגם שמסומן בדרך כלל באומגה, הוא קבוצה של כל המאורעות שיכולים לקרות, קבוצה סופית או בת מניה.
@@ -85,24 +31,7 @@ $$Pr(X \in A) = F(A)$$
 לבסוף נגדיר משתנה מקרי X להיות מספר הפעמים שהתקבל H. X מקבל ערכים 0, 1 ו-2 בהסתברות רבע, חצי ורבע על-פי התפלגות F. סך כל ההסתברויות: 1. 
 
 :::
-:::
 
----
-
-### Expectation
-
-::: {.incremental}
-- For a real random variable $\Omega \subset \mathbb{R}$
-- If $X \sim F$ then the expectation (mean) of $X$ is the weighted average by $F$:
-$$E(X) = \sum_{\omega \in \Omega} \omega \cdot F(w)$$
-- Expectation properties:
-    - Additivity: $E(X + Y) = E(X) + E(Y)$
-    - Linearity: $E(aX + b) = aE(X) + b$ for scalars $a, b$
-    - Invariance is not guaranteed for any function $f$: $E(f(X)) \neq f(E(X))$
-:::
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 ניזכר במושג התוחלת. עבור משתנה מקרי ממשי מרחב הערכים האפשריים הוא הישר הממשי,
 
 והתוחלת היא ממוצע משוקלל. ממוצע משוקלל של הערכים כפול ההסתברויות שלהם.
@@ -114,26 +43,9 @@ $$E(X) = \sum_{\omega \in \Omega} \omega \cdot F(w)$$
 תוחלת היא אדיטיבית, כלומר תוחלת של סכום היא סכום התוחלות.
 תוחלת היא ליניארית, כלומר תוחלת של טרנספורמציה ליניארית של משתנה היא טרנספורמציה ליניארית על התוחלת.
 וחשוב להזכיר שתוחלת אינה אינווריאנטית לכל פונקציה f, לדוגמא התוחלת של אחת חלקי X אינה אחת חלקי התוחלת של X.
-:::
-:::
 
----
-
-### Variance and Standard Deviation
-
-::: {.incremental}
-- Variance measures squared dispersion of an RV's values around its mean:
-$$Var(X) = E[(X - E(X))^2] = \sum_{w \in \Omega} (w - E(X))^2F(w)$$
-- Standard deviation is the squared root of the variance:
-$$SD(X) = \sqrt{Var(X)}$$
-- Variance properties:
-    - $Var(X) = E(X^2) - 2E^2(X) + E^2(X) = E(X^2) - [E(X)]^2$
-    - Additivity is not guaranteed: $Var(X + Y) \neq Var(X) + Var(Y)$ (unless independent, see later)
-    - Linearity is not really linearity: $Var(aX + b) = a^2Var(X)$ for scalars $a, b$
 :::
 
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 אם תוחלת מודדת מיקום, מרכז המסה של המשתנה המקרי, שונות מודדת פיזור - פיזור של המשתנה המקרי סביב התוחלת שלו.
 
 בהגדרה של השונות אנחנו מודדים את התוחלת של הסטיה הריבועית של X מהתוחלת שלו, כלומר זה תוחלת וגם השונות היא ממוצע משוקלל של סטיות ריבועיות.
@@ -151,33 +63,13 @@ E[(X - E(X))^2] = E[X^2 - 2XE(X) + E(X)^2] = E(X^2) -2E(X)E(X) + E(X)^2
 לבסוף השונות היא גם לא באמת ליניארית אבל יש כאן כלל שחשוב להכיר: שונות של aX+b, המקדם a יוצא החוצה בריבוע, ומקבלים a בריבוע כפול השונות המקורית של X.
 
 בדוגמא שלנו, נלך פשוט לפי ההגדרה: התוחלת של הסטיות הריבועיות של X מהתוחלת שלו שהיא 1 כמו שחישבנו: בסיכוי רבע סטייה של 1 בריבוע, בסיכוי חצי סטייה של אפס בריבוע, בסיכוי רבע סטייה של 1 בריבוע, ומקבלים חצי.
-:::
-:::
 
----
+=== 2. סוגי התפלגויות בדידות ======
 
-## Discrete Distributions {.title-slide}
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 יש מספר התפלגויות בדידות שכדאי להכיר. כרגע נחזור רק על התפלגויות ברנולי, בינומית ופואסון.
-:::
-:::
----
 
-### Bernoulli Distribution
-
-::: {.incremental}
-- For Bernoulli distribution $\Omega = \{0, 1\}$ or any two other values
-- Mark $X \sim Ber(p)$
-- Example: $X$ is the number of heads in a toss of a fair coin, $X \sim Ber(0.5)$
-- PDF: $Pr(X = 1) = p$
-- Expectation: $E(X) = p \cdot 1 + (1-p) \cdot 0 = p$
-- Variance: $Var(X) = E(X^2) - [E(X)]^2 = p - p^2 = p(1-p)$
 :::
 
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 כשאנחנו אומרים שמשתנה מתפלג ברנולי אנחנו מדברים על שתי תוצאות אפשריות: הצלחה או כישלון, תמונה אימפרסיוניסטית או ריאליסטית, עליה או ירידה. אבל כדי לדבר על תוחלת אנחנו תמיד נסמן 0 או 1.
 
 נסמן שמשתנה מתפלג ברנולי עם סיכוי p, כשp הוא הסיכוי שהמשתנה יקבל 1.
@@ -189,26 +81,9 @@ E[(X - E(X))^2] = E[X^2 - 2XE(X) + E(X)^2] = E(X^2) -2E(X)E(X) + E(X)^2
 התוחלת לפי ההגדרה פשוטה לחישוב היא p עצמו, והשונות היא p כפול אחת פחות p. 
 
 אנחנו רואים כאן שהתוחלת של X בריבוע היא גם p. איך מתקבל המעבר שהתוחלת של X בריבוע היא גם כן p? אם X מקבל ערכים 0 או 1 בהסתברות p ו-1 פחות p, גם X בריבוע יקבל ערכים 0 או 1 באותן הסתברויות, כלומר גם X בריבוע מתפלג ברנולי.
-:::
-:::
 
----
-
-### Binomial Distribution
-
-::: {.incremental}
-- Let $X_1, \dots, X_n \sim Ber(p)$ independently, then their sum $Y$ distributes Binomial:
-$$Y = \sum_{i=1}^{n}X_i \sim Bin(n, p)$$
-- For Binomial distribution $\Omega = \{0, 1, \dots, n\}$
-- PDF: $Pr(Y = k) = {n \choose k} p^k (1-p)^{n-k}$
-- Example: $Y$ is the number of heads in 10 tosses of a fair coin, $Y \sim Bin(10, 0.5)$
-- Expectation: $E(Y) = E(\sum_i X_i) = np$ (by additivity)
-- Variance: $Var(Y) = Var(\sum_i X_i) = \sum_i Var(X_i) = np(1-p)$ (by independence, additivity)
-- In example: $E(Y) = 5 \quad Var(Y) = 2.5$
 :::
 
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 איך מקבלים התפלגות בינומית? אם יש לנו אוסף של n משתני ברנולי ב"ת עם סיכוי זהה p, אז הסכום שלהם מתפלג בינומית.
 
 משתנה Y שמתפלג בינומית סופר למעשה את מספר הפעמים שנקבל את התוצאה אחת, או את מספר ה"הצלחות" מתוך n ניסיונות זהים. כלומר הערכים האפשריים למשתנה בינומי הם אפס עד n, ויש נוסחה פשוטה לקבל את ההסתברות לכל k.
@@ -220,22 +95,9 @@ $$Y = \sum_{i=1}^{n}X_i \sim Bin(n, p)$$
 שונות - כעת המשתנים שמרכיבים את הסכום הם בלתי תלויים, לכן שונות הסכום היא סכום השונויות, או n כפול p כפול 1 מינוס p.
 
 בדוגמא שלנו התוחלת של מספר הפעמים לקבל ראש בעשר הטלות מטבע תהיה 10 כפול חצי, יוצא חמש. והשונות עשר כפול חצי כפול חצי, יוצא 2.5.
-:::
-:::
 
----
-
-### Poisson Distribution
-
-::: {.incremental}
-- For $X \sim Pois(\lambda)$, $\Omega = \{0, 1, 2, \dots \}$ (inifinite sample space)
-- PDF: $Pr(X = k) = e^{-\lambda}\frac{\lambda^k}{k!}$
-- Expectation: $E(X) = \sum_{k=0}^{\infty}k \cdot e^{-\lambda}\frac{\lambda^k}{k!} = \sum_{k=1}^{\infty}k \cdot e^{-\lambda}\frac{\lambda^k}{k!} = \lambda e^{-\lambda} \sum_{k=1}^{\infty}\frac{\lambda^{k - 1}}{(k-1)!} = \lambda$
-- Variance: $Var(X) = E(X^2) - [E(X)]^2 = \lambda^2 + \lambda - \lambda^2 = \lambda$
 :::
 
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 התפלגות פואסונית חשובה מאוד במדעי הנתונים. נתחיל בתיאור טכני שלה.
 
 עבור התפלגות פואסונית, מרחב המדגם הוא אינסופי, הוא כל השלמים האי-שליליים. עבור משתנה X שמתפלג פואסונית עם פרמטר למדא, הסיכוי ש-X יקבל ערך מסוים K נתון בנוסחה הזאת.
@@ -243,26 +105,9 @@ $$Y = \sum_{i=1}^{n}X_i \sim Bin(n, p)$$
 כדי לחשב את התוחלת אנחנו מחשבים סכום של ערך כפול ההסתברות שלו. אם נוציא ערכים שלא תלוים בסכום החוצה, נראה שנשארנו עם מה שנזהה כטור טיילור של e בחזקת למדא, כלומר הוא מצטמצם עם הגורם e בחזקת מינוס למדא ונשארים עם למדא.
 
 חישוב דומה לשונות יראה שהתוחלת של X בריבוע הוא למדא בריבוע ועוד למדא, לכן השונות של משתנה פואסוני בשורה התחתונה שווה לתוחלת שלו.
-:::
-:::
 
----
-
-### Poisson Distribution (II)
-
-::: {.incremental}
-- Important in practice since it describes well common processes:
-    - number of customers arriving in line to get tickets at the cinema
-    - number of radioactive particles emitted in some period $t$
-    - number of mutations in the genome in some period $t$
-- Key charactesristic: memoryless
-    - As time $T_t$ to next event is independent from time $T_{t-1}$ it took to previous event, the number of events in time $T_t$ distributes Poisson
-- Additivity under independence:
-    - $X \sim Pois(\lambda_1)$, $Y \sim Pois(\lambda_1)$, then: $X + Y \sim Pois(\lambda_1 + \lambda_2)$
 :::
 
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 ההתפלגות הפואסונית חשובה מאוד כי היא מתארת בקירוב טוב תהליכי ספירה שקורים ביומיום או במחקר:
 
 מספר הלקוחות שמגיעים לתור כלשהו, למשל בקולנוע
@@ -274,36 +119,13 @@ $$Y = \sum_{i=1}^{n}X_i \sim Bin(n, p)$$
 תכונה נוספת היא האדיטיביות של שני משתנים פואסונים ב"ת: הסכום שלהם מתפלג גם כן פואסונית עם סכום הקצבים. בדוגמא של התור לקולנוע, אפשר לחשוב על ההתפלגות של מספר הלקוחות של *שני* תורות.
 
 :::
-:::
 
----
+=== 3. התפלגויות אמפיריות ======
 
-## Empirical distributions and relations between RVs {.title-slide}
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 נעבור כעת לנושא של קשרים בין שני משתנים מקריים. לפני זה, ננסה להגדיר במדויק את פונקצית ההתפלגות האמפירית.
-:::
-:::
----
-
-### Empirical distribution
-
-::: {.incremental}
-- We have $n$ observations (a sample): $x_1, x_2, \dots, x_n$
-- Let $\Omega$ be the sample space: $\Omega = \{x_1, x_2, \dots, x_n\}$
-- If there are no ties, the empirical distribution $F$ would be:
-$$F(x_i) = \frac{1}{n} \text{ for each } i$$
-- Otherwise we can generalize:
-$$F(x_i) = \frac{|\{j: x_j = x_i\}|}{n}$$
-- The sample can now be described via its empirical distribution:
-    - if the observations are real, what is the empirical distribution's expectation?
-    - What is the meaning of $F(\omega_1) = F(\omega_2)$ for $\omega_1, \omega_2 \in \Omega$?
 
 :::
 
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 פונקצית ההתפלגות האמפירית חשובה לנו כל כך, כי היא הדרך שלנו לעבור מנתונים, מספרים, להסתברות. איך נפעיל כלים הסתברותיים על המדגם שלנו?
 
 יש לנו מדגם בגודל n שבו אנחנו מסמנים כל תצפית כx_i,
@@ -322,73 +144,23 @@ $$F(x_i) = \frac{|\{j: x_j = x_i\}|}{n}$$
 ומה המשמעות אם אני רושם שF(w1) שווה ל-F(w2)? זה אומר ששתי התצפיות האלה מופיעות אותו מספר פעמים במדגם.
 
 :::
-:::
 
----
-
-### Example: The Titanic's Passengers
-
-| Survived | Age  | Sex    | Class |
-|---------|-------|--------|------ |
-| Dead    | Adult | Male   | Third |
-| Dead    | Adult | Male   | Crew  |
-| Dead    | Adult | Female | Third |
-| Alive   | Adult | Female | First |
-| Dead    | Adult | Male   | Crew  |
-
-Given information about passengers, what questions might we be interested in and statistically examine?
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 ניקח כדוגמא למדגם נתונים מפורסמים של נוסעי הטיטאניק.
 
 כל שורה בטבלה היא נוסע שיש לגביו ארבעה נתונים או משתנים: האם שרד או לא, האם הגיל שלו היה מבוגר מעל גיל 18 או צעיר. המין שלו והמחלקה בה נסע: ראשונה, שניה, שלישית או צוות הספינה.
 
 אילו שאלות מעניינות סטטיסטית או הסתברותית ניתן לשאול על מדגם כזה? הרבה מאוד.
-:::
-:::
-
----
-
-### Basic definitions
-
-::: {.incremental}
-- Suppose we have data regarding two (or more) variables in the dataset, mark as $X, Y$
-    - $X$ values $x_1, \dots, x_K$
-    - $Y$ values $y_1, \dots, y_L$
-- In Titanic example: $X$ might be the Class ($K = 4$), and $Y$ survival status ($L = 2$)
-- Let's formalize the empirical distributions and ask interesting questions
 
 :::
 
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 נתמקד בשני משתנים X ו-Y. X יקבל K ערכי X אפשריים, ו-Y יקבל L ערכי Y אפשריים.
 
 בדוגמת הטיטאניק X יהיה המחלקה שבה נסע הנוסע (ולה יש ארבעה ערכים אפשריים), ו-Y יהיה המצב שלו לאחר הטביעה: שרד או לא, כלומר שני ערכים.
 
 נראה את ההתפלגויות האמפיריות, ומהן נשאל שאלות מעניינות. נדבר על כמה התפלגויות אמפיריות מעניינות:
-:::
-:::
 
----
-
-### Distribution I: the Marginal Distribution
-
-::: {.incremental}
-- $P(X)$ is the empirical distribution of the Class
-- Its properties:
-    - $P(X = x_k) \geq 0 \quad \forall k$
-    - $P(X = x_1) + P(X = x_2) + \dots + P(X = x_K) = 1$
-- What representation is suitable?
 :::
 
-::: {.fragment}
-![](images/titanic_class.png){width=50%}
-:::
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 ההתפלגות הראשונה היא ההתפלגות השולית, או המרג'ינל, זו בדיוק פונקצית ההתפלגות האמפירית שדיברנו עליה.
 
 במקרה של X היא ההתפלגות של המחלקה, הקלאס. ההסתברות לראות כל אחת מהמחלקות גדולה או שווה לאפס, סכום ההסתברויות הוא אחת.
@@ -396,25 +168,9 @@ Given information about passengers, what questions might we be interested in and
 איך ניתן להציג התפלגות כזאת?
 
 מאחר שמדובר רק בארבעה ערכים אפשר לרשום אותם בצורת טבלה, את המספרים עצמם, ההסתברויות או גם וגם. יש שיטענו שצורה גרפית מתאימה היא גרף עוגה או פאי צ'ארט, אני אישית הייתי מעדיף לראות נתונים כאלה בגרף מקלות או בארצ'ארט.
-:::
-:::
-
----
-
-### Distribution II: the Joint Distribution
-
-::: {.incremental}
-- $P(X, Y)$ is the empirical joint distribution of the two variables
-- Its properties:
-    - $P(X = x_k, Y = y_l) \geq 0 \quad \forall k,l$
-    - $\sum_{k = 1, \dots, K, l = 1, \dots, L}P(X = x_1, Y = y_l) = 1$
-    - $P(X = x_1, Y = y_l) + P(X = x_2, Y = y_l) + \dots + P(X = x_K, Y = y_l) = P(Y = y_l)$
-- What representation is suitable?
 
 :::
 
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 כל עוד אנחנו יודעים לתאר רק התפלגות אמפירית של משתנה אחד אנחנו די מוגבלים. התפלגות אמפירית מעניינת יותר היא ההתפלגות המשותפת או הjoint, של שני משתנים X ו-Y.
 
 כעת אנחנו כבר שואלים מה ההסתברות שX שווה לערך מסוים בו זמנית עם זה שY שווה לערך אחר. במקרה שלנו אפשר לשאול למשל מה הסיכוי לראות במדגם נוסע מצוות הספינה (ערך X) ששרד (ערך Y). כך שאנחנו רואים שמרחב המדגם הוא מעין מכפלה של מרחבי המדגמים של X ושל Y מבלי להיכנס להגדרה מדויקת. אם יש 4 אפשרויות ל-X ו-2 שאפשרויות ל-Y, במרחב המדגם של ההתפלגות המשותפת יהיו 8 אפשרויות.
@@ -425,43 +181,15 @@ Given information about passengers, what questions might we be interested in and
 
 איך ראוי להציג התפלגות משותפת של שני משתנים בדידים עם מעט ערכים כמו כאן?
 :::
-:::
 
----
-
-### The Contingency Table
-
-::: {.fragment}
-![](images/titanic_contingency_class_survival.jpg){}
-
-- Note the table also includes the marginal distributions
-- In order to get percentages (emprical probabilities) divide the numbers by their total, here 2201
-:::
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 הצגה מקובלת היא טבלת השכיחות הזאת, או טבלת ההתפלגות המשותפת ה-contingency table.
 
 נשים לב שהטבלה כתובה כרגע עם הנתונים עצמם. בשוליים נמצאים המספרים שמייצגים את ההתפלגות השולית, וכדי להגיע להתפלגות המשותפת צריך לחלק את המספרים בפנים הטבלה בסך המדגם של הנוסעים כלומר ב-2201.
 
 לדוגמא כדי לקבל את ההסתברות שנוסע מצוות הספינה שרד, צריך לחלק 212 ב-2201, שזה 9.6 אחוז.
-:::
-:::
 
----
-
-### Distribution III: the Conditional Distribution
-
-::: {.incremental}
-- This is the probability that $Y$ receives each of its values given $X$ is fixed at some value
-- The empirical conditional distribution of $Y$ given $X$ is marked $P(Y|X)$
-- Its properties:
-    - $P(Y = y_l | X = x_k) \geq 0 \quad \forall k,l$
-    - $P(Y = y_1 | X = x_k) + P(Y = y_2 | X = x_k) + \dots + P(Y = y_L | X = x_k) = 1$
 :::
 
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 ההתפלגות האמפירית השלישית שנדבר עליה היא ההתפלגות שתעניין אותנו ביותר: ההתפלגות המותנית, הconditional distirbution.
 
 בהתפלגות זו אנחנו מקבעים משתנה אחד, למשל X להיות בערך או קבוצת ערכים מסוימים, ושואלים: בהינתן שX נמצא בקבוצת הערכים הזאת, מה ההתפלגות של Y.
@@ -471,34 +199,9 @@ Given information about passengers, what questions might we be interested in and
 עדיין, זאת פונקצית הסתברות רגילה במובן שהסתברות גדולה או שווה לאפס, וסכום ההסתברויות הוא 1. 
 
 לדוגמא במקרה של הטיטאניק נשאל מה הסיכוי שנוסע שרד או טבע, בהינתן שהיה ממחלקה ראשונה, שניה, שלישית או צוות הספינה. באופן אינטואיטיבי וגם מהיכרותנו את סיפור הטיטאניק ההתפלגות של מצב הנוסע לאחר הטביעה בהינתן המחלקה שלו שונה לחלוטין. ופה טמון העניין האמיתי בנתוני הטיטאניק.
-:::
-:::
-
----
-
-### Distribution III: the Conditional Distribution
-
-::: {.incremental}
-- Bayes' Law:
-$$
-\begin{aligned}
-P(Y = \text{Alive} | X = \text{First}) &= \frac{P(X = \text{First}, Y = \text{Alive})}{P(X = \text{First})} \\
-&= \frac{P(X = \text{First} | Y = \text{Alive}) \cdot P(Y = \text{Alive})}{P(X = \text{First})}
-\end{aligned}
-$$
-
-- Law of total probability:
-$$
-\begin{aligned}
-P(Y = \text{Alive}) &= P(Y = \text{Alive}|X = \text{First})P(X = \text{First}) + \dots \\
-&+ P(Y = \text{Alive}|X = \text{Crew})P(X = \text{Crew})
-\end{aligned}
-$$
 
 :::
 
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 בהקשר של התתפלגות המותנית, ראוי לציין שתי נוסחאות מפתח הקשורות בהסתברות מותנית: נוסחת בייס ונוסחת ההסתברות השלמה.
 
 נוסחת בייס מקשרת לנו בין ההסתברות המותנית של Y בהינתן X, לבין ההסתברות המותנית של X בהינתן Y. ההסתברות המותנית של Y בהינתן X היא ההסתברות המשותפת של Y ושל X חלקי ההסתברות השולית של X. וההסתברות המשותפת של Y ושל X היא ההסתברות של X בהינתן Y כפול ההסתברות השולית של Y.
@@ -508,22 +211,7 @@ $$
 נוסחה נוספת שעוזרת לנו פעמים רבות בחישוב המכנה של נוסחת בייס או ההתפלגות השולית, היא נוסחת ההסתברות השלמה: הסיכוי שנוסע שרד, הוא הסיכוי שהוא שרד אם היה במחלקה ראשונה, כפול הסיכוי להיות במחלקה ראשונה, ועוד ההסתברות שהוא שרד אם היה במחלקה שניה כפול ההסתברות להיות במחלקה שניה, וכולי, עד צוות הספינה. כלומר כדי להגיע להסתברות הכללית לשרוד אנחנו עוברים דרך כל האפשרויות לשרוד.
 
 :::
-:::
 
----
-
-The marginal, joint and conditional distributions can be put in a single (crowded) table:
-
-![](images/titanic_all_dists.jpg){width=50%}
-
-::: {.incremental}
-1. Find the empirical marginal distribution of $X$ (Class). What is $P(X = \text{First})$?
-2. Find the empirical joint distribution of $X, Y$. What is $P(X = \text{First}, Y = \text{Alive})$?
-3. Find the empirical conditional distribution of $Y|X$. What is $P(Y = \text{Alive}| X = \text{First})$? See that Bayes' law holds.
-:::
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 הצגה שמסכמת את כל שלוש ההתפלגויות שלמדנו עליהן היא טבלה שמכילה גם התפלגויות שוליות, גם משותפות וגם מותנות.
 
 נבדוק שהגענו להבנה באמצעות שלוש שאלות, נסו לעצור את הסרטון ולענות בעצמכם:
@@ -539,21 +227,9 @@ The marginal, joint and conditional distributions can be put in a single (crowde
 נבדוק אם משפט בייס מתקיים (על הלוח):
 
 0.62 אכן שווה להסתברות המותנית ההפוכה מתוך השורה 0.285, כפול ההסתברות השולית0.323, חלקי ההסתברות השולית0.148.
-:::
-:::
 
----
-
-### Graphical methods for conditional distributions
-
-![](images/titanic_conditional.jpg){width=50%}
-
-::: {.incremental}
-What conditional distribution is represented here, $P(Y|X)$ or $P(X|Y)$?
 :::
 
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 גם התפלגות מותנית ניתן להציג כגרף עוגה או גרף מקלות.
 
 האם מה שמוצג בגרפי העוגה האלה היא הסתברות מותנית של מצב הנוסע בהינתן המחלקה שלו, או ההסתברות המותנית של המחלקה בהינתן מצב הנוסע, חי או מת? זוהי ההסתברות המותנית של המחלקה בהינתן מצב הנוסע. זו הסתברות בכיוון ההפוך למה שהסתכלנו עליו עד כה. משמאל התפלגות המחלקה בהינתן שהנוסע חי, כך שההסתברות כאן מיוצגת על ידי גודל הפרוסה של העוגה, מימין בהינתן שהוא מת.
@@ -561,35 +237,13 @@ What conditional distribution is represented here, $P(Y|X)$ or $P(X|Y)$?
 לדוגמא, אנחנו רואים שוב ביטוי לכמה עדיף להיות במחלקה הראשונה. מהעובדה שהשטח הירוק גדול פי כמה בעוגה השמאלית, אנחנו מבינים שאם הנוסע חי סביר פי כמה שהוא הגיע ממחלקה ראשונה, לעומת המצב שבו אנו יודעים שמת.
 
 :::
-:::
 
----
+=== 4. תלות בין זוג משתנים ======
 
-## Independence, Covariance and Correlation {.title-slide}
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 נסיים את המיני-מבוא שלנו בדיון בתלות בין משתנים והדרכים לכמת אותה.
 
 :::
-:::
----
 
-### Independence between RVs
-
-::: {.incremental}
-- Are $X, Y$ dependent?
-- Independence intuitive meaning: knowing $X$ does not "add" knowledge on $Y$, and vice versa.
-- More formally, the marginal distribution is equal to the conditional distribution:
-$$P(Y|X) = P(Y)$$
-- Note: if $P(Y|X)$ is equal to $P(Y)$, then necessarily --
-    - $P(X|Y) = P(X)$
-    - $P(X, Y) = P(X)P(Y)$
-- Also: $E(XY) = E(X)E(Y)$
-:::
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 מהי אי-תלות בין זוג משתנים? ההגדרה האינטואיטיבית היא שידע על משתנה אחד לא מוסיף לידע על ההתפלגות של המשתנה האחר, ולהיפך.
 
 בדוגמא של הטיטאניק - האם המחלקה והשרידות של נוסע ב"ת? בודאי שלא. הרי ראינו שאם נוסע היה במחלקה ראשונה, סיכויי ההישרדות שלו היו גבוהים ביותר מפי שתיים מנוסע במחלקה השלישית. ולהיפך: ראינו שאם אנחנו יודעים שנוסע שרד, הסבירות שהוא הגיע ממחלקה ראשונה גדולה פי כמה אם אנחנו יודעים שנוסע טבע.
@@ -599,23 +253,9 @@ $$P(Y|X) = P(Y)$$
 וכאשר אנחנו אומרים את זה אנחנו גם אומרים את הכיוון ההפוך, ידע על Y לא מוסיף על ידע על X, כלומר הכיוון ההפוך נכון גם כן. וניתן להראות גם שההסתברות המשותפת היא מכפלת ההסתברויות - כל שלוש ההגדרות האחרונות הן שקולות. 
 
 בנוסף אנו יודעים גם שתוחלת המכפלה של המשתנים שווה למכפלת התוחלות, עובדה שתעזור לנו בהמשך.
-:::
-:::
 
----
-
-### Covariance
-
-::: {.incremental}
-- Covariance is a measure of the joint variability of two RVs $X$ and $Y$
-- Formally:
-$$Cov(X, Y) = E_{XY}[(X - E(X))(Y - E(Y))] = E(XY) - E(X)E(Y)$$
-- The expectation is on the joint distribution of $(X, Y)$
-- Can think of it as a measure of correlation between $X$ and $Y$ (not dependence!)
 :::
 
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 קווארינס או שונות משותפת, הוא מדד להשתנות המשותפת של זוג משתנים X ו-Y. באנגלית זה נשמע טוב יותר, כי אנחנו שואלים עד כמה X ו-Y משתנים בקו, באופן דומה.
 
 ההגדרה הפורמלית של הקווריאנס היא התוחלת של מכפלת המרחק של X מהתוחלת שלו, כפול המרחק של Y מהתוחלת שלו. אפשר להראות שכמות זו שקולה לתוחלת המכפלה פחות מכפלת התוחלות.
@@ -623,25 +263,9 @@ $$Cov(X, Y) = E_{XY}[(X - E(X))(Y - E(Y))] = E(XY) - E(X)E(Y)$$
 נשים לב שהתוחלת של הקווריאנס היא על ההתפלגות המשותפת.
 
 ונדגיש, שאין זה נכון לומר שהקווריאנס מודד "אי-תלות", אלא הוא מודד מתאם, קשר. מדוע?
-:::
-:::
 
----
-
-### Covariance
-
-::: {.incremental}
-- Some properties
-    - When $X, Y$ are independent: $Cov(X, Y) = 0$ (opposite is not necessarily true!)
-    - If when $X$ gets "high" values so does $Y$ tend to get high values: $Cov(X, Y) > 0$
-    - If when $X$ gets "high" values $Y$ tends to get "low" values: $Cov(X, Y) < 0$
-    - What is $Cov(X, X)$?
-    - "Linearity": $Cov(aX + b, cY+d) = acCov(X, Y)$
-    - Now we can always write: $Var(X \pm Y) = Var(X) + Var(Y) \pm 2Cov(X, Y)$
 :::
 
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 כמה תכונות חשובות לקווריאנס:
 
 אמנם נכון שכאשר X ו-Y ב"ת הקווריאנס הוא אפס, אבל ההיפך אינו בהכרח נכון. אם מצאתם זוג משתנים שהקווריאנס ביניהם הוא אפס, בהחלט יכול להיות שהם תלויים. לדוגמא X ו-X בריבוע. אם תחשבו את הקווריאנס תגלו שהוא אפס, אבל ברור שאלה משתנים תלויים, ידע על X קובע במדויק מהו X בריבוע. לכן על זוג משתנים עם קווריאנס אפס נגיד שהם "בלתי מתואמים"
@@ -659,25 +283,7 @@ $$Cov(X, Y) = E_{XY}[(X - E(X))(Y - E(Y))] = E(XY) - E(X)E(Y)$$
 לסיום, עכשיו שאנחנו יודעים מהו הקווריאנס, אנחנו יכולים לחזור להגדרה הכללית לשונות הסכום של זוג משתנים כלשהם: היא שווה לסכום השונויות ועוד פעמיים הקווריאנס. כעת ניתן לראות שוב מדוע לזוג משתנים ב"ת הגדרה זו מצטמצמת לסכום השונויות.
 
 :::
-:::
 
----
-
-### Correlation
-
-::: {.incremental}
-- Since the magnitude of covariance is hard to interpret
-- Let us standardize:
-$$\rho_{XY} = Corr(X, Y) = \frac{Cov(X, Y)}{SD(X)SD(Y)}$$
-- $$-1 \leq Corr(X, Y) \leq 1$$
-- For a sample of $n$ pairs $(x_i, y_i)$:
-$$r_{XY} = \frac{\sum_{i=1}^{n} (x_i - \overline{x})(y_i - \overline{y})}
-{\sqrt{\sum_{i=1}^{n} (x_i - \overline{x})^2  \sum_{i=1}^{n}(y_i - \overline{y})^2}}$$
-- Nice geometric interpretation: Cosine similarity between two vectors (samples): $r_{xy} = \cos\theta = \frac{\bf{x}\cdot\bf{y}}{||\bf{x}||||\bf{y}||}$
-:::
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 מושג אחרון שנחזור עליו הוא הקורלציה, המתאם.
 
 אם הקווריאנס שווה לאפס, אנחנו יודעים שהמשתנים בלתי מתואמים. אבל אם הוא חיובי או שלילי, קשה לפרש מה אומר הגודל שלו.
@@ -693,5 +299,4 @@ $$r_{XY} = \frac{\sum_{i=1}^{n} (x_i - \overline{x})(y_i - \overline{y})}
 לבסוף נזכיר בשביל חובבי הגיאומטריה שאפשר להראות שמה שיש לנו כאן אינו אלא המרחק הקוסינוסי בין שני הוקטורים X ו-Y אחרי שמירכזנו אותם כלומר חיסרנו מהם את הממוצע. הוא בעצם הקוסינוס של הזווית שהם יוצרים. אם הזווית הזאת ישרה, כלומר אין ביניהם שום תיאום, נקבל 0. ואם הוקטורים נעים בדיוק לאותו כיוון הזווית ביניהם היא 0 ונקבל 1.
 
 עד כאן ליחידה זאת. ושוב - אם אתם חשים ניכור מוחלט מהמושגים שדיברנו עליהם כאן בצורה מהירה, מומלץ לחזור על תכנים מהקורס מבוא להסתברות. ביחידה הבאה נתחיל לנתח נתונים אמיתיים, גדולים ומעניינים יותר, ונדבר על exploratory data analysis או EDA.
-:::
 :::
