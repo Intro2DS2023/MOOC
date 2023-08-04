@@ -643,7 +643,7 @@ plt.show()
 ```{python}
 Y = X * 3 + 2 + np.random.normal(0, 10, 1000)
 sns.scatterplot(X, Y)
-plt.ylabel('Density')
+plt.ylabel('Y')
 plt.xlabel('X')
 plt.show()
 ```

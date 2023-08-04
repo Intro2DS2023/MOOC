@@ -1539,11 +1539,11 @@
 <div class="cell" data-execution_count="16">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>Y <span class="op">=</span> X <span class="op">*</span> <span class="dv">3</span> <span class="op">+</span> <span class="dv">2</span> <span class="op">+</span> np.random.normal(<span class="dv">0</span>, <span class="dv">10</span>, <span class="dv">1000</span>)</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>sns.scatterplot(X, Y)</span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Density'</span>)</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Y'</span>)</span>
 <span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'X'</span>)</span>
 <span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<p><img data-src="c03_eda_files/figure-revealjs/cell-17-output-1.png" width="514" height="440"></p>
+<p><img data-src="c03_eda_files/figure-revealjs/cell-17-output-1.png" width="523" height="435"></p>
 </div>
 </div>
 <aside class="notes">
@@ -1726,11 +1726,11 @@
 <span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Variance: </span><span class="sc">{</span>np<span class="sc">.</span>var(X) <span class="sc">:.2f}</span><span class="ss">'</span>)</span>
 <span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Standard Deviation: </span><span class="sc">{</span>np<span class="sc">.</span>std(X) <span class="sc">:.2f}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>90th percentile: 9.18
-Range: 21.89
-IQR: 3.89
-Variance: 10.29
-Standard Deviation: 3.21</code></pre>
+<pre><code>90th percentile: 8.95
+Range: 22.00
+IQR: 3.97
+Variance: 9.12
+Standard Deviation: 3.02</code></pre>
 </div>
 </div>
 </div>
@@ -1764,7 +1764,7 @@ Standard Deviation: 3.21</code></pre>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Skewness: </span><span class="sc">{</span>stats<span class="sc">.</span>skew(X) <span class="sc">:.2f}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Skewness: 1.28</code></pre>
+<pre><code>Skewness: 1.22</code></pre>
 </div>
 </div>
 </div>
