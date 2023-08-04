@@ -1,87 +1,13 @@
----
-format:
-  revealjs:
-    slide-number: true
-    chalkboard: true
-    fig-width: 6
-    fig-asp: 0.618
-    template-partials:
-      - "../title-slide.html"
-css: "../slides_quarto.css"
-standalone: false
-include-in-header: "../header_quarto.html"
-logo: "../Intro2DS_logo_white.jpg"
-pagetitle: "Inference - Part A"
-callout-appearance: simple
-smaller: true
-execute:
-  eval: true
-  echo: true
-code-line-numbers: false
-code-block-border-left: true
-highlight-style: github
-footer: "[Intro to Data Science](https://intro2ds2023.github.io/mooc/){target='_blank'}"
----
+=== 1. הסקה ממדגם - התמונה הגדולה ===
 
-## {.logo-slide}
-
-## Introduction to Data Science {.title-slide}
-
-### Inference - Part A - Class 7
-
-### Giora Simchoni
-
-#### `gsimchoni@gmail.com` and add `#intro2ds` in subject
-
-### Stat. and OR Department, TAU
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 הסקה סטטיסטית היא נושא מורכב שאפשר להקדיש לו סמסטר אחד לפחות. בקורס שלנו אנחנו רוצים לתת מבט על על הנושא, ולהשתמש כמה שניתן בתכנות כדי להבהיר את המושגים שנדון בהם.
-:::
-:::
 
----
-
-## The Big Picture {.title-slide}
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
-:::
 :::
 
----
-
-### Basic idea of statistical inference
-
-![](images/sampling_inference_diagram.png)
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 התרשים שלפנינו מתאר בצורה פשוטה את מטרת ההסקה הסטטסיטית. אנחנו מניחים שיש בעולם מציאות מסוימת, אוכלוסיה, שבה המדד שמעניין אותנו מתפלג בצורה מסוימת, לזה קראנו התפלגות. העולם הזה כל כך גדול שלא ניתן לראות את כולו, יש לנו איזשהן מגבלות כמו קיבולת או תקציב, לדגום רק מדגם סופי מהאוכלוסיה הזאת. ובעזרת המדגם הקטן, היינו רוצים להסיק בחזרה אל ההתפלגות הגדולה. התהליך הזה של דגימה והסקה הוא המוקד שלנו. ננסה ביחידה הזאת לדבר על כמה מושגים באמצעות סימולציה וקוד, לפני שאנחנו נכנסים לנוסחאות.
-:::
-:::
 
----
-
-### Basic idea of statistical inference
-
-::: {.fragment}
-The *distribution* is something we want to learn about: 
-
-- Which candidate has more support in the population?
-- Do impressionist paintings have more red than realist paintings?
 :::
 
-::: {.fragment}
-We are given a *sample* of data $X$ and want to use it to learn about the population:
-
-- An election survey
-- 30 impressionist paintings and 30 realist paintings
-:::
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 אילו דוגמאות יש לעולם, לאוכלוסיה, להתפלגות, עליהם אנחנו רוצים ללמוד?
 בזמן בחירות למשל לראשות הממשלה בין שני מועמדים, נרצה לדעת לפני יום הבחירות לאיזה מהמועמדים יש רוב באוכלוסיה.
 כשזה נוגע לציורים שלנו, נרצה לדעת לדוגמא האם לציורים אימפרסיוניסטיים יש רמה גבוהה יותר בממוצע של צבע אדום.
@@ -89,35 +15,9 @@ We are given a *sample* of data $X$ and want to use it to learn about the popula
 
 ומהו המדגם?
 במקרה של בחירות זה יהיה אחד מסקרי הבחירות שאנחנו שומעים עליהם כל כך הרבה. במקרה של הציורים אנחנו נניח שיש לנו תקציב לבדוק את רמת האדום רק ב30 ציורים אימפרסיוניסטיים ו30 ציורים ריאליסטיים.
-:::
-:::
 
----
-
-### Hypothesis testing
-
-::: {.fragment}
-We have a *null* world we believe in unless convinced otherwise: 
-
-- The candidates have equal support
-- There is no difference in red level between impressionist and realist paintings
 :::
 
-::: {.fragment}
-We want to use the sample to determine whether to reject the null:
-
-- Does the sample **convincingly indicate** that candidate 1 has higher support?
-- Does the sample contain **clear evidence** of more red in impressionist paintings?
-:::
-
-::: {.fragment}
-This is often indicated through the p-value, which *calculates* how consistent our data is with the null hypothesis
-
-Another view: the p-value measures how *surprising* the data we see is, if the null holds
-:::
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 הפרדיגמה שלנו נקראת בדיקת השערות.
 
 יש לנו עולם שנקרא לו עולם האפס, עולם הnull, אפשר לחשוב עליו כברירת מחדל, משהו שניתן להניח וכולם יודעים, ולהגיד משהו חדש ומעניין זה בעצם לנסות להתרחק מהעולם הזה. בדוגמא של בחירות לראשות הממשלה ההנחה היא שלמועמדים לראשות הממשלה יש תמיכה זהה. בדוגמא של הציורים ברירת המחדל תהיה שיש לציורים אימפרסיוניסטיים וריאליסטיים אותה רמה של פיקסלים אדומים.
@@ -125,90 +25,26 @@ Another view: the p-value measures how *surprising* the data we see is, if the n
 היינו רוצים כחוקרים להגיד משהו חדש. שהמדגם שלנו ישמש אותנו לדחייה של העולם הזה ש"כולם יודעים", וכך לקדם את הידע שלנו: בדוגמת הבחירות האם המדגם משכנע מספיק שלמועמד מסוים יש יותר תמיכה בקרב האוכלוסיה? בדוגמא של הציורים נשאל האם המדגם מהווה עדות מספקת שיש יותר אדום בציורים אימפרסיוניסטיים.
 
 הרבה פעמים נכמת את מידת ההפתעה הזאת באמצעות כמות שנקראת pvalue. אפשר לראות בpvalue כמודד עד כמה המדגם קונסיסטנטי עם השערת האפס, עם מה שכולנו כביכול אמורים לדעת והוא איננו חדשות. ככל שהוא יהיה קטן יותר כך נהיה מופתעים יותר תחת העולם הזה של השערת האפס, תחת ההנחות הידועות שלנו, ואולי נדחה אותן.
-:::
-:::
 
----
-
-### Conceptual example: Criminal trial
-
-- In a criminal trial, suspects get convicted only if their guilt is proven *beyond reasonable doubt* 
-- This is a hypothesis test with null hypothesis: the suspect is innocent
-- Data: the evidence the sides bring in trial
-- Beyond reasonable doubt: the evidence is not consistent with the null of innocence
-- Difference: the decision is based on the judge's intuition, whereas formal hypothesis testing is based on calculating probabilities
-
-::: {.fragment}
-Key element: The two hypotheses are not symmetric!
 :::
 
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 דוגמא שעוזרת הרבה פעמים לסטודנטים להבין את הפרדיגמה של בדיקת השערות היא מעולם המשפט.
 
 בבית המשפט, חשוד לא מורשע אלא אם כן הוכחה אשמתו מעל לאיזשהו סף ספק סביר. אפשר לראות את ברירת המחדל שהחשוד חף מפשע כהשערת האפס. המדגם או הנתונים, הם הראיות. והשאיפה של התובע להוכיח את אשמת החשוד מעבר לספק סביר היא בעצם הניסיון שלו להראות שהראיות, הדאטא, לא תואמות את הנחת החפות. ההבדל הוא שברוב המשפטים הדבר שיכריע האם הדאטא מרחיק אותנו מהשערת החפות הוא הניסיון והאינטואיציה של השופט. בעולם מדעי הנתונים אנחנו השופטים, וכדי לקבוע אם לדחות את השערת האפס נראה שנחשב הסתברויות.
 
 אבל הדוגמא הזאת מדגימה עוד עיקרון מפתח בפרדיגמה שלנו: שתי ההשערות, האפס והאלטרנטיבית אינן סימטריות! אין כאן הכרעה בין שני מצבים שכל אחד יכול להחליף את השני, בדרך כלל השערת האפס היא כאמור ברירת מחדל, היא הנחת מוצא, שאנחנו צריכים כחוקרים לעבוד קשה כדי לצאת ממנה, אל ההשערה האלטרנטיבית. לכן גם מקפידים על הז'רגון הזה של לדחות או לא לדחות את השערת האפס.
-:::
-:::
 
----
-
-### The importance of (formal) hypothesis testing in the world
-
-::: {.fragment}
-All scientific discovery is done through the hypothesis testing formalism:
-
-- Null hypothesis: We did not discover something new (like a new particle, or a new genetic influence on disease)
-- Examples: Higgs boson search, studies for finding genes that cause disease
-- P value: strength of evidence that what we found is indeed new and different
 :::
 
-::: {.fragment}
-All the formal processes of testing medications, food etc. 
-
-- Null hypothesis: the new medicine does not reduce cholesterol
-- Example: study with people who got the medicine or placebo
-- P value: how convincing is the evidence that the medicine is more effective than placebo?
-:::
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 למי שעוד לא מתמצא בעולם של מחקר מדעי, הפרדיגמה הזאת של בדיקת השערות חשובה ונפוצה כל כך, עד שנסתכן ונאמר שכיום כמעט כל גילוי מדעי חייב להשתמש בה. נראה גם ביקורת על המצב הזה. השערת האפס היא בדרך כלל לא גילינו שום דבר חדש, הנתונים האלה תואמים את הידע המדעי הקיים. בדוגמא של חלקיק ההיגס בוזון החוקרים הניחו שהחלקיק שלפניהם מוכר, בדוגמא מתחום הגנטיקה חוקרים מניחים שאין השפעה של מוטציה גנטית שהם בודדו על מחלה מסוימת. הpvalue הוא מדד לחוזק העדות שכן יש כאן משהו חדש.
 
 דוגמא נוספת היא כל מחקר קליני בתחום התרופות. השערת האפס היא שלתרופה אין השפעה על המחלה או על כמות הכולסטרול בדם. מחקר אופייני יחלק קבוצה אקראית של חולים לקבוצה שתקבל את התרופה וקבוצה שתקבל פלסבו, תרופת דמה. והpvalue יכמת בעצם עד כמה התרופה היתה יעילה יותר בהורדת הכולסטרול מהפלסבו.
 
 ננתח עכשיו לעומק את דוגמת הציורים שתלווה אותנו בהמשך.
-:::
-:::
 
----
 
-## Example: Red Paintings {.title-slide}
+=== 2. דוגמא: אדום בציורים ===
 
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
-:::
-:::
-
----
-
-### Red Paintings Example
-
-- We want to examine whether there is more red in impressionist paintings vs realist paintings
-
-- The "world" is the 16K paintings we have: 8K realist, 8K impressionist
-
-::: {.fragment}
-- Imagine we can't check all of them, but can only sample a few of each kind and see the difference
-
-- Our challenge: to determine if it is *convincing* evidence that impressionist paintings are redder overall
-
-- Use hypothesis testing approach
-:::
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 כאמור ראינו שציירים אימפרסיוניסטים נטו להשתמש ביותר צבע לצייר סיטואציות עליזות יותר, לעומת העולם הריאליסטי הקודר של המהפכה התעשייתית במאה ה19. ונרצה לבחון האם יש  באמת יותר אדום, צבע עליז, בציורים אימפרסיוניסטיים.
 
 כדי לבצע סימולציה, נניח שהעולם שלנו הוא אלפי הציורים שהורדנו מאתר wikiart, במדגם הלמידה יש לנו שם שמונת אלפים ציורים ריאליסטיים ושמונת אלפים ציורים אימפרסיוניסטיים, סך הכל אוכלוסייה של 16 אלף ציורים.
@@ -216,247 +52,43 @@ All the formal processes of testing medications, food etc.
 דמיינו שהבדיקה ידנית, דמיינו שלא ניתן לעבור ציור ציור ולקבוע כמה אדום יש בו.
 
 ניתן לקחת רק מדגם, ולשאול האם הוא מהווה עדות חזקה מספיק כדי להגיד שציורים אימפרסיוניסטיים הם אדומים יותר בממוצע, ואת זאת נעשה עם הפרדיגמה של בדיקת השערות באמצעות מדגם.
-:::
-:::
 
----
-
-```{python}
-#| echo: false
-
-import sys
-import warnings
-import pandas as pd
-import numpy as np
-import matplotlib.pyplot as plt
-from skimage import transform, color, img_as_ubyte
-
-def check_mem():
-    # These are the usual ipython objects, including this one you are creating
-    ipython_vars = ['In', 'Out', 'exit', 'quit', 'get_ipython', 'ipython_vars']
-
-    # Get a sorted list of the objects and their sizes
-    print(sorted([(x, sys.getsizeof(globals().get(x))) for x in globals() if not x.startswith('_') and x not in sys.modules and x not in ipython_vars], key=lambda x: x[1], reverse=True))
-
-def get_file_list(df, folder, n_sample = None, seed = None):
-    if n_sample is None:
-        file_ids_list = df.title.values
-    else:
-        file_ids_list = df.sample(n = n_sample, random_state = seed).title.values
-    files_list = [folder + '/' + file_id for file_id in file_ids_list]
-    return files_list
-
-def read_image_and_resize(f, w = 100, h = 100):
-    img = plt.imread(f)
-    img = transform.resize(img, (w, h), mode='constant', anti_aliasing=True)
-    with warnings.catch_warnings():
-        warnings.simplefilter("ignore")
-        img = img_as_ubyte(img)
-    if img.shape != (100, 100, 3):
-        img = color.gray2rgb(img)
-    img = img[np.newaxis, :, :, :3]
-    if img.shape != (1, 100, 100, 3):
-        raise ValueError(f + str(img.shape))
-    return img
-
-def read_images_4d_array(files_list):
-    images_list = [read_image_and_resize(file) for file in files_list]
-    images_array = np.concatenate(images_list)
-    return images_array
-
-def get_images_matrix(csv_file, folder, n = None, seed = 1976):
-    df = pd.read_csv(csv_file)
-    files_list = get_file_list(df, folder, n, seed)
-    images = read_images_4d_array(files_list)
-    return images
-
-def get_all_pixels(x):
-    return x.reshape(-1, np.prod(x.shape[1:]))
-
-folder = 'C:/Users/gsimchoni/Downloads/wikiart2/wikiart/'
-```
-
-```{python}
-real_sample = get_images_matrix(folder + 'realism_train.csv', folder + 'realism', n = 30, seed = 1976)
-impr_sample = get_images_matrix(folder + 'impressionism_train.csv', folder + 'impressionism', n = 30, seed = 1976)
-
-real_red = real_sample[:, :, :, 0].mean(axis = (1, 2))
-impr_red = impr_sample[:, :, :, 0].mean(axis = (1, 2))
-
-print(real_red[:10])
-print(impr_red[:10])
-```
-
-
-::: {.fragment}
-```{python}
-print(f'Realist paintings mean red value: {real_red.mean():.2f}')
-print(f'Impressionist paintings mean red value: {impr_red.mean():.2f}')
-print(f'Means difference: {impr_red.mean() - real_red.mean(): .2f}')
-```
 :::
 
-::: {.fragment}
-It looks as you expected, impressionist paintings average red pixel is higher by about 15 points, but if you do it again, results would be different, wouldn't they?
-:::
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 והנה אנחנו לוקחים את המדגם. מדגם של 30 ציורים ריאליסטיים, ומדגם של 30 ציורים אימפרסיוניסטיים. אנחנו לוקחים רק את השכבת צבע הראשונה שהוא הצבע האדום, ומקבלים רמה ממוצעת של אדום לכל ציור וציור. כאן אני מדפיס את הרמה של אדום שמדדנו בעשרת הציורים הריאליסטיים הראשונים ועשרת הציורים האימפרסיוניסטיים הראשונים. נזכור שרמת כל צבע היא מספר בין 0 ל-255 כך שהמספרים הגיוניים, וככל שהמספר גבוה יותר כך יש יותר מאותו הצבע בציור.
 
 אנחנו מחשבים את ממוצע הצבע האדום במדגם הריאליסטי ובמדגם האימפרסיוניסטי, ומגלים שאכן, בהתאם להשערה האלטרנטיבית שלנו, יש יותר אדום בציורים אימפרסיוניסטיים מאשר בציורים ריאליסטיים. כמה יותר? בערך 15 נקודות. אבל זה לא ממש משכנע, נכון? אם נדגום שוב נקבל בטח תוצאה אחרת.
-:::
-:::
 
----
-
-```{python}
-real_sample2 = get_images_matrix(folder + 'realism_train.csv', folder + 'realism', n = 30, seed = 1961)
-impr_sample2 = get_images_matrix(folder + 'impressionism_train.csv', folder + 'impressionism', n = 30, seed = 1961)
-
-real_red2 = real_sample2[:, :, :, 0].mean(axis = (1, 2))
-impr_red2 = impr_sample2[:, :, :, 0].mean(axis = (1, 2))
-
-print(f'Realist paintings mean red value: {real_red2.mean():.2f}')
-print(f'Impressionist paintings mean red value: {impr_red2.mean():.2f}')
-print(f'Means difference: {impr_red2.mean() - real_red2.mean(): .2f}')
-```
-
-::: {.fragment}
-Assume sampling is expensive. You have the capacity for 60 paintings.
-
-How will you know, that the difference you're seeing is of significance? That it will "stick"? That what everyone is thinking, the null hypothesis, should be rejected, and your alternative hypothesis is more likely?
 :::
 
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 נדגום שוב ונגלה שאכן אפשר לקבל תוצאה שונה.
 
 נדמיין שהדגימה יקרה כמו שקורה פעמים רבות במציאות במחקר או בתעשייה. ויש לנו תקציב לדגימה של 60 ציורים בלבד, פעם אחת בלבד. איך נדע שההבדל שאנחנו רואים במדגם אחד הוא חשוב, הוא מובהק, שהוא מעיד על כך שברירת המחדל שלשני סגנונות הציור יש אותה רמה של אדום בהם - היא לא נכונה? לפני שניכנס לנוסחאות - יש לנו פריווילגיה בקורס שלנו שאנחנו יכולים להדגים את בדיקת ההשערות, באמצעות סימולצית מחשב, באמצעות פייתון.
-:::
-:::
 
----
+=== 3. התפלגות האפס באמצעות סימולציה ===
 
-## The Null Distribution by Simulation {.title-slide}
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 אז איך בונים את השערת האפס, את התפלגות האפס, באמצעות סימולציה?
-:::
-:::
 
----
-
-### The Null Distribution by Simulation
-
-- Under the null hypothesis, impressionist and realist paintings come from the same homogenous population.
-
-- To illustrate this we will create an **artificial null** world, made of 16K paintings images in our training dataset. Then we can randomly assign half as impressionist and half as realist 
-
-- In this world we **know** that impressionist paintings and realist paintings have about the same amount of red
-
-::: {.fragment}
-
-```{python}
-real_all = get_images_matrix(folder + 'realism_train.csv', folder + 'realism')
-impr_all = get_images_matrix(folder + 'impressionism_train.csv', folder + 'impressionism')
-
-real_red_all = real_all[:, :, :, 0].mean(axis = (1, 2))
-impr_red_all = impr_all[:, :, :, 0].mean(axis = (1, 2))
-
-population = np.concatenate([real_red_all, impr_red_all])
-
-print(population.shape)
-```
 :::
 
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 תחת השערת האפס הרי אין הבדל בין ציורים ריאליסטיים וציורים אימפרסיוניסטיים מבחינת כמות האדום בהם. אנחנו יכולים לקחת את אלפי התמונות שלנו ולאחד אותן, לתוך עולם מלאכותי אחד ויחיד של 16 אלף תמונות. בעולם כזה כל פעם שנדגום שתי קבוצות של 30 ציורים ונקרא להם אימפרסיוניסטיים ו-30 ציורים שנקרא להם ריאליסטיים, אנחנו יודעים, שרמת האדום היא זהה בין שתי הקבוצות. זה עולם מלאכותי.
 
 כאן אנחנו יוצרים את העולם הזה בפייתון, 16 אלף תמונות של ציורים זה לא כל כך נורא, אנחנו קוראים את כולם לזיכרון, מחשבים את רמת האדום הממוצעת בהם, ומאחדים אותם ל16 אלף מספרים של רמת אדום. לאוביקט הזה אנחנו קוראים במרכאות אוכלוסיה, population.
+
 :::
-:::
 
----
-
-```{python}
-plt.hist(population, bins=20)
-plt.show()
-```
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 אם נצייר היסטוגרמה של האוכלוסיה, זו רמת האדום הממוצעת ב16 אלף ציורים, היא נראית כך, די סימטרית וערכים בן 0 ל-255. חשוב לי להדגיש שהיא רק במקרה סימטרית ויפה, היא לא היתה חייבת להיראות ככה בכלל ועדיין היינו ממשיכים כרגיל.
-:::
-:::
-
-----
-
-- We can sample two random samples of so-called "impressionist" and so-called "realist" paintings to prove to ourselves that the difference between their means should be about zero:
-
-```{python}
-real_red_null = np.random.choice(population, 30, replace=False)
-impr_red_null = np.random.choice(population, 30, replace=False)
-print(f'Means difference: {impr_red_null.mean() - real_red_null.mean(): .2f}')
-```
-
-::: {.fragment}
-- We got a mean difference which is different than zero, *by random*. And again and again:
-
-```{python}
-real_red_null = np.random.choice(population, 30, replace=False)
-impr_red_null = np.random.choice(population, 30, replace=False)
-print(f'Means difference: {impr_red_null.mean() - real_red_null.mean(): .2f}')
-
-real_red_null = np.random.choice(population, 30, replace=False)
-impr_red_null = np.random.choice(population, 30, replace=False)
-print(f'Means difference: {impr_red_null.mean() - real_red_null.mean(): .2f}')
-```
 
 :::
 
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 כעת נדגום שני מדגם של 30 ציורים אימפרסיוניסטיים לכאורה ו-30 ציורים ריאליסטיים לכאורה, ונסתכל על ההבדל ברמת האדום שלהם. ושוב, למה לכאורה? כי הדגימה נעשית מתוך אוכלוסיה אחת גדולה של ציורים!
 
 כאן אני משתמש בפונקציה np.random.choice, שנותנת לי מדגם של 30 ציורים ללא החזרה, ועוד אחד, ובודק את הפרש הממוצעים של האדום ביניהם, ומקבל מספר ששונה מאפס.
 
 אני יודע שהמספר הזה שונה מאפס רק בגלל אקראיות, ואכן, אם אחזור על הדגימה שוב ושוב אקבל מספרים אחרים!
-:::
-:::
 
-----
-
-### The Null Distribution
-
-- We want to know how is *our* original average difference of about 15 points is in comparison to these **null** average differences between groups coming from the same population.
-
-- So we'll make a lot of the them and look at their distribution, the null distribution of the means difference:
-
-::: {.fragment}
-```{python}
-#| code-line-numbers: "|6|"
-
-def sample_null_mean_diff(n = 30):
-    real_red_null = np.random.choice(population, n, replace=False)
-    impr_red_null = np.random.choice(population, n, replace=False)
-    return impr_red_null.mean() - real_red_null.mean()
-
-null_mean_diffs = np.array([sample_null_mean_diff() for i in range(10000)])
-
-print(f'Max null mean diff: {max(null_mean_diffs): .2f}')
-print(f'Min null mean diff: {min(null_mean_diffs): .2f}')
-```
 :::
 
-::: {.fragment}
-- We can see that the max null mean differences is actually much higher than our original 15 points. So at random, when there is *no difference*, you can get mean differences of over 30!
-:::
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 כעת שימו לב לנקודה הבאה: היינו רוצים לדעת כמה הערך המקורי שקיבלנו, של הפרש 15, הוא חריג ביחס למדגמים כאלה, מאוכלוסיית האפס, שבה לא אמור להיות הבדל ביניהם. אז מה שנעשה זה נדגום הרבה זוגות של מדגמים מהאוכלוסיה הגדולה, נחשב את הפרש האדום ביניהם, נסתכל על ההתפלגות של ההפרשים האלה, וזו תהיה התפלגות האפס שלנו.
 
 בקוד שלפנינו אני שם את הדגימה מהאוכלוסיה של שני מדגמים בתוך פונקציה שנקראת sample_null_mean_diff, היא עושה בדיוק את מה שראינו. קח מדגם ועוד מדגם וחשב את ההפרש בין הממוצעים.
@@ -464,63 +96,13 @@ print(f'Min null mean diff: {min(null_mean_diffs): .2f}')
 וכעת אני חוזר על זה 10000 פעמים, כדי לקבל 10000 הפרשי ממוצע. ברשימה הזאת של null_mean_diffs, יש בעצם את התפלגות האפס שלי, של 10000 הפרשי ממוצעים, תחת הידיעה שלא אמור להיות בין שני המדגמים הבדל.
 
 הדפסתי כאן קודם כל את המקסימום והמינימום של ההתפלגות הזאת. באופן מדהים, אפילו בהתפלגות האפס יש הפרשים גדולים הרבה יותר מ15 הנקודות שאנחנו קיבלנו! אפשר לקבל באקראי גם הפרשים של מעל 30 ו-40! אז האם ההפרש שלנו של 15, שהתקבל מזוג מדגמים אמיתי של ציורים ריאליסטיים ואימפרסיוניסטיים, הוא כל כך חריג?
+
 :::
-:::
 
----
-
-Let's look at the null distribution histogram:
-
-```{python}
-#| code-fold: true
-
-fig, ax = plt.subplots()
-
-N, bins, patches = ax.hist(null_mean_diffs, bins=np.arange(-45, 45, 5))
-for i in range(0, 12):
-    patches[i].set_facecolor('blue')
-for i in range(12, len(patches)):
-    patches[i].set_facecolor('red')
-
-plt.show()
-```
-
-It seems like our original value of 15 points difference is not that extreme. There's a measure for that:
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 באופן מפורש יותר נביט בכל ההתפלגות של ההפרשים עם היסטוגרמה, ונסמן את הערך שאנחנו קיבלנו, של 15 נקודות הפרש. ונראה ש15 נקודות הפרש זה לא ערך כל כך קיצוני תחת התפלגות האפס. כמה קיצוני? בשביל זה יש לנו את מדד הpvalue.
-:::
-:::
 
----
-
-### P-Value
-
-- How extreme is our original 15 points result?
-
-::: {.fragment}
-- What is the probability under the null distribution, where there is no difference between "realist" and "impressionist", of getting 15 or higher?
 :::
 
-::: {.fragment}
-```{python}
-one_sided_p_value = np.mean(null_mean_diffs >= 15)
-
-print(f'P(mean_diff >= 15 | H0) = {one_sided_p_value: .2f}')
-```
-:::
-
-::: {.fragment}
-- It looks like the chance of getting a difference of 15 points or higher, when there is no difference, is ~6-7%. Does that convince you that there actually is a difference, that indeed the realist and impressionist samples came from two different, separate, distributions?
-:::
-
-::: {.fragment}
-- It is a standard in both academia and industry to not be persuaded by a p-value larger than a threshold $\alpha$ of 1% or 5% (a.k.a Type I Error, see soon).
-:::
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 הpvalue, הוא הסיכוי לקבל ערך קיצוני כפי שקיבלנו או קיצוני יותר, תחת התפלגות האפס. בתרשים שראינו אפשר לחשוב עליו כשטח האדום בהיסטוגרמה, מעל הערך שקיבלנו, 15.
 
 נחשב את השטח הזה כך: מה יחס המספרים שהם מעל 15. לp-value כזה אנחנו קוראים pvalue חד צדדי, כי אנחנו מעוניינים רק בתוצאות שהן קיצוניות לכיוון שבו ציורים אימפרסיוניסטיים הם אדומים יותר מציורים ריאליסטיים.
@@ -528,34 +110,9 @@ print(f'P(mean_diff >= 15 | H0) = {one_sided_p_value: .2f}')
 וכאן, הוא יוצא שבעה אחוז בערך. כלומר, גם תחת השערת האפס שאין הבדל בין ציורים אימפרסיוניסטיים לריאליסטיים ברמת האדום, אפשר בסיכוי לא רע של 7 אחוזים לקבל הפרש של 15 נקודות אדום בין שני מדגמים אקראיים. אז האם זה משכנע אתכם שיש הבדל בין ציורים אימפרסיוניסטיים לריאליסטיים באוכלוסיה? שציורים אימפרסיוניטיים וציורים ריאליסטיים באים משתי התפלגויות שונות?
 
 מקובל באקדמיה להשוות את הpvalue לאיזשהו סף נמוך כמו אחד אחוז או חמישה אחוזים, ותחת המבחן, הערך שקיבלנו של 15 נקודות לא מרשים מספיק, ולא היינו דוחים את השערת האפס.
-:::
-:::
 
----
-
-### Two-sided Hypothesis
-
-- If the original alternative hypothesis were "impressionist paintings images' red level is *different* than realist", the p-value should have been two sided.
-
-- Because the probability of getting our original value or "more extreme" would have meant "more extreme in absolute value":
-
-::: {.fragment}
-
-```{python}
-two_sided_p_value = np.mean(np.abs(null_mean_diffs) > 15)
-
-print(f'P(|mean_diff| >= 15 | H0) = {two_sided_p_value: .2f}')
-```
 :::
 
-::: {.incremental}
-- 13-14% chance of observing a result like 15 points or more extreme, at random, when there is no difference. 15 points doesn't look convincing.
-
-- But in real life we only have that one hard-earned sample. We don't have the population. And from here, the rest is mathematical approximation for getting that p-value and other measures, with what we have.
-:::
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 הזכרנו שההשערה שלנו היתה חד צדדית. ראינו שציורים אימפרסיוניסטיים צבעוניים יותר, ותהינו אם באמת יהיה בהם יותר אדום. ההשערה שלנו יכלה להיות גם דו-צדדית, כלומר האם יש רמת אדום שונה בין ציורים ריאליסטיים לציורים אימפרסיוניסטיים, מבלי להתחייב על כיוון.
 
 במקרה כזה היינו צריכים לחשב p-value דו צדדי, כלומר מה ההסתברות לקבל 15 או יותר, בערך מוחלט.
@@ -565,35 +122,13 @@ print(f'P(|mean_diff| >= 15 | H0) = {two_sided_p_value: .2f}')
 ו-14 אחוז לקבל ערך קיצוני כמו שלנו במדגם המקורי או יותר, הוא סיכוי לא קטן, ולא היינו דוחים את השערת האפס שהמדגם שלנו מגיע מההתפלגות המסומלצת הזאת.
 
 עד כאן העולם שבו יכולנו לסמלץ את התפלגות האפס. במציאות באמת יש לנו רק מדגם אחד שיקר להשיג, ואנחנו לא רואים את כל האוכלוסיה. כל מה שאנחנו עושים מרגע זה זה קירוב מתמטי, מבוסס על הידע שלנו בהסתברות, להגיע לאותה התפלגות אפס.
-:::
-:::
 
----
+=== 4. דוגמא: התפלגות בינומית ===
 
-## Binomial Example {.title-slide}
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 בואו נראה דוגמא לסיטואציה שבה אנחנו יכולים לסמלץ את התפלגות האפס, אבל אנחנו יכולים לחילופין גם להניח שזאת התפלגות די מוכרת עם חוקים ידועים: ההתפלגות הבינומית.
-:::
-:::
 
----
-
-### Simpler conceptual example
-
-- I am given a coin and I want to know if it is fair (heads/tails equally likely)
-- I am only allowed to throw it 10 times, and I get 8 heads
-- Mark the null hypothesis $H_0: P(\text{head})=\frac{1}{2}$
-- Can I reject $H_0$? 
-
-::: {.incremental}
-- If I had a null distribution, I could get a p-value: see what % of the time I would get 8 or more heads if the coin was fair 
-- Can I get this null distribution? Easily!
 :::
 
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 נניח שמישהו נותן לי מטבע ואני רוצה לבדוק האם הוא הוגן, כלומר האם הסיכוי לקבל heads או tails, עץ או פלי, שווה.
 
 אני מטיל את המטבע 10 פעמים ומקבל 8 פעמים heads.
@@ -603,94 +138,21 @@ print(f'P(|mean_diff| >= 15 | H0) = {two_sided_p_value: .2f}')
 כאשר תהיה לי את התפלגות האפס כשהמטבע הוגן, אני אוכל לראות באיזה אחוז מהמקרים אני מקבל תוצאה קיצונית כמו 8 פעמים heads או יותר.
 
 זה קל לסמלץ התפלגות כזאת? ממש.
-:::
-:::
 
----
-
-### Method 1: Simulation (as before)
-
-```{python}
-null_res = np.random.binomial(10, 0.5, size=10000)
-```
-
-```{python}
-#| echo: false
-
-print()
-```
-
-::: {.fragment}
-```{python}
-pd.value_counts(null_res, normalize=True).sort_index()
-```
 :::
 
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 אנחנו יכולים לעשות את זה בשורה אחת של קוד, עם הפונקציה np.random.binomial, לבקש את תוצאות הניסוי של משתנה בינומי עם 10 הטלות בסיכוי שווה חצי, עשרת אלפים פעם. באוביקט null_res, יש לנו עשרת אלפים שחזורים של הניסוי הזה, תחת השערת האפס שהמטבע הוגן.
 
 כך זה נראה, התוצאה שלנו 8 התקבלה למשל בכ4% מהמקרים אבל אפילו תוצאה כמו 10 heads מתוך 10 התקבלה כמה פעמים, באקראי, למרות שהמטבע הוגן!
 
-
-:::
 :::
 
----
-
-```{python}
-#| code-fold: true
-
-fig, ax = plt.subplots()
-N, bins, patches = ax.hist(null_res, bins=np.arange(0, 11, 0.5))
-for i in range(0, 15):
-    patches[i].set_facecolor('blue')
-for i in range(15, 19):
-    patches[i].set_facecolor('red')
-plt.show()
-```
-
-::: {.fragment}
-```{python}
-one_sided_p_value = np.mean(null_res >= 8)
-print(f'P(heads >= 8 | H0) = {one_sided_p_value: .3f}')
-
-two_sided_p_value = np.mean(null_res >= 8) + np.mean(null_res<=2)
-print(f'P(heads>=8 or heads<=2 | H0) = {two_sided_p_value: .3f}')
-
-```
-:::
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 כעת נצייר שוב היסטוגרמה של התפלגות האפס. במקרה שלנו יש רק 11 תוצאות אפשריות מאפס עד 10 אז אפשר לצייר גרף מקלות או בארצ'ארט. 8 לא נראית כבר תוצאה כל כך קיצונית, 
 
 ואכן אם נחשב את הpvalue, את השכיחות של תוצאות קיצוניות כמו 8 או יותר, נקבל גם במקרה החד-צדדי וגם במקרה הדו-צדדי, ערך שלא עומד במבחן הסף של 5 אחוז. זה פשוט משהו שיקרה 1 ל10 פעמים גם במטבע הוגן!
-:::
-:::
 
----
-
-### Method 2: Binomial Dist.
-
-- Denote by $X$ the number of heads in 10 tosses.
-
-- Under $H_0: P(\text{head})=\frac{1}{2}$ what is the distribution of $X$?
-
-::: {.fragment}
-$X \sim Bin(10, \frac{1}{2})$
 :::
 
-::: {.incremental}
-- One sided: $P(X \geq 8)=  \left(\binom{10}{8} + \binom{10}{9} + \binom{10}{10}\right) \cdot 2^{-10} = 0.055$
-
-- Two sided: $2 \cdot 0.055 = 0.11$
-
-- **Important lesson: proper simulation and proper mathematical analysis should give similar results**
-:::
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 אבל יש כאן עניין של מה בא קודם, הביצה או התרנגולת. אם אנחנו כבר מניחים שההתפלגות של תוצאת הניסוי שלנו תחת השערת האפס היא בינומית, אפשר להשתמש בחוקי ההתפלגות הבינומית לחשב הסתברות מדויקת.
 
 X יהיה תוצאת הניסוי, מספר ההדז ב10 הטלות, והסיכוי החד-צדדי המבוקש הוא שX יהיה גדול או שווה ל-8. מציבים בנוסחת ההתפלגות הבינומית ומקבלים pvalue מאוד דומה למה שקיבלנו בסימולציה.
@@ -698,42 +160,13 @@ X יהיה תוצאת הניסוי, מספר ההדז ב10 הטלות, והסי�
 מטעמי סימטריה הpvalue הדו צדדי, או הסיכוי לקבל 8 או יותר ועוד הסיכוי לקבל 2 או פחות, זה בעצם הכפלה פי 2 של הpvalue החד צדדי ומקבלים כ11 אחוזים, בדומה לסימולציה.
 
 לפני שנמשיך הנה לקח חשוב: סימולציה טובה, אמורה לתת תוצאות בהתאם לניתוח מתמטי. אחרת, יש טעות באחד מהם. אבל כשזה קורה אתם חייבים להודות שזה די מספק לראות!
-:::
-:::
 
----
+=== 5. טעויות מסוג ראשון ושני ===
 
-## Type-I and Type-II Errors {.title-slide}
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 כשאנחנו מבצעים בדיקת השערות, אנחנו יכולים לחשוב על שני סוגי טעויות: טעות אחת היא שהיינו צריכים לדחות את השערת האפס ולא נדחה אותה. זו טעות מסוג ראשון. טעות מסוג שני היא כאשר השערת האפס היא נכונה וכן נדחה אותה. ניתן שמות לטעויות האלה וננסה להקטין את הסיכוי לעשות אותן.
-:::
-:::
-
----
-
-### The Alternative Hypothesis
-
-::: {.incremental}
-- Let us introduce the simple alternative hypothesis
-
-- In the courtroom example:
-$$H_0: \text{innocent}$$
-$$H_1: \text{guilty}$$
-
-- In the coin example, $X \sim Bin(10, p)$, and:
-$$H_0: p = 0.5$$
-$$H_1: p = 0.8$$
-
-- In the paintings example, $\mu$ is the diff in red between impressionist and realist, and:
-$$H_0: \mu = 0$$
-$$H_1: \mu = 20$$
 
 :::
 
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 בואו נכתוב לגבי ההשערות שראינו בשיעור הזה גם את ההשערה האלטרנטיבית, בצורה מעט יותר פורמלית.
 
 בדוגמת בית המשפט השערת האפס, H0, היא שהנאשם חף מפשע, וההשערה האלטנטיבית H1 היא שהוא אשם.
@@ -741,40 +174,9 @@ $$H_1: \mu = 20$$
 בדוגמת המטבע השערת האפס היא שהסיכוי לקבל הדז הוא חצי כלומר המטבע הוגן, ואפשר לחשוב על השערה אלטרנטיבית פשוטה כמו: הסיכוי להדז הוא דווקא 0.8.
 
 בדוגמת הציורים שיערנו בעצם על ההפרש בכמות האדום בין ציורים ריאליסטיים ואימפרסיוניסטיים, אפשר לחשוב שיש פרמטר כזה באוכלוסית הציורים של רמת אדום אימפרסיוניסטים פחות רמת אדום ריאליסטיים ולסמן אותו כמיו, ואז לכתוב במפורש: תחת השערת האפס מיו, תוחלת ההפרשים הזאת היא אפס, ותחת ההשערה האלטרנטיבית מיו הוא חיובי, נאמר 20 נקודות הבדל ברמת האדום לטובת ציורים אימפרסיוניסטיים.
-:::
-:::
 
----
-
-### Type I and Type II Errors
-
-- What could go wrong?
-
-::: {.incremental}
-- We **reject $H_0$** when it is true, Type-I error: $\alpha = P(\text{reject } H_0 | H_0 \text{ true})$
-
-- We **don't reject $H_0$** when we should, Type-II error: $\beta = P(\text{not reject } H_0 | H_1 \text{ true})$
-
-- (notice the jargon)
 :::
 
-::: {.fragment}
-The meaning of these terms is often better understood in a table:
-
-| Reality\\Decision | Not Reject $H_0$    | Reject $H_0$   |
-|---|------|-----|
-| $H_0$ | Confidence: $1 - \alpha$ | Type I Error: $\alpha$ |
-| $H_1$ |  Type II Error: $\beta$    | Power: $1 - \beta$    |
-:::
-
-::: {.fragment}
-Statistical power is often written as $1 - \beta$, or: $\pi = P(\text{reject } H_0 | H_1 \text{ true})$
-
-Highly important, see later.
-:::
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 כעת אפשר לפרמל את הטעויות שדיברנו עליהן:
 
 לדחות את H0 כשזו נכונה, זו טעות מסוג ראשון, מסומנת כאלפא: ההסתברות לדחות בהנחה שH0 נכונה.
@@ -786,68 +188,17 @@ Highly important, see later.
 ואם בעולם H1 מתקיימת, אז הסיכוי לא לדחות את H0 זו טעות מסדר שני, הבטא, והסיכוי כן לדחות את H0, כלומר לבצע את הדבר הנכון - זו עוצמת המבחן, 1 פחות בטא.
 
 עוצמת המבחן, הpower, היא כמות חשובה מאוד, היינו רוצים שתהיה כמה שיותר גדולה. מסמנים אותה הרבה פעמים כפאי והיא כאמור הסיכוי לדחות את H0 כשH1 נכונה, כשבעולם באמת מתקיימת תופעה חדשה כמו חלקיק חדש, או שהנאשם באמת אשם בפשע.
-:::
-:::
 
----
-
-### Two Common Approaches to Testing
-
-1. Compute p-value and compare to some threshold $\alpha$ (1%, 5%)
-    - If p-value $\le \alpha \Rightarrow$ reject $H_0$
-    - If p-value $> \alpha \Rightarrow$ don't reject $H_0$
-
-::: {.fragment}
-2. Rejection area: looking at some statistic of the sample $T(X)$, by fixing $\alpha$ at some "significance level", extract a critical value $C$ and compare to it:
-    - If $T(X) \ge C \Rightarrow$ reject $H_0$
-    - If $T(X) < C \Rightarrow$ don't reject $H_0$
-
-(for a one-sided hypothesis)
 :::
 
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 האם אנחנו תמיד שולטים על הטעויות מסדר ראשון ושני? לא בהכרח.
 
 יש שתי גישות מקובלות לבדיקת השערות. התחלנו בראשונה, שבה ערכנו ניסוי כמו דגימה של ציורים, חישבנו את ערך הpvalue, הסיכוי לקבל תוצאה חריגה כמו שהתקבלה במדגם או יותר תחת השערת האפס. ואז השווינו את הערך הזה לאיזשהו סף שכעת נקרא לו אלפא, או רמת המובהקות. אם הpvalue קטן מאלפא נדחה את H0, ואם לא, לא נדחה.
 
 דרך אחרת לבדוק השערות היא למצוא קודם איזור דחיה. נקבע את ערך האלפא, הסיכוי לטעות מסוג ראשון שמעניין אותנו. ואם אנחנו יודעים מראש איך מתפלג איזשהו סטטיסטי של המדגם שלנו, T(X), לדוגמא ממוצע המדגם: נוכל לחלץ ממנו מהו הערך הקריטי המקסימלי שהוא יכול להיות כדי לשמור על אלפא, איזשהו ערך C. רק כעת נבצע את הניסוי, נחשב את הסטטיסטי שלנו, ונקבל מבחן כזה: אם הסטטיסטי שלנו, לדוגמא ממוצע המדגם גדול מC, אז הוא מרשים מספיק וזו דחייה של השערת האפס. ואם לא אז לא נדחה את השערת האפס. כל זה נכון כמובן להשערה חד-צדדית, בהשערה דו-צדדית נסתכל על הסטטיסטי בערך מוחלט.
-:::
-:::
 
----
-
-### Method 3: Rejection Area
-
-- Denote by $X$ the number of heads in 10 tosses.
-
-- $X \sim Bin(10, p)$, under $H_0: p =\frac{1}{2}$
-
-- $T(X) = X$, the outcome itself
-
-::: {.fragment}
-- Set $\alpha = 0.01$
-:::
-::: {.fragment}
-- Extract $C$:
-$$\alpha = 0.01 \approx P(X \ge C) \Rightarrow C = 9$$
 :::
 
-::: {.fragment}
-- If $X \ge 9 \Rightarrow$ reject $H_0$
-- If $X < 9 \Rightarrow$ don't reject $H_0$
-:::
-
-::: {.fragment}
-- Got $X = 8$ in sample so not rejecting $H_0$
-:::
-
-::: {.fragment}
-- **Crucial Question**: Did we need $H_1$?
-:::
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 אז בדוגמת המטבע שלנו עשינו בדיקת השערות באמצעות סימולציה, ובאמצעות חישוב pvalue. בואו נבצע אותה בדרך שלישית שדיברנו עליה, דרך שבעצם קובעת לנו איזור דחייה rejection area, וכל שנותר לנו הוא לבדוק אם נפלנו באיזור הדחייה או לא.
 
 נסמן שוב את תוצאת המדגם של 10 הטלות ב-X. מודל סביר לX הוא התפלגות בינומית עם סיכוי p, ותחת השערת האפס p הוא חצי, כלומר מטבע הוגן.
@@ -859,32 +210,9 @@ $$\alpha = 0.01 \approx P(X \ge C) \Rightarrow C = 9$$
 וזהו איזו הדחייה, אם נקבל בניסוי 9 הדז ומעלה -- תוצאה כל כך חריגה דווקא במדגם שלנו -- נדחה את השערת האפס, ואם פחות לא נדחה. קיבלנו 8 הדז ולכן לא נדחה.
 
 נקודה חשובה מאוד לפני שממשיכים: האם השתמשנו כאן בהשערה האלטרנטיבית H1? לא! כל החישובים עד כה היו תחת H0, כלומר לא היינו צריכים לפרט איזושהי השערה אלטרנטיבית ספציפית שהסיכוי להדז הוא גדול יותר, למשל 0.8. עד כאן, היינו צריכים רק את התפלגות הייחוס, התפלגות האפס, ורצינו לראות אם אנחנו קיצוניים יחסית אליה או לא.
-:::
-:::
 
----
-
-### Or by simulation
-
-Back to paintings, set $\alpha = 0.01$ and extract $C$ the 99th quantile of the null:
-
-::: {.fragment}
-```{python}
-#| output-location: fragment
-
-print(f'C (above which 1% of null distribution) = {np.quantile(null_mean_diffs, 0.99): .2f}')
-```
-:::
-::: {.fragment}
-We got 15 points difference, so.
 :::
 
-::: {.fragment}
-Again: Did we need $H_1$?
-:::
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 את הגישה של איזור דחייה ניתן להחיל גם על הסימולציה שלנו של ציורים. לא היתה לנו התפלגות מדויקת אבל היתה לנו התפלגות מסומלצת באוביקט null_mean_diffs, שנוצר כשדגמנו הרבה הרבה הפרשי ממוצעים תחת השערת האפס.
 
 המשמעות של קביעת אלפא מראש על 1 אחוז, וממנה לחלץ את איזור הדחיה, היא לשאול מהו האחוזון ה-99 של התפלגות זו. מהו הערך הכל כך גבוה, שמעליו אפילו אם השערת האפס נכונה הסיכוי לראות הבדל כל כך גדול בין שני מדגמים של ציורים, הוא לכל היותר 1 אחוז?
@@ -892,37 +220,9 @@ Again: Did we need $H_1$?
 כאן הערך הזה הוא כ23, ואנחנו קיבלנו 15, אז לא נדחה את השערת האפס.
 
 ושוב נשאל: האם היינו צריכים לפרט מהי ההשערה האלטרנטיבית H1? איזושהי אמונה או הערכה שלנו על מהו באמת ההפרש ברמת הצבע האדום בין סוגי הציורים? לא.
-:::
-:::
 
----
-
-### Intro. to Power
-
-- It is only when we want to calculate the power when we need a specific $H_1$.
-
-::: {.fragment}
-- In the coin example, $X \sim Bin(10, p)$, and:
-$$H_0: p = 0.5$$
-$$H_1: p = 0.8$$
 :::
 
-::: {.fragment}
-- The test was set at:
-    - If $X \ge 9 \Rightarrow$ reject $H_0$ (rejection area)
-    - If $X < 9 \Rightarrow$ don't reject $H_0$
-:::
-
-::: {.fragment}
-Power = $P(\text{reject } H_0 | H_1 \text{ true}) = P_{H_1}(X \ge 9) = \binom{10}{9}\cdot 0.8^9\cdot 0.2 + \binom{10}{10}\cdot 0.8^{10} = 0.376$
-:::
-
-::: {.fragment}
-So for this test we have less than 40% chance of rejecting $H_0$ when we should!
-:::
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 מתי כן אנחנו צריכים לתת איזושהי הערכה ספציפית למהי ההשערה האלטרנטיבית H1? רק כשאנחנו רוצים לעשות חישובי עוצמה, כדי שהסיכוי שלנו לדחות את H0 אם באמת צריך יהיה כמה שיותר גדול.
 
 עוד נדבר על עוצמת המבחן בהרחבה, בינתיים בואו נראה דוגמא פשוטה:
@@ -934,21 +234,11 @@ So for this test we have less than 40% chance of rejecting $H_0$ when we should!
 במה בכל זאת הועלנו? שכעת אנחנו יכולים לחשב את העוצמה הסטטיסטית של מבחן כזה. העוצמה, היא הסיכוי ליפול באזור הדחייה, ולדחות את H0 תחת H1. במקרה שלנו זה הסיכוי לקבל 9 הדז או יותר, תחת התפלגות בינומית עם סיכוי 0.8. נציב בנוסחת ההתפלגות הבינומית ונקבל שהסיכוי הוא 38 אחוז בערך.
 
 מה המשמעות? שאם נערוך את המבחן הזה הרבה פעמים, גם אם החשד שלנו נכון והמטבע איננו הוגן, והסיכוי לקבל הדז הוא למעשה 0.8, בפחות מ40 אחוז מהמבחנים נגיע למסקנה הנכונה, שהמטבע אינו הוגן. וזו - לא עוצמה גדולה בכלל.
-:::
-:::
 
----
-
-### Or by simulation?
-
-::: {.fragment}
-How would we calculate the power for the paintings test?
 :::
 
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 ונאמר שהיינו רוצים לעשות את אותו חישוב של עוצמת המבחן בדוגמא של הציורים. שם יש לנו רק את הכלי של הסימולציה כרגע. איך היינו מחשבים את זה בצורת סימולציה? היינו צריכים לפרט איזושהי התפלגות אלטרנטיבית H1 ולסמלץ גם אותה!
 
 זה, מתחיל להישמע כבר הרבה יותר מורכב, איך מסמלצים התפלגות כזאת. ונראה שנזדקק לכלים הסתברותיים קצת יותר מתקדמים על מנת לחשב את עוצמת המבחן גם במקרה של הציורים. על כך ועוד, ביחידה הבאה.
-:::
+
 :::
