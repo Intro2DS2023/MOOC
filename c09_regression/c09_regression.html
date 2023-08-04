@@ -410,7 +410,8 @@
 <h3 id="stat.-and-or-department-tau">Stat. and OR Department, TAU</h3>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>אנחנו מתחילים ביחידה היום בעצם את החלק השני של הקורס. אחרי שעסקנו בהבנת נתונים, אקספלורטורי דאטא אנליסיס ובדיקת השערות, אנחנו רוצים להשתמש בנתונים האלה, לבניית מודלים לחיזוי. נתחיל היום במודלים ליניאריים שיש מאחוריהם לא מעט הנחות, נמשיך למודלים של מאשין לרנינג מודרניים יותר שמאפשרים גם מידול של יחסים לא ליניאריים בכלל, ונגיע למודלים של רשתות נוירונים או למידה עמוקה, מהשנים האחרונות ממש.</p>
+<p>חשוב לי להדגיש שוב שאנחנו מסתכלים על כל שיטה ושיטה בהיי לבל, על מנת לתת מבט רחב על התחום. ברור שמי שרוצה ממש לעסוק בתחום, אני ממליץ לו לקרוא עוד הרבה יותר ולקחת עוד קורסים בנושא.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -428,7 +429,7 @@
 <h2>Intro. to Predictive Modeling</h2>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>נתחיל במבט על על מה אנחנו מנסים לעשות כאן - מה זה מודלים לחיזוי או predictive modeling?</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -450,12 +451,17 @@
 <li><p>Our goal is to build a model of the relationship between <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span>: <span class="math display">\[y \approx f(x)\]</span></p></li>
 </ul>
 <div class="fragment">
-<pre><code>- $x$: predictors, regressors, features, exogenous variables
-- $y$: response, dependent variable, endogenous variable</code></pre>
+<ul>
+<li><span class="math inline">\(x\)</span>: predictors, regressors, features, exogenous variables</li>
+<li><span class="math inline">\(y\)</span>: response, dependent variable, endogenous variable</li>
+</ul>
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>הרעיון הבסיסי: יש לנו תצפית לחיזוי שנסמן אותה בX, וX הוא וקטור ממימד p, כלומר יש לנו p משתנים על התצפית שלנו. וY הוא סקלאר.</p>
+<p>אנחנו מניחים שY הוא פונקציה של X והמטרה שלנו היא לבנות מודל שיעשה קירוב ליחס הזה.</p>
+<p>נזכיר שמות שונות לX כדי שנראה שאנחנו מדברים על אותו דבר: X יכול להיות משתנים, מנבאים, פיצ’רים, משתנים אקסוגניים.</p>
+<p>באופן דומה Y נקרא לפעמים משתנה התגובה, המשתנה התלוי, המשתנה האנדוגני – בקורס שלנו, זה בסדר שיהיו שמות שונים.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -489,7 +495,11 @@
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>אם נצליח לבנות מודל איכותי, זה ימלא שתי מטרות:</p>
+<p>מטרת החיזוי, אם תגיע תצפית חדשה X נוכל לחזות לה את הY המתאים לה אף על פי שהמודל לא ראה אותה, נקרא לה y_hat.</p>
+<p>ומטרת ההסקה או ההבנה: מודל טוב יאפשר לנו להבין את הקשר בין X לY. אילו משתנים בX הם חשובים כדי להסביר או לחזות את Y, ואופי התלות של Y בX, האם הקשר הוא ליניארי? האם הוא מורכב יותר?</p>
+<p>אנחנו נדבר על שני סוגים מודלים לחיזוי על פי הY: כשY הוא כמותי, ממשי, כמו גובה של תינוק שעומד להיוולד, זה ייקרא רגרסיה.</p>
+<p>כשY הוא קטגוריאלי, הוא קטגוריה מתוך איזושהי קבוצה G, ואנחנו רוצים לסווג X חדש לאיזו קטגוריה הוא שייך, נקרא לזה קלסיפיקציה.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -518,7 +528,11 @@
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>בדוגמא של הציורים מאתר wikiart, הבעיה שלנו תהיה בעית קלסיפיקציה. X יהיה הפיקסלים של התמונה של הציור, וראינו שאם התמונה היא בגודל K על K יש K כפול K כפול 3 פיקסלים או משתנים. וY יהיה אחת משתי קטגוריות, ציור ריאליסטי או אימפרסיוניסטי.</p>
+<p>דוגמא מורכבת יותר: סיפאר-טן, סט של 60 אלף תמונות עם 10 קלאסים שונים, כמו תמונות של מטוסים, מכוניות וציפורים.</p>
+<p>מודל טוב במקרה של הציורים יינתן ערך קרוב ל-1 לציורים אימפרסיוניסטים למשל, וערך קרוב ל-0 לציורים ריאליסטיים.</p>
+<p>למשל מודל שבודק מה הרמה הממוצעת של פיקסל אדום בתמונה ומסתכל על איזשהו סף, עד ערך מסוים יחזה 0 ומעליו יחזה 1.</p>
+<p>סביר להניח שזה מודל לא טוב, הוא לא יפריד היטב בין ציורים אימפרסיוניסטים לציורים ריאליסטיים.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -543,6 +557,24 @@
 </ul></li>
 <li><p>A good model <span class="math inline">\(f(x)\)</span> sees the scores a user gave to the 99 movies (including which are missing) and gives a value that is close to <span class="math inline">\(y\)</span> for the same user</p></li>
 </ul>
+<aside class="notes">
+<div style="direction:rtl; font-size:16px">
+<p>בעית רגרסיה אפשר לראות בדוגמא של נטפליקס: X הוא וקטור ממימד 99 סרטים, וY הסקלר הוא הציון של הסרט איזו מין שוטרת.</p>
+<p>הערכים של X במקרה הזה לא באמת נמצאים על כל הישר הממשי, הם דירוגים במין סולם אורינלי כזה של 1 עד 5 וראינו שיש בהם גם ערכים חסרים.</p>
+<p>גם Y הנתון לנו לא מקבל כל ערך, רק מספרים בין 1 ל5.</p>
+<p>בכל זאת מודל טוב יקבל את הציונים הקיימים של משתמש קיים, כולל הסרטים שהוא לא ראה, ונותן חיזוי לדירוג של איזו מין שוטרת הכי קירוב לדירוג Y של אותו משתמש.</p>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section class="slide level2">
 
@@ -567,7 +599,10 @@
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>עוד דוגמאות מעניינות:</p>
+<p>Genome Wide Association Studies או GWAS, בהם אנחנו מנסים לבודד גנים שאחראים על מחלות למשל.</p>
+<p>Y כאן הוא האם האדם בריא או חולה, Xהוא כל הגנום שלו. זה יכול להגיע למיליון מיקומים על הכרומוזום, שבהם יכול להיות לאדם 0, 1 או 2 עותקים של מוטציות בגן. וזו דוגמא טובה למצב שמעניין אותנו חיזוי על אדם חדש בהתאום לגנום שלו, האם הוא בסיכון למחלה, אבל גם מעניין אותנו לראות אילו גנים אחראים למחלה, כלומר אילו משתנים בX משפיעים על Y.</p>
+<p>דוגמא קלאסית נוספת היא חיזוי האם מייל הוא ספאם או לא. X יכול להיות הרבה סוגים של משתנים: מי השולח, מי הנמען, מתי נשלח המייל וכמובן תוכן המייל, המילים השונות שמרכיבות אותו. שימו לב שוקטור שמתאר מילים הוא וקטור ממימד עצום, של כל אוצר המילים בשפה אחת או יותר, בעצם. בכל אופן המטרה היא לחזות האם מייל הוא ספאם וישר להעביר אותו לתיקיית הספאם.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -588,14 +623,14 @@
 <!-- -->
 <h4 id="online-advertising">Online advertising:</h4>
 <ul>
-<li>Surfer arrives on website, need to decide if and what add to show them</li>
+<li>Surfer arrives on website, need to decide if and what ad to show them</li>
 <li><span class="math inline">\(y\)</span> can be the amount she will spend if shown advertising for shirt/shoes/car/home</li>
 <li><span class="math inline">\(x\)</span>: surfing history, location, time of day/week/year, information from other databases, …</li>
 </ul>
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>דוגמא אחרונה היא מעולם הפרסום: גולשת מגיעה לאתר וצריך להחליט האם להראות לה פרסומת, באנר, ואיזו פרסומת להראות לה. Y יהיה השורה התחתונה, כמה כסף היא תבזבז על המוצר בפרסומת. X כאן יכול להיות מגוון ככל שיד הדמיון טובה עליכם: היסטורית הגלישה של הגולשת, המיקום שלה, מתי היא גולשת, ואפילו דאטא מקוקיז וממסדי נתונים חיצוניים.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -614,14 +649,14 @@
 <h3 id="some-simple-models-for-netflix">Some simple models for Netflix</h3>
 <p>The same score as a similar movie, say Sweet Home Alabama:</p>
 <div class="cell" data-execution_count="2">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>scatter_cong(<span class="st">'Sweet Home Alabama'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>scatter_cong(<span class="st">'Sweet Home Alabama'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <p><img data-src="c09_regression_files/figure-revealjs/cell-3-output-1.png" width="441" height="461"></p>
 </div>
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>נחזור לדוגמא של נטפליקס ונחשוב על מודל פשוט: נחזה את הדירוג של צופה באיזו מין שוטרת באמצעות סרט שדומה לו, למשל ראינו שהציונים של סוויט הום אלבמה מאוד דומים לציונים של איזו מין שוטרת, שני הסרטים הם קומדיות רומנטיות.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -642,19 +677,19 @@
 <div class="cell" data-execution_count="3">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.decomposition <span class="im">import</span> PCA</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> ratings.values[:,:<span class="dv">14</span>]</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>X_centered <span class="op">=</span> X <span class="op">-</span> X.mean(axis <span class="op">=</span> <span class="dv">0</span>)</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>pca <span class="op">=</span> PCA()</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>pca.fit(X_centered)</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>W <span class="op">=</span> pca.components_.T</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>T <span class="op">=</span> X_centered <span class="op">@</span> W</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>add_data_1<span class="op">=</span>pd.DataFrame({<span class="st">'PC1'</span>: T[:,<span class="dv">0</span>], <span class="st">'Miss Congeniality'</span>:miss_cong.values[:,<span class="dv">0</span>]})</span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>sns.lmplot(x<span class="op">=</span><span class="st">'PC1'</span>, y<span class="op">=</span><span class="st">'Miss Congeniality'</span>, data<span class="op">=</span>add_data_1, legend <span class="op">=</span> <span class="va">False</span>, fit_reg<span class="op">=</span><span class="va">False</span>, ci<span class="op">=</span><span class="va">None</span>)</span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="ss">f'Corr </span><span class="sc">{</span>np<span class="sc">.</span>corrcoef(T[:,<span class="dv">0</span>],miss_cong.values[:,<span class="dv">0</span>])[<span class="dv">0</span>,<span class="dv">1</span>] <span class="sc">:.2f}</span><span class="ss">'</span>)</span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.decomposition <span class="im">import</span> PCA</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> ratings.values[:,:<span class="dv">14</span>]</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>X_centered <span class="op">=</span> X <span class="op">-</span> X.mean(axis <span class="op">=</span> <span class="dv">0</span>)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>pca <span class="op">=</span> PCA()</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>pca.fit(X_centered)</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>W <span class="op">=</span> pca.components_.T</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>T <span class="op">=</span> X_centered <span class="op">@</span> W</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>add_data_1<span class="op">=</span>pd.DataFrame({<span class="st">'PC1'</span>: T[:,<span class="dv">0</span>], <span class="st">'Miss Congeniality'</span>:miss_cong.values[:,<span class="dv">0</span>]})</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>sns.lmplot(x<span class="op">=</span><span class="st">'PC1'</span>, y<span class="op">=</span><span class="st">'Miss Congeniality'</span>, data<span class="op">=</span>add_data_1, legend <span class="op">=</span> <span class="va">False</span>, fit_reg<span class="op">=</span><span class="va">False</span>, ci<span class="op">=</span><span class="va">None</span>)</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="ss">f'Corr </span><span class="sc">{</span>np<span class="sc">.</span>corrcoef(T[:,<span class="dv">0</span>],miss_cong.values[:,<span class="dv">0</span>])[<span class="dv">0</span>,<span class="dv">1</span>] <span class="sc">:.2f}</span><span class="ss">'</span>)</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
 <p><img data-src="c09_regression_files/figure-revealjs/cell-4-output-1.png" width="489" height="509"></p>
@@ -662,7 +697,8 @@
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>מודל פשוט אחר שכבר רמזנו עליו כשדיברנו על PCA: אולי הscore של צופה בPC הראשון, הPC שמסביר הכי הרבה שונות, הוא מנבא טוב לציון של הסרט איזו מין שוטרת.</p>
+<p>ניזכר שבPC הזה הציון של כל צופה גבוה יותר ככל שהוא פחות מסכים עם הדירוג הממוצע של הסרטים. והדירוגים בממוצע הם די גבוהים, לכן נצפה שככל שהציון של צופה גבוה בPC הראשון ככה הוא “שונא” יותר סרטים וגם ייתן ציון נמוך לאיזו מין שוטרת. וזה אכן מה שמתקבל, יחס יורד ומתאם שלילי לא מבוטל.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -694,7 +730,10 @@
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>בכל בעיה של מודל לחיזוי יהיה לנו מדגם למידה או training, שנסמן בTR, המדגם יהיה בגודל N, כלומר N זוגות של X ו-Y. אפשר לכתוב אותם גם כמטריצה X עם N שורות וP עמודות, וY כוקטור באורך N.</p>
+<p>ואנחנו נניח את הנחת הIID בקורס שלנו, זוגות התצפיות הם בלתי תלויים, הם נדגמים בצורה בלתי תלויה מאיזושהי התפלגות משותפת PXY. אם התצפיות לא בלתי תלויות אגב זה מצב מעניין מאוד שמביא לפיתוחים מרתקים אבל לא נעסוק בזה בקורס שלנו.</p>
+<p>בסופו של דבר הפלט שלנו יהיה מודל לחיזוי, f_hat שמבוסס על מדגם הלמידה, והמטרה האולטימטיבית היא, כשתגיע תצפית חדשה X_0, נחזה לזה y_hat_0 באמצעות המודל שלמדנו f_hat.</p>
+<p>איך נמדוד את הביצועים של המודל שלנו? במצב אידאלי נגדיר איזושהי פונקצית הפסד L, שמקבלת ממדגם הלמידה תצפית Y אמיתית ותצפית חזויה y_hat. תוחלת הכמות הזאת, תחת תצפיות שהמודל לא ראה, היא היא הכמות שהיינו רוצים לעשות לה מינימיזציה.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -724,7 +763,11 @@
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>מה יכולה להיות פונקצית ההפסד L?</p>
+<p>זה תלוי בנתונים. היינו רוצים שהיא תבטא כמה אנחנו “מפסידים” כשהתצפית האמיתית היא Y ואנחנו חוזים y_hat.</p>
+<p>בקלאסיפיקציה אפשר למשל לחשוב על שיעור התחזיות השגויות: אם y_hat שווה לקטגוריה Y הנכונה, אז שילמנו מחיר 0. אם לא נספור את זה כטעות, מחיר 1.</p>
+<p>אפשר לחשוב גם על משקול הטעויות שלנו, הרי לא כל טעות “עולה לנו” באותה מידה. אז על טעות בכיוון אחד ההפסד יוגדר כ1, וטעות בכיוון אחר ההפסד יהיה פי 10. נסו לחשוב על דוגמאות בהן הטעות היא לא סימטרית. למשל באבחון מחלה בה הטיפול אינו בעל תופעות לוואי חמורות, ניתן להגיד שאם נאבחן אדם בריא כחולה אולי לא נסב הרבה נזק. אבל אם נאבחן אדם חולה כבריא נפספס אותו והוא עלול לא לקבל טיפול ותחול הידרדרות במצבו עד כדי סכנה ממשית.</p>
+<p>בבעיות רגרסיה, מדד מקובל הוא הטעות הריבועית כפונקצית הפסד. ואפשר גם לדבר על שגיאה בערך מוחלט ועוד המון פונקציות הפסד אחרות שמדגישות מה שחשוב לבעיה הספציפית שלפנינו.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -755,7 +798,10 @@
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>מכל מקום, היינו רוצים כאמור את התוחלת של ההפסד תחת התפלגות תצפיות שהמודל לא ראה, אבל אנחנו לא מסוגלים באמת לחשב את זה בלי הערכה טובה של ההתפלגות של הדאטה.</p>
+<p>לכן מה שנהוג לעשות זה לחשב את ההפסד האמפירי, על סט נתונים נפרד, בגודל M נאמר, זהו סט המבחן או הטסטינג סט, ונסמן אותו כTE. ואז, הטעות שנרצה למזער היא ממוצע ההפסד על פני הטסט סט הזה, שהמודל לא ראה. אנחנו מקרבים תוחלת על-ידי ממוצע.</p>
+<p>למשל ברגרסיה כך יראה הממוצע של פונקצית ההפסד הריבועי, זה נקרא mean squared error או MSE, ונהוג לקחת שורש ולקבל את הroot mean squared error או הRMSE.</p>
+<p>בדרך כלל נקבל סט אחד של נתונים, בשאיפה עם מספיק תצפיות, כדי לחלק אותם בצורה אקראית, למדגם למידה (למשל 80 אחוז), ומדגם טסט (20 אחוז).</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -774,21 +820,21 @@
 <h3 id="data-splitting">Data Splitting</h3>
 <p>Let’s divide our Netflix data 80-20:</p>
 <div class="cell" data-execution_count="4">
-<div class="sourceCode cell-code" id="cb4" data-code-line-numbers="|1-2|3-6|7-10|"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a>X <span class="op">=</span> ratings.values</span>
-<span id="cb4-2"><a href="#cb4-2"></a>Y <span class="op">=</span> miss_cong.values[:, <span class="dv">0</span>]</span>
-<span id="cb4-3"><a href="#cb4-3"></a>n <span class="op">=</span> X.shape[<span class="dv">0</span>]</span>
-<span id="cb4-4"><a href="#cb4-4"></a>tr_size <span class="op">=</span> <span class="bu">int</span>(<span class="fl">0.8</span> <span class="op">*</span> n)</span>
-<span id="cb4-5"><a href="#cb4-5"></a>te_size <span class="op">=</span> n <span class="op">-</span> tr_size</span>
-<span id="cb4-6"><a href="#cb4-6"></a>tr_ind <span class="op">=</span> np.random.choice(<span class="bu">range</span>(n), tr_size, replace<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb4-7"><a href="#cb4-7"></a>Xtr <span class="op">=</span> X[tr_ind,]</span>
-<span id="cb4-8"><a href="#cb4-8"></a>Xte <span class="op">=</span> np.delete(X, tr_ind, axis<span class="op">=</span><span class="dv">0</span>)</span>
-<span id="cb4-9"><a href="#cb4-9"></a>Ytr <span class="op">=</span> Y[tr_ind]</span>
-<span id="cb4-10"><a href="#cb4-10"></a>Yte <span class="op">=</span> np.delete(Y, tr_ind)</span>
-<span id="cb4-11"><a href="#cb4-11"></a></span>
-<span id="cb4-12"><a href="#cb4-12"></a><span class="bu">print</span>(<span class="ss">f'No. of train rows: </span><span class="sc">{</span>Xtr<span class="sc">.</span>shape[<span class="dv">0</span>]<span class="sc">}</span><span class="ss">, no. train of cols: </span><span class="sc">{</span>Xtr<span class="sc">.</span>shape[<span class="dv">1</span>]<span class="sc">}</span><span class="ss">'</span>)</span>
-<span id="cb4-13"><a href="#cb4-13"></a><span class="bu">print</span>(<span class="ss">f'No. of test rows: </span><span class="sc">{</span>Xte<span class="sc">.</span>shape[<span class="dv">0</span>]<span class="sc">}</span><span class="ss">, no. test of cols: </span><span class="sc">{</span>Xte<span class="sc">.</span>shape[<span class="dv">1</span>]<span class="sc">}</span><span class="ss">'</span>)</span>
-<span id="cb4-14"><a href="#cb4-14"></a><span class="bu">print</span>(<span class="ss">f'no. of obs in train y: </span><span class="sc">{</span>Ytr<span class="sc">.</span>shape[<span class="dv">0</span>]<span class="sc">}</span><span class="ss">'</span>)</span>
-<span id="cb4-15"><a href="#cb4-15"></a><span class="bu">print</span>(<span class="ss">f'no. of obs in test y: </span><span class="sc">{</span>Yte<span class="sc">.</span>shape[<span class="dv">0</span>]<span class="sc">}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3" data-code-line-numbers="|1-2|3-6|7-10|"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a>X <span class="op">=</span> ratings.values</span>
+<span id="cb3-2"><a href="#cb3-2"></a>Y <span class="op">=</span> miss_cong.values[:, <span class="dv">0</span>]</span>
+<span id="cb3-3"><a href="#cb3-3"></a>n <span class="op">=</span> X.shape[<span class="dv">0</span>]</span>
+<span id="cb3-4"><a href="#cb3-4"></a>tr_size <span class="op">=</span> <span class="bu">int</span>(<span class="fl">0.8</span> <span class="op">*</span> n)</span>
+<span id="cb3-5"><a href="#cb3-5"></a>te_size <span class="op">=</span> n <span class="op">-</span> tr_size</span>
+<span id="cb3-6"><a href="#cb3-6"></a>tr_ind <span class="op">=</span> np.random.choice(<span class="bu">range</span>(n), tr_size, replace<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb3-7"><a href="#cb3-7"></a>Xtr <span class="op">=</span> X[tr_ind,]</span>
+<span id="cb3-8"><a href="#cb3-8"></a>Xte <span class="op">=</span> np.delete(X, tr_ind, axis<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb3-9"><a href="#cb3-9"></a>Ytr <span class="op">=</span> Y[tr_ind]</span>
+<span id="cb3-10"><a href="#cb3-10"></a>Yte <span class="op">=</span> np.delete(Y, tr_ind)</span>
+<span id="cb3-11"><a href="#cb3-11"></a></span>
+<span id="cb3-12"><a href="#cb3-12"></a><span class="bu">print</span>(<span class="ss">f'No. of train rows: </span><span class="sc">{</span>Xtr<span class="sc">.</span>shape[<span class="dv">0</span>]<span class="sc">}</span><span class="ss">, no. train of cols: </span><span class="sc">{</span>Xtr<span class="sc">.</span>shape[<span class="dv">1</span>]<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb3-13"><a href="#cb3-13"></a><span class="bu">print</span>(<span class="ss">f'No. of test rows: </span><span class="sc">{</span>Xte<span class="sc">.</span>shape[<span class="dv">0</span>]<span class="sc">}</span><span class="ss">, no. test of cols: </span><span class="sc">{</span>Xte<span class="sc">.</span>shape[<span class="dv">1</span>]<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb3-14"><a href="#cb3-14"></a><span class="bu">print</span>(<span class="ss">f'no. of obs in train y: </span><span class="sc">{</span>Ytr<span class="sc">.</span>shape[<span class="dv">0</span>]<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb3-15"><a href="#cb3-15"></a><span class="bu">print</span>(<span class="ss">f'no. of obs in test y: </span><span class="sc">{</span>Yte<span class="sc">.</span>shape[<span class="dv">0</span>]<span class="sc">}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>No. of train rows: 8000, no. train of cols: 99
 No. of test rows: 2000, no. test of cols: 99
@@ -798,7 +844,12 @@ no. of obs in test y: 2000</code></pre>
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>נעשה את החלוקה הזאת בדאטא של נטפליקס בצורה ידנית, מאוחר יותר נראה שיש לנו פונקציה שתבצע לנו את העבודה בצורה אוטומטית.</p>
+<p>X הוא הדירוגים על 99 סרטים בדאטאפריים של הרייטינגז, Y הוא הציונים של miss congeniality.</p>
+<p>כאן אני מחשב את גודל מדגם הלמידה, 80 אחוז מהN, וגודל מדגם הטסט, כל השאר. ואני דוגם מספר אינדקסים של תצפיות בהתאם באוביקט tr_ind.</p>
+<p>עכשיו מתבצעת החלוקה לXtr ו-Xte, ולYtr ו Yte.</p>
+<p>בסופו של דבר בהתאם לציפיות יש לנו 8000 תצפיות על 99 סרטים במדגם הלמידה, ו-2000 תצפיות על 99 סרטים במדגם הטסט.</p>
+<p>עכשיו אפשר להתחיל לדבר על מודלים לחיזוי ספציפיים לנתונים של נטפליקס.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -816,7 +867,7 @@ no. of obs in test y: 2000</code></pre>
 <h2>Linear Regression</h2>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>נתחיל ברגרסיה ליניארית. רגרסיה ליניארית הוא נושא שנכתבו עליו אינספור ספרים עבי כרס החל מאמצע המאה העשרים, ובחוגים מסוימים מקדישים למודל היחיד הזה סמסטר שלם, כמו למשל אקונומטריקה בחוג לכלכלה. כאן ננסה לתת מבט על המודל כמו על מודלים אחרים, ונפנה את מי שמעוניין לקורסים מתקדמים יותר.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -844,7 +895,12 @@ no. of obs in test y: 2000</code></pre>
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>המודל f_hat שקושר בין וקטור תצפיות X לסקלאר הוא מודל ליניארי: הכמות הנחזית תהיה צירוף ליניארי של המשתנים בX כשהמשקולות מסומנות בבטא, ויש מעליהן סימן האט כי זאת המשימה שלנו לשערך את משקולות הרגרסיה.</p>
+<p>איך נמצא את מקדמי הרגרסיה ממדגם הלמידה?</p>
+<p>ננסה למצוא מקדמים שמביאים את המודל הכי קרוב לY האמיתי.</p>
+<p>למשל, נרצה למזער את סכום השגיאות הריבועיות מהf_hat החזוי לy האמיתי, על פני מדגם הלמידה. אנחנו קוראים להפסד הזה RSS או residual sum of squares, ומסמנים אותו כפונקציה של הבטאות. נשים לב שניתן גם לכתוב אותו בכתיב מטריציוני מה שיכול להאץ את המימוש: הוא בעצם הנורמה הריבועית של הוקטור Y פחות מטריצה X מוכפלת בוקטור המקדמים בטא.</p>
+<p>נשים לב שנוספה עמודה למטריצת הדאטא X כאן, ויש לה כבר p + 1 עמודות, וזאת על מנת לאפשר את החותך בטא-אפס שיש לנו במודל. העמודה שתתווסף לX תהיה בעצם וקטור שכולו אחד בצורה הזאת (להדגים).</p>
+<p>המודל הזה הוא מודל הרגרסיה הליניארית הקלאסית הרגיל, OLS או ordinary least squares, כי אנחנו רוצים להביא למינימום את השגיאות הריבועיות.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -864,39 +920,51 @@ no. of obs in test y: 2000</code></pre>
 <p>Let’s go back to <span class="math inline">\(y\)</span> = Miss Congeniality vs.&nbsp;<span class="math inline">\(x_1\)</span> = Sweet Home Alabama:</p>
 <p>The <code>statsmodels</code> approach:</p>
 <div class="cell" data-execution_count="5">
-<div class="sourceCode cell-code" id="cb6" data-code-line-numbers="|1-2|4|6|7|8|"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1"></a>sweet_home_idx <span class="op">=</span> <span class="dv">9</span></span>
-<span id="cb6-2"><a href="#cb6-2"></a>X_sweet_tr <span class="op">=</span> Xtr[:, [sweet_home_idx]]</span>
-<span id="cb6-3"><a href="#cb6-3"></a></span>
-<span id="cb6-4"><a href="#cb6-4"></a><span class="im">import</span> statsmodels.api <span class="im">as</span> sm</span>
-<span id="cb6-5"><a href="#cb6-5"></a></span>
-<span id="cb6-6"><a href="#cb6-6"></a>X_sweet_tr1 <span class="op">=</span> sm.add_constant(X_sweet_tr)</span>
-<span id="cb6-7"><a href="#cb6-7"></a>model <span class="op">=</span> sm.OLS(Ytr, X_sweet_tr1)</span>
-<span id="cb6-8"><a href="#cb6-8"></a>model <span class="op">=</span> model.fit()</span>
-<span id="cb6-9"><a href="#cb6-9"></a><span class="bu">print</span>(<span class="ss">f'y = </span><span class="sc">{</span>model<span class="sc">.</span>params[<span class="dv">0</span>]<span class="sc">:.2f}</span><span class="ss"> + </span><span class="sc">{</span>model<span class="sc">.</span>params[<span class="dv">1</span>]<span class="sc">:.2f}</span><span class="ss">*x1'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5" data-code-line-numbers="|1-2|4|6|7|8|"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1"></a>sweet_home_idx <span class="op">=</span> <span class="dv">9</span></span>
+<span id="cb5-2"><a href="#cb5-2"></a>X_sweet_tr <span class="op">=</span> Xtr[:, [sweet_home_idx]]</span>
+<span id="cb5-3"><a href="#cb5-3"></a></span>
+<span id="cb5-4"><a href="#cb5-4"></a><span class="im">import</span> statsmodels.api <span class="im">as</span> sm</span>
+<span id="cb5-5"><a href="#cb5-5"></a></span>
+<span id="cb5-6"><a href="#cb5-6"></a>X_sweet_tr1 <span class="op">=</span> sm.add_constant(X_sweet_tr)</span>
+<span id="cb5-7"><a href="#cb5-7"></a>model <span class="op">=</span> sm.OLS(Ytr, X_sweet_tr1)</span>
+<span id="cb5-8"><a href="#cb5-8"></a>model <span class="op">=</span> model.fit()</span>
+<span id="cb5-9"><a href="#cb5-9"></a><span class="bu">print</span>(<span class="ss">f'y = </span><span class="sc">{</span>model<span class="sc">.</span>params[<span class="dv">0</span>]<span class="sc">:.2f}</span><span class="ss"> + </span><span class="sc">{</span>model<span class="sc">.</span>params[<span class="dv">1</span>]<span class="sc">:.2f}</span><span class="ss">*x1'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell fragment" data-execution_count="5">
 <div class="cell-output cell-output-stdout">
-<pre><code>y = 2.12 + 0.41*x1</code></pre>
+<pre><code>y = 2.11 + 0.41*x1</code></pre>
 </div>
 </div>
 <div class="fragment">
 <p>The <code>SKlearn</code> approach:</p>
 <div class="cell" data-execution_count="6">
-<div class="sourceCode cell-code" id="cb8" data-code-line-numbers="|1|3|4|"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression</span>
-<span id="cb8-2"><a href="#cb8-2"></a></span>
-<span id="cb8-3"><a href="#cb8-3"></a>model <span class="op">=</span> LinearRegression()</span>
-<span id="cb8-4"><a href="#cb8-4"></a>model.fit(X_sweet_tr, Ytr)</span>
-<span id="cb8-5"><a href="#cb8-5"></a><span class="bu">print</span>(<span class="ss">f'y = </span><span class="sc">{</span>model<span class="sc">.</span>intercept_<span class="sc">:.2f}</span><span class="ss"> + </span><span class="sc">{</span>model<span class="sc">.</span>coef_[<span class="dv">0</span>]<span class="sc">:.2f}</span><span class="ss">*x1'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7" data-code-line-numbers="|1|3|4|"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression</span>
+<span id="cb7-2"><a href="#cb7-2"></a></span>
+<span id="cb7-3"><a href="#cb7-3"></a>model <span class="op">=</span> LinearRegression()</span>
+<span id="cb7-4"><a href="#cb7-4"></a>model.fit(X_sweet_tr, Ytr)</span>
+<span id="cb7-5"><a href="#cb7-5"></a><span class="bu">print</span>(<span class="ss">f'y = </span><span class="sc">{</span>model<span class="sc">.</span>intercept_<span class="sc">:.2f}</span><span class="ss"> + </span><span class="sc">{</span>model<span class="sc">.</span>coef_[<span class="dv">0</span>]<span class="sc">:.2f}</span><span class="ss">*x1'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell fragment" data-execution_count="6">
 <div class="cell-output cell-output-stdout">
-<pre><code>y = 2.12 + 0.41*x1</code></pre>
+<pre><code>y = 2.11 + 0.41*x1</code></pre>
 </div>
 </div>
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>נראה איך מתאימים את מודל הרגרסיה הליניארית דווקט בפייתון קודם, כדי לראות את השורה התחתונה. אחר כך נחזור לאיך זה מתבצע בפועל.</p>
+<p>כאן נתחיל עם משתנה יחיד בX וחותך. ניקח סרט אחד והוא יהיה sweet home alabama.</p>
+<p>נראה מימוש בשתי ספריות, נתחיל בספריה שהמחברים שלה יותר דאגו למשתמשים עם אורינטציה סטטיסטית, ובאמת הפלט שהיא נותנת עשיר יותר כמו פלטים של תוכנות סטטיסטיות כמו SPSS או R.</p>
+<p>אני קורא את הסרט sweet home alabama לתוך מטריצת X_sweet_tr, שתהיה לה עמודה אחת בשלב זה. נשים לב שאני מקפיד להשתמש במדגם הלמידה שלי, ומדגם הטסט כלל לא מופיע!</p>
+<p>כעת אני מייבא מספריית statsmodels את המודול api.</p>
+<p>בספרייה הזאת החותך לא מתווסף באופן אוטומטי, אנחנו צריכים לבקש על מטריצת הX שלנו add_constant וזה מה שמוסיף לה עמודה של אחדות, נקרא לה עכשיו X_sweet_tr1.</p>
+<p>כעת מאתחלים קלאס שנקרא OLS, מזינים לתוכו את Y ואז את X, נקרא לאוביקט הזה model.</p>
+<p>ורק כשמבקשים את המתודה fit קורית בעצם הרגרסיה הליניארית, ובאוביקט הmodel שלנו יש את כל מה שאנחנו צריכים.</p>
+<p>בפרט יש לאוביקט שלנו שדה שנקרא params ובתוכו נמצאות הבטאות. במקרה שלנו יש שתי בטאות, בטא-אפס לחותך, ובטא-אחת לשיפוע של המשתנה היחיד, ואני מדפיס את המודל הסופי בצורה כזאת:</p>
+<p>מסתבר שהמודל חיזוי הליניארי הכי פשוט עם סוויט הום אלבמה כסרט מנבא למיס קונג’יניאליטי, הוא לתת לכולם את ציון הבסיס 2.14, ואז על כל עליה בדירוג של סוויט הום אלבמה להוסיף 0.40.</p>
+<p>ספרייה אחרת שכבר ראינו היא sklearn, והיא ספריה שאין לה אוריינטציה סטטיסטית אבל הרבה יתרונות אחרים כמו הממשק האחוד שלה לכל מודל מאשין לרנינג.</p>
+<p>כאן אני מייבא את הקלאס לינאר רגרשן, מאתחל אותו לתוך אוביקט ששוב נקרא model. רק כשאני מבקש על model את המתודה פיט, לתוכה אני מכניס את X וY מתבצעת הרגרסיה הליניארית. נשים לב שכאן כאן ברירת המחדל היא להוסיף חותך למודל והX שמכניסים למתודה פיט לא כולל את העמודה של אחדות, sklearn יעשה את זה בשבילכם.</p>
+<p>כאן לחותך יש שדה משלו, אינטרספט, ושאר הבטאות יופיעו בשדה coef מהמילה coefficients. נקבל כמובן את אותו מודל.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -914,12 +982,12 @@ no. of obs in test y: 2000</code></pre>
 
 <p>The model is a simple straight line:</p>
 <div class="cell" data-execution_count="7">
-<div class="sourceCode cell-code" id="cb10" data-code-line-numbers="|1-2|4-5|"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1"></a>pred_x <span class="op">=</span> np.arange(<span class="dv">1</span>, <span class="dv">6</span>).reshape((<span class="dv">5</span>, <span class="dv">1</span>))</span>
-<span id="cb10-2"><a href="#cb10-2"></a>y_hat <span class="op">=</span> model.predict(pred_x)</span>
-<span id="cb10-3"><a href="#cb10-3"></a></span>
-<span id="cb10-4"><a href="#cb10-4"></a>scatter_cong(<span class="st">'Sweet Home Alabama'</span>)</span>
-<span id="cb10-5"><a href="#cb10-5"></a>plt.plot(pred_x, y_hat, color <span class="op">=</span> <span class="st">'r'</span>)</span>
-<span id="cb10-6"><a href="#cb10-6"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9" data-code-line-numbers="|1-2|4-5|"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1"></a>pred_x <span class="op">=</span> np.arange(<span class="dv">1</span>, <span class="dv">6</span>).reshape((<span class="dv">5</span>, <span class="dv">1</span>))</span>
+<span id="cb9-2"><a href="#cb9-2"></a>y_hat <span class="op">=</span> model.predict(pred_x)</span>
+<span id="cb9-3"><a href="#cb9-3"></a></span>
+<span id="cb9-4"><a href="#cb9-4"></a>scatter_cong(<span class="st">'Sweet Home Alabama'</span>)</span>
+<span id="cb9-5"><a href="#cb9-5"></a>plt.plot(pred_x, y_hat, color <span class="op">=</span> <span class="st">'r'</span>)</span>
+<span id="cb9-6"><a href="#cb9-6"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell fragment" data-execution_count="7">
 <div class="cell-output cell-output-display">
@@ -928,7 +996,9 @@ no. of obs in test y: 2000</code></pre>
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>למקרה שזה לא היה ברור, המודל שקיבלנו הוא משוות קו ישר פשוט. בואו נראה את זה:</p>
+<p>אני בונה X מלאכותי שיש בו פשוט את הדירוגים 1 עד 5. ואני מבקש מהמודל לחזות את הציון של sklearn לחזות הדירוג של Y על הדירוגים האלה.</p>
+<p>עכשיו אני מציירת שוב את הסקאטרפלוט שלנו של דירוגי מיס קונג’יניאליטי מול סוויט הום אלבמה, ומוסיף עליהם את הקו הישר שחוזה המודל. הקו נראה די מתאים לנתונים גם אם הוא פשטני.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -946,23 +1016,29 @@ no. of obs in test y: 2000</code></pre>
 
 <h3 id="evaluating-on-the-test-data">Evaluating on the test data</h3>
 <div class="cell" data-execution_count="8">
-<div class="sourceCode cell-code" id="cb11" data-code-line-numbers="|2-3|5|6|"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1"></a><span class="co"># this is the sklearn approach, no need to add constant</span></span>
-<span id="cb11-2"><a href="#cb11-2"></a>X_sweet_te <span class="op">=</span> Xte[:, [sweet_home_idx]]</span>
-<span id="cb11-3"><a href="#cb11-3"></a>y_hat_te <span class="op">=</span> model.predict(X_sweet_te)</span>
-<span id="cb11-4"><a href="#cb11-4"></a></span>
-<span id="cb11-5"><a href="#cb11-5"></a>test_RMSE_null <span class="op">=</span> np.sqrt(np.mean((Yte<span class="op">-</span>np.mean(Ytr))<span class="op">**</span><span class="dv">2</span>))</span>
-<span id="cb11-6"><a href="#cb11-6"></a>test_RMSE_1movie <span class="op">=</span> np.sqrt(np.mean((Yte<span class="op">-</span>y_hat_te)<span class="op">**</span><span class="dv">2</span>))</span>
-<span id="cb11-7"><a href="#cb11-7"></a></span>
-<span id="cb11-8"><a href="#cb11-8"></a><span class="bu">print</span>(<span class="ss">f'Test RMSE predicting the mean: </span><span class="sc">{</span>test_RMSE_null<span class="sc">: .2f}</span><span class="ss">'</span>)</span>
-<span id="cb11-9"><a href="#cb11-9"></a><span class="bu">print</span>(<span class="ss">f'Test RMSE with Sweet Home Alabama: </span><span class="sc">{</span>test_RMSE_1movie<span class="sc">: .2f}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10" data-code-line-numbers="|2-3|5|6|"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1"></a><span class="co"># this is the sklearn approach, no need to add constant</span></span>
+<span id="cb10-2"><a href="#cb10-2"></a>X_sweet_te <span class="op">=</span> Xte[:, [sweet_home_idx]]</span>
+<span id="cb10-3"><a href="#cb10-3"></a>y_hat_te <span class="op">=</span> model.predict(X_sweet_te)</span>
+<span id="cb10-4"><a href="#cb10-4"></a></span>
+<span id="cb10-5"><a href="#cb10-5"></a>test_RMSE_null <span class="op">=</span> np.sqrt(np.mean((Yte<span class="op">-</span>np.mean(Ytr))<span class="op">**</span><span class="dv">2</span>))</span>
+<span id="cb10-6"><a href="#cb10-6"></a>test_RMSE_1movie <span class="op">=</span> np.sqrt(np.mean((Yte<span class="op">-</span>y_hat_te)<span class="op">**</span><span class="dv">2</span>))</span>
+<span id="cb10-7"><a href="#cb10-7"></a></span>
+<span id="cb10-8"><a href="#cb10-8"></a><span class="bu">print</span>(<span class="ss">f'Test RMSE predicting the mean: </span><span class="sc">{</span>test_RMSE_null<span class="sc">: .2f}</span><span class="ss">'</span>)</span>
+<span id="cb10-9"><a href="#cb10-9"></a><span class="bu">print</span>(<span class="ss">f'Test RMSE with Sweet Home Alabama: </span><span class="sc">{</span>test_RMSE_1movie<span class="sc">: .2f}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell fragment" data-execution_count="8">
 <div class="cell-output cell-output-stdout">
-<pre><code>Test RMSE predicting the mean:  0.97
-Test RMSE with Sweet Home Alabama:  0.88</code></pre>
+<pre><code>Test RMSE predicting the mean:  0.96
+Test RMSE with Sweet Home Alabama:  0.87</code></pre>
 </div>
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>אז המודל מובן. קו ישר. אמרנו שכדי להעריך עד כמה המודל טוב, צריך לראות את הביצועים שלו על נתונים שהמודל לא ראה, הטסט סט, ומקובל לעשות את זה עם מדד הRMSE. שורש השגיאה הריבועית הממוצעת.</p>
+<p>כאן אני מחלץ את סוויט הום אלבמה גם מהטסט סט, והוואי-הט שלי מתקבל באמצעות קריאה לmodel.predict.</p>
+<p>כעת אני מדווח על שני RMSE. RMSE נאל, הוא RMSE שיתקבל אם אני פשוט אחזה את הממוצע של Y שראיתי במדגם הלמידה. זה ייתן לנו איזשהו בייסליין של האם המודל שלנו שיפר במשהו, ואני מאוד מאוד ממליץ לעבוד עם בייסליינים פשוטים במיוחד ברגרסיה, כי הRMSE עצמו לא אומר הרבה כפי שנראה.</p>
+<p>RMSE נוסף שאני מחשב הוא הRMSE של המודל שלנו עם סרט אחד בלבד, נשים לה שאני מממש כאן את הנוסחה בדיוק כפי שהיא כתובה, ברור שלsklearn יש פקודות גם בשביל זה.</p>
+<p>והתוצאה, במודל הכי פשטני שהוא בעצם קו ישר של הממוצע, נקבל RMSE של 0.96, ועם סוויט הום אלבמה כבר נקבל הפחתה בכעשרה אחוזים ל0.86.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -980,49 +1056,49 @@ Test RMSE with Sweet Home Alabama:  0.88</code></pre>
 
 <h3 id="simple-demo-p-14-on-netflix-data">Simple Demo: <span class="math inline">\(p = 14\)</span> on Netflix Data</h3>
 <div class="cell" data-execution_count="9">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>Xtr_df <span class="op">=</span> pd.DataFrame(Xtr[:, :<span class="dv">14</span>], columns<span class="op">=</span>movies[<span class="st">'title'</span>][:<span class="dv">14</span>])</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>Xtr_df1 <span class="op">=</span> sm.add_constant(Xtr_df)</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> sm.OLS(Ytr, Xtr_df1)</span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> model.fit()</span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(model.summary())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>Xtr_df <span class="op">=</span> pd.DataFrame(Xtr[:, :<span class="dv">14</span>], columns<span class="op">=</span>movies[<span class="st">'title'</span>][:<span class="dv">14</span>])</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>Xtr_df1 <span class="op">=</span> sm.add_constant(Xtr_df)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> sm.OLS(Ytr, Xtr_df1)</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> model.fit()</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(model.summary())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell fragment" data-execution_count="9">
 <div class="cell-output cell-output-stdout">
 <pre><code>                            OLS Regression Results                            
 ==============================================================================
-Dep. Variable:                      y   R-squared:                       0.281
-Model:                            OLS   Adj. R-squared:                  0.280
-Method:                 Least Squares   F-statistic:                     223.1
-Date:                Wed, 26 Jul 2023   Prob (F-statistic):               0.00
-Time:                        19:28:25   Log-Likelihood:                -9657.6
-No. Observations:                8000   AIC:                         1.935e+04
-Df Residuals:                    7985   BIC:                         1.945e+04
+Dep. Variable:                      y   R-squared:                       0.278
+Model:                            OLS   Adj. R-squared:                  0.276
+Method:                 Least Squares   F-statistic:                     219.1
+Date:                Fri, 04 Aug 2023   Prob (F-statistic):               0.00
+Time:                        21:56:43   Log-Likelihood:                -9708.6
+No. Observations:                8000   AIC:                         1.945e+04
+Df Residuals:                    7985   BIC:                         1.955e+04
 Df Model:                          14                                         
 Covariance Type:            nonrobust                                         
 ============================================================================================
                                coef    std err          t      P&gt;|t|      [0.025      0.975]
 --------------------------------------------------------------------------------------------
-const                        0.3364      0.089      3.768      0.000       0.161       0.511
-Independence Day             0.0660      0.013      4.981      0.000       0.040       0.092
-The Patriot                 -0.0190      0.012     -1.629      0.103      -0.042       0.004
-The Day After Tomorrow       0.0410      0.011      3.780      0.000       0.020       0.062
-Pirates of the Caribbean     0.0664      0.012      5.600      0.000       0.043       0.090
-Pretty Woman                 0.1588      0.011     13.904      0.000       0.136       0.181
-Forrest Gump                -0.0681      0.013     -5.093      0.000      -0.094      -0.042
-The Green Mile               0.0268      0.013      2.008      0.045       0.001       0.053
-Con Air                      0.0751      0.012      6.183      0.000       0.051       0.099
-Twister                      0.0897      0.012      7.671      0.000       0.067       0.113
-Sweet Home Alabama           0.2284      0.011     21.140      0.000       0.207       0.250
-Pearl Harbor                 0.0324      0.010      3.128      0.002       0.012       0.053
-Armageddon                   0.0103      0.013      0.803      0.422      -0.015       0.035
-The Rock                    -0.0011      0.013     -0.084      0.933      -0.026       0.024
-What Women Want              0.1539      0.011     13.567      0.000       0.132       0.176
+const                        0.3751      0.091      4.143      0.000       0.198       0.553
+Independence Day             0.0547      0.013      4.108      0.000       0.029       0.081
+The Patriot                 -0.0203      0.012     -1.739      0.082      -0.043       0.003
+The Day After Tomorrow       0.0381      0.011      3.499      0.000       0.017       0.059
+Pirates of the Caribbean     0.0682      0.012      5.705      0.000       0.045       0.092
+Pretty Woman                 0.1560      0.012     13.435      0.000       0.133       0.179
+Forrest Gump                -0.0725      0.013     -5.387      0.000      -0.099      -0.046
+The Green Mile               0.0350      0.014      2.576      0.010       0.008       0.062
+Con Air                      0.0792      0.012      6.499      0.000       0.055       0.103
+Twister                      0.0865      0.012      7.371      0.000       0.064       0.110
+Sweet Home Alabama           0.2285      0.011     20.840      0.000       0.207       0.250
+Pearl Harbor                 0.0400      0.010      3.817      0.000       0.019       0.061
+Armageddon                   0.0206      0.013      1.614      0.107      -0.004       0.046
+The Rock                    -0.0085      0.013     -0.658      0.510      -0.034       0.017
+What Women Want              0.1462      0.011     12.824      0.000       0.124       0.169
 ==============================================================================
-Omnibus:                      123.561   Durbin-Watson:                   2.003
-Prob(Omnibus):                  0.000   Jarque-Bera (JB):              129.392
-Skew:                          -0.301   Prob(JB):                     8.00e-29
-Kurtosis:                       3.159   Cond. No.                         150.
+Omnibus:                      136.503   Durbin-Watson:                   1.990
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):              144.276
+Skew:                          -0.313   Prob(JB):                     4.69e-32
+Kurtosis:                       3.204   Cond. No.                         151.
 ==============================================================================
 
 Notes:
@@ -1031,7 +1107,8 @@ Notes:
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>בואו נתקדם להשתמש בכל 14 הסרטים שלגביהם אין לנו תצפיות חסרות. כלומר p יהיה 14. כאן אני עוטף אותם כדאטאפריים של פנדאז בשביל פלט נוח יותר. ואז חוזר על הצעדים שלי, מוסיף חותך, קורא לOLS, ומבקש fit לריצת הרגרסיה.</p>
+<p>עכשיו אני מבקש model.summary כדי לקבל פלט מקצועי של רגרסיה ליניארית. ברור שאין בסקופ של הקורס שלנו פנאי לעבור על כל מדד ומדד שמודפס כאן. כרגע אני רק רוצה שתשימו לב לעמודה של coef, אנחנו מקבלים על החותך ועל כל סרט את המקדם בטא שלו. המודל הזה כבר נותן ציון בסיס נמוך של 0.4 למיס קונג’יניאליטי, ואז מעניין לראות את המקדמים של הסרטים השונים. אפשר לראות שסרטים כמו אישה יפה, סוויט הום אלבמה ומה נשים רוצות מקבלים מקדמים חיוביים ודי גדולים, פורסט גאמפ למשל מקבל מקדם שלילי.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1048,21 +1125,21 @@ Notes:
 <section class="slide level2">
 
 <div class="cell" data-execution_count="10">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># this is the statsmodels approach, need to add constant</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>Xte1 <span class="op">=</span> sm.add_constant(Xte[:, :<span class="dv">14</span>])</span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>y_hat_te <span class="op">=</span> model.predict(Xte1)</span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>test_RMSE_14movies <span class="op">=</span> np.sqrt(np.mean((Yte <span class="op">-</span> y_hat_te)<span class="op">**</span><span class="dv">2</span>))</span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Test RMSE with the mean: </span><span class="sc">{</span>test_RMSE_null<span class="sc">: .2f}</span><span class="ss">'</span>)</span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Test RMSE with Sweet Home Alabama: </span><span class="sc">{</span>test_RMSE_1movie<span class="sc">: .2f}</span><span class="ss">'</span>)</span>
-<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Test RMSE with 14 movies: </span><span class="sc">{</span>test_RMSE_14movies<span class="sc">: .2f}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># this is the statsmodels approach, need to add constant</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>Xte1 <span class="op">=</span> sm.add_constant(Xte[:, :<span class="dv">14</span>])</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>y_hat_te <span class="op">=</span> model.predict(Xte1)</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>test_RMSE_14movies <span class="op">=</span> np.sqrt(np.mean((Yte <span class="op">-</span> y_hat_te)<span class="op">**</span><span class="dv">2</span>))</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Test RMSE with the mean: </span><span class="sc">{</span>test_RMSE_null<span class="sc">: .2f}</span><span class="ss">'</span>)</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Test RMSE with Sweet Home Alabama: </span><span class="sc">{</span>test_RMSE_1movie<span class="sc">: .2f}</span><span class="ss">'</span>)</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Test RMSE with 14 movies: </span><span class="sc">{</span>test_RMSE_14movies<span class="sc">: .2f}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell fragment" data-execution_count="10">
 <div class="cell-output cell-output-stdout">
-<pre><code>Test RMSE with the mean:  0.97
-Test RMSE with Sweet Home Alabama:  0.88
-Test RMSE with 14 movies:  0.83</code></pre>
+<pre><code>Test RMSE with the mean:  0.96
+Test RMSE with Sweet Home Alabama:  0.87
+Test RMSE with 14 movies:  0.81</code></pre>
 </div>
 </div>
 <div class="fragment">
@@ -1070,7 +1147,8 @@ Test RMSE with 14 movies:  0.83</code></pre>
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>ושוב, נרצה לבדוק את הRMSE של המודל על מדגם הטסט שהוא לא ראה. אנחנו מחשבים אותו בדיוק כמו קודם, ומקבלים עוד הפחתה משמעותית, אנחנו כבר ב0.81.</p>
+<p>כשהמודל היה עם סרט אחד היה ברור שהמודל הוא בעצם קו ישר. איך נראה המודל שלנו עכשיו? אם תכלילו לשני משתנים המודל יהיה בעצם מישור (להדגים), ויותר משני משתנים נקרא לזה מישור פי-מימדי.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1090,33 +1168,36 @@ Test RMSE with 14 movies:  0.83</code></pre>
 <p>What to do about missing? Let’s keep as 0 for now (did not rate = hate…)</p>
 <p><strong>Dealing with missing values is an important topic, that we won’t cover here</strong></p>
 <div class="cell" data-execution_count="11">
-<div class="sourceCode cell-code" id="cb17" data-code-line-numbers="|1,6|"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1"></a>Xtr[np.isnan(Xtr)] <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb17-2"><a href="#cb17-2"></a>Xtr1 <span class="op">=</span> sm.add_constant(Xtr)</span>
-<span id="cb17-3"><a href="#cb17-3"></a>model <span class="op">=</span> sm.OLS(Ytr, Xtr1)</span>
-<span id="cb17-4"><a href="#cb17-4"></a>model <span class="op">=</span> model.fit()</span>
-<span id="cb17-5"><a href="#cb17-5"></a></span>
-<span id="cb17-6"><a href="#cb17-6"></a>Xte[np.isnan(Xte)]<span class="op">=</span><span class="dv">0</span></span>
-<span id="cb17-7"><a href="#cb17-7"></a>Xte1 <span class="op">=</span> sm.add_constant(Xte)</span>
-<span id="cb17-8"><a href="#cb17-8"></a>y_hat_te <span class="op">=</span> model.predict(Xte1)</span>
-<span id="cb17-9"><a href="#cb17-9"></a></span>
-<span id="cb17-10"><a href="#cb17-10"></a>test_RMSE_99movies <span class="op">=</span> np.sqrt(np.mean((Yte <span class="op">-</span> y_hat_te)<span class="op">**</span><span class="dv">2</span>))</span>
-<span id="cb17-11"><a href="#cb17-11"></a></span>
-<span id="cb17-12"><a href="#cb17-12"></a><span class="bu">print</span>(<span class="ss">f'Test RMSE with the mean: </span><span class="sc">{</span>test_RMSE_null<span class="sc">: .2f}</span><span class="ss">'</span>)</span>
-<span id="cb17-13"><a href="#cb17-13"></a><span class="bu">print</span>(<span class="ss">f'Test RMSE with Sweet Home Alabama: </span><span class="sc">{</span>test_RMSE_1movie<span class="sc">: .2f}</span><span class="ss">'</span>)</span>
-<span id="cb17-14"><a href="#cb17-14"></a><span class="bu">print</span>(<span class="ss">f'Test RMSE with 14 movies: </span><span class="sc">{</span>test_RMSE_14movies<span class="sc">: .2f}</span><span class="ss">'</span>)</span>
-<span id="cb17-15"><a href="#cb17-15"></a><span class="bu">print</span>(<span class="ss">f'Test RMSE with 99 movies: </span><span class="sc">{</span>test_RMSE_99movies<span class="sc">: .2f}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16" data-code-line-numbers="|1,6|"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1"></a>Xtr[np.isnan(Xtr)] <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb16-2"><a href="#cb16-2"></a>Xtr1 <span class="op">=</span> sm.add_constant(Xtr)</span>
+<span id="cb16-3"><a href="#cb16-3"></a>model <span class="op">=</span> sm.OLS(Ytr, Xtr1)</span>
+<span id="cb16-4"><a href="#cb16-4"></a>model <span class="op">=</span> model.fit()</span>
+<span id="cb16-5"><a href="#cb16-5"></a></span>
+<span id="cb16-6"><a href="#cb16-6"></a>Xte[np.isnan(Xte)]<span class="op">=</span><span class="dv">0</span></span>
+<span id="cb16-7"><a href="#cb16-7"></a>Xte1 <span class="op">=</span> sm.add_constant(Xte)</span>
+<span id="cb16-8"><a href="#cb16-8"></a>y_hat_te <span class="op">=</span> model.predict(Xte1)</span>
+<span id="cb16-9"><a href="#cb16-9"></a></span>
+<span id="cb16-10"><a href="#cb16-10"></a>test_RMSE_99movies <span class="op">=</span> np.sqrt(np.mean((Yte <span class="op">-</span> y_hat_te)<span class="op">**</span><span class="dv">2</span>))</span>
+<span id="cb16-11"><a href="#cb16-11"></a></span>
+<span id="cb16-12"><a href="#cb16-12"></a><span class="bu">print</span>(<span class="ss">f'Test RMSE with the mean: </span><span class="sc">{</span>test_RMSE_null<span class="sc">: .2f}</span><span class="ss">'</span>)</span>
+<span id="cb16-13"><a href="#cb16-13"></a><span class="bu">print</span>(<span class="ss">f'Test RMSE with Sweet Home Alabama: </span><span class="sc">{</span>test_RMSE_1movie<span class="sc">: .2f}</span><span class="ss">'</span>)</span>
+<span id="cb16-14"><a href="#cb16-14"></a><span class="bu">print</span>(<span class="ss">f'Test RMSE with 14 movies: </span><span class="sc">{</span>test_RMSE_14movies<span class="sc">: .2f}</span><span class="ss">'</span>)</span>
+<span id="cb16-15"><a href="#cb16-15"></a><span class="bu">print</span>(<span class="ss">f'Test RMSE with 99 movies: </span><span class="sc">{</span>test_RMSE_99movies<span class="sc">: .2f}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell fragment" data-execution_count="11">
 <div class="cell-output cell-output-stdout">
-<pre><code>Test RMSE with the mean:  0.97
-Test RMSE with Sweet Home Alabama:  0.88
-Test RMSE with 14 movies:  0.83
-Test RMSE with 99 movies:  0.78</code></pre>
+<pre><code>Test RMSE with the mean:  0.96
+Test RMSE with Sweet Home Alabama:  0.87
+Test RMSE with 14 movies:  0.81
+Test RMSE with 99 movies:  0.77</code></pre>
 </div>
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>אבל יש לנו 99 סרטים. בחלקם יש פשוט ערכים חסרים.</p>
+<p>בואו נציב לצורך התרגיל במקום ערכים חסרים אפס. כאילו מי שלא דרג סרט מסוים ממש לא אהב אותו. ברור שזה לא הדבר הכי חכם שניתן לעשות כאן ועל טיפול בערכים חסרים גם כן ניתן לבלות סמסטר שלם. ובכל זאת, אולי זה יועיל לנו כפי שמתבטא מהtest RMSE.</p>
+<p>ומסתבר שכן, בדוגמא הזאת, אם אנחנו משתמשים בכל 99 הסרטים בהצבת אפס במקום ערכים חסרים הRMSE כבר יורד מתחת ל0.8.</p>
+<p>כעת כשראיתם כבר את השורה התחתונה נדבר על איך בעצם מוצאים את המקדמים של הרגרסיה ליניארית, את הבטאות.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1243,6 +1324,8 @@ Test RMSE with 99 movies:  0.78</code></pre>
 <li class="fragment"><p><span class="math inline">\(X\beta = X^c_0 \beta_0 + \dots +X^c_p \beta_p\)</span> is a linear combination of the columns.</p></li>
 <li class="fragment"><p>Hence, in <span class="math inline">\(\min_\beta \| Y-X\beta\|^2\)</span> we are seeking a linear combination of the columns which is closest to <span class="math inline">\(Y\)</span> in <span class="math inline">\(\text{Span}(X^c_0, \dots ,X^c_p)\)</span>.</p></li>
 </ul>
+</div>
+<div class="fragment">
 <p><span class="math inline">\(\Rightarrow\)</span> OLS is an <em>orthogonal projection</em> of <span class="math inline">\(Y\)</span> on the column space of <span class="math inline">\(X\)</span></p>
 </div>
 <aside class="notes">
@@ -1372,42 +1455,42 @@ Test RMSE with 99 movies:  0.78</code></pre>
 
 <h4 id="back-to-the-14-movies-model-now-with-the-inference">Back to the 14-movies model, now with the inference:</h4>
 <div class="cell" data-execution_count="13">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(model.summary())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(model.summary())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                            OLS Regression Results                            
 ==============================================================================
-Dep. Variable:                      y   R-squared:                       0.281
-Model:                            OLS   Adj. R-squared:                  0.280
-Method:                 Least Squares   F-statistic:                     223.1
-Date:                Wed, 26 Jul 2023   Prob (F-statistic):               0.00
-Time:                        19:28:25   Log-Likelihood:                -9657.6
-No. Observations:                8000   AIC:                         1.935e+04
-Df Residuals:                    7985   BIC:                         1.945e+04
+Dep. Variable:                      y   R-squared:                       0.278
+Model:                            OLS   Adj. R-squared:                  0.276
+Method:                 Least Squares   F-statistic:                     219.1
+Date:                Fri, 04 Aug 2023   Prob (F-statistic):               0.00
+Time:                        21:56:43   Log-Likelihood:                -9708.6
+No. Observations:                8000   AIC:                         1.945e+04
+Df Residuals:                    7985   BIC:                         1.955e+04
 Df Model:                          14                                         
 Covariance Type:            nonrobust                                         
 ============================================================================================
                                coef    std err          t      P&gt;|t|      [0.025      0.975]
 --------------------------------------------------------------------------------------------
-const                        0.3364      0.089      3.768      0.000       0.161       0.511
-Independence Day             0.0660      0.013      4.981      0.000       0.040       0.092
-The Patriot                 -0.0190      0.012     -1.629      0.103      -0.042       0.004
-The Day After Tomorrow       0.0410      0.011      3.780      0.000       0.020       0.062
-Pirates of the Caribbean     0.0664      0.012      5.600      0.000       0.043       0.090
-Pretty Woman                 0.1588      0.011     13.904      0.000       0.136       0.181
-Forrest Gump                -0.0681      0.013     -5.093      0.000      -0.094      -0.042
-The Green Mile               0.0268      0.013      2.008      0.045       0.001       0.053
-Con Air                      0.0751      0.012      6.183      0.000       0.051       0.099
-Twister                      0.0897      0.012      7.671      0.000       0.067       0.113
-Sweet Home Alabama           0.2284      0.011     21.140      0.000       0.207       0.250
-Pearl Harbor                 0.0324      0.010      3.128      0.002       0.012       0.053
-Armageddon                   0.0103      0.013      0.803      0.422      -0.015       0.035
-The Rock                    -0.0011      0.013     -0.084      0.933      -0.026       0.024
-What Women Want              0.1539      0.011     13.567      0.000       0.132       0.176
+const                        0.3751      0.091      4.143      0.000       0.198       0.553
+Independence Day             0.0547      0.013      4.108      0.000       0.029       0.081
+The Patriot                 -0.0203      0.012     -1.739      0.082      -0.043       0.003
+The Day After Tomorrow       0.0381      0.011      3.499      0.000       0.017       0.059
+Pirates of the Caribbean     0.0682      0.012      5.705      0.000       0.045       0.092
+Pretty Woman                 0.1560      0.012     13.435      0.000       0.133       0.179
+Forrest Gump                -0.0725      0.013     -5.387      0.000      -0.099      -0.046
+The Green Mile               0.0350      0.014      2.576      0.010       0.008       0.062
+Con Air                      0.0792      0.012      6.499      0.000       0.055       0.103
+Twister                      0.0865      0.012      7.371      0.000       0.064       0.110
+Sweet Home Alabama           0.2285      0.011     20.840      0.000       0.207       0.250
+Pearl Harbor                 0.0400      0.010      3.817      0.000       0.019       0.061
+Armageddon                   0.0206      0.013      1.614      0.107      -0.004       0.046
+The Rock                    -0.0085      0.013     -0.658      0.510      -0.034       0.017
+What Women Want              0.1462      0.011     12.824      0.000       0.124       0.169
 ==============================================================================
-Omnibus:                      123.561   Durbin-Watson:                   2.003
-Prob(Omnibus):                  0.000   Jarque-Bera (JB):              129.392
-Skew:                          -0.301   Prob(JB):                     8.00e-29
-Kurtosis:                       3.159   Cond. No.                         150.
+Omnibus:                      136.503   Durbin-Watson:                   1.990
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):              144.276
+Skew:                          -0.313   Prob(JB):                     4.69e-32
+Kurtosis:                       3.204   Cond. No.                         151.
 ==============================================================================
 
 Notes:
@@ -1693,9 +1776,9 @@ Notes:
 
 <h3 id="example-south-african-hearth-disease-data">Example: South African Hearth Disease Data</h3>
 <div class="cell" data-execution_count="14">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>saheart <span class="op">=</span> pd.read_table(<span class="st">"../datasets/SAheart.data"</span>, header <span class="op">=</span> <span class="dv">0</span>, sep<span class="op">=</span><span class="st">','</span>, index_col<span class="op">=</span><span class="dv">0</span>)</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(saheart.describe())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>saheart <span class="op">=</span> pd.read_table(<span class="st">"../datasets/SAheart.data"</span>, header <span class="op">=</span> <span class="dv">0</span>, sep<span class="op">=</span><span class="st">','</span>, index_col<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(saheart.describe())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>              sbp     tobacco         ldl   adiposity       typea     obesity  \
 count  462.000000  462.000000  462.000000  462.000000  462.000000  462.000000   
@@ -1738,17 +1821,17 @@ max    147.190000   64.000000    1.000000  </code></pre>
 
 <h3 id="saheart-data-splitting-with-sklearn">SAHeart: Data Splitting with <code>SKlearn</code></h3>
 <div class="cell" data-execution_count="15">
-<div class="sourceCode cell-code" id="cb23" data-code-line-numbers="|4-6|"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1"></a>saheart_X<span class="op">=</span>pd.get_dummies(saheart.iloc[:, :<span class="dv">9</span>]).iloc[:, :<span class="dv">9</span>]</span>
-<span id="cb23-2"><a href="#cb23-2"></a>saheart_y<span class="op">=</span>saheart.iloc[:, <span class="dv">9</span>]</span>
-<span id="cb23-3"><a href="#cb23-3"></a></span>
-<span id="cb23-4"><a href="#cb23-4"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
-<span id="cb23-5"><a href="#cb23-5"></a></span>
-<span id="cb23-6"><a href="#cb23-6"></a>Xtr, Xte, Ytr, Yte <span class="op">=</span> train_test_split(saheart_X, saheart_y, test_size<span class="op">=</span><span class="fl">0.2</span>, random_state<span class="op">=</span><span class="dv">42</span>)</span>
-<span id="cb23-7"><a href="#cb23-7"></a></span>
-<span id="cb23-8"><a href="#cb23-8"></a><span class="bu">print</span>(<span class="ss">f'No. of train rows: </span><span class="sc">{</span>Xtr<span class="sc">.</span>shape[<span class="dv">0</span>]<span class="sc">}</span><span class="ss">, no. train of cols: </span><span class="sc">{</span>Xtr<span class="sc">.</span>shape[<span class="dv">1</span>]<span class="sc">}</span><span class="ss">'</span>)</span>
-<span id="cb23-9"><a href="#cb23-9"></a><span class="bu">print</span>(<span class="ss">f'No. of test rows: </span><span class="sc">{</span>Xte<span class="sc">.</span>shape[<span class="dv">0</span>]<span class="sc">}</span><span class="ss">, no. test of cols: </span><span class="sc">{</span>Xte<span class="sc">.</span>shape[<span class="dv">1</span>]<span class="sc">}</span><span class="ss">'</span>)</span>
-<span id="cb23-10"><a href="#cb23-10"></a><span class="bu">print</span>(<span class="ss">f'no. of obs in train y: </span><span class="sc">{</span>Ytr<span class="sc">.</span>shape[<span class="dv">0</span>]<span class="sc">}</span><span class="ss">'</span>)</span>
-<span id="cb23-11"><a href="#cb23-11"></a><span class="bu">print</span>(<span class="ss">f'no. of obs in test y: </span><span class="sc">{</span>Yte<span class="sc">.</span>shape[<span class="dv">0</span>]<span class="sc">}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22" data-code-line-numbers="|4-6|"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1"></a>saheart_X<span class="op">=</span>pd.get_dummies(saheart.iloc[:, :<span class="dv">9</span>]).iloc[:, :<span class="dv">9</span>]</span>
+<span id="cb22-2"><a href="#cb22-2"></a>saheart_y<span class="op">=</span>saheart.iloc[:, <span class="dv">9</span>]</span>
+<span id="cb22-3"><a href="#cb22-3"></a></span>
+<span id="cb22-4"><a href="#cb22-4"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
+<span id="cb22-5"><a href="#cb22-5"></a></span>
+<span id="cb22-6"><a href="#cb22-6"></a>Xtr, Xte, Ytr, Yte <span class="op">=</span> train_test_split(saheart_X, saheart_y, test_size<span class="op">=</span><span class="fl">0.2</span>, random_state<span class="op">=</span><span class="dv">42</span>)</span>
+<span id="cb22-7"><a href="#cb22-7"></a></span>
+<span id="cb22-8"><a href="#cb22-8"></a><span class="bu">print</span>(<span class="ss">f'No. of train rows: </span><span class="sc">{</span>Xtr<span class="sc">.</span>shape[<span class="dv">0</span>]<span class="sc">}</span><span class="ss">, no. train of cols: </span><span class="sc">{</span>Xtr<span class="sc">.</span>shape[<span class="dv">1</span>]<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb22-9"><a href="#cb22-9"></a><span class="bu">print</span>(<span class="ss">f'No. of test rows: </span><span class="sc">{</span>Xte<span class="sc">.</span>shape[<span class="dv">0</span>]<span class="sc">}</span><span class="ss">, no. test of cols: </span><span class="sc">{</span>Xte<span class="sc">.</span>shape[<span class="dv">1</span>]<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb22-10"><a href="#cb22-10"></a><span class="bu">print</span>(<span class="ss">f'no. of obs in train y: </span><span class="sc">{</span>Ytr<span class="sc">.</span>shape[<span class="dv">0</span>]<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb22-11"><a href="#cb22-11"></a><span class="bu">print</span>(<span class="ss">f'no. of obs in test y: </span><span class="sc">{</span>Yte<span class="sc">.</span>shape[<span class="dv">0</span>]<span class="sc">}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>No. of train rows: 369, no. train of cols: 9
 No. of test rows: 93, no. test of cols: 9
@@ -1776,12 +1859,12 @@ no. of obs in test y: 93</code></pre>
 
 <h3 id="saheart-lr-with-statsomdels">SAHeart: LR with <code>statsomdels</code></h3>
 <div class="cell" data-execution_count="16">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.api <span class="im">as</span> sm</span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> sm.Logit(Ytr, sm.add_constant(Xtr))</span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> model.fit()</span>
-<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(model.summary())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.api <span class="im">as</span> sm</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> sm.Logit(Ytr, sm.add_constant(Xtr))</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> model.fit()</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(model.summary())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Optimization terminated successfully.
          Current function value: 0.513971
@@ -1791,8 +1874,8 @@ no. of obs in test y: 93</code></pre>
 Dep. Variable:                    chd   No. Observations:                  369
 Model:                          Logit   Df Residuals:                      359
 Method:                           MLE   Df Model:                            9
-Date:                Wed, 26 Jul 2023   Pseudo R-squ.:                  0.1994
-Time:                        19:28:25   Log-Likelihood:                -189.66
+Date:                Fri, 04 Aug 2023   Pseudo R-squ.:                  0.1994
+Time:                        21:56:44   Log-Likelihood:                -189.66
 converged:                       True   LL-Null:                       -236.90
 Covariance Type:            nonrobust   LLR p-value:                 2.041e-16
 ==================================================================================
@@ -1831,13 +1914,13 @@ famhist_Absent    -0.8135      0.255     -3.191      0.001      -1.313      -0.3
 
 <h3 id="saheart-lr-with-sklearn">SAHeart: LR with <code>SKlearn</code></h3>
 <div class="cell" data-execution_count="17">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LogisticRegression</span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> LogisticRegression(solver<span class="op">=</span><span class="st">'lbfgs'</span>,max_iter<span class="op">=</span><span class="dv">10000</span>)</span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>model.fit(Xtr, Ytr)</span>
-<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'intercept:'</span>, model.intercept_)</span>
-<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'coef:'</span>, model.coef_)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LogisticRegression</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> LogisticRegression(solver<span class="op">=</span><span class="st">'lbfgs'</span>,max_iter<span class="op">=</span><span class="dv">10000</span>)</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>model.fit(Xtr, Ytr)</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'intercept:'</span>, model.intercept_)</span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'coef:'</span>, model.coef_)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>intercept: [-5.37683503]
 coef: [[ 0.0080158   0.0557117   0.16737956  0.0271416   0.0410251  -0.08127558
@@ -1864,17 +1947,17 @@ coef: [[ 0.0080158   0.0557117   0.16737956  0.0271416   0.0410251  -0.08127558
 
 <h3 id="saheart-lr-test-performance">SAHeart: LR Test Performance</h3>
 <div class="cell" data-execution_count="18">
-<div class="sourceCode cell-code" id="cb29" data-code-line-numbers="|3|4|5|"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> confusion_matrix</span>
-<span id="cb29-2"><a href="#cb29-2"></a></span>
-<span id="cb29-3"><a href="#cb29-3"></a>p_hat_te <span class="op">=</span> model.predict_proba(Xte)[:, <span class="dv">1</span>]</span>
-<span id="cb29-4"><a href="#cb29-4"></a>y_hat_te <span class="op">=</span> p_hat_te <span class="op">&gt;</span> <span class="fl">0.5</span></span>
-<span id="cb29-5"><a href="#cb29-5"></a>conf <span class="op">=</span> confusion_matrix(Yte, y_hat_te)</span>
-<span id="cb29-6"><a href="#cb29-6"></a></span>
-<span id="cb29-7"><a href="#cb29-7"></a>pd.DataFrame(</span>
-<span id="cb29-8"><a href="#cb29-8"></a>  confusion_matrix(Yte, y_hat_te),</span>
-<span id="cb29-9"><a href="#cb29-9"></a>  index<span class="op">=</span>[<span class="st">'true:no'</span>, <span class="st">'true:yes'</span>], </span>
-<span id="cb29-10"><a href="#cb29-10"></a>  columns<span class="op">=</span>[<span class="st">'pred:no'</span>, <span class="st">'pred:yes'</span>]</span>
-<span id="cb29-11"><a href="#cb29-11"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28" data-code-line-numbers="|3|4|5|"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> confusion_matrix</span>
+<span id="cb28-2"><a href="#cb28-2"></a></span>
+<span id="cb28-3"><a href="#cb28-3"></a>p_hat_te <span class="op">=</span> model.predict_proba(Xte)[:, <span class="dv">1</span>]</span>
+<span id="cb28-4"><a href="#cb28-4"></a>y_hat_te <span class="op">=</span> p_hat_te <span class="op">&gt;</span> <span class="fl">0.5</span></span>
+<span id="cb28-5"><a href="#cb28-5"></a>conf <span class="op">=</span> confusion_matrix(Yte, y_hat_te)</span>
+<span id="cb28-6"><a href="#cb28-6"></a></span>
+<span id="cb28-7"><a href="#cb28-7"></a>pd.DataFrame(</span>
+<span id="cb28-8"><a href="#cb28-8"></a>  confusion_matrix(Yte, y_hat_te),</span>
+<span id="cb28-9"><a href="#cb28-9"></a>  index<span class="op">=</span>[<span class="st">'true:no'</span>, <span class="st">'true:yes'</span>], </span>
+<span id="cb28-10"><a href="#cb28-10"></a>  columns<span class="op">=</span>[<span class="st">'pred:no'</span>, <span class="st">'pred:yes'</span>]</span>
+<span id="cb28-11"><a href="#cb28-11"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="18">
 <div>
 <style scoped="">
@@ -1918,9 +2001,9 @@ coef: [[ 0.0080158   0.0557117   0.16737956  0.0271416   0.0410251  -0.08127558
 </div>
 <div class="fragment">
 <div class="cell" data-execution_count="19">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>acc <span class="op">=</span> np.mean(Yte <span class="op">==</span> y_hat_te)</span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>err <span class="op">=</span> np.mean(Yte <span class="op">!=</span> y_hat_te)</span>
-<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Accuracy: </span><span class="sc">{</span>acc<span class="sc">: .2f}</span><span class="ss">, Misclassification loss: </span><span class="sc">{</span>err<span class="sc">: .2f}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>acc <span class="op">=</span> np.mean(Yte <span class="op">==</span> y_hat_te)</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>err <span class="op">=</span> np.mean(Yte <span class="op">!=</span> y_hat_te)</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Accuracy: </span><span class="sc">{</span>acc<span class="sc">: .2f}</span><span class="ss">, Misclassification loss: </span><span class="sc">{</span>err<span class="sc">: .2f}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Accuracy:  0.76, Misclassification loss:  0.24</code></pre>
 </div>
@@ -2093,11 +2176,11 @@ coef: [[ 0.0080158   0.0557117   0.16737956  0.0271416   0.0410251  -0.08127558
 <section class="slide level2">
 
 <div class="cell" data-execution_count="20">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>pd.DataFrame(</span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  confusion_matrix(Yte, y_hat_te),</span>
-<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>  index<span class="op">=</span>[<span class="st">'true:no'</span>, <span class="st">'true:yes'</span>], </span>
-<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>  columns<span class="op">=</span>[<span class="st">'pred:no'</span>, <span class="st">'pred:yes'</span>]</span>
-<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>pd.DataFrame(</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  confusion_matrix(Yte, y_hat_te),</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>  index<span class="op">=</span>[<span class="st">'true:no'</span>, <span class="st">'true:yes'</span>], </span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>  columns<span class="op">=</span>[<span class="st">'pred:no'</span>, <span class="st">'pred:yes'</span>]</span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="20">
 <div>
 <style scoped="">
@@ -2141,9 +2224,9 @@ coef: [[ 0.0080158   0.0557117   0.16737956  0.0271416   0.0410251  -0.08127558
 </div>
 <div class="fragment">
 <div class="cell" data-execution_count="21">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> classification_report</span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(classification_report(Yte, y_hat_te))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> classification_report</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(classification_report(Yte, y_hat_te))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>              precision    recall  f1-score   support
 
@@ -2245,21 +2328,21 @@ weighted avg       0.76      0.76      0.76        93
 <div class="cell" data-execution_count="22">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> roc_curve, auc</span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>fpr, tpr, thresholds <span class="op">=</span> roc_curve(Yte, p_hat_te)</span>
-<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>auc1 <span class="op">=</span> auc(fpr, tpr)</span>
-<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>plt.plot(fpr, tpr, color<span class="op">=</span><span class="st">'darkorange'</span>,</span>
-<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>         lw<span class="op">=</span><span class="dv">2</span>, label<span class="op">=</span><span class="st">'ROC curve (area = </span><span class="sc">%0.2f</span><span class="st">)'</span> <span class="op">%</span> auc1)</span>
-<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a>plt.plot([<span class="dv">0</span>, <span class="dv">1</span>], [<span class="dv">0</span>, <span class="dv">1</span>], color<span class="op">=</span><span class="st">'navy'</span>, lw<span class="op">=</span><span class="dv">2</span>, linestyle<span class="op">=</span><span class="st">'--'</span>)</span>
-<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a>plt.xlim([<span class="fl">0.0</span>, <span class="fl">1.0</span>])</span>
-<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a>plt.ylim([<span class="fl">0.0</span>, <span class="fl">1.05</span>])</span>
-<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'False Positive Rate'</span>)</span>
-<span id="cb35-12"><a href="#cb35-12" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'True Positive Rate'</span>)</span>
-<span id="cb35-13"><a href="#cb35-13" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'ROC curve for our logistic model'</span>)</span>
-<span id="cb35-14"><a href="#cb35-14" aria-hidden="true" tabindex="-1"></a>plt.legend(loc<span class="op">=</span><span class="st">"lower right"</span>)</span>
-<span id="cb35-15"><a href="#cb35-15" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> roc_curve, auc</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>fpr, tpr, thresholds <span class="op">=</span> roc_curve(Yte, p_hat_te)</span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>auc1 <span class="op">=</span> auc(fpr, tpr)</span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>plt.plot(fpr, tpr, color<span class="op">=</span><span class="st">'darkorange'</span>,</span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>         lw<span class="op">=</span><span class="dv">2</span>, label<span class="op">=</span><span class="st">'ROC curve (area = </span><span class="sc">%0.2f</span><span class="st">)'</span> <span class="op">%</span> auc1)</span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a>plt.plot([<span class="dv">0</span>, <span class="dv">1</span>], [<span class="dv">0</span>, <span class="dv">1</span>], color<span class="op">=</span><span class="st">'navy'</span>, lw<span class="op">=</span><span class="dv">2</span>, linestyle<span class="op">=</span><span class="st">'--'</span>)</span>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a>plt.xlim([<span class="fl">0.0</span>, <span class="fl">1.0</span>])</span>
+<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a>plt.ylim([<span class="fl">0.0</span>, <span class="fl">1.05</span>])</span>
+<span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'False Positive Rate'</span>)</span>
+<span id="cb34-12"><a href="#cb34-12" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'True Positive Rate'</span>)</span>
+<span id="cb34-13"><a href="#cb34-13" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'ROC curve for our logistic model'</span>)</span>
+<span id="cb34-14"><a href="#cb34-14" aria-hidden="true" tabindex="-1"></a>plt.legend(loc<span class="op">=</span><span class="st">"lower right"</span>)</span>
+<span id="cb34-15"><a href="#cb34-15" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
 <p><img data-src="c09_regression_files/figure-revealjs/cell-23-output-1.png" width="525" height="449"></p>
