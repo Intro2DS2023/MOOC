@@ -932,7 +932,7 @@ no. of obs in test y: 2000</code></pre>
 </div>
 <div class="cell fragment" data-execution_count="5">
 <div class="cell-output cell-output-stdout">
-<pre><code>y = 2.11 + 0.41*x1</code></pre>
+<pre><code>y = 2.12 + 0.40*x1</code></pre>
 </div>
 </div>
 <div class="fragment">
@@ -946,13 +946,13 @@ no. of obs in test y: 2000</code></pre>
 </div>
 <div class="cell fragment" data-execution_count="6">
 <div class="cell-output cell-output-stdout">
-<pre><code>y = 2.11 + 0.41*x1</code></pre>
+<pre><code>y = 2.12 + 0.40*x1</code></pre>
 </div>
 </div>
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-<p>נראה איך מתאימים את מודל הרגרסיה הליניארית דווקט בפייתון קודם, כדי לראות את השורה התחתונה. אחר כך נחזור לאיך זה מתבצע בפועל.</p>
+<p>נראה איך מתאימים את מודל הרגרסיה הליניארית דווקא בפייתון קודם, כדי לראות את השורה התחתונה. אחר כך נחזור לאיך זה מתבצע בפועל.</p>
 <p>כאן נתחיל עם משתנה יחיד בX וחותך. ניקח סרט אחד והוא יהיה sweet home alabama.</p>
 <p>נראה מימוש בשתי ספריות, נתחיל בספריה שהמחברים שלה יותר דאגו למשתמשים עם אורינטציה סטטיסטית, ובאמת הפלט שהיא נותנת עשיר יותר כמו פלטים של תוכנות סטטיסטיות כמו SPSS או R.</p>
 <p>אני קורא את הסרט sweet home alabama לתוך מטריצת X_sweet_tr, שתהיה לה עמודה אחת בשלב זה. נשים לב שאני מקפיד להשתמש במדגם הלמידה שלי, ומדגם הטסט כלל לא מופיע!</p>
@@ -1029,7 +1029,7 @@ no. of obs in test y: 2000</code></pre>
 <div class="cell fragment" data-execution_count="8">
 <div class="cell-output cell-output-stdout">
 <pre><code>Test RMSE predicting the mean:  0.96
-Test RMSE with Sweet Home Alabama:  0.87</code></pre>
+Test RMSE with Sweet Home Alabama:  0.86</code></pre>
 </div>
 </div>
 <aside class="notes">
@@ -1067,38 +1067,38 @@ Test RMSE with Sweet Home Alabama:  0.87</code></pre>
 <div class="cell-output cell-output-stdout">
 <pre><code>                            OLS Regression Results                            
 ==============================================================================
-Dep. Variable:                      y   R-squared:                       0.278
-Model:                            OLS   Adj. R-squared:                  0.276
-Method:                 Least Squares   F-statistic:                     219.1
-Date:                Fri, 04 Aug 2023   Prob (F-statistic):               0.00
-Time:                        21:56:43   Log-Likelihood:                -9708.6
-No. Observations:                8000   AIC:                         1.945e+04
-Df Residuals:                    7985   BIC:                         1.955e+04
+Dep. Variable:                      y   R-squared:                       0.276
+Model:                            OLS   Adj. R-squared:                  0.275
+Method:                 Least Squares   F-statistic:                     217.8
+Date:                Sat, 05 Aug 2023   Prob (F-statistic):               0.00
+Time:                        11:07:04   Log-Likelihood:                -9715.2
+No. Observations:                8000   AIC:                         1.946e+04
+Df Residuals:                    7985   BIC:                         1.957e+04
 Df Model:                          14                                         
 Covariance Type:            nonrobust                                         
 ============================================================================================
                                coef    std err          t      P&gt;|t|      [0.025      0.975]
 --------------------------------------------------------------------------------------------
-const                        0.3751      0.091      4.143      0.000       0.198       0.553
-Independence Day             0.0547      0.013      4.108      0.000       0.029       0.081
-The Patriot                 -0.0203      0.012     -1.739      0.082      -0.043       0.003
-The Day After Tomorrow       0.0381      0.011      3.499      0.000       0.017       0.059
-Pirates of the Caribbean     0.0682      0.012      5.705      0.000       0.045       0.092
-Pretty Woman                 0.1560      0.012     13.435      0.000       0.133       0.179
-Forrest Gump                -0.0725      0.013     -5.387      0.000      -0.099      -0.046
-The Green Mile               0.0350      0.014      2.576      0.010       0.008       0.062
-Con Air                      0.0792      0.012      6.499      0.000       0.055       0.103
-Twister                      0.0865      0.012      7.371      0.000       0.064       0.110
-Sweet Home Alabama           0.2285      0.011     20.840      0.000       0.207       0.250
-Pearl Harbor                 0.0400      0.010      3.817      0.000       0.019       0.061
-Armageddon                   0.0206      0.013      1.614      0.107      -0.004       0.046
-The Rock                    -0.0085      0.013     -0.658      0.510      -0.034       0.017
-What Women Want              0.1462      0.011     12.824      0.000       0.124       0.169
+const                        0.3707      0.090      4.115      0.000       0.194       0.547
+Independence Day             0.0636      0.013      4.780      0.000       0.038       0.090
+The Patriot                 -0.0226      0.012     -1.920      0.055      -0.046       0.000
+The Day After Tomorrow       0.0445      0.011      4.081      0.000       0.023       0.066
+Pirates of the Caribbean     0.0765      0.012      6.380      0.000       0.053       0.100
+Pretty Woman                 0.1616      0.012     13.861      0.000       0.139       0.184
+Forrest Gump                -0.0663      0.013     -4.944      0.000      -0.093      -0.040
+The Green Mile               0.0294      0.014      2.154      0.031       0.003       0.056
+Con Air                      0.0835      0.012      6.767      0.000       0.059       0.108
+Twister                      0.0908      0.012      7.680      0.000       0.068       0.114
+Sweet Home Alabama           0.2195      0.011     19.974      0.000       0.198       0.241
+Pearl Harbor                 0.0352      0.011      3.323      0.001       0.014       0.056
+Armageddon                  -0.0010      0.013     -0.078      0.938      -0.026       0.024
+The Rock                    -0.0160      0.013     -1.241      0.215      -0.041       0.009
+What Women Want              0.1493      0.011     13.029      0.000       0.127       0.172
 ==============================================================================
-Omnibus:                      136.503   Durbin-Watson:                   1.990
-Prob(Omnibus):                  0.000   Jarque-Bera (JB):              144.276
-Skew:                          -0.313   Prob(JB):                     4.69e-32
-Kurtosis:                       3.204   Cond. No.                         151.
+Omnibus:                      145.057   Durbin-Watson:                   1.984
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):              154.185
+Skew:                          -0.321   Prob(JB):                     3.31e-34
+Kurtosis:                       3.225   Cond. No.                         150.
 ==============================================================================
 
 Notes:
@@ -1138,7 +1138,7 @@ Notes:
 <div class="cell fragment" data-execution_count="10">
 <div class="cell-output cell-output-stdout">
 <pre><code>Test RMSE with the mean:  0.96
-Test RMSE with Sweet Home Alabama:  0.87
+Test RMSE with Sweet Home Alabama:  0.86
 Test RMSE with 14 movies:  0.81</code></pre>
 </div>
 </div>
@@ -1187,7 +1187,7 @@ Test RMSE with 14 movies:  0.81</code></pre>
 <div class="cell fragment" data-execution_count="11">
 <div class="cell-output cell-output-stdout">
 <pre><code>Test RMSE with the mean:  0.96
-Test RMSE with Sweet Home Alabama:  0.87
+Test RMSE with Sweet Home Alabama:  0.86
 Test RMSE with 14 movies:  0.81
 Test RMSE with 99 movies:  0.77</code></pre>
 </div>
@@ -1215,7 +1215,7 @@ Test RMSE with 99 movies:  0.77</code></pre>
 <h2>Linear Regression - Fitting the Model</h2>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>אז איך מתאימים מודל רגרסיה ליניארית. נראה את זה קודם מההיבט האלגברי, טכני. ניתן גם פירוש גיאומטרי. לבסוף נדבר על רגרסיה ליניארית מההיבט הסטטיסטי.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1241,9 +1241,14 @@ Test RMSE with 99 movies:  0.77</code></pre>
 <li>Solution (we won’t prove here): <span class="math display">\[\hat{\beta}_1 = \frac{\sum_i (x_i - \bar{x})(y_i - \bar{y})}{\sum_i (x_i - \bar{x})^2} = \frac{\widehat{Cov(X,Y)}}{\widehat{Var(X)}},\;\;\;\;\hat{\beta}_0 = \bar{y} - \hat{\beta}_1 \bar{x}\]</span></li>
 </ul>
 </div>
+<div class="fragment">
+<p>Does <span class="math inline">\(\hat{\beta}_1\)</span> look familiar?</p>
+</div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>נתחיל במקרה הפשוט של משתנה אחד בX, למשל הסרט סוויט הום אלבמה, ועוד חותך. כך נראה הקריטריון למינימיזציה, הRSS, ואנחנו רוצים לעשות לו מינימום לפי המקדמים בטא-אפס, ובטא-אחת.</p>
+<p>זאת בעיה יחסית פשוטה מחשבון דיפרנציאלי ואינטגרלי, אתם יכולים לגזור את הכמות הזאת לפי בטא אחת, להשוות לאפס, ולמצוא את הפתרון שלפנינו. לאחר מכן תגזרו לפי בטא-אפס, תשוו לאפס ותמצאו את הביטוי שיש לנו כאן: ממוצע הY פחות ממוצע הX כפול האומד לבטא-אחת. לבסוף כדי לוודא שזאת אכן נקודת מינימום תצטרכו כמובן להביט על כל מטריצת הנגזרות השניות ולוודא שהיא חיובית, פוזיטיב דפיניט.</p>
+<p>ואם האומד לבטא-אחת נראה לכם מוכר, אתם לא טועים, מדובר בנוסחה קרובה מאוד למקדם המתאם של פירסון המוכר. בתרגול תראו את הקשר בין השניים ובאילו מקרים הם יהיו זהים, כלומר שיפוע המודל הליניארי יהיה ממש מקדם המתאם בין X לY.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1271,7 +1276,9 @@ Test RMSE with 99 movies:  0.77</code></pre>
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>אם אנחנו רוצים להכליל לp משתנים מומלץ לכתוב את הRSS בכתיב וקטורי.</p>
+<p>אם נגזור ונשווה לאפס נקבל את מה שמכונה המשוואות הנורמליות.</p>
+<p>ושוב, לאלו שפחות מתחברים לכתיבה של סט משוואות בכתיב וקטורי, אפשר להראות שבסופו של דבר מדובר בסט של משוואות מהצורה הזאת, גזירה של כמות לפי אחד המקדמים בוקטור בטא, והשוואה לאפס. p + 1 משוואות כאלה.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1298,7 +1305,8 @@ Test RMSE with 99 movies:  0.77</code></pre>
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>אנחנו פותחים את הסוגריים, מחלקים פי 2, ומגיעים לפתרון הריבועים הפחותים, נוסחה שכדאי להכיר בעל-פה. ושוב, מטריצת הנגזרות השניות היא פוזיטיב דפיניט, לכן אנחנו יודעים שזוהי נקודת מינימום.</p>
+<p>תרגיל פשוט למי שרוצה אתגר: עבור p = 1, הראו שפתרון הריבועים הפחותים הוא בדיוק הנוסחאות הספציפיות לבטא-אפס ולבטא-אחת שראינו.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1330,7 +1338,11 @@ Test RMSE with 99 movies:  0.77</code></pre>
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>חשוב להכיר גם את הפרשנות הגיאומטרית של הפתרון שלנו: הרי כרגע במרחב הלמידה העמודות של X פורסות איזשהו מרחב, וY הוא גם וקטור, נוסף.</p>
+<p>אנחנו רוצים למצוא צירוף ליניארי של העמודות האלה של X, זו המשמעות של הביטוי X</p>
+<p>לכן כשאנחנו עושים מינימיזציה לRSS, לכמות הזאת, אנחנו בעצם מחפשים את הצירוף הליניארי של עמודות X שהוא הקירוב הטוב ביותר לY. הפתרון שלנו הוא הוקטור הכי קרוב במרחב הנפרש על-ידי עמודות X, לוקטור Y שכנראה לא נמצא במרחב הזה. נדגים זאת על שני משתנים:</p>
+<p>(הדגמה על הלוח)</p>
+<p>מה זה הוקטור הזה? הוקטור הזה הוא ההטלה האורתוגונלית של הוקטור Y אל המרחב הנפרש על-ידי עמודות X!</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1348,7 +1360,7 @@ Test RMSE with 99 movies:  0.77</code></pre>
 <h2>Linear Regression - Statistical Perspective</h2>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>איפה סטטיסטיקה נכנסת לפעולה? עד כאן היתה לנו רק אלגברה ליניארית וחשבון דיפרנציאלי. ומאיפה באים ערכי הטי והpvalue שראינו בפלט הרגרסיה?</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1382,7 +1394,12 @@ Test RMSE with 99 movies:  0.77</code></pre>
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>נשים לב עד עכשיו שלא הנחנו שום מודל שהוא הקשר האמיתי בין X לY. לא היתה שום התפלגות, לא היו כמעט שום תנאים על פתרון הרגרסיה הOLS, ואכן רבים שאין להם נגיעה לסטטיסטיקה בכלל לומדים על רגרסיה ליניארית במסגרת קורסים באלגברה ליניארית.</p>
+<p>כעת כן נניח שיש מודל, הנחה די מחמירה: שY הוא צירוף ליניארי של האיקסים, ועוד איזשהו רעש שנסמן באפסילון, משתנה מקרי, ועל הרעש הזה נניח התפלגות נורמלית. נניח שהתוספת הזאת ממורכזת באפס, ויש לה שונות, כמובן לא ידועה, של סיגמא בריבוע.</p>
+<p>תיכף ניתן הערה שלא נוכיח, על מדוע התייחסות כזאת לא תשנה את פתרון הריבועים הפחותים, בטא-האט עדיין יהיה (X’X)-1X’beta. אבל בואו נגיד מה התווסף לנו:</p>
+<p>כעת Y הוא משתנה מקרי. ויש לו התפלגות ותוחלת, בהינתן האיקסים. התוחלת המותנית של Y בהינתן שהאיקסים קבועים על ערך מסוים, היא x’beta, היא פונקציה ליניארית של X.</p>
+<p>הטעות שמתקבלת אם אחסר מY את התוחלת המותנית שלו היא גם משתנה מקרי, זה בעצם האפסילון, אז היא מתפלגת נורמלית, עם תוחלת אפס, ובאון בלתי תלוי בטעויות האחרות.</p>
+<p>ותחת הנחת המודל הסטטיסטי גם בטא-האט יהיה וקטור של משתנים מקריים, עם התפלגות! אנחנו כבר יכולים לא רק להגיד מהו הבטא-האט אלא גם לבצע עליו הסקה סטטיסטית. נוכל להגיד האם בטא מסוים שונה בצורה מובהקת סטטיסטית מאפס, כלומר האם הוא באמת חשוב במידול של Y או לא.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1408,7 +1425,11 @@ Test RMSE with 99 movies:  0.77</code></pre>
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>אנחנו רוצים למצוא את ההתפלגות של האומד בטא האט. בטא-האט הוא צירוף לינארי של משתנים נורמליים ולכן גם הוא, מתפלג נורמלית, עם איזשהו וקטור תוחלות ומטריצת שונויות (להדגים). השאלה היחידה היא מהו וקטור התוחלות ומטריצת השונויות האלה.</p>
+<p>מה ידוע לנו עד כה? התוחלת המותנית של Y היא X בטא. הYים בלתי תלויים, מטריצת השונויות שלהם היא אלכסונית עם סיגמא בריבוע על האלכסון, ניתן לסמן זאת כך. והאומד לבטא-האט נראה כך, הוא לא משתנה כאמור בעקבות ההנחה הסטטיסטית.</p>
+<p>התוחלת של בטא-האט: האיקסים הם קבועים, ומליניאריות התוחלת הם יוצאים החוצה ונשארת רק התוחלת של Y, שהיא כידוע X בטא, וכך אנחנו מגיעים לעבודה שהתוחלת של בטא-האט היא בטא עצמו, בטא-האט נקרא אומד חסר הטיה לבטא.</p>
+<p>ומטריצת השונות או הקווריאנס של וקטור בטא-האט: כשמחשבים שונות של סקלאר כפול משתנה הסקלאר יוצא בריבוע. כשמחשבים מטריצת שונות של מטריצת קבועים כפול הוקטור שלנו, היא יוצאת בהכפלה משמאל ומימין. אבל מטריצת השונות של Y היא כאמור אלכסונית, וכל מה שנשאר זה הכפלה של הביטוי הזה בסיגמא בריבוע. דברים מצטמצמים ומגיעים לביטוי סופי, סיגמא בריבוע כפול המטריצה ההופכית של X’X.</p>
+<p>נסכם: בטא-האט מתפלג נורמלית עם תוחלת בטא האמיתית, ושונות סיגמא בריבוע כפול מטריצת X’X.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1437,7 +1458,11 @@ Test RMSE with 99 movies:  0.77</code></pre>
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>אז איך מבצעים הסקה סטטיסטית על הבטאות?</p>
+<p>באופן שולי ניתן לראות שכל בטא-האט-ג’י בוקטור מתפלג נורמלית עם תוחלת בטא-ג’יי ושונות שהיא סיגמא בריבוע, כפול האיבר האלכסון במטריצת X’X.</p>
+<p>זה אומר שעכשיו אנחנו יכולים לבצע בדיקת השערות על כל בטא-ג’יי: השערת האפס תהיה שבטא-ג’יי שווה לאפס. ההשערה האלטרנטיבית, תהיה כמעט תמיד דו-צדדית, שבטא-ג’יי שונה מאפס, כלומר המשתנה הזה חשוב במודל.</p>
+<p>תחת השערת האפס ההתפלגות של בטא-האט-ג’יי היא נורמלית עם אותה שונות אבל עם תוחלת אפס,</p>
+<p>אם היינו יודעים את השונות סיגמא בריבוע זה כל מה שאנחנו צריכים בשביל מבחן Z. אנחנו לא יודעים את השונות סיגמא בריבוע ולכן אנחנו עושים מבחן T.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1459,38 +1484,38 @@ Test RMSE with 99 movies:  0.77</code></pre>
 <div class="cell-output cell-output-stdout">
 <pre><code>                            OLS Regression Results                            
 ==============================================================================
-Dep. Variable:                      y   R-squared:                       0.278
-Model:                            OLS   Adj. R-squared:                  0.276
-Method:                 Least Squares   F-statistic:                     219.1
-Date:                Fri, 04 Aug 2023   Prob (F-statistic):               0.00
-Time:                        21:56:43   Log-Likelihood:                -9708.6
-No. Observations:                8000   AIC:                         1.945e+04
-Df Residuals:                    7985   BIC:                         1.955e+04
+Dep. Variable:                      y   R-squared:                       0.276
+Model:                            OLS   Adj. R-squared:                  0.275
+Method:                 Least Squares   F-statistic:                     217.8
+Date:                Sat, 05 Aug 2023   Prob (F-statistic):               0.00
+Time:                        11:07:05   Log-Likelihood:                -9715.2
+No. Observations:                8000   AIC:                         1.946e+04
+Df Residuals:                    7985   BIC:                         1.957e+04
 Df Model:                          14                                         
 Covariance Type:            nonrobust                                         
 ============================================================================================
                                coef    std err          t      P&gt;|t|      [0.025      0.975]
 --------------------------------------------------------------------------------------------
-const                        0.3751      0.091      4.143      0.000       0.198       0.553
-Independence Day             0.0547      0.013      4.108      0.000       0.029       0.081
-The Patriot                 -0.0203      0.012     -1.739      0.082      -0.043       0.003
-The Day After Tomorrow       0.0381      0.011      3.499      0.000       0.017       0.059
-Pirates of the Caribbean     0.0682      0.012      5.705      0.000       0.045       0.092
-Pretty Woman                 0.1560      0.012     13.435      0.000       0.133       0.179
-Forrest Gump                -0.0725      0.013     -5.387      0.000      -0.099      -0.046
-The Green Mile               0.0350      0.014      2.576      0.010       0.008       0.062
-Con Air                      0.0792      0.012      6.499      0.000       0.055       0.103
-Twister                      0.0865      0.012      7.371      0.000       0.064       0.110
-Sweet Home Alabama           0.2285      0.011     20.840      0.000       0.207       0.250
-Pearl Harbor                 0.0400      0.010      3.817      0.000       0.019       0.061
-Armageddon                   0.0206      0.013      1.614      0.107      -0.004       0.046
-The Rock                    -0.0085      0.013     -0.658      0.510      -0.034       0.017
-What Women Want              0.1462      0.011     12.824      0.000       0.124       0.169
+const                        0.3707      0.090      4.115      0.000       0.194       0.547
+Independence Day             0.0636      0.013      4.780      0.000       0.038       0.090
+The Patriot                 -0.0226      0.012     -1.920      0.055      -0.046       0.000
+The Day After Tomorrow       0.0445      0.011      4.081      0.000       0.023       0.066
+Pirates of the Caribbean     0.0765      0.012      6.380      0.000       0.053       0.100
+Pretty Woman                 0.1616      0.012     13.861      0.000       0.139       0.184
+Forrest Gump                -0.0663      0.013     -4.944      0.000      -0.093      -0.040
+The Green Mile               0.0294      0.014      2.154      0.031       0.003       0.056
+Con Air                      0.0835      0.012      6.767      0.000       0.059       0.108
+Twister                      0.0908      0.012      7.680      0.000       0.068       0.114
+Sweet Home Alabama           0.2195      0.011     19.974      0.000       0.198       0.241
+Pearl Harbor                 0.0352      0.011      3.323      0.001       0.014       0.056
+Armageddon                  -0.0010      0.013     -0.078      0.938      -0.026       0.024
+The Rock                    -0.0160      0.013     -1.241      0.215      -0.041       0.009
+What Women Want              0.1493      0.011     13.029      0.000       0.127       0.172
 ==============================================================================
-Omnibus:                      136.503   Durbin-Watson:                   1.990
-Prob(Omnibus):                  0.000   Jarque-Bera (JB):              144.276
-Skew:                          -0.313   Prob(JB):                     4.69e-32
-Kurtosis:                       3.204   Cond. No.                         151.
+Omnibus:                      145.057   Durbin-Watson:                   1.984
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):              154.185
+Skew:                          -0.321   Prob(JB):                     3.31e-34
+Kurtosis:                       3.225   Cond. No.                         150.
 ==============================================================================
 
 Notes:
@@ -1499,7 +1524,8 @@ Notes:
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>לא ניכנס לפרטים, בקורס לנו לא תצטרכו לעשות מבחן טי ידני על הבטאות, אבל אתם כן מבינים כעת הרבה יותר מהפלט רגרסיה של statsmodels שראינו קודם.</p>
+<p>(הדגמה על הפלט)</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1525,7 +1551,12 @@ Notes:
 </ul>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>נסכם, ואז ניתן שתי הערות:</p>
+<p>כדי לקבל את אומד הריבועים הפחותים אנחנו עושים מינימיזציה של הRSS, סכום השגיאות הריבועיות על מדגם הטריין, וזה יביא לנו את הצירוף הליניארי הטוב ביותר של X כדי להתקרב לוקטור Y.</p>
+<p>הפתרון הוא אלגברי לחלוטין, והפירוש הגיאומטרי שלו הוא בעצם איך נראית ההטלה של הוקטור Y על המרחב שנפרש על-ידי X.</p>
+<p>המודל הסטטיסטי בעצם מאפשר לנו לבצע הסקה סטטיסטית על המקדמים בבטא ולתת אמירות כמו המשתנה חשוב או לא חשוב למודל, כי הוא שונה או לא שונה מאפס ברמת מובהקות מסוימת.</p>
+<p>זה הכלי אולי החשוב ביותר מבחינה מסורתית שיש למדען נתונים, כי המון מודלים מתחילים מהנקודה שבה הוא נגמר והוא תמיד ישמש בייסליין פשוט שבאופן מפתיע לא תמיד קל לנצח.</p>
+<p>ומי שרוצה להעמיק עוד, מוזמן לקחת קורס כמו מודלים סטטיסטיים בחוג לסטטיסטיקה, ו/או לקרוא מגוון עצום של ספרים שנכתבו בנושא.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1543,15 +1574,27 @@ Notes:
 
 <h3 id="comment-i-ols-interpretation">Comment I: OLS Interpretation</h3>
 <ul>
-<li><p>As we just saw, under the statistical model, <span class="math inline">\(E\hat{\beta} = \beta \;\Rightarrow\; E(\hat{y}|x) = x^T E (\hat{\beta}) = x^T \beta = E(y|x).\)</span></p></li>
+<li>As we just saw, under the statistical model, <span class="math inline">\(E\hat{\beta} = \beta \;\Rightarrow\; E(\hat{y}|x) = x^T E (\hat{\beta}) = x^T \beta = E(y|x).\)</span></li>
+</ul>
+<div class="fragment">
+<ul>
 <li><p>Even when the model doesn’t hold, the use of RSS / squared error loss implies estimation of conditional expectation (details omitted)</p></li>
 <li><p>Hence an interpretation of the OLS prediction is an <em>attempt</em> to estimate the conditional expectation <span class="math inline">\(E(y|x)\)</span></p></li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
 <li><p>This conditional expectation is clearly interesting: it summarizes what we learned about <span class="math inline">\(y\)</span> from seeing <span class="math inline">\(x\)</span></p></li>
 <li><p>The attempt may not be successful, if the model is not so good (more on that later), but at least we know what we are trying to predict!</p></li>
 </ul>
+</div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>שתי הערות חשובות:</p>
+<p>כפי שראינו, תחת המודל הסטטיסטי, האומד בטא-האט, הוא בעצם אומד חסר הטיה לבטא האמיתי. אבל זה אומר, שגם y_hat בהינתן X, התחזיות שלנו הסופיות, הן אומד חסר הטיה למודל הליניארי, לx’beta, כלומר לתוחלת של Y בהינתן X.</p>
+<p>כלומר, מה שאנחנו בעצם עושים ברגרסיה ליניארית זאת אמידה של תוחלת מותנית, אפילו אם המודל לא נכון.</p>
+<p>זו פרשנות נורא יפה של מה שאנחנו מנסים לעשות בבניית מודלים לחיזוי, להעריך את מה שאנחנו יודעים על Y, הסיכום שלו, בהינתן שראינו את כל המשתנים באיקס.</p>
+<p>אנחנו ניקח את התוחלת המותנית של Y בהינתן X איתנו הלאה, זה מה שננסה לחזות גם במודלים אחרים, אנחנו פשוט לא נהיה מחויבים ליחס הליניארי הנוקשה הזה.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1576,7 +1619,9 @@ Notes:
 </ul>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>ועוד הערה ששווה לתת:</p>
+<p>אפשר היה להגיע לפתרון הריבועים הפחותים גם בדרך אחרת. להתחיל בכלל במודל הסטטיסטי כפי שרשמנו אותו: Y הוא צירוף ליניארי של המשתנים ועוד רעש נורמלי בלתי תלוי. תחת ההנחה הזאת Y הוא כאמור משתנה מקרי נורמלי, ויש לו פונקצית צפיפות מוכרת. אפשר היה לנסות למקסם כמות אחרת מהRSS, שנקראת נראות או likelihood, והיא מכפלת הצפיפויות.</p>
+<p>הדבר המדהים הוא, שזה היה מביא אותנו לאותו פתרון ריבועים פחותים לבטא-האט! אנחנו נראה שוב את הנראות בקרוב, ובאופן כללי אמידת נראות מקסימלית היא שיטה סטטיסטית מקובלת ומצוינת לקבל אומדים כשמניחים התפלגות מסוימת, לאו דווקא נורמלית, כמו כאן.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1594,7 +1639,7 @@ Notes:
 <h2>Logistic Regression</h2>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>התחלנו ברגרסיה, כשY הוא ממשי, ונעבור עכשיו לקלאסיפיקציה, כשY קטגוריאלי.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1633,7 +1678,11 @@ Notes:
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>נתמקד בבעיה הפשוטה שY הוא אחת משתי קטגוריות אפשריות, כלומר הוא בינארי, ובתרגול תדברו קצת יותר על Y שיש לו יותר משתי קטגוריות.</p>
+<p>דוגמאות לY בינארי יכולות להיות כאמור למדל האם יש לנו ציור אימפרסיוניסטי או ריאליסטי, האם האדם נשא של נגיף או לא, האם צרכנית תקנה או לא תקנה מוצר כלשהו.</p>
+<p>אנחנו עדיין ממדלים באמצעות הטריין סט, מדגם הלמידה בגודל n שמורכב מזוגות תצפיות של X ושל Y. ונניח גם שהאיקסים שלנו ממשיים, בתרגול תיתקלו גם באיקסים קטגוריאליים.</p>
+<p>אז נשאלת השאלה: האם ניתן להשתמש בכל התוצאות שלנו מרגרסיה ליניארית עבור Y שהוא קטגוריאלי עם שתי קטגוריות?</p>
+<p>התשובה היא שברור שכן, פשוט צריך להפוך אותו לנומרי, נגדיר שאימפרסיוניסטי זה 1, וריאליסטי זה 0, והנה יש לנו Y ממשי וכל הפונקציות הרלוונטיות בפייתון יעבדו. לא נקבל שגיאה.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1666,7 +1715,11 @@ Notes:
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>אז איפה פה בכל זאת השגיאה, למה זה לא פתרון טבעי לבעיה?</p>
+<p>נזכור שמה אנחנו ממדלים בעצם ברגרסיה ליניארית? את התוחלת המותנית של Y בהינתן X, את מה שלמדנו על Y בממוצע בעקבות המידע על המשתנים האחרים. ומה זו התוחלת של משתנה שיש לו שתי תוצאות, אפס או 1? כמו משתנה ברנולי, זו ההסתברות שהוא יקבל 1 או ההסתברות שהציור הוא ריאליסטי בדוגמא שלנו בהינתן שראינו את הפיקסלים בתמונה.</p>
+<p>זה מצוין. אבל הסתברות היא כמות בין אפס לאחת! ואין שום אילוץ ברגרסיה ליניארית לקבל תחזיות בין אפס לאחת. נוכל לקבל חיזויים קטנים מאפס, גדולים מאחת, ונוכל לקבל אפילו סט של תחזיות שכולן מתחת לאפס או כולן מעל 1. ואז מה נעשה?</p>
+<p>ניתקל בעוד בעיה כשנרצה לבצע הסקה סטטיסטית: האם סביר להניח שY הוא צירוף ליניארי של משתנים ועוד רעש נורמלי, אפסילון, בלתי תלוי? לא, כי וואי מקבל ערכים אפס או אחת.</p>
+<p>אז אנחנו צריכים גישה אחרת. גישה שכן תתחשב בערכים האפשריים שY יכול לקבל ושתתאים מודל סטטיסטי הולם לבעיה.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1685,7 +1738,7 @@ Notes:
 <h3 id="logistic-regression-1">Logistic regression</h3>
 <ul>
 <li><p>Deals with the two problems above</p></li>
-<li><p>We start from assuming a model: <span class="math display">\[\log\frac{P(y=1|x)}{P(y=0|x)} = x^T\beta\]</span></p></li>
+<li><p>We start from assuming a model: <span class="math display">\[\log\frac{P(y=1|x)}{P(y=0|x)} = \log\frac{P(y=1|x)}{1 - P(y=1|x)} = \text{logit}(P(y=1|x)) = x^T\beta\]</span></p></li>
 <li><p>Notice that now all values are legal: <span class="math display">\[ 0\leq P(y=1|x) \leq 1 \;\; \Leftrightarrow\;\; -\infty \leq \log\frac{P(y=1|x)}{P(y=0|x)} \leq \infty.\]</span></p></li>
 </ul>
 <div class="fragment">
@@ -1695,7 +1748,10 @@ Notes:
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>גישה כזאת היא רגרסיה לוגיסטית.</p>
+<p>אנחנו לא ממדלים את Y עצמו כמודל ליניארי. אלא את הכמות הבאה: לוג, של ההסתברות שY שווה 1, חלקי ההסתברות שY שווה אפס. הכמות הזאת היא תהיה צירוף ליניארי של המשתנים באיקס. ניתן גם לרשום את זה כלוג של ההסתברות p חלקי 1 פחות p, כך שאנחנו רואים שבמקום למדל את התוחלת של Y בהינתן X אנחנו ממדלים איזושהי פונקציה G שלה. הפונקציה הזאת די מפורסמת וקוראים לה גם לוג’יט.</p>
+<p>מכל מקום כעת הכמות שאנחנו ממדלים היא בין מינוס אינסוף לאינסוף ולכן כל חיזוי שלנו יהיה כמות לגיטימית.</p>
+<p>אם יש לנו את המקדמים ואנחנו רוצים לקבל בחזרה את ההסתברות החזויה, את הכמות בין אפס לאחת, אפשר לראות שהפונקציה ההופכית נראית כך: e בחזקת הצירוף הליניארי, חלקי 1 ועוד e בחזקת הצירוף הליניארי. או ההסתברות המשלימה עם נוסחה קצת יותר נעימה שמופיעה כאן.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1722,13 +1778,17 @@ Notes:
 <div>
 <ul>
 <li class="fragment"><p>The solution is <span class="math inline">\(\hat{\beta}\)</span>, the logistic regression coefficients estimates</p></li>
-<li class="fragment"><p>Predicting on <span class="math inline">\(x \in Te\)</span>: <span class="math display">\[\widehat{P(y=1|x)} = \frac{\exp(x^T\hat{\beta})}{1+\exp(x^T\hat{\beta})}\;\; \Rightarrow\;\; \hat{y} = \begin{cases} 1 &amp; \mbox{if} \widehat{P(y=1|x)}&gt; 0.5 \\
+<li class="fragment"><p>Predicting on <span class="math inline">\(x \in Te\)</span>: <span class="math display">\[\widehat{P(y=1|x)} = \frac{\exp(x^T\hat{\beta})}{1+\exp(x^T\hat{\beta})}\;\; \Rightarrow\;\; \hat{y} = \begin{cases} 1 &amp; \mbox{if } \widehat{P(y=1|x)}&gt; 0.5 \\
 0 &amp; \mbox{otherwise}\end{cases}\]</span></p></li>
 </ul>
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>אז אנחנו מוצאים את המקדמים במקרה של רגרסיה לוגיסטית?</p>
+<p>כאן אנחנו חייבים לעבור דרך פונקצית הנראות, הlikelihood ולבצע אמידת נראות מקסימלית. פונקצית הנראות שלנו היא פונקציה של בטא בהינתן הדאטא בטריינינג ומסומנת בדרך כלל בL. במקרה הבדיד כמו לפנינו שY הוא בעצם משתנה ברנולי, מדובר במכפלת ההסתברויות במדגם תחת המודל.</p>
+<p>מאחר שY מקבל ערכים אפס או אחת, ניתן לרשום את הביטוי בצורה כזאת. נציב את הביטויים של מודל הרגרסיה הלוגיסטית עבור ההסתברות שוואי שווה אחת ועבור ההסתברות שוואי שווה אפס. ונגיע לא ביטוי לא סימפטי אבל מפורש, שצריך למקסם כדי לקבל את בטא-האט.</p>
+<p>כשנקבל את בטא-האט, ותגיע תצפית חדשה ממדגם הטסט, נוכל לחזות את ההסתברות שהיא אחת באמצעות הצבה בנוסחה של הפונקציה ההופכית. ואם אנחנו רוצים סופי, האם Y הוא 1 או 0, אפשר להשוות את ההסתברות הנחזית לאיזשהו קאטאוף, לדוגמא חצי. אם היא גדולה מחצי נחזה 1, ואם לא נחזה 0.</p>
+<p>הערה לפני שממשיכים: זה לא סתם שלא רשמנו כאן ביטוי מפורש לבטא-האט, הסיבה שאין כזה. פונקצית הנראות אמנם מפורשת וקמורה אבל אין לה פתרון סגור, לכן משתמשים בשיטות אופטימיזציה כמו ניוטון רפסון למי שמכיר, כדי למצוא את המקדמים.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1750,15 +1810,35 @@ Notes:
 <li><p>The expression on the left is called the <em>log odds</em>: log of the ratio of positive vs negative probability</p></li>
 <li><p>Interpretation: <span class="math inline">\({\beta}_j\)</span> is the change in the log odds from a change of 1 unit in <span class="math inline">\(x_j\)</span>.</p></li>
 </ul>
-<div>
+<div class="fragment">
 <ul>
-<li class="fragment"><p>For example, if <span class="math inline">\({\beta}_j=1\)</span> then when <span class="math inline">\(x_j=1\)</span> vs <span class="math inline">\(x_j=0\)</span> the log odds increase by <span class="math inline">\(1\)</span>, so the odds increase times <span class="math inline">\(e=2.72\)</span>, which is roughly the increase in <span class="math inline">\({P(y=1|x)}\)</span> when it is close to <span class="math inline">\(0\)</span>.</p></li>
-<li class="fragment"><p>When estimating from <span class="math inline">\(Tr\)</span>: add hats over all quantities and remember these are only estimates!</p></li>
+<li>For example, if <span class="math inline">\({\beta}_j=1\)</span> then when <span class="math inline">\(x_j=1\)</span> vs <span class="math inline">\(x_j=0\)</span> the log odds increase by <span class="math inline">\(1\)</span>, so the odds increase times <span class="math inline">\(e=2.72\)</span>, which is roughly the increase in <span class="math inline">\({P(y=1|x)}\)</span> when it is close to <span class="math inline">\(0\)</span>.</li>
 </ul>
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>הפרשנות של מקדמי הבטא ברגרסיה לוגיסטית הרבה פחות פשוטה לעומת רגרסיה ליניארית, ועלולה לבלבל, אז נשים לב:</p>
+<p>ועוד מילה על המודל שלנו. יחס הסיכויים שאנחנו ממדלים הוא בעצם הodds. בשפה יומיומיות, אם מאורע יכול לקרות בסיכוי שליש, או לא לקרות בסיכוי שני שליש, אנחנו אומרים “הוא יקרה בסיכוי של 1 ל-2”. כלומר מה שאנחנו ממדלים כצירוף ליניארי הוא הלוג-אודז, לוג יחס הסיכויים.</p>
+<p>אז מה המשמעות של מקדם בטא-ג’יי? עלייה של יחידה אחת בXj, פירושה עלייה של בטא-ג’יי בלוג אודז.</p>
+<p>ואם זה לא אומר הרבה, קחו את האקספוננט של בטא-ג’יי ותראו מה הוא עושה לאודז עצמו. עלייה של בטא-ג’יי בגודל 1 היא עלייה פי e של האודז עצמו.</p>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="example-saheart" class="slide level2 title-slide center">
+<h2>Example: SAHeart</h2>
+<aside class="notes">
+<div style="direction:rtl; font-size:16px">
+<p>נראה כעת דוגמא של רגרסיה לוגיסטית על דאטא קטן שמתאים לבעיה.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1803,7 +1883,7 @@ max    147.190000   64.000000    1.000000  </code></pre>
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>בנתונים שלפנינו יש 462 גברים מדרום אפריקה. יש לנו מידע רפואי עליהם כמו לחץ דם, מידת העישון, צריכת אלכוהול וגיל, והמשתנה שיעניין אותנו הוא הchd, coronary heart disease, האם הם לקו בהתקף לב או לא.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1841,7 +1921,9 @@ no. of obs in test y: 93</code></pre>
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>נגדיר את מטריצת הX שלנו ואת הY. יש לנו כאן משתנה קטגוריאלי שמצריך טיפול מיוחד עם הפונקציה get_dummies, ולא ניכנס לזה כרגע.</p>
+<p>מכל מקום אנחנו רוצים לחלק את הדאטאט לטריין וטסט. עשינו את זה ידנית עם הדאטא של נטפליקס, בואו נשתמש כאן בפונקציה מקובלת מספריית sklearn, הפונקציה train_test_split, שמקבלת את מטריצת הX, את הוקטור Y, את גודל מדגם הטסט כמספר עשרוני, כאן עשרים אחוז, וגם איזשהו סיד כדי שההקצאה האקראית תישמר בריצות חוזרות. מה שמתקבל הוא X טריין, X טסט, Y טריין, Y טסט.</p>
+<p>והנה אנחנו מדפיסים את גודל הדאטא, בשורה התחתונה יש לנו p = 9 משתנים.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1865,6 +1947,8 @@ no. of obs in test y: 93</code></pre>
 <span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> model.fit()</span>
 <span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(model.summary())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell fragment" data-execution_count="16">
 <div class="cell-output cell-output-stdout">
 <pre><code>Optimization terminated successfully.
          Current function value: 0.513971
@@ -1874,8 +1958,8 @@ no. of obs in test y: 93</code></pre>
 Dep. Variable:                    chd   No. Observations:                  369
 Model:                          Logit   Df Residuals:                      359
 Method:                           MLE   Df Model:                            9
-Date:                Fri, 04 Aug 2023   Pseudo R-squ.:                  0.1994
-Time:                        21:56:44   Log-Likelihood:                -189.66
+Date:                Sat, 05 Aug 2023   Pseudo R-squ.:                  0.1994
+Time:                        11:07:05   Log-Likelihood:                -189.66
 converged:                       True   LL-Null:                       -236.90
 Covariance Type:            nonrobust   LLR p-value:                 2.041e-16
 ==================================================================================
@@ -1896,7 +1980,10 @@ famhist_Absent    -0.8135      0.255     -3.191      0.001      -1.313      -0.3
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>ברגע שיודעים לבצע רגרסיה ליניארית בstatsmodels או בsklearn רגרסיה לוגיסטית זה קל.</p>
+<p>פשוט מאתחלים את הקלאס Logit, מזינים לתוכו את Y טריין ואז את X טריין בתוספת חותך, וקוראים לmodel.fit.</p>
+<p>אם נבקש summary נקבל פלט סטטיסטי עשיר ומסודר של המקדמים ומבחנים סטטיסטיים עליהם.</p>
+<p>נשים לב שהמבחנים כאן הם מבחני Z אבל לא ניכנס בקורס הזה לסיבה לכך. מכל מקום לכל מקדם יש טעות תקן שונה, אז כדי להשוות ביניהם נסתכל על הציוני תקן, על ערכי הZ. משתנים עם ערכים גבוהים הםage למשל, הגיל. לכל שנת חיים נוספת, המודל מוסיף איזושהי כמות ללוג-אודז שהפציינט יחלה בהתקף לב. מקדם שלילי גדול הוא הfamhist_Absent, שמשמעותו האם אין לך היסטוריה משפחתית של התקף לב. אם אין, יורדת לך כמות של 0.8 מהלוג-אודז.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1929,7 +2016,9 @@ coef: [[ 0.0080158   0.0557117   0.16737956  0.0271416   0.0410251  -0.08127558
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>בsklearn הקלאס שאנחנו רוצים נקרא LogisticRegression. כאן אנחנו יכולים לפרט איזשהו סולבר ומספר איטרציות, כי כאמור רגרסיה לוגיסטית מצריכה שיטות נומריות לאופטימיזציה.</p>
+<p>אחרי שהגדרנו את המודל נקרא לfit, ונדפיס את המקדמים שהתקבלו. כמו ברגרסיה ליניארית, sklearn הרבה יותר מוכוון מאשין-לרנינג ולא סטטיסטיקה, אז הפלט שלו מוגבל.</p>
+<p>נשים לב גם שקיבלנו מקדמים דומים ל-statsmodels אך לא זהים, כי לא מדובר בנוסחאות סגורות.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -2011,7 +2100,13 @@ coef: [[ 0.0080158   0.0557117   0.16737956  0.0271416   0.0410251  -0.08127558
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>אבל איך אנחנו מכמתים את הביצועים של המודל על מדגם הטסט, על זה לא דיברנו. אפשר לדווח את הנראות שאותה מיקסמנו, אבל זה לא יגיד הרבה.</p>
+<p>מקובל יותר למשל לחזות את ההסתברויות p_hat על מדגם הטסט, באמצעות הנוסחה שראינו. בsklearn זה נעשה עם הפונקציה predict_proba.</p>
+<p>ואז להשוות את ההתסברויות החזויות לאיזשהו קאטאוף דיפולטי של חצי. ואם אתם מודאגים מזה אתם צודקים, ותיכף נדבר על זה. זה יביא אותנו לחיזוי סופי של Y, האם הוא 0 או 1.</p>
+<p>את החיזוי הזה אפשר להכניס לתוך קונפיוז’ן מטריקס או “מטריצת בלבול”, מטריצה 2 על 2 שתראה לנו, מתוך הפציינטים שהם לא חולים, כמה המודל חזה שהם כן חולים, וכמה לא. ומתוך הפציינטים שהם כן חולים, כמה המודל חזה שהם חולים וכמה לא.</p>
+<p>אפשר גם לחשב מדדים אינטואיטיביים של אחוז דיוק, accuracy, ואחוז שגיאה, error. מדובר באופן כללי באחוז התצפיות מהטסט סט שהמודל צדק לגביהן, והאחוז שהוא טעה. כאן על נתונים שהמודל לא ראה הוא צודק ב76 אחוז וטועה ב24 אחוז.</p>
+<p>בחלק האחרון של השיעור נרחיב על אווליואציה של מודלים לקלסיפיקציה, מסתבר שהמדדים שהסתכלנו עליהם כרגע יכולים להיות בעייתיים.</p>
+<p>לדוגמא (להדגים), נניח ש99 אחוז מהפציינטים היו בריאים ורק אחוז אחד היו חולים. מה אם אתן לכם מודל שחוזה שכל הפציינטים הם בריאים? זה מודל נהדר, הוא יקבל אקיורסי של 99 אחוז! חייב להיות אם כן מדד טוב יותר שיעיד על כך שזה מודל גרוע.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -2029,7 +2124,7 @@ coef: [[ 0.0080158   0.0557117   0.16737956  0.0271416   0.0410251  -0.08127558
 <h2>Classification Model Evaluation</h2>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>אז אני טוען שאחוז הaccuracy לא תמיד משקף נכון את הביצועים של המודל, וראינו שהתופעה חמורה במיוחד כשהנתונים הם מה שקרוי imbalanced, אין באוכלוסיה מספר שווה של דוגמאות חיוביות ושליליות. ואנחנו זקוקים למדדים טובים יותר.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -2096,7 +2191,12 @@ coef: [[ 0.0080158   0.0557117   0.16737956  0.0271416   0.0410251  -0.08127558
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>רמזנו בתחילת היחידה, שלטעויות שונות יכול להיות משקל שונה. לפספס חולה ולהגיד לו שהוא בריא, יכולה להיות לזה משמעות אחרת לגמרי מלהגיד לאדם בריא שהוא חולה.</p>
+<p>נסמן את הכמויות בטבלת הקונפיוז’ן מטריקס בצורה כזו:</p>
+<p>מספר הדוגמאות החיוביות, או חולים, באופן שולי נסמן כP. מספר הדוגמאות השליליות נסמן כN. באופן דומה, מספר החיזויים החיוביים נסמן כP_hat, ומספר החיזויים השליליים נסמן כN_hat.</p>
+<p>אם המציאות היא חולה והמודל חזה חולה, זה true positive או TP. אם המציאות היא חולה והמודל חזה לא-חולה, כלומר בריא, זה false negative או FN.</p>
+<p>באופן דומה מגדירים false positive וtrue negative.</p>
+<p>ומי שצריך להגדיר את זה עם נוסחאות יותר פורמליות, אפשר להגדיר את כל הכמויות האלה עם y וy_hat בצורה כזאת.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -2159,7 +2259,14 @@ coef: [[ 0.0080158   0.0557117   0.16737956  0.0271416   0.0410251  -0.08127558
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>הטבלה הזאת מאפשרת לנו להסתכל על מדדים הרבה יותר ספציפיים למה שמעניין אותנו בבעיה הנתונה. נפרט אותם כעת:</p>
+<p>האקיורסי כעת היא סכום התאים על האלכסון של הקונפיוז’ן מטריקס, הTP והTN, חלקי m גודל מדגם הטסט.</p>
+<p>טעות הניבוי היא בדיוק סכום התאים האחרים לא על האלכסון חלקי m.</p>
+<p>הפרסיז’ן הוא הסיכוי להיות חולה בהינתן שחזיתי חולה. נקרא גם positive predictive value או PPV. באופן דומה אפשר להגדיר את הפרסיז’ן לקלאס האחר, הסיכוי להיות לא-חולה אם חזיתי לא-חולה, או הnegative predictive value. בכל מקרה נרצה שהפרסיז’ן יהיה כמה שיותר גדול.</p>
+<p>מדד אחר הוא הריקול, או sensitivity או true positive rate, TPR. זה הסיכוי שבהינתן חולה המודל אכן חוזה חולה, או שיעור החולים שהמודל אכן מחלץ. גם כאן ניתן לחשוב על הריקול של הקלאס האחר, אחוז הבריאים שהמודל מחלץ נכון. וגם כאן ברור שנרצה שהמדד הזה יהיה גדול ככל שניתן.</p>
+<p>מדד שנרצה שיהיה קטן ככל האפשר הוא הfalse positive rate, הFPR, בהינתן לא-חולה הסיכוי לחזות חולה.</p>
+<p>ומאחר שהמדדים פרסיז’ן וריקול מודדים דברים שונים והיינו רוצים ששניהם יהיו גבוהים מתסכלים לפעמים על הממוצע ההרמוני שלהם, 2 כפול המכפלה שלהם חלקי הסכום שלהם.</p>
+<p>למה צריך את כל זה? בדיוק בגלל מה שאמרנו, יכול להיות לקוח של המודל שלנו, שפשוט לא מסוגל לפספס אף חולה, לקוח כזה ירצה ריקול כמה שיותר גבוה. ויכולה להיות לקוחה שאין לה בעיה לפספס חולים, אבל כשהמודל מסמן לה חולים הוא חייב להיות צודק, היא לא יכולה להעניק טיפול קשה כזה לבריאים – בשביל לקוחה כזאת נרצה אולי למקסם את הפרסיז’ן. וברור שיהיה כאן טריידאוף בין השניים במודל לא מושלם.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -2240,9 +2347,16 @@ weighted avg       0.76      0.76      0.76        93
 </div>
 </div>
 </div>
+<div class="fragment">
+<p>All is still based on that cutoff, 0.5!</p>
+</div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>בנתונים שלנו כך נראית הקונפיוז’ן מטריקס:</p>
+<p>כדי לקבל את כל המדדים שדיברנו עליהם אפשר לבקש classification_report מsklearn. נדגים לראות שהבנו.</p>
+<p>למשל, הפרסיז’ן של החולים: אם חזיתי חולה או 1, מה הסיכוי שהפציינט באמת חולה: מתוך 26 חזויים כחולים, 19 אכן חולים, דיוק של 73 אחוז.</p>
+<p>או, הריקול של החולים, אם אתה חולה מה הסיכוי שהמודל יחזה נכון. מתוך 34 חולים המודל צדק רק לגבי 19, שזה 56 אחוז, לא גבוה מאוד.</p>
+<p>נשים לב אגב שהכל מבוסס על ערך הסף הזה שהשווינו אליו את ההסתברויות החזויות, הקאטאוף של חצי – יכול להיות שעם קאטאוף אחר היינו מקבלים מדדים טובים יותר?</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -2275,7 +2389,14 @@ weighted avg       0.76      0.76      0.76        93
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>באופן כללי יכולות להיות לדאטא סיינטיסט מטרות שונות במודל קלסיפיקציה:</p>
+<p>האם אני רוצה פשוט לחזות נכון.</p>
+<p>האם מעניינות אותי דווקא ההסתברויות הנחזות ולדאוג שהן יהיו מכוילות כמו שיותר עם ההסתברויות המקוריות.</p>
+<p>ואולי, כל מה שמעניין אותי זה הדירוג של תצפיות, מבחינת הסיכוי שהן 1 או שהפציינט חולה. לא חשוב לי אפילו אם הכמויות שאני חוזה הן הסתברויות, אלא אני מתייחס אליהן כאיזשהו סקור כללי שאני רוצה שידרג נכון את התצפיות שלי.</p>
+<p>המטרה שלי משפיעה על המדד שלי לטיב המודל:</p>
+<p>אם המטרה שלי היא פשוט לחזות נכון אני מסתכל על מדדים כמו אלה שראינו: אחוז דיוק, פרסיז’ן, ריקול.</p>
+<p>אם המטרה שלי היא הסתברויות מכוילת כמה שיותר, אני באמת אדווח אולי על הלוס שהשתמשנו בו, הנראות.</p>
+<p>אבל אם, כמו שקורה פעמים רבות, המדד שמעניין אותי זה הראקינג, רק הדירוג של התצפיות, איך כדאי להסתכל על הביצועים של המודל?</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -2309,7 +2430,10 @@ weighted avg       0.76      0.76      0.76        93
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>אם מה שמעניין אותנו הוא ראנקינג, נהוג להסתכל בעקומה שנקראת receiver operating characteristic או ROC בקיצור.</p>
+<p>הרעיון הוא לא להסתפק בקאטאוף דיפולטי של חצי כפי שעשינו, כי יכול להיות שהסקור שהוצאנו איננו בדיוק הסתברות. נשנה את הקאטאוף בצעדים קבועים, ובכל צעד נמדוד את ה: טרו פוזיטיב רייט, זה בעצם הריקול, ואת הפולס פוזיטיב רייט, אחוז הדוגמאות השליליות שעוברות את הקאטאוף הנוכחי ונחזות כחיוביות.</p>
+<p>עקומת הROC תצייר את הTPR לעומת הFPR לכל קאטאוף אפשרי. מודל מושלם ימצא קאטאוף שעבורו הTPR קרוב ל1 והFPR קרוב ל0.</p>
+<p>ושוב נדגיש שגם אם ההסתברות הנחזית מגיעה ממודל שבכלל לא אמור להוציא הסתברויות והיא לא מכוילת או אפילו היא לא הסתברות, היא איזשהו סקור, הדירוג עצמו עדיין יכול להיות מצוין. וזה היתרון הגדול של גישה כזאת. התחשבות בקאטאופים שונים והעובדה שהיא פרקטית לכל סקור.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -2350,7 +2474,12 @@ weighted avg       0.76      0.76      0.76        93
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>כך נראית עקומת הROC על מדגם הטסט שלנו, עבור מודל הרגרסיה הלוגיסטית שמנסה לחזות אם פציינט יחלה במחלת לב או לא.</p>
+<p>הקוד בפייתון לבצע את זה נמצא כאן למי שרוצה.</p>
+<p>אנחנו לא רואים את הספים עצמם שהקוד משנה, אבל כן נוצרת עקומה יפה של TPR מול FPR, ואנחנו רואים שעבור ספים נמוכים מתקבל TPR גבוה, ועבור ספים גבוהים מתקבל FPR נמוך. אפשר גם לראות את הטריידאוף בין שני המדדים בצורה יפה.</p>
+<p>ואם רוצים לחזור לניבוי סופי, אפשר לבחור את הקאטאוף שיביא אותנו לנקודה האופטימלית מבחינתנו. אם אין לנו העדפה מסוימת, כמו שהדגמנו קודם, הנקודה האופטימלית שומרת כל TPR כמו שיותר גבוה וFPR כמה שיותר נמוך אז זו תהיה הנקודה הכי קרובה לקצה השמאלי העליון של הגרף, נאמר זאת.</p>
+<p>וברור שבמודל מושלם יימצא סף שמגיע עד הנקודה בקצה השמאלי עליון של הגרף.</p>
+<p>במודל כזה השטח תחת העקומה יהיה השטח של כל הריבוע, 1 כפול 1, זאת אומרת 1, וכאן כפי שמודפס השטח הוא רק 0.8, או 80 אחוז.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -2364,16 +2493,50 @@ weighted avg       0.76      0.76      0.76        93
           display:block!important;
       }</style></aside>
 </section>
-<section id="the-area-under-the-curve-auc" class="slide level2">
-<h2>The Area Under the Curve (AUC)</h2>
+<section class="slide level2">
+
+<h3 id="the-area-under-the-curve-auc">The Area Under the Curve (AUC)</h3>
 <ul>
 <li><p><em>For a random ranking:</em> <span class="math inline">\(FPR \approx TPR\)</span> at every threshold, so we are around the diagonal <span class="math inline">\(x=y\)</span>: <span class="math display">\[AUC\approx 0.5\]</span></p></li>
 <li><p><em>For a perfect ranking model:</em> at high thresholds, <span class="math inline">\(FPR=0\)</span>, at low thresholds <span class="math inline">\(TPR=1\)</span>, hence: <span class="math display">\[AUC=1.\]</span></p></li>
-<li><p>Very nice interpretation of AUC: Assume the test set has <span class="math inline">\(m_1\)</span> ones (<span class="math inline">\(y=1\)</span>) and <span class="math inline">\(m_0\)</span> zeros, then AUC is the % of correctly ranked pairs with different response: <span class="math display">\[AUC = \frac{ \#\left\{(i,j): y_i = 0, y_j=1 \mbox{ and } \hat{p}_i &lt; \hat{p}_j\right\}}{m_1\times m_0}\]</span></p></li>
+</ul>
+<div class="fragment">
+<ul>
+<li>Very nice interpretation of AUC: Assume the test set has <span class="math inline">\(m_1\)</span> ones (<span class="math inline">\(y=1\)</span>) and <span class="math inline">\(m_0\)</span> zeros, then AUC is the % of correctly ranked pairs with different response: <span class="math display">\[AUC = \frac{ \#\left\{(i,j): y_i = 0, y_j=1 \mbox{ and } \hat{p}_i &lt; \hat{p}_j\right\}}{m_1\times m_0}\]</span></li>
+</ul>
+</div>
+<aside class="notes">
+<div style="direction:rtl; font-size:16px">
+<p>השטח תחת עקומת הROC , הarea under curve או AUC, הוא מדד מקובל מאוד, והוא מצוין כי הוא לא תלוי בקאטאוף ספציפי, הוא מתחשב בכולם, מעין ממוצע או אינטגרציה של טיב המודל על פני ספים שונים.</p>
+<p>מודל אקראי לחלוטין, שככל שאנחנו מעלים את הסף כך יורד הTPR ועולה הFPR באופן שווה, העקומה תהיה בעצם הקו האלכסוני בריבוע, והשטח תחתיה, הAUC יהיה חצי.</p>
+<p>מודל מושלם כאמור, יגיע לAUC של 1, כל שטח הריבוע.</p>
+<p>פרשנות יפה של AUC היא, מתוך כל זוגות התצפיות האפשריות, אחת חיובית ואחת שלילית, כמה מדורגות “נכון”. ומה זה נכון? אם הסקור הנאמד לתצפית החיובית, גדול מהסקור לתצפית השלילית.</p>
+<p>בצורה פורמלית אפשר לסמן זאת כך, אם יש לנו m0 תצפיות שליליות וm1 תצפיות חיוביות, אז הAUC שווה לאחוז הזוגות שעבורם p_hat לתצפית החיובית גבוה מp_hat לתצפית השלילית. ונשים לב שהמדד הזה גם לא סובל במרכאות אם יש לנו הרבה יותר תצפיות חיוביות משליליות במדגם, או להיפך, כמו שראינו עבור מדד הaccuracy. זו פרופורציה שבכל מקרה נרצה שתהיה כמה שיותר קרובה לאחת.</p>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2">
+
+<h3 id="but-think.">But think.</h3>
+<ul>
+<li><p>Where did our paintings go?</p></li>
+<li><p>Is logistic regression a suitable model for our paintings images?</p></li>
 </ul>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>נקודה אחרונה למחשבה: למה לא הזכרנו בשיעור הזה את הציורים שלנו הריאליסטיים והאימפרסיוניסטיים? למה לא השתמשנו ברגרסיה לוגיסטית כדי לבנות מודל שיחזה האם ציור הוא אימפרסיוניסטי?</p>
+<p>ברור שאפשר, ואתם תבנו מודל כזה בשיעורי הבית. ואז אתם תגלו שמודל כזה לא יהיה מאוד איכותי. נסו לחשוב למה!</p>
+<p>ביחידות הבאות נמשיך עם בניית מודלים לחיזוי, אבל נוותר על המודל הליניארי הנוקשה. יחד עם זאת, כל המושגים שלמדנו היום ישמשו אותנו היטב.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
