@@ -1,0 +1,1237 @@
+---
+format:
+  revealjs:
+    slide-number: true
+    chalkboard: true
+    fig-width: 6
+    fig-asp: 0.618
+    template-partials:
+      - "../title-slide.html"
+css: "../slides_quarto.css"
+standalone: false
+include-in-header: "../header_quarto.html"
+logo: "../Intro2DS_logo_white.jpg"
+pagetitle: "Convolutional Neural Networks"
+callout-appearance: simple
+smaller: true
+execute:
+  eval: true
+  echo: true
+code-line-numbers: false
+code-block-border-left: true
+highlight-style: github
+footer: "[Intro to Data Science](https://intro2ds2023.github.io/mooc/){target='_blank'}"
+---
+
+## {.logo-slide}
+
+## Introduction to Data Science {.title-slide}
+
+### Convolutional Neural Networks - Class 13
+
+### Giora Simchoni
+
+#### `gsimchoni@gmail.com` and add `#intro2ds` in subject
+
+### Stat. and OR Department, TAU
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+## Before CNN {.title-slide}
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### Reminder: What is an image?
+
+```{python}
+#| echo: false
+
+import os
+os.environ['CUDA_VISIBLE_DEVICES'] = "-1" # disabling GPU as CUDA causes probs with tf.nn.conv2d()
+
+```
+
+```{python}
+import matplotlib.pyplot as plt
+from matplotlib.image import imread
+
+logo = imread('../Intro2DS_logo.jpg')
+
+plt.imshow(logo)
+plt.show()
+```
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+```{python}
+import numpy as np
+
+print(type(logo))
+```
+
+```{python}
+print(logo.shape)
+```
+
+```{python}
+print(logo[:4, :4, 0])
+```
+
+```{python}
+print(logo.min(), logo.max())
+```
+
+```{python}
+print(logo.dtype, logo.size * logo.itemsize)
+```
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### Until Convolutional Networks
+
+So how many features is that?
+
+::: {.fragment}
+- In 1998 LeCun et. al. published [LeNet-5](https://ieeexplore.ieee.org/abstract/document/726791) for digit recognition
+- But it wasn't until 2012 when Alex Krizhevsky, Ilya Sutskever and Geoffrey Hinton published [AlexNet](https://papers.nips.cc/paper/4824-imagenet-classification-with-deep-convolutional-neural-networks.pdf) when the Deep Learning mania really took off.
+:::
+
+::: {.fragment}
+Until then:
+
+1. Treat it as a regular high-dimensional ML problem
+2. Image feature engineering
+:::
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+## Convolutional Layer (2D) {.title-slide}
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### What is Convolution?
+
+::: {.fragment}
+"the integral of the product of the two functions after one is reflected about the y-axis and shifted"
+
+$$(f \ast g)(t) = \int_{-\infty}^{\infty} f(\tau)g(t - \tau)d\tau$$
+:::
+
+::: {.fragment}
+![](images/Convolution_of_spiky_function_with_box2.gif){fig-align="center"}
+:::
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### The Convolutional Layer
+
+![](images/conv01.png)
+
+Source: [Geron 2019](https://www.oreilly.com/library/view/hands-on-machine-learning/9781492032632/)
+
+- First layer: every neuron has a "receptive field", it is focused on a specific rectangle of the image, usually 2x2, 3x3
+- Second layer: every neuron has a receptive field in the first layer
+- Etc.
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### More specifically
+
+![](images/conv02.png)
+
+Source: [Geron 2019](https://www.oreilly.com/library/view/hands-on-machine-learning/9781492032632/)
+
+- The $[i,j]$ neuron looks at the rectangle at rows $i$ to $i + f_h - 1$, columns $j$ to $j + f_w - 1$
+- Zero Padding: adds 0s around the image to make the next layer the same dimensions
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### Filters/Features/Kernels
+
+But what does the neuron actually *do*?
+
+All neurons in a layer learn a single *filter* the size of their receptive field, the $f_h, f_w$ rectangle.
+
+Suppose $f_h=f_w=3$ and the first layer learned the $W_{3x3}$ filter:
+
+```{python}
+W = np.array(
+  [
+    [0, 1, 0],
+    [0, 1, 0],
+    [0, 1, 0]
+  ]
+)
+```
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+$X$ is the 5x5 image, suppose it has a single color channel (i.e. grayscale), sort of a smiley:
+
+```{python}
+X = np.array(
+  [
+    [0,   1,  0,  1,  0],
+    [0,   1,  0,  1,  0],
+    [0,   0,  0,  0,  0],
+    [1,   0,  0,  0,  1],
+    [0,   1,  1,  1,  0]
+  ]
+)
+```
+
+Each nuron in the new layer $Z$ would be the sum of elementwise multiplication of all 3x3 pixels/neurons in its receptive field with $W_{3x3}$:
+
+$Z_{i,j} = b + \sum_{u=0}^{f_h-1}\sum_{v=0}^{f_w-1}X_{i+u,j+v}W_{u,v}$
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### What turns on this filter?
+
+::: {.columns}
+::: {.column width="30%"}
+```{python}
+X = np.array(
+  [
+    [0,   1,  0,  1,  0],
+    [0,   1,  0,  1,  0],
+    [0,   0,  0,  0,  0],
+    [1,   0,  0,  0,  1],
+    [0,   1,  1,  1,  0]
+  ]
+)
+```
+:::
+::: {.column width="20%"}
+```{python}
+W = np.array(
+  [
+    [0, 1, 0],
+    [0, 1, 0],
+    [0, 1, 0]
+  ]
+)
+```
+
+:::
+::: {.column width="30%"}
+```{python}
+Z = np.array(
+  [
+    [0,   2,  0,  2,  0],
+    [0,   2,  0,  2,  0],
+    [1,   1,  0,  1,  1],
+    [1,   1,  1,  1,  1],
+    [1,   1,  1,  1,  1]
+  ]
+)
+```
+:::
+
+::: {.column width="20%"}
+```{python}
+#| echo: false
+
+print()
+```
+:::
+
+:::
+
+::: {.fragment}
+What low-level feature did this layer learn to look for? What pattern will make its neurons most positive (i.e. will "turn it on")?
+:::
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### Another filter
+
+::: {.columns}
+::: {.column width="30%"}
+```{python}
+X = np.array(
+  [
+    [0,   1,  0,  1,  0],
+    [0,   1,  0,  1,  0],
+    [0,   0,  0,  0,  0],
+    [1,   0,  0,  0,  1],
+    [0,   1,  1,  1,  0]
+  ]
+)
+```
+:::
+::: {.column width="20%"}
+```{python}
+W = np.array(
+  [
+    [0, 0, 0],
+    [0, 0, 0],
+    [1, 1, 1]
+  ]
+)
+```
+
+:::
+::: {.column width="30%"}
+```{python}
+Z = np.array(
+  [
+    [1,   1,  2,  1,  1],
+    [0,   0,  0,  0,  0],
+    [1,   1,  0,  1,  1],
+    [1,   2,  3,  2,  1],
+    [0,   0,  0,  0,  0]
+  ]
+)
+```
+:::
+
+::: {.column width="20%"}
+```{python}
+#| echo: false
+
+print()
+```
+:::
+
+:::
+
+::: {.fragment}
+What low-level feature did this layer learn to look for? What pattern will make its neurons most positive (i.e. will "turn it on")?
+:::
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### Convolving with Tensorflow
+
+```{python}
+import tensorflow as tf
+
+ny = imread('images/new_york.jpg').mean(axis=2)
+ny4D = np.array([ny.reshape(ny.shape[0], ny.shape[1], 1)])
+W4d = W.reshape(W.shape[0], W.shape[0], 1, 1)
+
+ny_convolved = tf.nn.conv2d(ny4D, W4d, strides=1, padding='SAME')
+```
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+::: {.columns}
+::: {.column width="50%"}
+```{python}
+plt.imshow(
+  ny,
+  cmap = 'gray')
+plt.show()
+```
+:::
+
+::: {.column width="50%"}
+```{python}
+plt.imshow(
+  ny_convolved[0, :, :, 0],
+  cmap = 'gray')
+plt.show()
+```
+:::
+:::
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+## Making CNN Work {.title-slide}
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### Strides
+
+In many CNN architectures layers tend to get smaller and smaller using *strides*:
+
+![](images/conv05.png)
+
+- The $[i,j]$ neuron looks at the rectangle at rows $i \cdot s_h$ to $i \cdot s_h + f_h - 1$, columns $j \cdot s_w$ to $j \cdot s_w + f_w - 1$
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### Stacking Feature Maps
+
+A convolutional layer is actually a 3D stack of a few of the 2D layers we described (a.k.a *Feature Maps*), each learns a single filter.
+
+![](images/conv06.png)
+
+Source: [Geron 2019](https://www.oreilly.com/library/view/hands-on-machine-learning/9781492032632/)
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+- Feature map 1 learns horizontal lines
+- Feature map 2 learns vertical lines
+- Feature map 3 learns diagonal lines
+- Etc.
+
+And each such feature map takes as inputs all feature maps (or color channels) in the previous layer, and sums:
+
+$Z_{i,j,k} = b_k + \sum_{u=0}^{f_h-1}\sum_{v=0}^{f_w-1}\sum_{k'=0}^{f_n-1}X_{i \cdot s_h+u,j \cdot s_w+v, k'} \cdot W_{u,v,k', k}$
+
+Where $f_n$ is the number of feature maps (or color channels) in the previous layer.
+
+- Feature map 1 with $f_h \cdot f_w$ filter $\cdot f_n$ color channels + 1 bias term (it's a filter *cube*!)
+- Feature map 2 with $f_h \cdot f_w$ filter $\cdot f_n$ color channels + 1 bias term
+- Etc.
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### And how does the network *learn* these filters?
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### Too early to rejoice
+
+That's still quite a lot.
+
+- 100 x 100 RGB image
+- 100 feature maps in first layer of filter 3x3
+- (3 x 3 x 3 + 1) x 100 = 2800 params, not too bad
+- But 100 x 100 numbers in each feature map (x 100) = 1M numbers, each say takes 4B, that's 4MB for 1 image for 1 layer
+- Each number is a weighted sum of 3 x 3 x 3 = 27 numbers, so that's 1M x 27 = 27M multiplications for 1 layer...
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### Pooling Layers
+
+A pooling layer "sums up" a convolutional layer, by taking the max or mean of the receptive field.
+
+No params!
+
+![](images/conv07.png)
+
+Source: [Geron 2019](https://www.oreilly.com/library/view/hands-on-machine-learning/9781492032632/)
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+Usually with strides $s_w=s_h=f_w=f_h$ and no padding (a.k.a `VALID`):
+
+::: {.columns}
+::: {.column width="30%"}
+```{python}
+X = np.array(
+  [
+    [0,   1,  0,  1,  0],
+    [0,   1,  0,  1,  0],
+    [0,   0,  0,  0,  0],
+    [1,   0,  0,  0,  1],
+    [0,   1,  1,  1,  0]
+  ]
+)
+```
+
+:::
+::: {.column width="20%"}
+```{python}
+W = np.array(
+  [
+    [0, 0, 0],
+    [0, 0, 0],
+    [1, 1, 1]
+  ]
+)
+```
+
+:::
+::: {.column width="30%"}
+```{python}
+Z = np.array(
+  [
+    [1,   1,  2,  1,  1],
+    [0,   0,  0,  0,  0],
+    [1,   1,  0,  1,  1],
+    [1,   2,  3,  2,  1],
+    [0,   0,  0,  0,  0]
+  ]
+)
+```
+
+:::
+
+::: {.column width="20%"}
+```{python}
+Z2 = np.array(
+  [
+    [1, 2],
+    [2, 3]
+  ]
+)
+```
+
+:::
+:::
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+Clearly we're losing info.
+
+::: {.incremental}
+- A 2x2 max pooling layer would reduce the size of the previous layer by how many percents?
+
+- But maybe sometimes it's a *good* thing to ignore some neurons?
+
+- Is CNN a linear operator?
+:::
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### Image Data Augmentation
+
+It's very hard to "augment" data about people, products, clicks.
+
+::: {.fragment}
+Images are different.
+
+- Translation
+- Rotation
+- Rescaling
+- Flipping
+- Stretching
+:::
+::: {.fragment}
+Are there some images or applications you wouldn't want augmentations or at least should go about it very carefully?
+:::
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+In Keras you can augment "on the fly" as you train your model, here I'm just showing you this works:
+
+```{python}
+from tensorflow.keras.preprocessing.image import ImageDataGenerator
+
+idg = ImageDataGenerator(
+	rotation_range=30,
+	zoom_range=0.15,
+	width_shift_range=0.2,
+	height_shift_range=0.2,
+	shear_range=0.15,
+	horizontal_flip=True,
+	fill_mode='nearest'
+)
+
+ny_generator = idg.flow(ny4D, batch_size=1)
+
+nys = [ny_generator.next() for i in range(10)]
+```
+
+See the [ImageDataGenerator](https://keras.io/api/preprocessing/image/) for more.
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+```{python}
+#| echo: false
+
+width = 5
+height = 2
+i = 1
+_ = plt.figure(figsize=(20, 10))
+for _ in range(height):
+	for _ in range(width):
+		ax = plt.subplot(height, width, i)
+		_ = ax.set_xticks([])
+		_ = ax.set_yticks([])
+		_ = plt.imshow(nys[i - 1][0, :, :, 0], cmap='gray')
+		i += 1
+plt.show()
+```
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### Why do CNN work?
+
+- No longer a long 1D column of neurons, but 2D, taking into account spatial relations between pixels/neurons
+- First layer learns very low-level features, second layer learns higher level features, etc.
+- Shared weights --> learn feature in one area of the image, generalize it to the entire image
+- Less weights --> smaller size, more feasible model, less prone to overfitting
+- Less overfitting by Pooling
+- Invariance by Max Pooling
+- Hardware/Software advancements enable processing of huge amounts of images
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+## Back to Malaria! {.title-slide}
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### Reminder
+
+```{python}
+import tensorflow_datasets as tfds
+from skimage.transform import resize
+from sklearn.model_selection import train_test_split
+
+malaria, info = tfds.load('malaria', split='train', with_info=True)
+
+images = []
+labels = []
+for example in tfds.as_numpy(malaria):
+  images.append(resize(example['image'], (100, 100)).astype(np.float32))
+  labels.append(example['label'])
+  if len(images) == 2500:
+    break
+  
+X = np.array(images)
+y = np.array(labels)
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.20, random_state=42)
+
+print(X_train.shape)
+print(X_test.shape)
+```
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+```{python}
+#| code-line-numbers: "|2|6-7|8|9|10|11|"
+from tensorflow.keras import Sequential
+from tensorflow.keras.layers import Dense, Conv2D, MaxPooling2D, Flatten, Dropout
+from tensorflow.keras.callbacks import EarlyStopping
+
+model = Sequential()
+model.add(Conv2D(filters=32, input_shape=(X_train.shape[1:]),
+  kernel_size=(3, 3), padding='same', activation='relu'))
+model.add(MaxPooling2D(pool_size=(2, 2)))
+model.add(Conv2D(64, kernel_size=(3, 3), activation='relu'))
+model.add(MaxPooling2D(pool_size=(2, 2)))
+model.add(Flatten())
+model.add(Dropout(0.5))
+model.add(Dense(1, activation='sigmoid'))
+model.compile(loss='binary_crossentropy',
+  optimizer='adam', metrics=['accuracy'])
+```
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+```{python}
+model.summary()
+```
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+```{python}
+#| eval: false
+
+callbacks = [EarlyStopping(monitor='val_loss', patience=5)]
+history = model.fit(X_train, y_train, batch_size=100, epochs=50,
+  validation_split=0.1, callbacks=callbacks)
+```
+
+```{python}
+#| eval: false
+#| echo: false
+import pandas as pd
+
+pd.DataFrame(history.history).to_csv('malaria_cnn_history.csv', index=False)
+
+y_pred = (model.predict(X_test, verbose=0) > 0.5).astype(int).reshape(y_test.shape)
+np.save('y_pred.npy', y_pred)
+```
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+```{python}
+#| eval: false
+
+import pandas as pd
+
+pd.read_csv(history.history).plot(figsize=(10, 6))
+plt.grid(True)
+plt.show()
+```
+
+```{python}
+#| echo: false
+
+import pandas as pd
+
+pd.read_csv('malaria_cnn_history.csv').plot(figsize=(10, 6))
+plt.grid(True)
+plt.show()
+```
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### Last time we got to 69% accuracy after tuning...
+
+```{python}
+#| echo: false
+
+from sklearn.metrics import confusion_matrix
+
+y_pred = np.load('y_pred.npy')
+```
+
+```{python}
+#| eval: false
+
+from sklearn.metrics import confusion_matrix
+
+y_pred = (model.predict(X_test, verbose=0) > 0.5).astype(int).reshape(y_test.shape)
+```
+
+```{python}
+np.mean(y_pred == y_test)
+```
+
+```{python}
+pd.DataFrame(
+  confusion_matrix(y_test, y_pred), 
+  index=['true:yes', 'true:no'], 
+  columns=['pred:yes', 'pred:no']
+)
+```
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### And this is just 10% of the data.
+
+Watch me reach ~94% accuracy with 100% of the data in [Google Colab](https://colab.research.google.com/drive/1i39eWL8e5Gl3rjoulh5WJMVOUgvM8h6_?usp=sharing).
+
+::: {.fragment}
+![](images/malaria_cnn_history_100pct.png){width="60%"}
+:::
+::: {.fragment}
+Think about the researchers seeing this for the first time in 2012...
+:::
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+## Visualizing CNN {.title-slide}
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### Visualizing filters/kernels/features/weights
+
+```{python}
+#| echo: false
+
+W = np.load('W.npy')
+```
+
+```{python}
+#| eval: false
+
+W, b = model.get_layer('conv2d').get_weights()
+```
+
+```{python}
+W.shape
+```
+
+
+```{python}
+W[:, :, 0, 0]
+```
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+First filter of 32:
+
+```{python}
+plt.subplot(1,3,1)
+plt.imshow(W[:, :, 0, 0], cmap='gray')
+plt.subplot(1,3,2)
+plt.imshow(W[:, :, 1, 0], cmap='gray')
+plt.subplot(1,3,3)
+plt.imshow(W[:, :, 2, 0], cmap='gray')
+plt.show()
+```
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### Visualizing Feature Maps
+
+```{python}
+cell = X_test[0, :, :, :].reshape(1, 100, 100, 3)
+
+plt.imshow(cell[0])
+plt.show()
+```
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+```{python}
+#| eval: false
+
+from tensorflow.keras import Model
+
+model_1layer = Model(inputs=model.inputs,
+  outputs=model.layers[0].output)
+
+feature_maps = model_1layer.predict(cell)
+
+feature_maps.shape
+```
+
+```{python}
+#| echo: false
+
+feature_maps = np.load('feature_maps.npy')
+
+print(feature_maps.shape)
+```
+
+```{python}
+#| eval: false
+
+width = 8
+height = 4
+ix = 1
+_ = plt.figure(figsize = (10, 10))
+for _ in range(height):
+	for _ in range(width):
+		ax = plt.subplot(height, width, ix)
+		_ = ax.set_xticks([])
+		_ = ax.set_yticks([])
+		_ = plt.imshow(feature_maps[0, :, :, ix-1], cmap='gray')
+		ix += 1
+plt.show()
+```
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+```{python}
+#| echo: false
+
+width = 8
+height = 4
+ix = 1
+_ = plt.figure(figsize = (10, 10))
+for _ in range(height):
+	for _ in range(width):
+		ax = plt.subplot(height, width, ix)
+		_ = ax.set_xticks([])
+		_ = ax.set_yticks([])
+		_ = plt.imshow(feature_maps[0, :, :, ix-1], cmap='gray')
+		ix += 1
+```
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+## CNN Architectures {.title-slide}
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### ImageNet
+
+![](images/ImageNet.png)
+
+Source: [paperswithcode.com](https://paperswithcode.com/sota/image-classification-on-imagenet)
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### LeNet-5 (1998)
+
+![](images/lenet-5.png)
+
+Source: [LeCun et. al. 1998](http://www.dengfanxin.cn/wp-content/uploads/2016/03/1998Lecun.pdf)
+
+You know you can implement this in just a few lines of Keras...
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+```{python}
+#| eval: false
+
+from tensorflow.keras.layers import Conv2D, AveragePooling2D,
+  Flatten, Dense
+from tensorflow.keras import Sequential
+
+model = keras.Sequential()
+
+model.add(Conv2D(filters=6, kernel_size=(3, 3),
+  activation='relu', input_shape=(32,32,1)))
+model.add(AveragePooling2D())
+model.add(Conv2D(16, kernel_size=(3, 3), activation='relu'))
+model.add(AveragePooling2D())
+model.add(Flatten())
+model.add(Dense(120, activation='relu'))
+model.add(Dense(84, activation='relu'))
+model.add(Dense(10, activation = 'softmax'))
+```
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### AlexNet (2012)
+
+![](images/alexnet.png)
+
+Source: [Krizhevsky et. al. 2012](https://papers.nips.cc/paper/4824-imagenet-classification-with-deep-convolutional-neural-networks.pdf)
+
+See a Keras implementation e.g. [here](https://medium.datadriveninvestor.com/alexnet-implementation-using-keras-7c10d1bb6715)
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### ResNet (2015)
+
+::: {.columns}
+
+::: {.column width="50%"}
+![](images/resnet.png){width="20%"}
+:::
+
+::: {.column width="50%"}
+- Source: [He et. al.](https://arxiv.org/pdf/1512.03385.pdf)
+- This is ResNet-34 (34 layers)
+- ResNet-152 (152 layers!) achieved 4.5% Top-5 error rate with single model
+:::
+
+:::
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### Residual Learning
+
+![](images/ru.png){width="20%"}
+
+- "Is learning better networks as easy as stacking more layers?" Yes, but:
+- the vanishing/exploding gradients problem
+- With *Residual Learning* the activation from a previous layer is being added to the activation of a deeper layer in the network
+- The signal is allowed to propagate through the layers
+
+::: {.fragment}
+- The model learning $H(X)$ will be forced to learn $H(X) - X$, hence *residual* learning.
+:::
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+## Using Pre-trained Models {.title-slide}
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### What *is* a trained CNN?
+
+![](images/keras_applications.png)
+
+Look up [keras.io/api/applications/](https://keras.io/api/applications/)
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### ResNet on your local machine
+
+```{python}
+from tensorflow.keras.applications.resnet50 import ResNet50, preprocess_input, decode_predictions
+from skimage.transform import resize
+
+model = ResNet50(weights='imagenet')
+
+johann = imread('images/johann.jpg')
+
+fig, ax = plt.subplots(figsize=(7, 4))
+_ = ax.imshow(johann)
+```
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+```{python}
+johann = resize(johann, (224, 224))
+johann = johann.reshape(1, 224, 224, 3) * 255
+johann = preprocess_input(johann)
+
+johann_pred = model.predict(johann, verbose=0)
+
+print(johann_pred.shape)
+```
+
+```{python}
+#| output-location: fragment
+
+johann_breed = decode_predictions(johann_pred, top=5)
+
+for _, breed, score in johann_breed[0]:
+  print('%s: %.2f' % (breed, score))
+```
+
+::: {.fragment}
+Look mom, no training!
+:::
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### What's Next?
+
+This was simple image classification. Furthermore you'd see:
+
+- Transfer Learning
+- Object Detection
+- Segmentation
+- Captioning
+- 3D Reconstruction
+- Restoration
+- Pose Estimation
+- Generative models (e.g. GANs)
+- Doing it all on Video
+- And doing it all in real time, on your phone or in your car &#x1F600;
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
