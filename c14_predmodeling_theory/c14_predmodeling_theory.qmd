@@ -1,0 +1,505 @@
+---
+format:
+  revealjs:
+    slide-number: true
+    chalkboard: true
+    fig-width: 6
+    fig-asp: 0.618
+    template-partials:
+      - "../title-slide.html"
+css: "../slides_quarto.css"
+standalone: false
+include-in-header: "../header_quarto.html"
+logo: "../Intro2DS_logo_white.jpg"
+pagetitle: "Predictive Modeling Theory"
+callout-appearance: simple
+smaller: true
+execute:
+  eval: true
+  echo: true
+code-line-numbers: false
+code-block-border-left: true
+highlight-style: github
+footer: "[Intro to Data Science](https://intro2ds2023.github.io/mooc/){target='_blank'}"
+---
+
+## {.logo-slide}
+
+## Introduction to Data Science {.title-slide}
+
+### Predictive Modeling Theory - Class 14
+
+### Giora Simchoni
+
+#### `gsimchoni@gmail.com` and add `#intro2ds` in subject
+
+### Stat. and OR Department, TAU
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+## Predictive Modeling So Far {.title-slide}
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### What we have learned
+
+- Want to model and predict $y$ as function of $x$: regression or classification
+
+- Using training data $Tr$ to learn model, test data $Te$ to evaluate model and emulate actual prediction
+
+- Traditional parametric models: OLS regression, logistic regression
+
+- Non-parametric models based on neighborhoods: Nearest neighbors, trees
+
+- Modern methods based on trees: Random Forest and Boosting
+
+- Neural nets and DL (specifically CNN)
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### Model complexity or flexibility
+
+- Many of the models we have learned have a *complexity* parameter
+    - OLS/logistic: $p$, number of variables in $x$
+    - k-NN: number of neighbors $k$
+    - Trees: depth of tree $d$
+    - Neural nets: number of edges in $W$
+
+- More complex models are more flexible and "rich"
+
+- Typical behavior we have seen: as complexity increases, training error decreases, test/prediction error has U-shape ([Illustration](https://en.wikipedia.org/wiki/Overfitting#/media/File:Overfitting_svg.svg))
+
+- Optimal complexity: flexible enough to capture relevant information, not too flexible to cause overfitting
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+## The Bias Variance Tradeoff {.title-slide}
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### Intuition: Estimation and approximation error
+
+- **Approximation error**: how well our model can capture the "true" dependence of $y$ on $x$
+
+- **Estimation error**: how well can we estimate our model from our training data $Tr$
+
+- Simple (low-complexity) model: high approximation error, low estimation error
+
+- Complex model: low approximation error, high estimation error 
+
+[Graphical illustration](https://www.jobilize.com/ocw/mirror/col10532_1.3_complete/m16274/bv.png)
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### Squared error decomposition
+
+- For regression, take the standard model: $y = f(x) + \epsilon\;,\;\epsilon \sim (0,\sigma^2)$
+
+- Modeling approach (e.g. OLS), given training data $Tr$, gives model $\hat{f}(x)$
+
+- Assume want to predict at new point $x_0$, and understand our expected (squared) prediction error: 
+
+$\mathbb{E}(y_0 - \hat{f}(x_0))^2 = \mathbb{E} \left( \underbrace{\left(y_0 - f(x_0)\right)}_{A} + \underbrace{\left(f(x_0) - \mathbb{E} (\hat{f}(x_0))\right)}_{B} + \underbrace{\left(\mathbb{E} (\hat{f}(x_0)) - \hat{f}(x_0)\right)}_{C}\right)^2$
+
+- Note we treat both the traininfg data $Tr$ (and hence $\hat{f}$) and the response $y_0$ as random variables in our expectations
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### The bias-variance decomposition
+
+$\mathbb{E} \left( \underbrace{\left(y_0 - f(x_0)\right)}_{A} + \underbrace{\left(f(x_0) - \mathbb{E} (\hat{f}(x_0))\right)}_{B} + \underbrace{\left(\mathbb{E} (\hat{f}(x_0)) - \hat{f}(x_0)\right)}_{C}\right)^2 =$<br><br>
+$\;\;\;\;\;\;\;\;\;\;\;= \mathbb{E} A^2 + B^2 + \mathbb{E} C^2 + 2 B \cdot \mathbb{E} A + 2 \mathbb{E} (AC) + 2B \cdot\mathbb{E} C$<br><br>
+
+$\mathbb{E}(A^2) = \sigma^2$ the **Irreducible error** of a perfect model which knows the true $f$ 
+
+$B^2 = \left(f(x_0) - \mathbb{E} (\hat{f}(x_0))\right)^2$ is the **squared bias** --- a measure of approximation error (note $B$ is not a random variable)
+
+$\mathbb{E}(C^2) = \mathbb{E} \left(\mathbb{E} (\hat{f}(x_0)) - \hat{f}(x_0) \right)^2$ is the **variance** of the prediction --- a measure of estimation error
+
+$B \cdot\mathbb{E} A = \mathbb{E} (AC) = B \cdot \mathbb{E} C = 0$ due to independence and mean-0 relations
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### Using the bias-variance decomposition
+
+- Our general intuition: as complexity increases, approximation error decreases and estimation error increases 
+
+- For many models we can calculate and show these effects on the bias and variance of the model 
+
+- For example, for OLS regression, we can prove:
+
+1. That the squared bias decreases when we add more variables into the model
+2. That the variance of prediction increases when we add more variables (and calculate it, under some assumptions)
+
+- Similarly for k-NN regression the squared bias decreases and the variance increases as we decrease $k$ (fewer neighbors, more flexibility/complexity)
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### Simulation example: bias, variance and prediction error
+
+- Let's generate data according to the following model: $x \in \mathbb R^{20}$ has multivariate normal distribution, $y = \sum_{j=1}^{20} \sqrt{(21-j)/2} \times x_j + \epsilon\;,\;\epsilon \sim N(0, 10)$ 
+
+- So the true model is in fact linear with $\beta = (\sqrt{10},\sqrt{9.5},\dots,\sqrt{0.5})^t$
+
+- We have $n=50$ training observations, and want to predict at $x_0 = (1,1,\dots,1)^t\; \Rightarrow\; y_0 = 43.6 + \epsilon$
+
+- By generating many training sets and $\hat{f}$'s we can evaluate bias, variance and prediction error
+
+- Complexity parameter: number of variables included in the model (only the first coordinate, first two, ...)
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+```{python}
+#| echo: false
+
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import math
+```
+
+```{python}
+ntr = 50
+p = 20
+err_var = 1000
+
+yhat_0 = np.zeros((20, 1000))
+err = np.zeros((20, 1000))
+beta = np.sqrt(np.array(range(20, 0, -1)) / 2)
+for iteration in range(1000):
+    X = np.random.normal(loc=0.0, scale=1.0, size=(ntr,p))
+    Y = X@beta + np.random.normal(loc=0.0, scale=np.sqrt(err_var), size=ntr)
+    f0 = np.sum(beta) 
+    for pnow in range(1, p+1):
+        betahat = np.linalg.inv(X[:, :pnow].T @ X[:, :pnow]) @ X[:, :pnow].T @ Y
+        yhat_0[pnow - 1, iteration] = np.sum(betahat)
+        err[pnow - 1, iteration] = f0 - np.sum(betahat)
+        
+pred_err = np.mean(err**2, axis=1) + err_var
+pred_var = np.var(yhat_0, axis=1)
+pred_bias2 = (np.mean(yhat_0, axis=1) - np.sum(beta))**2
+```
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+```{python}
+plt.plot(range(1, p + 1), pred_err, color='darkorange', lw=2, label='prediction error' )
+plt.plot([1,p+1], [err_var, err_var], color='black', lw=1, label='A:irreducible error')
+plt.plot(range(1, p + 1), pred_bias2, color='green', lw=2, label='B:prediction bias squared')
+plt.plot(range(1, p + 1), pred_var, color='navy', lw=2, label='C:prediction variance')
+plt.xlabel('dimension')
+plt.ylabel('squared error')
+plt.title('Error decomposition simulation')
+plt.legend(loc="upper right")
+plt.show()
+```
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### Complexity parameters in our models
+
+| **Method**                 | **Complexity param(s)**           | **Low Complexity**       | **High Complexity**     |
+|----------------------------|-----------------------------------|--------------------------|-------------------------|
+| Linear/logistic regression | Number of variables               | Few variables            | Many variables          |
+| k-NN                       | Number of neighbors               | Many neighbors           | Few neighbors           |
+| Tree                       | Depth                             | Shallow                  | Deep                    |
+| Neural Nets                | Number of hidden nodes and layers | Few                      | Many                    |
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+## Cross validation {.title-slide}
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### Cross validation: beyond the test set
+
+- So far we simply divided our data to 80% training and 20% test
+
+- We mentioned that if we also have to choose a model parameter (like number of variables or $k$ in $k$-NN), we should have training-validation-test (usually 60-20-20), where we use validation to select model, and test for final evaluation
+
+- But there are more efficient ways to use the data
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### 10-fold cross validation
+
+1. Divide the data into 10 equal size parts (folds)
+2. Repeat 10 times: 
+    a. Fit the model on 90% of the data 
+    b. Apply the model to the holdout fold
+3. Evaluate the modeling approach on 100% of the data by combining the holdout folds
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### Leave-one-out cross validation (LOOCV)
+
+- Can go beyond 10-fold, to n-fold: each time fit the model on $n - 1$ observations, and hold-out $1$
+
+- In mathematical notation: $L_{n-fold} = \sum_{i=1}^n L\left(y_i, \hat{f}^{(-i)}(x_i)\right)$
+
+- Where: 
+    - $L$ is the loss function we use for evaluation
+    - $\hat{f}^{(-i)}$ is the model we build on $n-1$ observations, removing observation $i$
+    - We then apply this model to the left out observation and see how well we do
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### Cross validation: advantages and issues
+
+Advantages:
+
+1. Training set is bigger ($0.9n$ or $n-1$ instead of $0.8n$) --- better models and more realistic
+2. Test set is bigger (essentially of size $n$) --- more stable model evaluation and selection
+
+Disadvantages: 
+
+1. Have to build 10 (or $n$) models --- much more computing
+2. What exactly are we evaluating --- we don't have a single model
+
+Lots of interesting perspectives and results
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+## Regularization {.title-slide}
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### Regularization: controlling the bias-variance tradeoff
+
+- As we saw, in OLS, the more variables in the model, the bigger the prediction variance
+
+- This is because we have to estimate many parameters, high model complexity
+
+- Regularization controls model complexity not by reducing the number of parameters, but in other ways
+
+- Most common: restrict the norm of $\hat{\beta}$, instead of allowing it to take any value in $\mathbb R^p$
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### Norm penalties and ridge regression
+
+- The common norms to penalize: 
+    - Euclidean ($\ell_2$) norm: $\|\beta\|_2^2 = \sum_{j=1}^p \beta_j^2\;\;$ $\;\Rightarrow\;\;$ **Ridge regression**
+    - $\ell_1$ norm: $\|\beta\|_1 = \sum_{j=1}^p |\beta_j|\;\;$ $\;\Rightarrow\;\;$ Lasso
+
+- For ridge regression, $\hat{\beta}$ is the solution of: $\min_{\|\beta\|^2\leq c} RSS (\beta)$ 
+
+- Alternative Largrange form: $\min_\beta RSS(\beta) + \lambda \|\beta\|^2$ 
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### Solving ridge regression
+
+- We want to minimize penalized RSS: $PRSS(\beta) = \|Y-X\beta\|^2 + \lambda \|\beta\|^2.$
+
+- Differentiating relative to $\beta$ and equating to $0$ : $\nabla_\beta PRSS(\beta) = -2X^TY + 2X^TX\beta + 2\lambda \beta = 0.$
+
+- Solution: $\hat{\beta}(\lambda) = (X^TX + \lambda I_p)^{-1} X^T Y.$
+
+- This is a minimum because the function is quadratic in $\beta$ (or can check Hessian)
+
+- Similar to OLS solution, with additional term in the inverse
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+```{python}
+ntr = 50
+p = 20
+err_var = 1000
+
+yhat_0 = np.zeros((30, 1000))
+err = np.zeros((30, 1000))
+beta = np.sqrt(np.array(range(20, 0, -1))/2)
+for iteration in range(1000):
+    X = np.random.normal(loc=0.0, scale=1.0, size=(ntr,p))
+    Y = X@beta + np.random.normal(loc=0.0, scale=np.sqrt(err_var), size=ntr)
+    f0 = np.sum(beta) 
+    for lamb in range(0,30):
+        betahat = np.linalg.inv(X.T @ X + lamb * np.identity(p)) @ X.T @ Y
+        yhat_0[lamb, iteration] = np.sum(betahat)
+        err[lamb, iteration] = f0 - np.sum(betahat)
+        
+pred_err = np.mean(err**2, axis=1) + err_var
+pred_var = np.var(yhat_0, axis=1)
+pred_bias2 = (np.mean(yhat_0, axis=1) - np.sum(beta))**2
+```
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+```{python}
+#| echo: false
+
+plt.rcParams["figure.figsize"] = (4, 4)
+```
+
+```{python}
+plt.plot(range(0, 30), pred_err, color='darkorange', lw=2, label='prediction error' )
+plt.plot([1, 29], [err_var, err_var], color='black', lw=1, label='A:irreducible error')
+plt.plot(range(0, 30), pred_bias2, color='green', lw=2, label='B:prediction bias squared')
+plt.plot(range(0, 30), pred_var, color='navy', lw=2, label='C:prediction variance')
+plt.ylim([0, 2500])
+plt.xlabel('regularization level ($\lambda$)')
+plt.ylabel('squared error')
+plt.title('Error decomposition simulation')
+plt.legend(loc="upper right")
+plt.show()
+```
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### Summary
+
+::: {.fragment}
+We have discussed several types of modeling families:
+
+1. Parametric traditional approaches like OLS and logistic regression
+2. Local non-parametric approaches like k-NN and trees
+3. Modern high dimensional approaches: RF, boosting, CNN
+:::
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
+
+---
+
+### Summary (II)
+
+::: {.fragment}
+When designing a specific predictive model we should consider the apsects we have discussed:
+
+1. What probabilistic or parametric assumptions make sense? 
+2. What is the right model complexity given the amount of data we have? 
+3. We can control complexity and hence approximation-estimation tradeoff through number of parameters or regularization
+4. Evaluation on independent data: What is the loss function to evaluate model performance? Use test set or cross validation?
+:::
+
+::: {.fragment}
+**These universal considerations are largely common to all approaches**
+:::
+
+::: {.notes}
+::: {style="direction:rtl; font-size:16px"}
+:::
+:::
