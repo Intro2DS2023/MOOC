@@ -457,7 +457,9 @@
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>ביחידה הזאת נלמד על שיטות אנסמבל, שעושות קומבינציה של מודלים חלשים רבים, למודל חזק במיוחד. אמרנו כבר כשלמדנו על עצי החלטה שהם מודלים מוגבלים עם שונות גבוהה, ושאלנו את עצמנו – למה עץ אחד? למה לא יער?</p>
+<p>נראה היום שתי שיטות אנסמבל מבוססות עצים. הראשונה רנדום פורסט, שמבוססת על מיצוע של הרבה עצים שונים, והשנייה בוסטינג שבה אנחנו בונים עץ אחרי עץ בצורה אדפטיבית.</p>
+<p>נתחיל ברנדום פורסט. במקום להתאים עץ אחד לנתונים, אנחנו נתאים הרבה. אבל לא נתאים אותם לאותם הנתונים, אחרת אין הבדל. נתאים אותם כל פעם על דאטא קצת אחר, דאטא שעבר רנדומיזציה, בשתי דרכים שונות. לבסוף נמצע את העצים – החיזוי לכל תצפית יהיה ממוצע שלה על פני הרבה עצים, ונראה שכך נטפל באופן ישיר בבעיות של העץ היחיד.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -477,18 +479,23 @@
 <ul>
 <li><p>This is captured through different things we learned: CLT, LLN, variance of the average…</p></li>
 <li><p>Assume <span class="math inline">\(z_i \sim F\)</span> has some distribution with mean <span class="math inline">\(\mu\)</span> and variance <span class="math inline">\(\sigma^2\)</span></p></li>
-<li><p>If <span class="math inline">\(z_1,...,z_m \sim F\)</span> are independent, then <span class="math inline">\(Var(\bar{z}) = \sigma^2 / m\)</span>, so <span class="math inline">\(\bar{z}\)</span> is close to <span class="math inline">\(\mu\)</span> for large <span class="math inline">\(m\)</span></p></li>
+<li><p>If <span class="math inline">\(z_1,\dots,z_m \sim F\)</span> are independent, then <span class="math inline">\(Var(\bar{z}) = \sigma^2 / m\)</span>, so <span class="math inline">\(\bar{z}\)</span> is close to <span class="math inline">\(\mu\)</span> for large <span class="math inline">\(m\)</span></p></li>
 </ul>
 <div>
 <ul>
-<li class="fragment"><p>Slightly more complex setting: assume <span class="math inline">\(z_1,...,z_m\)</span> are <em>somewhat</em> dependent <span class="math inline">\(Cov(z_i,z_j) = \rho \sigma^2,\;\rho&lt;1\)</span></p></li>
+<li class="fragment"><p>What if <span class="math inline">\(z_1,\dots,z_m\)</span> are dependent?</p></li>
+<li class="fragment"><p>Slightly more complex setting: assume <span class="math inline">\(z_1,\dots,z_m\)</span> are <em>somewhat</em> dependent <span class="math inline">\(Cov(z_i,z_j) = \rho \sigma^2,\;\rho&lt;1\)</span></p></li>
 <li class="fragment"><p>Now we still get some variance reduction from averaging: <span class="math display">\[Var(\bar{z}) \approx \rho\sigma^2 + (1-\rho)\sigma^2/ m\]</span></p></li>
 <li class="fragment"><p>This is exactly the intuition behind Random Forest</p></li>
 </ul>
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>ניזכר בערך המיצוע. מה מיצוע נותן לנו? נתקלנו בזה בעבר, כשדיברנו על משפט הגבול המרכזי. אם משתנה מקרי Z_i, מתפלג לפי איזושהי התפלגות F עם תוחלת מיו ושונות סיגמא בריבוע, ואני לוקח m תצפיות כאלה בלתי תלויות, אז השונות של ממוצע המדגם המקרי קטנה פי m. כלומר ככל שm גדול כך הפיזור סביב הממוצע קטן והוא מתקרב לתוחלת האמיתית מיו.</p>
+<p>ונניח שהתצפיות הן לא בלתי תלויות. לא רק שהן לא בלתי תלויות, הן תלויות לחלוטין, הן אותה תצפית בדיוק, שחוזרת על עצמה m פעמים. מה יהיה אז הממוצע? התצפית עצמה כמובן. והאם הקטנו את השונות של ההתפלגות המקורית? בכלל לא, נישאר עם השונות המקורית סיגמא בריבוע. כלומר יש כאן איזשהו טווח מתצפיות בלתי תלויות לחלוטין ועד תצפיות תלויות לחלוטין, וההקטנה של סיגמא בריבוע בהתאם.</p>
+<p>נסתכל על מצב ביניים, שהתצפיות לא בלתי תלויות לחלוטין אבל גם לא חוזרות על עצמן, המתאם בין זוג תצפיות הוא איזשהו רו שקטן מ1, כלומר הקווריאנס יהיה סיגמא בריבוע כפול רו.</p>
+<p>אפשר לראות שכעת שונות ממוצע המדגם היא בקירוב רו סיגמא בריבוע, ועוד 1 מינוס רו כפול סיגמא בריבוע חלקי m. זאת אומרת כשרו שווה ל1, תלות מושלמת, אנחנו נשארים עם סיגמא בריבוע השונות המקורית, וכשרו שווה לאפס, שזה אומר תצפיות בלתי תלויות, נקבל את סיגמא בריבוע חלקי m, שונות מדגם מקרי המוכרת לנו.</p>
+<p>זו האינטואיציה מאחורי למה רנדום פורסט עובד. אם אצליח לקחת עוד ועוד דגימות עם כמה שפחות תלות - במקרה שלנו עוד ועוד עצים, נקטין את השונות המקורית של כל אחת מהן עד פי m. אם הדגימות שלי תלויות חזק אחת בשניה, הרווח שלי מוגבל מפעולת המיצוע. נרצה אם ככה לייצר עצים שיהיו שונים כמה שיותר אחד מהשני כך שנרוויח מהמיצוע שלהם.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -533,6 +540,28 @@
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
+<p>אז איך נשיג את היער עצים הזה ששונים זה מזה כמה שיותר?</p>
+<p>נזריק רנדומיזציה לתהליך: כל עץ יראה דאטא קצת אחר, נהוג לקחת רק חלק מהנתונים, subsample, או מדגם בוטסטראפ, שזה מדגם בגודל m המקורי, עם החזרה. דבר שני שנעשה, תוך כדי בנית העצים על הדאטא הזה, זה בכל צומת נגריל מספר מסוים של משתנים שיהיו מועמדים לפיצול. כלומר אם בעץ המקורי בכל צומת הוא מתחשב בכל המשתנים האפשריים, העצים שלנו עשויים לראות בכל צומת משתנים אחרים לחלוטין.</p>
+<p>כעת מגיעה תצפית חדשה לחיזוי. מה זה אומר למצע עצים? זה אומר שנריץ אותה בכל העצים, והחיזוי הסופי שלה יהיה הממוצע שלהם.</p>
+<p>על האינטואיציה דיברנו בהרחבה, העצים הם כמו תצפיות ממדגם. הם לא יכולים להיות לגמרי בלתי תלויים כי הם בכל זאת מבוססים על אותו דאטא. אבל נדאג שיהיו כמה שפחות תלויים אחד בשני, וככה נרוויח מהמיצוע שלהם.</p>
+<p>אילו עצים נגדל? עמוקים או שטוחים? עמוקים כמובן! עצים עמוקים שמסוגלים לתאר יחסים מורכבים כמה שניתן. לעצים כאלה תהיה שונות גבוהה שנקטין עם המיצוע. אם נבחר בעצים שטוחים יותר, נתחיל אולי בטעות פחות גבוהה אבל גם לא נרוויח מספיק מהמיצוע. למה שלא נראה את רנדום פורסט בפעולה על הנתונים שלנו.</p>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="rf-in-action" class="slide level2 title-slide center">
+<h2>RF in Action</h2>
+<aside class="notes">
+<div style="direction:rtl; font-size:16px">
 
 </div>
 <style type="text/css">
@@ -570,7 +599,7 @@
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>נראה את רנדום פורסט על נתוני נטפליקס. הקלאס בשביל רגרסיה נקרא RandomForestRegressor. נגדיל את מספר העצים מאחד ועד אלף. בכל איטרציה נגדל ntree עצים, מאוד עמוקים. נדאג שיהיו מאוד עמוקים במיוחד על-ידי זה שנפרט עם הפרמטר min_samples_split שהמינימום תצפיות לביצוע ספליט הוא קטן, אפשר לבצע ספליט אפילו על שתי תצפיות. עוד פרמטר שכדאי להזכיר הוא הmax_features, ששולט על כמה משתנים יהיו מועמדים בכל פיצול, כאן אנחנו מזינים 0.33 כלומר שליש מהמשתנים, אפשר גם להזין מספר שלם כלשהו, ברירת המחדל הוא לקחת את שורש מספר המשתנים. לבסוף נחזה על מדגם הטריין והטסט ונשרשר את הRMSE לרשימה.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -604,7 +633,7 @@
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>כשאנחנו מציירים את הטריין והטסט ארור כנגד מספר העצים אנחנו רואים שמעט עצים עמוקים מגיעים לשגיאה די גבוהה על הטסט, יותר מ1. אלף עצים לעומת זאת מגיעים כבר לאיזור ה0.8. הדבר הכי מעניין אולי בגרף הזה זה ששגיאת החיזוי לא עולה שוב, היא לא מתדרדרת, ואנחנו יודעים בדיוק למה, השונות יכולה רק לקטון. כך שעוד יתרון של רנדום פורסט הוא שאין התלבטות לגבי מספר העצים, אנחנו מוגבלים רק על ידי כוח החישוב שלנו וגודל המודל הסופי על הדיסק, ככל שנאפשר יותר עצים נצפה לשגיאה קטנה יותר. ברור שמאיזשהו מספר עצים כמו שרואים כאן לא בטוח שיש לאן לרדת.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -630,7 +659,8 @@
 <p>A single tree can only get you so far:</p>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>ננסה לעבוד עם כל הנתונים שבידינו, כל 99 הסרטים כך שתצפית חסרה היא בעצם דירוג אפס.</p>
+<p>נראה קודם מה נותן עץ יחיד.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -666,7 +696,7 @@
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>כאן אנחנו משתמשים בעץ יחיד ופשוט משנים את הmax_depth שלו כמו שעשינו. עם עץ בודד ו14 סרטים הגענו לRMSE של 0.85, כאן אנחנו רואים כבר RMSE של 0.82.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -689,7 +719,7 @@
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ntree <span class="kw">in</span> ntrees: </span>
 <span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    RF <span class="op">=</span> RandomForestRegressor(n_estimators<span class="op">=</span>ntree, min_samples_split<span class="op">=</span><span class="dv">5</span>,</span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>        min_samples_leaf<span class="op">=</span><span class="dv">2</span>, max_features<span class="op">=</span><span class="dv">10</span>,  bootstrap<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>        min_samples_leaf<span class="op">=</span><span class="dv">2</span>, max_features<span class="op">=</span><span class="dv">10</span>, bootstrap<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    RF <span class="op">=</span> RF.fit(NE_Xtr_noNAN, NE_Ytr)</span>
 <span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    yhat_tr <span class="op">=</span> RF.predict(NE_Xtr_noNAN)</span>
 <span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    yhat <span class="op">=</span> RF.predict(NE_Xte_noNAN)</span>
@@ -703,7 +733,7 @@
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>כשאנחנו עושים רנדום פורסט, השגיאה של RMSE על הטסט סט, יורדת כבר לאיזור ה0.78! ושוב אם נסתכל על עץ בודד עמוק, השגיאה שלו גבוהה מאוד, זה רק המיצוע של עצים כאלה שמביא אותנו לתוצאה איכותית.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -722,22 +752,29 @@
 <h3 id="summary-of-random-forest">Summary of Random Forest</h3>
 <ul>
 <li><p>Uses advantages of trees, mitigates their shortcomings</p></li>
-<li><p>RF trees should be as different as possible from each other:</p></li>
-</ul>
+<li><p>RF trees should be as different as possible from each other:</p>
 <ol type="1">
 <li>Uses the high-variance property of trees</li>
 <li>Add randomization: subsampling of training data for each tree; randomizations in tree splitting</li>
-</ol>
-<ul>
-<li>Add diversity by making trees bigger, control variance by averaging, therefore:</li>
-</ul>
+</ol></li>
+<li><p>Add diversity by making trees bigger, control variance by averaging, therefore:</p>
 <ol type="1">
 <li>Trees should be as big as possible</li>
 <li>Should build and average as many of them as computationally possible</li>
-</ol>
+</ol></li>
+</ul>
+<div class="fragment">
+<ul>
+<li>Great advantages for “big data”: highly parallelizable and (almost) hyperparametr free!</li>
+</ul>
+</div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>נסכם: שיטת רנדום פורסט משמרת את הגמישות של עצים תוך כדי שהיא מנסה להפחית את החסרון הכי גדול שלם, הנוקשות והשונות הגדולה שלהם.</p>
+<p>אנחנו עושים את העצים כמה שיותר שונים זה מזה, על-ידי מדגמי בוטסטראפ ובחירת משתנים שונים כמועמדים לכל פיצול.</p>
+<p>ומלבד זה אנחנו דואגים שהעצים יהיו עמוקים כמה שאפשר, כדי שנרוויח כמה שיותר מאפקט המיצוע, מעץ בודד עם איכות חיזוי גרועה להרבה עם איכות חיזוי טובה.</p>
+<p>עקרונית גם אמרנו, שככל שנבנה יותר עצים איכות החיזוי על הטסט סט יכולה רק לקטון, יתרון משמעותי לשיטה, בפועל אנחנו כנראה מוגבלים על-ידי כוח חישוב וגם גודל על הדיסק, כל אחד מהעצים האלה יכול להיות אוביקט די גדול, אלף עצים לשמור על שרתים זה כבר לא סימפטי.</p>
+<p>עוד יתרון שאנחנו פחות עוסקים בקורס הזה אבל הוא קריטי: קל למקבל רנדום פורסט על-פני מספר מחשבים? קל מאוד! כל עץ ברנדום פורסט יכול לגדול באופן בלתי תלוי מהאחרים, לכן אם הנתונים גדולים ועומדת לרשות מדען הנתונים סביבת עבודה מבוזרת, קלאסטר של מספר מחשבים, ניתן להגיע לאימון מהיר מאוד של האלגוריתם. ויתרון אחרון שרמזנו אליו - כמעט בכל שיטה שאנחנו לומדים יש היפרפרמטרים, איזשהם כפתורים שצריך לסובב כדי להתאים את האלגוריתם למקרה שלנו, כמו מספר השכנים בKNN או מטריקת המרחק. בסך הכל ברנדום פורסט אין פרמטרים שיש עליהם סימן שאלה, ברור שאנחנו צריכים כמה שיותר עצים וברור שהם צריכים להיות כמה שיותר עמוקים. זה הופך את רנדום פורסט לאלגוריתם אוף-דה-שלף מאוד פופולרי, כי בלי כיוונון אפשר להגיע מהר לתוצאה מצוינת.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -755,7 +792,7 @@
 <h2>Boosting</h2>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>נדבר כעת על בוסטינג. בוסטינג הוא גם כן אנסמבל של מודלים פשוטים אבל הוא שונה לחלוטין באופן שבו אנחנו מגדלים את התת-מודלים ובאופן שבו אנחנו ממצעים אותם. בוסטינג לא חייב להיות מבוסס על עצים, אבל בפועל זה המימוש הפופולרי ביותר.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -780,7 +817,10 @@
 </ul>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>נתחיל ברמה האינטואיטיבית: אנחנו נבנה מודל די מורכב, אבל לא בבת אחת. בהדרגה. נבנה מודל פשוט. ואז נשפר אותו באמצעות מודל פשוט נוסף. ואז נשפר את הביצועים של השניים שיש לנו, עם מודל פשוט שלישי. וכך הלאה. בצורה הזאת יש לי מודל שהוא קומבינציה של הרבה מודלים פשוטים, weak learners, והמודל הזה הוא כבר לא כל כך פשוט.</p>
+<p>לדוגמא, עצים. מה הופך עת למודל “פשוט” או weak learner? אם נעשה אותו לא עמוק, עץ יחסית שטוח. עץ בעומק 1 זה בעצם לשאול שאלה אחת על התצפית, עץ בעומק 2 זה אומר לשאול 2 שאלות, לא יכול להיווצר מזה מודל מורכב.</p>
+<p>ואיך זה שונה מרנדום פורסט? ברנדום פורסט הסתכלנו על עצים “חזקים” לא “חלשים”, וכל עץ באופן בלתי תלוי לחלוטין משאר העצים, אמרנו גם שאפשר לגדל אותם במקביל. כאן אי אפשר לעשות את זה, העץ השני יהיה חייב לדעת מה הביצועים של העץ הראשון כדי לשפר אותו.</p>
+<p>השאלה העיקרית היא איך נדאג שהמודל הפשוט הבא, העץ השטוח הבא, ישפר את מה שקדם לו?</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -806,10 +846,17 @@
 <li>Update <span class="math inline">\(F^{(t)} = F^{(t-1)} + \epsilon \hat{f}^{(t)}\)</span></li>
 </ol></li>
 </ol>
-<p>Details: How to determine <span class="math inline">\(Y^{(t)}\)</span>? Which weak learner to use? What is <span class="math inline">\(\epsilon\)</span>?</p>
+<div class="fragment">
+<p><strong>Details: How to determine <span class="math inline">\(Y^{(t)}\)</span>? Which weak learner to use? What is <span class="math inline">\(\epsilon\)</span>?</strong></p>
+</div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>נראה כעת את האלגוריתם של בוסטינג במבט על.</p>
+<p>נתחיל בחיזוי F0 בסיסי זהה לכל התצפיות, אפשר לחזות אפס או ממוצע.</p>
+<p>כעת בשלב t, נגדיר את הוקטור y_t להיות לא הוקטור המקורי של התצפיות שלנו, אלא וקטור שתופס באיזשהו מובן את מה שהמודל עד כה לא הצליח לתפוס. איך נעשה את זה עוד לא אמרנו. והמודל עד כה הוא יסומן בF_t-1. בשלב t = 1 זה כמובן המודל הלא אינפורמטיבי F0 שבהגדרה חוזה אפס לכל התצפיות.</p>
+<p>עכשיו בשלב הt זהו מדגם הלמידה שלנו, מטריצת הX המקורית, והוקטור y_t שאמרנו שתופס את מה שלא הצלחנו למדל עד כה. ועל הדאטא הזה נבנה את העץ הפשוט, הוויק לרנר, f_hat_t. כלומר בשלב הטי העץ הפשוט ינסה להתאים את עצמו כמו שיותר לy_t, לא לy המקורי.</p>
+<p>בשלב האחרון, אנחנו מעדכנים את המודל עד כה עם המודל החדש, f_hat_t. המודל החדש Ft יהיה המודל עד שלב t-1, ועוד איזשהו קבוע אפסילון קטן כפול המודל החדש f_hat_t. ברגרסיה הכוונה בעצם לקחת את החיזוי של Y לכל תצפית עד כה ולהוסיף את החיזוי החדש כפול משקולת קטנה.</p>
+<p>אז זה המודל בהיי-לבל, נשאלת השאלה באיזה מודל פשוט להשתמש (ואמרנו שנשתמש בעץ שטוח), איך לקבוע את הקבוע אפסילון, אבל הכי מעניין איך להחליט מהו וקטור הy_t שאמור לבטא מה שהמודל עד כה לא הצליח לקלוט. ברגרסיה למשל, יש לנו Y מקורי ו-Y חזוי עד כה. איך נבטא את “מה שהמודל לא הצליח לחזות”? באמצעות השארית!</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -833,7 +880,9 @@
 </ul>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>אז ברגרסיה באמת וקטור y_t שנמדל בכל שלב t יהיה השארית: התצפית הi פחות החיזוי שלה עד כה F_t-1 הi.</p>
+<p>העץ שלנו יהיה בדרך כלל בעומק 2-3, תיכף נדגים כמה זה חשוב.</p>
+<p>והאפסילון, נרצה שיהיה כמה שיותר קטן. מדוע? אפשר לראות באפסילון קצב הלמידה שלנו. למדתי מודל, ואני לוקח אותו בערבון מוגבל, אני מוסיף אותו לממוצע עם משקולת קטנה וממשיך הלאה. תיכף נעשה את זה ברור יותר אני מקווה.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -874,7 +923,13 @@
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>ננסה לממש בוסטינג של עצים לרגרסיה בעצמנו על הנתונים של נטפליקס עם כל 99 הסרטים, סך הכל מדובר במתכון די פשוט. אחר כך נראה את הקלאס הרלוונטי מsklearn.</p>
+<p>נקבע את Ytr_now להיות Y הנוכחי.</p>
+<p>בתור הוקטור yhat_tr ו-yhat_te נשים אפסים, זה מה שאנחנו חוזים לכל התצפיות. נאתחל גם את אפסילון להיות ערך קטן 0.05.</p>
+<p>נחזור על הפרוצדורה שלנו 200 פעם כלומר נבנה 200 עצים.</p>
+<p>כל פעם נבנה עץ שטוח בעומק 2, ונמדל לא את Y המקורי אלא את Ytr_now.</p>
+<p>נחזה על הטריין ועל הטסט, ואת החיזוי שלנו נוסיף כפול אפסילון לוקטורי החיזוי עד כה.</p>
+<p>מה נשאר לנו? לעדכן את Ytr_now, זה צריך להיות השארית בין Y המקורי, לבין הY החזוי עד כה, על מדגם הלמידה.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -911,7 +966,9 @@
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>כשאנחנו מציירים את טעות החיזוי הRMSE על הטריין ועל הטסט אנחנו רואים כצפוי ירידה ככל שנוספים עוד עצים עד איזושהי אסימפטוטה.</p>
+<p>אחרי העץ ה200 כבר רואים RMSE 0.77-0.78 ואנחנו זוכרים שלנתונים האלה זאת תוצאה איכותית מאוד. עוד תופעה מעניינת כאן היא שבניגוד למודלים אחרים שראינו יש הבדל קטן מאוד בין הטריין לטסט בטעות החיזוי. למה זה קורה? זה קורה משום שאנחנו מראש בונים עצים יחסית שטוחים, עצים שלא עושים overfitting לנתונים, לכן המודל הכללי של בוסטינג נוטה לעשות הרבה פחות overfitting.</p>
+<p>נקודה אחרונה שהייתי רוצה להדגיש: הרבה חושבים שהעובדה שאפסילון זהה לכל העצים אומרת שאנחנו נותנים משקל זהה לכולם. קודם כל יש גירסאות לבוסטינג בהן נשתמש באפסילון שונה, כמו בכל אופטימיזציה ניתן לבחור את קצב הלמידה בצורה אדפטיבית. אבל אפילו אם הוא זהה, האם באמת מדובר במשקולת שווה לכל העצים? לא ממש. כי העץ הראשון יחזה כמות יחסית גדולה, את Y המקורי, וכל עץ שיבוא אחריו יחזה שארית שתלך ותיעשה קטנה יותר. אז אולי כל עץ מוכפל פי אפסילון אבל ההשפעה שלהם במודל הגדול שונה לגמרי, העצים הראשונים ישפיעו הרבה יותר על החיזוי מהעץ ה200.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -951,7 +1008,7 @@
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>מהו ה”כפתור” העיקרי שלנו כשאנחנו מריצים מודל בוסטינג? עומק העץ. מתבקש לנסות להעמיק כאן את העץ, ההבדל היחיד הוא שאני מנסה עומק מקסימלי של 3. עדיין עצים שטוחים יחסית.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -988,7 +1045,8 @@
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>זה נראה בהתחלה שאין הבדל בין עומק 2 לעומק 3, אבל אם תשוו את הפרופילים האלה אחד ליד השני תראו שעקומת הטריין עם עומק 3 שונה הרבה יותר מעקומת הטסט, היא נמוכה יותר, כלומר יש יותר אוברפיטינג. מעניין גם שכאן אנחנו מגיעים לתוצאה האיכותית של RMSE 0.77 כבר אחרי 100 עצים.</p>
+<p>אז מה יקרה עם נעשה בוסטינג עם עצים של רנדום פורסט, עצים עמוקים מאוד? ננסה!</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1028,7 +1086,7 @@
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>כאן אנחנו חוזרים על אותה סימולציה עם עומק מקסימלי 15.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1065,7 +1123,25 @@
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>והנה אנחנו רואים, שבוסטינג עם learners שהם אינם weak לכאורה, זה מודל גרוע. כבר אחרי 100 עצים שגיאת הטסט מגיעה לאסימפטוטה שמייצגת RMSE גרוע, והאוברפיטינג למדגם הטריין הוא פתולוגי. זאת המחשה יפה לתיאוריה שמסבירה למה צריך עצים שטוחים יחסית ולא עמוקים, ואנחנו גם רואים היטב את ההבדל לעומת רנדום פורסט.</p>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="boosting-in-depth" class="slide level2 title-slide center">
+<h2>Boosting: in Depth</h2>
+<aside class="notes">
+<div style="direction:rtl; font-size:16px">
+<p>ננסה להיכנס קצת יותר לעומק המתמטי של בוסטינג. עד עכשיו תיארנו את המודל ונתנו הרבה אינטואיציה.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1090,7 +1166,9 @@
 </ul>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>אמרנו שY בזמן t צריך לייצג את מה שלא הסברנו עד עכשיו. וברגרסיה אינטואיטיבית לקחנו את השארית.</p>
+<p>ברגע שאנחנו עוברים לקלספיקציה לא ברור מה זה אומר. אולי לשארית יש מובן עמוק יותר?</p>
+<p>יש מספר תיאוריות למה בוסטינג עובד, נראה אחת.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1115,7 +1193,10 @@
 </ul>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>ננסה לא לחשוב על העצים האלה בעומק 2 שאנחנו מתאימים כמודלים. ננסה לחשוב עליהם כעל פיצ’רים! בדומה לרגרסיה ליניארית או לוגיסטית. נניח שיש q עצים אפשריים כאלה כלומר q פיצ’רים, וברור כבר שq יכול להיות גדול מאוד.</p>
+<p>המודל הסופי שלנו, מאוד מזכיר רגרסיה, הוא צירוף ליניארי של העצים או הפיצ’רים האלה: כל אחד מהם מקבל משקולת בטא-האט-קיי, והחיזוי הסופי הוא צירוף ליניארי.</p>
+<p>מה הבעיה? העצים האלה לא באמת נתונים, אנחנו לא באמת במצב של רגרסיה ליניארית. ו-q הוא עצום. תחשבו כמה עצים בעומק מקסימלי אפשר לבנות לנתונים כמו נטפליקס למשל. כך שאנחנו לא באמת יכולים למצוא את הוקטור בטא-האט הזה באורך q כפי שאנחנו עושים למשל ברגרסיה ליניארית.</p>
+<p>הרעיון הוא למצוא אותו בצורה אדיטיבית, גרידית. לחפש כל פעם את ה”משתנה” הבא, במקרה שלנו עץ, ולהוסיף אותו יחד עם משקולת לצירוף הליניארי.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1145,7 +1226,13 @@
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>במקרה שלנו, בטא כובע הוא האפסילון. כלומר אחרי T איטרציות, בטא-כובע של העץ הספציפי h_k יהיה אפסילון כפול מספר הפעמים שנבחר העץ h_k. אם יש מיליארד עצים אפשריים נניח, רובם לא ייבחרו ויקבלו משקולת בטא-האט אפס, חלקם יקבלו משוקלת אפסילון, ואולי מספר עצים בודדים יקבלו אפסילון כפול 2 או 3 כי הם נבחרו 2 או 3 פעמים. אז ברור שזה לא וקטור הבטא-האט שנותן את הצירוף הליניארי הטוב ביותר שניתן להתאים במרחב העצים, זה וקטור בטא-האט שנבנה בצורה אדיטיבית.</p>
+<p>ומהו העץ בכל שלב, שנבחר להצטרף לצירוף הליניארי?</p>
+<p>זהו העץ שמשפר את המודל הכי הרבה!</p>
+<p>ומה זה מודל שמשפר הכי הרבה? זה מודל שכשאני אוסיף אפסילון קטן כפול החיזוי שלו, הפיט שלי ישתפר הכי הרבה. מה זה ישתפר הכי הרבה? יקטין הכי הרבה את הלוס פאנקשן. באיזו לוס פאנקשן אנחנו משתמשים ברגרסיה? הRSS, סכום השגיאות הריבועיות של Y מyhat.</p>
+<p>כלומר אנחנו רוצים להקטין פונקציה כמה שיותר, וזה אנחנו בדרך כלל משיגים על-ידי ירידה של צעד קטן במורד הנגזרת של הפונקציה שלנו, במורד הגרדיאנט.</p>
+<p>עכשיו הRSS בכל קואורדינטה i הוא הריבוע y פחות החיזוי שלה בריבוע. והגזרת של זה לפי החיזוי היא מינוס 2, כפול השארית.</p>
+<p>המשמעות היא שכל פעם שאנחנו מוסיפים אפסילון כפול המודל שחוזה את השארית הכי טוב, אנחנו בעצם הולכים צעד קטן במורד הגרדיאנט, אנחנו מקטינים את הלוס! זה גם מסביר למה אנחנו קוראים לאפסילון קצב למידה, ולמה אנחנו מעדיפים צעדים קטנים, ככה אנחנו בדרך כלל עושים באופטימיזציה, הולכים בצעדים קטנים.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1165,16 +1252,17 @@
 <ul>
 <li><p>Choose a loss function for modeling (like RSS for regression)</p></li>
 <li><p>At each iteration: calculate the (negative) gradient of the loss function at the current model, use that as <span class="math inline">\(Y^{(t)}\)</span> for the next weak learner</p></li>
+<li><p>Interpretation: trying to find a weak learner <span class="math inline">\(h_{k_t}\)</span> which “behaves like” the negative gradient, which is the direction of <em>fastest decrease</em> of the loss</p></li>
 </ul>
 <div class="fragment">
 <ul>
-<li><p>Interpretation: trying to find a weak learner <span class="math inline">\(h_{k_t}\)</span> which “behaves like” the negative gradient, which is the direction of <em>fastest decrease</em> of the loss</p></li>
-<li><p>Can be applied with different loss functions for regression or classification (In the HW – classification on wikiart paintings)</p></li>
+<li>Can be applied with different loss functions for regression or classification (In the HW – classification on wikiart paintings)</li>
 </ul>
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>ואם הבנו את זה אפשר להפעיל את צורת החשיבה הזאת על כל מודל וכל לוס. קח את הלוס שלך ובכל איטרציה תקטין אותו על-ידי שתבחר את הוויק לרנר או העץ שימדל את הגרדיאנט השלילי שלו הכי טוב, ותוסיף אפסילון כפול החיזוי הזה. זה בעצם ללכת צעד אפסילון בכיוון שבו הלוס יורד הכי מהר, כיוון הגרדיאנט.</p>
+<p>בקלסיפיקציה אפשר לעשות בדיוק אותו דבר, כל מה שצריך זה לדעת מה הלוס פאנקשן ומה הנגזרת שלה. אם אתם זוכרים שם דיברנו על הנראות כפונקציה שהיינו רוצים לעשות לה מקסימום אז אפשר לחשוב על הנראות השלילית כפונקציה לעשות לה מינימום ולהמשיך משם, עד שמגיעים לביטוי דומה מאוד לשאריות. בpdf המצורף יש הרחבה על הנושא למי שרוצה לקרוא. בכל מקרה, תראו את זה כבר בפעולה בשיעורי הבית על מדגם הציורים שלנו מwikiart.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1210,7 +1298,8 @@
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>בשורה התחתונה, אפשר להשתמש במימוש של sklearn עם הקלאס GradientBoostingRegressor. כאן אני מבקש loss של squared_error, מפרט את הלרנינג-רייט הוא האפסילון שלנו. n_estimators זה מספר העצים ופרמטר הmax_depth כרגיל.</p>
+<p>אנחנו מקבלים על מדגם הטסט שגיאת חיזוי דומה מאוד לסימולציה שלנו באופן לא מפתיע.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1250,7 +1339,12 @@
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>נסכם את מודלי האנסמבל שראינו, רנדום פורסט מול בוסטינג.</p>
+<p>רנדום פורסט שואף לבנות בבת אחת הרבה עצים שונים זה מזה ככל שניתן, אנחנו רוצים עצים גדולים, כלומר עמוקים שתהיה להם שונות גבוהה, וככל שנאמן יותר עצים אנחנו יכולים רק להקטין את שגיאת החיזוי על נתוני הטסט.</p>
+<p>בבוסטינג העצים נבנים אדפטיבית, הם צריכים להיות לא עמוקים, נעדיף למידה איטית ככל האפשר מה שאומר לשמור את אפסילון נמוך, וגם כאן בפועל, למרות שאין תמיד טיעון תיאורטי טוב כמו ברנדום פורסט, בפועל אנחנו רואים שעוד ועוד עצים משפרים את טעות החיזוי של בוסטינג.</p>
+<p>שני המודלים לוקחים מודלים מוגבלים כמו עצים ועושים להם קומבינציה למודל טוב ומורכב. שניהם גם מאוד פופולריים בקרב מדעני נתונים כי לא צריך לכוונן יותר מדי ולהתאים אותם ויש להם ביצועים מעולים.</p>
+<p>מבחינת מימוש והאפשרות למקבל את האימון בוסטינג כמובן מאתגר יותר, כי כל עץ צריך להתחשב באלה שקדמו לו. מבחינת הגודל על דיסק דווקא בוסטינג יביא למודלים קטנים יותר שאפשר לשים על כמה שרתים בו זמנית, כי הוא משתמש בעצים שטוחים יותר. זו הרבה פעמים סיבה די טובה להעדיף אותו על רנדום פורסט.</p>
+<p>עד כאן על עצים ושילוב שלהם. ביחידה הבאה נדבר על מודל גמיש אחר שאין כמעט איש שלא שמע עליו בשנים האחרונות: רשתות נוירונים.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
