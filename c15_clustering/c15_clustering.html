@@ -485,7 +485,7 @@
 <ul>
 <li class="fragment">Example: Clustering = Finding modes of <span class="math inline">\(P_{x}\)</span> with high density
 <ul>
-<li class="fragment">If we do find them, maybe <span class="math inline">\(P(X)\)</span> can be represented by a mixture of simpler densities?</li>
+<li class="fragment">If we do find them, maybe <span class="math inline">\(P_{x}\)</span> can be represented by a mixture of simpler densities?</li>
 </ul></li>
 <li class="fragment">This isn’t new, is it?</li>
 </ul>
@@ -536,7 +536,7 @@
 <section class="slide level2">
 
 <h3 id="cluster-analysis">Cluster Analysis</h3>
-<p>Group a set of observations into subsets, clusters, s.t. those within each cluster are more closely related to one other than observations assigned to different clusters</p>
+<p>Group a set of observations into subsets, clusters, s.t. those within each cluster are more closely related to one another than observations assigned to different clusters</p>
 <div class="fragment">
 <p>What for?</p>
 <ul>
@@ -628,11 +628,11 @@
 <li><p><span class="math inline">\(d(x_i, x_j)\)</span> is a distance metric for pair <span class="math inline">\(i, j\)</span>, e.g.&nbsp;Euclidean</p></li>
 <li><p>We wish to minimize the extent to which observations assigned to the same cluster tend to be close to one another</p></li>
 </ul>
-<div class="incrmental">
+<div>
 <ul>
-<li><p>The “within cluster” scatter/loss: <span class="math display">\[W(C) = \frac{1}{2}\sum_{k = 1}^K \sum_{C(i) = k} \sum_{C(j) = k} d(x_i, x_j)\]</span></p></li>
-<li><p>equivalent to maximizing <span class="math inline">\(B(C) = \frac{1}{2}\sum_{k = 1}^K \sum_{C(i) = k} \sum_{C(j) \neq k} d(x_i, x_j)\)</span></p></li>
-<li><p>Can we go over all possible <span class="math inline">\(C(i)\)</span> to find the global minimum?</p></li>
+<li class="fragment"><p>The “within cluster” scatter/loss: <span class="math display">\[W(C) = \frac{1}{2}\sum_{k = 1}^K \sum_{C(i) = k} \sum_{C(j) = k} d(x_i, x_j)\]</span></p></li>
+<li class="fragment"><p>equivalent to maximizing <span class="math inline">\(B(C) = \frac{1}{2}\sum_{k = 1}^K \sum_{C(i) = k} \sum_{C(j) \neq k} d(x_i, x_j)\)</span></p></li>
+<li class="fragment"><p>Can we go over all possible <span class="math inline">\(C(i)\)</span> to find the global minimum?</p></li>
 </ul>
 </div>
 <aside class="notes">
@@ -662,7 +662,7 @@
 <div>
 <ul>
 <li class="fragment"><p>But for any set of observations <span class="math inline">\(S\)</span>, which <span class="math inline">\(m\)</span> would minimize <span class="math inline">\(\sum_{i \in S} ||x_i - m||^2\)</span>?</p></li>
-<li class="fragment"><p>Thus, the final goal of K-means: <span class="math display">\[$\min\limits_{C, m_1, \dots, m_K} \sum_{k = 1}^K n_k \sum_{C(i) = k} ||x_i - m_k||^2\]</span></p></li>
+<li class="fragment"><p>Thus, the final goal of K-means: <span class="math display">\[\min\limits_{C, m_1, \dots, m_K} \sum_{k = 1}^K n_k \sum_{C(i) = k} ||x_i - m_k||^2\]</span></p></li>
 </ul>
 </div>
 <aside class="notes">
@@ -840,7 +840,7 @@
 </div>
 <div class="cell fragment" data-execution_count="11">
 <div class="cell-output cell-output-stdout">
-<pre><code>68827.02</code></pre>
+<pre><code>68827.00</code></pre>
 </div>
 </div>
 <p>Can easily “predict”:</p>
@@ -897,13 +897,13 @@
 <tr class="odd">
 <td data-quarto-table-cell-role="th">Independence Day</td>
 <td>4.14</td>
-<td>4.47</td>
-<td>3.77</td>
+<td>4.48</td>
+<td>3.78</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">The Patriot</td>
 <td>4.11</td>
-<td>4.45</td>
+<td>4.46</td>
 <td>3.72</td>
 </tr>
 <tr class="odd">
@@ -921,7 +921,7 @@
 <tr class="odd">
 <td data-quarto-table-cell-role="th">Pretty Woman</td>
 <td>4.08</td>
-<td>4.38</td>
+<td>4.39</td>
 <td>3.73</td>
 </tr>
 <tr class="even">
@@ -1790,16 +1790,16 @@ no. of noise points: 7390</code></pre>
 <div class="cell-output cell-output-stdout">
 <pre><code>col_0           0     1     2     3     4     5     6     7     8     9
 row_0                                                                  
-T-shirt/top   167    27     0  3404    23   201     2     0  1583   593
-Trouser        63     0     0   236     3  5413     0     0   129   156
-Pullover     3519    27     1   115    27     9     1     0  1786   515
-Dress          49     7     0  1684     5  3209     0     0   524   522
-Coat         3596    29     0   873    15   154     0     0  1081   252
-Sandal          0    13   258     2     4     1  1444   475    29  3774
-Shirt        1954    17     1  1053    62    62     6     0  2071   774
-Sneaker         0     0    22     0     1     0  4702   764     0   511
-Bag           269  2449     6    22  2202    28   238    62   228   496
-Ankle boot      1     0  2615     2     4     2   177  2994    35   170</code></pre>
+T-shirt/top     0  1556   621    29    23   204  3402   163     2     0
+Trouser         0   128   158     0     3  5415   233    63     0     0
+Pullover        0  1794   532    26    27     9   114  3497     1     0
+Dress           0   495   543     7     5  3223  1678    49     0     0
+Coat            0  1089   258    30    15   161   869  3578     0     0
+Sandal        262    29  3734    13     4     1     2     0  1470   485
+Shirt           1  2065   796    17    62    65  1051  1936     7     0
+Sneaker        26     0   495     0     1     0     0     0  4688   790
+Bag             6   189   510  2454  2217    28    22   267   241    66
+Ankle boot   2695    37   170     0     4     3     2     1   164  2924</code></pre>
 </div>
 </div>
 <div class="fragment">
@@ -1871,16 +1871,16 @@ Ankle boot      1     0  2615     2     4     2   177  2994    35   170</code></
 <div class="cell-output cell-output-stdout">
 <pre><code>col_0           0     1     2     3     4     5     6     7     8     9
 row_0                                                                  
-T-shirt/top  1203   203     8    17  1009  2924    42   379     6   209
-Trouser      1239    51     0     4  4454   182     1    45     1    23
-Pullover      478  1563    34    58    13   119   155  1411     7  2162
-Dress        1515    71     0     1  2768  1462     3   153     0    27
-Coat          340  1744     7    55   226   750    62   759     5  2052
-Sandal         45     7  1737    12     1     1  3847   112   238     0
-Shirt        1002  1118    36    59   321   802   170  1299    14  1179
-Sneaker         0     0  2886     9     0     0  2716     3   386     0
-Bag           294   220   410  2406    14    16   158  1165  1077   240
-Ankle boot     10   107  1045  1067     1     0    73   272  3423     2</code></pre>
+T-shirt/top   208  1223     9     6   198    67   372  1009    15  2893
+Trouser        24  1510     0     1    49     5    47  4194     3   167
+Pullover     2209   377    34     6  1568   205  1418    12    51   120
+Dress          27  1655     0     0    65     9   152  2721     2  1369
+Coat         2116   308     6     5  1700    86   737   230    50   762
+Sandal          0    31  1879   277     7  3670   122     1    12     1
+Shirt        1208   882    38    13  1125   243  1322   318    55   796
+Sneaker         0     0  3077   464     1  2444     2     0    12     0
+Bag           249   260   392  1012   253   161  1174    11  2473    15
+Ankle boot      2     6   926  3456   125    60   263     1  1161     0</code></pre>
 </div>
 </div>
 <aside class="notes">
@@ -1914,16 +1914,16 @@ Ankle boot     10   107  1045  1067     1     0    73   272  3423     2</code></
 <div class="cell-output cell-output-stdout">
 <pre><code>col_0           0     1     2     3     4     5     6     7     8     9
 row_0                                                                  
-T-shirt/top    31   590  3403     0   199    22  1586     2     0   167
-Trouser         0   156   238     0  5411     3   129     0     0    63
-Pullover       27   517   115     0     9    29  1782     1     1  3519
-Dress           7   524  1685     0  3200     5   530     0     0    49
-Coat           29   253   874     0   153    16  1073     0     0  3602
-Sandal         13  3762     2   484     1     4    29  1445   260     0
-Shirt          17   773  1056     0    59    64  2068     7     1  1955
-Sneaker         0   515     0   760     0     2     0  4701    22     0
-Bag          2441   492    22    63    26  2213   231   240     6   266
-Ankle boot      0   169     2  2999     3     4    35   178  2609     1</code></pre>
+T-shirt/top    18  3410     2   173  1682   473    30    39     0   173
+Trouser         2   234     0    27   148   138     0    47     0  5404
+Pullover       22    85     1  1868  1669   457    25  1865     0     8
+Dress           3  1707     0    17   635   441     8    53     1  3135
+Coat           13   710     0   926   920   221    26  3038     0   146
+Sandal         10     3  1478     0    47  3958    12     0   491     1
+Shirt          43  1034     6   939  2054   659    19  1195     2    49
+Sneaker         7     0  5078     0     1   625     0     0   289     0
+Bag          2153    21   298   283   314   432  2432    38     9    20
+Ankle boot      6     8   680     1    62   197     3    10  5030     3</code></pre>
 </div>
 </div>
 <aside class="notes">
@@ -2060,16 +2060,16 @@ Ankle boot      0   169     2  2999     3     4    35   178  2609     1</code></
 <div class="cell-output cell-output-stdout">
 <pre><code>col_0           0     1     2     3     4     5     6     7     8     9
 row_0                                                                  
-T-shirt/top  3299     1    90     1  1791   600     0     3   211     4
-Trouser        17     0    37     0   489   561     1     0    14  4881
-Pullover       15     0  3122     0  2039    64     0     0   760     0
-Dress          80     0   140     0  1082  3699     0     0    24   975
-Coat            3     1  3777     0  1068   847     1     0   299     4
-Sandal          0  1960     0  1542   591     1  1267   617    22     0
-Shirt         719     5  1684     0  2619   396     0     1   572     4
-Sneaker         0  1808     0  3199    61     0   111   820     1     0
-Bag             4   485   331    10  1175   367     8   593  3022     5
-Ankle boot      0   232     1    79   189     1  3343  2141    14     0</code></pre>
+T-shirt/top     0   442  3374  1692     2    50     8   277    11   144
+Trouser         0   188    33   197     0    47     0  2026  3501     8
+Pullover        0   331    42  1913     0  3159     6    14     0   535
+Dress           0  1513   165   599     0    28     0  2271  1396    28
+Coat            1  1660     8   935     0  2939     3   112    50   292
+Sandal       1068     2     1   948  2464     0  1496     3     0    18
+Shirt           0   491   803  2543     0  1562    14   102     6   479
+Sneaker        41     0     0   158  4033     0  1768     0     0     0
+Bag             3   385    14   987    60    42  1677   165     1  2666
+Ankle boot   3205     3     0   235   167     0  2371     1     0    18</code></pre>
 </div>
 </div>
 <aside class="notes">

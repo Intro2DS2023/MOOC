@@ -89,7 +89,7 @@ What if there is no $y$?
 
 ::: {.incremental}
 - Example: Clustering = Finding modes of $P_{x}$ with high density
-    - If we do find them, maybe $P(X)$ can be represented by a mixture of simpler densities?
+    - If we do find them, maybe $P_{x}$ can be represented by a mixture of simpler densities?
 - This isn't new, is it?
 :::
 
@@ -134,7 +134,7 @@ Will typically work for $p \le 3$, above that: "curse of dimensionality"
 
 ### Cluster Analysis
 
-Group a set of observations into subsets, clusters, s.t. those within each cluster are more closely related to one other than observations assigned to different clusters
+Group a set of observations into subsets, clusters, s.t. those within each cluster are more closely related to one another than observations assigned to different clusters
 
 ::: {.fragment}
 What for?
@@ -203,7 +203,7 @@ Many, many algorithms:
 
 - We wish to minimize the extent to which observations assigned to the same cluster tend to be close to one another
 
-::: {.incrmental}
+::: {.incremental}
 - The "within cluster" scatter/loss:
 $$W(C) = \frac{1}{2}\sum_{k = 1}^K \sum_{C(i) = k} \sum_{C(j) = k} d(x_i, x_j)$$
 
@@ -232,7 +232,7 @@ $W(C) = \frac{1}{2}\sum_{k = 1}^K \sum_{C(i) = k} \sum_{C(j) = k} ||x_i - x_j||^
 - But for any set of observations $S$, which $m$ would minimize $\sum_{i \in S} ||x_i - m||^2$?
 
 - Thus, the final goal of K-means:
-$$$\min\limits_{C, m_1, \dots, m_K} \sum_{k = 1}^K n_k \sum_{C(i) = k} ||x_i - m_k||^2$$
+$$\min\limits_{C, m_1, \dots, m_K} \sum_{k = 1}^K n_k \sum_{C(i) = k} ||x_i - m_k||^2$$
 :::
 
 ::: {.notes}
