@@ -1,108 +1,110 @@
----
-format:
-  revealjs:
-    slide-number: true
-    chalkboard: true
-    fig-width: 6
-    fig-asp: 0.618
-    template-partials:
-      - "../title-slide.html"
-css: "../slides_quarto.css"
-standalone: false
-include-in-header: "../header_quarto.html"
-logo: "../Intro2DS_logo_white.jpg"
-pagetitle: "Unsupervised Learning: Cluster Analysis"
-callout-appearance: simple
-smaller: true
-execute:
-  eval: true
-  echo: true
-code-line-numbers: false
-code-block-border-left: true
-highlight-style: github
-footer: "[Intro to Data Science](https://intro2ds2023.github.io/mooc/){target='_blank'}"
----
-
-## {.logo-slide}
-
-## Introduction to Data Science {.title-slide}
-
-### Unsupervised Learning: Cluster Analysis - Class 15
-
-### Giora Simchoni
-
-#### `gsimchoni@gmail.com` and add `#intro2ds` in subject
-
-### Stat. and OR Department, TAU
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
-:::
-:::
-
----
-
-## Intro. to Unsupervised Learning {.title-slide}
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
-:::
-:::
-
----
-
-### From Supervised to Unsupervised
-
-- Recall: each observation is made of a vector $x \in \mathcal{X}$ (for example $x \in \mathbb{R}^p$) and a scalar $y$
-
-- Our goal is to build a model of the relationship between $x$ and $y$:
-$$y \approx f(x)$$
-
-- IID assumption: each pair $(x_i, y_i)$ is drawn indepednently from some distribution $P_{x,y}$
-
-- A modeling approach takes $(X, y)$ as input and outputs a *prediction model* $\hat{f}(x)$
-
-- In prediction: we get a new value $x_0$ and predict $\hat{y}_0 = \hat{f}(x_0)$. 
-
-- How good is our prediction? We typically define a loss function $L(y,\hat{y})$ and the quality of the model is $\mathbb{E}_{x_0,y_0}(L(y_0, \hat{y}_0))$
-
-::: {.fragment}
-What if there is no $y$?
-:::
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
-:::
-:::
-
----
-
-### Unsupervised Learning
-
-- Now: each observation is made of a vector $x \in \mathcal{X}$ (for example $x \in \mathbb{R}^p$)
-
-- IID assumption: each observation $x_i$ is drawn indepednently from some distribution $P_{x}$
-
-- Our goal is to *learn* distrubution $P_{x}$ (or properties of it)
-
-- "without a supervisor"
-
-::: {.incremental}
-- Example: Clustering = Finding modes of $P_{x}$ with high density
-    - If we do find them, maybe $P(X)$ can be represented by a mixture of simpler densities?
-- This isn't new, is it?
-:::
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
-:::
-:::
-
----
-
-### KDE as unsupervised learning
-
-```{python}
+# type: ignore
+# flake8: noqa
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
 #| echo: false
 
 import numpy as np
@@ -119,159 +121,159 @@ plt.ylabel('Density')
 plt.xlabel('X')
 plt.title('KDE as Clustering: Three modes in Px')
 plt.show()
-```
-
-::: {.fragment}
-Will typically work for $p \le 3$, above that: "curse of dimensionality"
-:::
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
-:::
-:::
-
----
-
-### Cluster Analysis
-
-Group a set of observations into subsets, clusters, s.t. those within each cluster are more closely related to one other than observations assigned to different clusters
-
-::: {.fragment}
-What for?
-
-- EDA, Feature Engineering: interesting groups in the data
-- Segmentation: customers, products, distribution centers location, software
-- Hierarchy: diseases, evolution
-- Deduplication
-- Anomaly Detection
-:::
-
-::: {.fragment}
-Many, many algorithms:
-
-- Partition clustering: K-means
-- Hierarchical clustering: Agglomerative
-- Density-based clustering: DBSCAN
-:::
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
-:::
-:::
-
----
-
-### Example: Microarray Clustering
-
-![](images/microarray_clustering.png)
-
-[source](https://hastie.su.domains/ElemStatLearn/)
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
-:::
-:::
-
----
-
-### Unsupervised Learning Main Drawback
-
-- Unless there is "ground truth", no clear measure of success (as opposed to $\mathbb{E}_{x_0,y_0}(L(y_0, \hat{y}_0))$)
-
-- Many times involves scrutinizing results and interpretation
-
-- Not for the faint of heart
-
----
-
-## K-means Clustering {.title-slide}
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
-:::
-:::
-
----
-
-### How to evaluate a partition?
-
-- Assume $K$ clusters are given
-
-- $C(i) = k$ is some function assigning cluster $k \in \{1, \dots, K\}$ to observation $i \in \{1, \dots, n\}$
-
-- $d(x_i, x_j)$ is a distance metric for pair $i, j$, e.g. Euclidean
-
-- We wish to minimize the extent to which observations assigned to the same cluster tend to be close to one another
-
-::: {.incrmental}
-- The "within cluster" scatter/loss:
-$$W(C) = \frac{1}{2}\sum_{k = 1}^K \sum_{C(i) = k} \sum_{C(j) = k} d(x_i, x_j)$$
-
-- equivalent to maximizing $B(C) = \frac{1}{2}\sum_{k = 1}^K \sum_{C(i) = k} \sum_{C(j) \neq k} d(x_i, x_j)$
-
-- Can we go over all possible $C(i)$ to find the global minimum?
-:::
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
-:::
-:::
-
----
-
-### Road to K-means
-
-- Euclidean distance: $d(x_i, x_j) = \sum_{m=1}^p (x_{im} - x_{jm})^2 = ||x_i - x_j||^2$
-
-- Can show that:
-$W(C) = \frac{1}{2}\sum_{k = 1}^K \sum_{C(i) = k} \sum_{C(j) = k} ||x_i - x_j||^2 = \sum_{k = 1}^K n_k \sum_{C(i) = k} ||x_i - \bar{x}_k||^2$
-
-- $\bar{x}_k \in \mathbb{R}^p$ being the mean in cluster $k$, and $n_k$ number of observations in cluster $k$
-
-::: {.incremental}
-- But for any set of observations $S$, which $m$ would minimize $\sum_{i \in S} ||x_i - m||^2$?
-
-- Thus, the final goal of K-means:
-$$$\min\limits_{C, m_1, \dots, m_K} \sum_{k = 1}^K n_k \sum_{C(i) = k} ||x_i - m_k||^2$$
-:::
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
-:::
-:::
-
----
-
-### K-means
-
-0. Start with initial guess for $m_1, \dots, m_K$
-
-1. Assign each observation to the closest cluster mean. That is:
-$$C(i) = \arg\min\limits_{k = 1\dots K} ||x_i - m_k||^2$$
-
-2. Update means $m_1, \dots, m_K$. That is the centroids:
-$$m_k = \frac{\sum_{C(i) = k}x_i}{n_k}$$
-
-3. Repeat 1 and 2 until $C(i)$ doesn't change
-
-::: {.incremental}
-- Convergence is guaranteed (steps 1 and 2 can only reduce $W(C)$)
-
-- Global optimum is NOT guaranteed
-
-- Can try many different initial starting points
-:::
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
-:::
-:::
-
----
-
-### K-means Demo: Initial Guess
-
-```{python}
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
 #| echo: false
 
 # inspired by https://jakevdp.github.io/PythonDataScienceHandbook/06.00-figure-code.html
@@ -301,9 +303,9 @@ def make_ax(fig, gs):
     ax.xaxis.set_major_formatter(plt.NullFormatter())
     ax.yaxis.set_major_formatter(plt.NullFormatter())
     return ax
-```
-
-```{python}
+#
+#
+#
 #| echo: false
 
 fig = plt.figure(figsize=(4.55, 5))
@@ -311,18 +313,18 @@ ax = fig.add_subplot()
 draw_points(ax, 'gray', factor=2)
 draw_centers(ax, centers, factor=2)
 plt.show()
-```
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
-:::
-:::
-
----
-
-### K-means Demo: Iteration 1
-
-```{python}
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
 #| echo: false
 
 fig, axes = plt.subplots(nrows=1, ncols=2, figsize=(10, 5))
@@ -346,18 +348,18 @@ for i in range(4):
 centers = new_centers
 _ = axes[0].text(0.95, 0.95, "Assign", transform=axes[0].transAxes, ha='right', va='top', size=14)
 _ = axes[1].text(0.95, 0.95, "Update", transform=axes[1].transAxes, ha='right', va='top', size=14)
-```
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
-:::
-:::
-
----
-
-### K-means Demo: Iteration 2
-
-```{python}
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
 #| echo: false
 
 fig, axes = plt.subplots(nrows=1, ncols=2, figsize=(10, 5))
@@ -381,18 +383,18 @@ for i in range(4):
 centers = new_centers
 _ = axes[0].text(0.95, 0.95, "Assign", transform=axes[0].transAxes, ha='right', va='top', size=14)
 _ = axes[1].text(0.95, 0.95, "Update", transform=axes[1].transAxes, ha='right', va='top', size=14)
-```
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
-:::
-:::
-
----
-
-### K-means Demo: Iteration 3
-
-```{python}
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
 #| echo: false
 
 fig, axes = plt.subplots(nrows=1, ncols=2, figsize=(10, 5))
@@ -416,18 +418,18 @@ for i in range(4):
 centers = new_centers
 _ = axes[0].text(0.95, 0.95, "Assign", transform=axes[0].transAxes, ha='right', va='top', size=14)
 _ = axes[1].text(0.95, 0.95, "Update", transform=axes[1].transAxes, ha='right', va='top', size=14)
-```
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
-:::
-:::
-
----
-
-### K-means on Netflix
-
-```{python}
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
 #| echo: false
 
 import pandas as pd
@@ -447,61 +449,61 @@ netflix_X.columns = movies['title'][:14]
 netflix_Y = miss_cong.iloc[:, 0]
 
 NE_Xtr, NE_Xte, NE_Ytr, NE_Yte = train_test_split(netflix_X, netflix_Y, test_size=0.2, random_state=42)
-```
-
-```{python}
+#
+#
+#
 from sklearn.cluster import KMeans
 
 kmeans = KMeans(n_clusters=2)
 _ = kmeans.fit(NE_Xtr)
-```
-
-What did we get?
-
-```{python}
+#
+#
+#
+#
+#
 #| output-location: fragment
 print(kmeans.cluster_centers_.shape)
-```
-
-```{python}
+#
+#
+#
 #| output-location: fragment
 print(kmeans.labels_[:10])
-```
-
-```{python}
+#
+#
+#
 #| output-location: fragment
 print(f'{kmeans.inertia_:.2f}')
-```
-
-Can easily "predict":
-
-```{python}
+#
+#
+#
+#
+#
 #| output-location: fragment
 test_labels = kmeans.predict(NE_Xte)
 test_labels[:10]
-```
-
----
-
-### K-means on Netflix: the Centroids
-
-```{python}
+#
+#
+#
+#
+#
+#
+#
 pd.DataFrame({'title': kmeans.feature_names_in_,
     'mean_score': NE_Xtr.mean(axis = 0),
     'm_1': kmeans.cluster_centers_[0],
     'm_2': kmeans.cluster_centers_[1]}).set_index('title').head(8).round(2)
-```
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
-:::
-:::
-
----
-
-### K-means on Netflix: "discrete" first PC!
-
-```{python}
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
 #| code-fold: true
 
 from sklearn.decomposition import PCA
@@ -517,18 +519,18 @@ clusters = np.vectorize(c_dict.get)(kmeans.labels_)
 ax = sns.jointplot(x=T[:, 0], y=T[:, 1], hue=clusters, height=5)
 ax.set_axis_labels('PC1: Popular Vote', 'PC2: Romance vs. Action', fontsize=10)
 plt.show()
-```
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
-:::
-:::
-
----
-
-### K-means on Netflix: higher $K$
-
-```{python}
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
 #| code-fold: true
 
 kmeans = KMeans(n_clusters=4)
@@ -538,35 +540,35 @@ clusters = np.vectorize(c_dict.get)(kmeans.labels_)
 ax = sns.jointplot(x=T[:, 0], y=T[:, 1], hue=clusters, height=5)
 ax.set_axis_labels('PC1: Popular Vote', 'PC2: Romance vs. Action', fontsize=10)
 plt.show()
-```
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
-:::
-:::
-
----
-
-## K-means Issues {.title-slide}
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
-:::
-:::
-
----
-
-### How to choose $K$?
-
-```{python}
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
 W_C = []
 for K in range(2, 20):
     kmeans = KMeans(n_clusters=K)
     kmeans.fit(NE_Xtr)
     W_C.append(kmeans.inertia_)
-```
-
-```{python}
+#
+#
+#
 #| echo: false
 plt.figure(figsize=(6, 4))
 plt.plot(range(2, 20), W_C, '--bo')
@@ -575,26 +577,26 @@ plt.ylabel('W(C)')
 plt.xlabel('K')
 plt.xticks([2,6,10,14,18])
 plt.show()
-```
-
-::: {.fragment}
-The "elbow" method won't always work, there are others.
-:::
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
-:::
-:::
-
----
-
-### Should you always standardize?
-
-As with KNN, K-means would be higly influenced by a feature with high variance.
-
-But what if *that* feature is important for clustering?
-
-```{python}
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
 #| code-fold: true
 #| output-location: fragment
 
@@ -622,20 +624,20 @@ axes[1].set_xlim((-6, 6))
 axes[1].set_ylim((-6, 6))
 axes[1].set_title('K-means with standardizing')
 plt.show()
-```
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
-:::
-:::
-
----
-
-### K-means failures (I)
-
-Prefers separable spherical clusters (Gaussian).
-
-```{python}
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
 #| code-fold: true
 
 from sklearn.datasets import make_circles
@@ -645,40 +647,40 @@ X_circles, _ = make_circles(n_samples=500, factor=0.5, noise=0.05)
 kmeans = KMeans(n_clusters=2, random_state=0).fit(X_circles)
 plt.scatter(X_circles[:, 0], X_circles[:, 1], c=kmeans.labels_)
 plt.show()
-```
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
-:::
-:::
-
----
-
-### K-means failures (II)
-
-Always specify $K$.
-
-```{python}
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
 #| code-fold: true
 
 X_square = np.random.rand(1000, 2)
 kmeans = KMeans(n_clusters=3, random_state=0).fit(X_square)
 plt.scatter(X_square[:, 0], X_square[:, 1], c=kmeans.labels_)
 plt.show()
-```
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
-:::
-:::
-
----
-
-### K-means failures (III)
-
-No concept of outliers.
-
-```{python}
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
 #| code-fold: true
 
 centers = np.eye(2) * 5
@@ -688,21 +690,21 @@ X_out = np.concatenate([X_out, np.array([[10, 10]])], axis=0)
 kmeans = KMeans(n_clusters=2, random_state=0).fit(X_out)
 plt.scatter(X_out[:, 0], X_out[:, 1], c=1-kmeans.labels_)
 plt.show()
-```
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
-:::
-:::
-
-
----
-
-### K-means failures (IV)
-
-Bad with unequal densities, unequal cluster sizes.
-
-```{python}
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
 #| code-fold: true
 
 X_varied, y = make_blobs(n_samples=[300, 150, 300], cluster_std=[1.0, 2.5, 0.5], random_state=170)
@@ -710,133 +712,133 @@ X_varied, y = make_blobs(n_samples=[300, 150, 300], cluster_std=[1.0, 2.5, 0.5],
 kmeans = KMeans(n_clusters=3, random_state=170).fit(X_varied)
 plt.scatter(X_varied[:, 0], X_varied[:, 1], c=kmeans.labels_)
 plt.show()
-```
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
-:::
-:::
-
-
----
-
-## DBSCAN {.title-slide}
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
-:::
-:::
-
----
-
-### Density Based Clustering
-
-- Back to premise, data comes from a distribution: $X \sim P_x$
-
-- Estimating $P_x$ is hard
-
-- Find high-density regions through *connected components*
-
-::: {.fragment}
-- Immediate Pros:
-    - No specifying $K$
-    - Outliers
-    - More complex clustering structures
-:::
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
-:::
-:::
-
----
-
-### DBSCAN
-
-Density-Based Spatial Clustering of Applications with Noise
-
-![](images/dbscan_example.png){width="70%"}
-
-- 3 types of points: core, border, noise
-- Core points are high-density points (parameters: $\varepsilon$ (radius), $minPts$)
-- Connect core points into clusters
-- Assign border points to clusters
-- All else: noise
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
-:::
-:::
-
----
-
-### DBSCAN - Abstract
-
-![](images/dbscan_algo2.png)
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
-:::
-:::
-
-[Nice visualiztion](https://www.naftaliharris.com/blog/visualizing-dbscan-clustering/)
-
----
-
-### DBSCAN - Actual
-
-![](images/dbscan_algo1.png)
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
-:::
-:::
-
----
-
-### K-means on Netflix
-
-```{python}
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
 from sklearn.cluster import DBSCAN
 
 dbscan = DBSCAN(eps=1.0, min_samples=10, metric='euclidean')
 _ = dbscan.fit(NE_Xtr)
-```
-
-What did we get?
-
-```{python}
+#
+#
+#
+#
+#
 #| output-location: fragment
 print(dbscan.core_sample_indices_.shape)
-```
-
-```{python}
+#
+#
+#
 #| output-location: fragment
 print(dbscan.labels_[:10])
 clusters, counts = np.unique(dbscan.labels_, return_counts=True)
 d = dict(zip(clusters, counts))
 print(d)
 print(f'no. of noise points: {np.sum(dbscan.labels_ == -1)}')
-```
-
-No concept of prediction!
-
-```{python}
+#
+#
+#
+#
+#
 #| output-location: fragment
 #| error: true
 test_labels = dbscan.predict(NE_Xte)
-```
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
-:::
-:::
-
----
-
-### K-means on Netflix: Weak relation to PCA?
-
-```{python}
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
 #| code-fold: true
 
 from sklearn.decomposition import PCA
@@ -852,127 +854,127 @@ clusters = np.vectorize(c_dict.get)(dbscan.labels_)
 ax = sns.jointplot(x=T[:, 0], y=T[:, 1], hue=clusters, height=5)
 ax.set_axis_labels('PC1: Popular Vote', 'PC2: Romance vs. Action', fontsize=10)
 plt.show()
-```
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
-:::
-:::
-
----
-
-## DBSCAN on K-means Failures {.title-slide}
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
-:::
-:::
-
----
-
-### DBSCAN on K-means Failures (I)
-
-```{python}
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
 #| code-fold: true
 
 dbscan = DBSCAN(eps=0.2).fit(X_circles)
 plt.scatter(X_circles[:, 0], X_circles[:, 1], c=dbscan.labels_)
 plt.show()
-```
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
-:::
-:::
-
----
-
-### DBSCAN on K-means Failures (II)
-
-```{python}
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
 #| code-fold: true
 
 dbscan = DBSCAN(eps=0.2).fit(X_square)
 plt.scatter(X_square[:, 0], X_square[:, 1], c=dbscan.labels_)
 plt.show()
-```
-
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
-:::
-:::
-
----
-
-### DBSCAN on K-means Failures (III)
-
-```{python}
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
 #| code-fold: true
 
 dbscan = DBSCAN(eps=1.2).fit(X_out)
 plt.scatter(X_out[:, 0], X_out[:, 1], c=dbscan.labels_)
 plt.show()
-```
-
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
-:::
-:::
-
----
-
-### DBSCAN on K-means Failures (IV)
-
-```{python}
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
 #| code-fold: true
 
 dbscan = DBSCAN(eps=0.9).fit(X_varied)
 plt.scatter(X_varied[:, 0], X_varied[:, 1], c=dbscan.labels_)
 plt.show()
-```
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
-:::
-:::
-
----
-
-## DBSCAN vs. K-means Summary {.title-slide}
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
-:::
-:::
-
----
-
-| Method  | Pros | Cons|
-|---------|------|-----|
-| K-means | Faster, Scalable, Simple <br/>Related to other methods (PCA, EM, GMM) | Need $K$ <br/>Separable spherical clusters <br/>No outliers <br/>Bad with unequal densities <br/>Only Euclidean distance|
-| DBSCAN  | Complex structures <br/>No need of $K$ <br/>Any distance metric <br/>Outliers | Slower <br/>Very sensitive to $\varepsilon, minPts$ <br/>Bad with unequal densities|
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
-:::
-:::
-
----
-
-## Clustering after Dimensionality Reduction {.title-slide}
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
-:::
-:::
-
----
-
-### The FNIST Dataset
-
-```{python}
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
 from tensorflow.keras.datasets import fashion_mnist
 from sklearn.decomposition import PCA
 
@@ -982,13 +984,13 @@ X_test = X_test.astype(np.float32) / 255
 
 print(X_train.shape)
 print(y_train.shape)
-```
-
-```{python}
+#
+#
+#
 y_train[:10]
-```
-
-```{python}
+#
+#
+#
 #| code-fold: true
 fig, axes = plt.subplots(1, 3, figsize=(6, 3))
 axes[0].imshow(X_train[0], cmap="binary")
@@ -998,9 +1000,9 @@ _ = axes[0].axis('off')
 _ = axes[1].axis('off')
 _ = axes[2].axis('off')
 plt.show()
-```
-
-```{python}
+#
+#
+#
 #| echo: false
 
 fnist_dict = {
@@ -1015,51 +1017,51 @@ fnist_dict = {
  8: 'Bag',
  9: 'Ankle boot'
 }
-```
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
-:::
-:::
-
----
-
-### K-means on FNIST
-
-```{python}
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
 X_train_flat = X_train.reshape((X_train.shape[0], -1))
 print(X_train_flat.shape)
-```
-
-```{python}
+#
+#
+#
 kmeans = KMeans(n_clusters=10)
 kmeans.fit(X_train_flat)
 
 print(pd.crosstab(y_train, kmeans.labels_).rename(index=fnist_dict))
-```
-
-::: {.fragment}
-Metrics for evaluating clustering vs. ground truth: Rand index, Mutual information, V-measure...
-:::
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
-:::
-:::
-
----
-
-### Recall: PCA might discover clusters
-
-
-```{python}
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
 X_train_flat_centered = X_train_flat - X_train_flat.mean(axis=0)
 pca = PCA(n_components = 2)
 pca.fit(X_train_flat_centered)
 T = pca.transform(X_train_flat_centered)
-```
-
-```{python}
+#
+#
+#
 #| code-fold: true
 clusters = np.vectorize(fnist_dict.get)(y_train)
 
@@ -1067,34 +1069,34 @@ sns.scatterplot(x=T[:, 0], y=T[:, 1], hue=clusters, s=10, palette='tab10')
 plt.xlabel('PC1')
 plt.ylabel('PC2')
 plt.show()
-```
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
-:::
-:::
-
----
-
-### Does it improve clustering?
-
-```{python}
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
 kmeans = KMeans(n_clusters=10)
 kmeans.fit(T)
 
 print(pd.crosstab(y_train, kmeans.labels_).rename(index=fnist_dict))
-```
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
-:::
-:::
-
----
-
-### Increasing latent dimension $q$
-
-```{python}
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
 pca = PCA(n_components = 30)
 pca.fit(X_train_flat_centered)
 T = pca.transform(X_train_flat_centered)
@@ -1103,34 +1105,34 @@ kmeans = KMeans(n_clusters=10)
 kmeans.fit(T)
 
 print(pd.crosstab(y_train, kmeans.labels_).rename(index=fnist_dict))
-```
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
-:::
-:::
-
----
-
-### Autoencoders
-
-![](images/ae.png)
-
-- A branch of unsupervised learning: Representation Learning
-- How do we learn representations useful for downstream tasks (e.g. clustering)
-- Most basic AE: Encode $x_i \in \mathbb{R}^p$ via **encoder** network $f$ to lower dimension $q$, decode with **decoder** network $g$ back to dimension $p$, such that: $x_i \approx g(f(x_i))$
-- $f(x_i) \in \mathbb{R}^q$ hopefully *represents* the data well
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
-:::
-:::
-
----
-
-### AE with Keras
-
-```{python}
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
 #| code-line-numbers: "|4-8|9-13|14|15|16|"
 from tensorflow.keras import Sequential
 from tensorflow.keras.layers import Dense, Flatten, Reshape
@@ -1148,18 +1150,18 @@ stacked_decoder = Sequential([
 stacked_ae = Sequential([stacked_encoder, stacked_decoder])
 stacked_ae.compile(loss='mse', optimizer='adam')
 history = stacked_ae.fit(X_train, X_train, epochs=20, verbose=0)
-```
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
-:::
-:::
-
----
-
-### Can it reconstruct?
-
-```{python}
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
 def show_reconstructions(sae, images, n_images=5):
   reconstructions = sae.predict(images[:n_images], verbose=0)
   fig = plt.figure(figsize=(n_images * 1.5, 3))
@@ -1172,38 +1174,38 @@ def show_reconstructions(sae, images, n_images=5):
       plt.axis('off')
 show_reconstructions(stacked_ae, X_test)
 plt.show()
-```
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
-:::
-:::
-
----
-
-### Does it improve clustering?
-
-```{python}
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
 T = stacked_encoder.predict(X_train, verbose=0)
 
 print(T.shape)
-```
-
-```{python}
+#
+#
+#
 kmeans = KMeans(n_clusters=10)
 kmeans.fit(T)
 
 print(pd.crosstab(y_train, kmeans.labels_).rename(index=fnist_dict))
-```
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
-:::
-:::
-
----
-
-```{python}
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
 #| eval: false
 
 from sklearn.manifold import TSNE
@@ -1213,9 +1215,9 @@ T_te = stacked_encoder.predict(X_test, verbose=False)
 tsne = TSNE(init='pca', learning_rate='auto')
 X_test_2D = tsne.fit_transform(T_te)
 X_test_2D = (X_test_2D - X_test_2D.min()) / (X_test_2D.max() - X_test_2D.min())
-```
-
-```{python}
+#
+#
+#
 #| code-fold: true
 #| eval: false
 
@@ -1224,11 +1226,14 @@ sns.scatterplot(x=X_test_2D[:, 0], y=X_test_2D[:, 1], hue=clusters, s=10, palett
 plt.xlabel('D1')
 plt.ylabel('D2')
 plt.show()
-```
-
-![](images/fnist_dim30_tsne.png){width="50%"}
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
-:::
-:::
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
