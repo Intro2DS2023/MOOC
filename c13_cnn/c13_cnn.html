@@ -410,7 +410,7 @@
 <h3 id="stat.-and-or-department-tau">Stat. and OR Department, TAU</h3>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>ביחידה זו נלמד על רשתות קונבולוציה שמתאימות במיוחד לבניית מודלים לחיזוי על תמונות. רשתות קונבולוציה הן כנראה המודל המודרני ביותר שנלמד בקורס זה, והן הבסיס להבנה של מודלים מתחום הראייה הממוחשבת. מודלים שמאפשרים למכוניות לנסוע ללא נהג, וללקוחות לצאת מסופר מבלי לעבור בקופה.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -428,7 +428,7 @@
 <h2>Before CNN</h2>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-
+<p>אבל זה לא שרשתות קונבולוציה צמחו בואקום. חשוב לפחות להבין מה היה לפניהן.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -457,6 +457,22 @@
 <p><img data-src="c13_cnn_files/figure-revealjs/cell-3-output-1.png" width="432" height="416"></p>
 </div>
 </div>
+<aside class="notes">
+<div style="direction:rtl; font-size:16px">
+<p>ניזכר מהו הייצוג של תמונה אצלנו במחשב. כאן אני קורא את הלוגו של הקורס עם המודול image של ספריית matplotlib.</p>
+<p>מה קיבלתי?</p>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section class="slide level2">
 
@@ -495,6 +511,25 @@
 <pre><code>uint8 5880000</code></pre>
 </div>
 </div>
+<aside class="notes">
+<div style="direction:rtl; font-size:16px">
+<p>קיבלתי מערך של numpy array.</p>
+<p>המימדים שלו הם 1400 על 1400 על 3 שכבות צבע: אדום, ירוק וכחול, או RGB.</p>
+<p>אם ניקח את השכבה הראשונה ונבקש לראות את הפינה השמאלית העליונה, נראה פשוט מספרים, כלומר התמונה שלנו היא מערך תלת מימדי של מספרים שלמים.</p>
+<p>המספרים נעים מ0 עד 255, כלומר 256 אפשרויות בכל שכבת צבע, כאן אין פיקסלים עם רמת צבע פחות מ8.</p>
+<p>כשאני מבקש את האטריביוט דיטייפ של המערך הוא uint8, כלומר כל מספר מיוצג על-ידי בייט אחד. האטריביוט size מחזיר את מספר המספרים במערך והאטריביוט itemsize מחזיר את מספר הבייטים לכל מספר. יש לנו 1400 כפול 1400 כפול 3 מספרים, כפול בייט 1. כלומר התמונה שלנו צורכת בזיכרון כמעט 6 מגה-בייט.</p>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section class="slide level2">
 
@@ -513,9 +548,41 @@
 <li>Image feature engineering</li>
 </ol>
 </div>
+<aside class="notes">
+<div style="direction:rtl; font-size:16px">
+<p>אז אם נתייחס לכל פיקסל ופיקסל כפיצ’ר או משתנה, כמה משתנים יהיו לנו? כמעט 6 מיליון!</p>
+<p>אז רשתות קונבולוציה החלו בערך ב-1998 כאשר יאן לקון הציג את הlenet-5 לזיהוי אוטומטי של ספרות. אתם יכולים לחפש ביוטיוב סרטים ישנים שלו מציג במעבדה על מחשב ישן את הפלא הזה. וב2012 הגיע מה שמכונה רגע האימג’נט, שבו אלכס קריז’בסקי, איליה סוצקבר וג’פרי הינטון פרסמו רשת בשם אלכסנט והביאו ליכולות חיזוי שטרם נראו.</p>
+<p>אבל עד אז, התייחסו לתמונה כעוד בעיה עם מימד מאוד גבוה, כמו 6 מיליון משתנים. והתמקדו ברעיונות שונים לפיצ’רים על סמך הבנה של הפיסיקה של העצם הזה, שנקרא תמונה. לדוגמא פיצ’רים שמסתכלים על ההיסטוגרמה של כמות האדום בתמונה, ומתארים את הממוצע, החציון, הסקיונס שלה.</p>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="convolutional-layer-2d" class="slide level2 title-slide center">
 <h2>Convolutional Layer (2D)</h2>
+<aside class="notes">
+<div style="direction:rtl; font-size:16px">
+<p>אז מהי שכבת הקונבולוציה שעשתה כזאת מהפכה?</p>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section class="slide level2">
 
@@ -531,6 +598,25 @@
 </figure>
 </div>
 </div>
+<aside class="notes">
+<div style="direction:rtl; font-size:16px">
+<p>קונבולוציה היא לא דבר חדש. קונבולוציה היא מושג ידוע ממתמטיקה. מכפלה של שתי פונקציות f ו-g, ולקיחת אינטגרל או סיכום של ערך המכפלה על פני כל טווח מסוים.</p>
+<p>כאן אנחנו רואים קונבולוציה בין פונקציה g באדום לבין פונקציה f בכחול. תוצאת הקונבולוציה מסומנת בשחור, ואפשר לראות שהיא פונקציה נוספת של פרמטר t. אנחנו מזיזים את g כמו חלון נע, ובכל נקודה בודקים מהו סך שטח החפיפה בינה לבין f, או אינטגרל, ומבטאים את השטח באמצעות פונקציה חדשה.</p>
+<p>במובנים מסוימים הפונקציה החדשה מאוד מזכירה קורלציה בין שתי הפונקציות, איזושהי פונקצית מתאם שבודקת עד כמה f דומה לg. אם למשל f היתה זהה לריבוע של g באיזו נקודה, הן היו חופפות לחלוטין והאינטגרל היה 1, שטח ריבוע. כאן זה לא קורה.</p>
+<p>זוכרים איפה ראינו כבר קונבולוציה? כשדיברנו על kernel density estimation, ואיך יוצרים תרשים צפיפות של התפלגות, שם קראנו לחלון הנע הזה w(x).</p>
+<p>בכל מקרה לא מוכרחים לדעת מהי קונבולוציה כדי להבין איך שכבת קונבולוציה עובדת, זה פשוט מדהים לראות איך הכרה של מושג מתחום המתמטיקה סייעה כל כך לעשות מהפכה בתחום הראייה הממוחשבת.</p>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section class="slide level2">
 
@@ -542,6 +628,23 @@
 <li>Second layer: every neuron has a receptive field in the first layer</li>
 <li>Etc.</li>
 </ul>
+<aside class="notes">
+<div style="direction:rtl; font-size:16px">
+<p>אז מהי שכבת קונבולוציה?</p>
+<p>שכבת הקונבולוציה הראשונה מורכבת מ-K על K נוירונים, שלכל אחד מהם יש “שדה רצפטיבי”. הוא לא “מסתכל” על כל הפיקסלים בתמונה שמתחתיו. הוא מסתכל רק על ריבוע של 2X2 או 3X3.</p>
+<p>בשכבה הבאה, כל נוירון ונוירון מסתכל על השכבה שמתחתיו, שאפשר לראות בה תמונה חדשה, גם כאן הוא לא מסתכל על כל התמונה, אלא רק על שדה רצפטיבי, וכך בשכבת הקונבולוציה הבאה, והבאה וכולי.</p>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section class="slide level2">
 
@@ -552,6 +655,23 @@
 <li>The <span class="math inline">\([i,j]\)</span> neuron looks at the rectangle at rows <span class="math inline">\(i\)</span> to <span class="math inline">\(i + f_h - 1\)</span>, columns <span class="math inline">\(j\)</span> to <span class="math inline">\(j + f_w - 1\)</span></li>
 <li>Zero Padding: adds 0s around the image to make the next layer the same dimensions</li>
 </ul>
+<aside class="notes">
+<div style="direction:rtl; font-size:16px">
+<p>אם רוצים להגדיר את זה יותר מדויק, אפשר לחשוב על פרמטרים f_h ו-f_w שמגדירים את גודל השדה הרצפטיבי. ואז נוירון i, j בשכבת קונבולוציה יסתכל על המלבן שנוצר משורות i עד f_h - 1, ומעמודות j עד f_w - 1.</p>
+<p>כאן אפשר לראות למשל את הריבוע שהנוירון האדום מסתכל עליו בשכבה שמתחתיו. ואז נצעד צעד ימינה ונראה את הריבוע שהנוירון הכחול מסתכל עליו בשכבה שמתחתיו. באופן כזה נסרקת כל השכבה, אבל במעין חלון נע כזה שמתפקס כל פעם על פאץ’ אחר.</p>
+<p>עכשיו חדי העין מביניכם ודאי הבינו שאם לא יהיה שום שינוי שכבת הנוירונים מעל התמונה כבר לא תוכל להישאר בדיוק באותו גודל. באופן ספציפי אם השדה הרצפטיבי הוא כמו כאן 3 על 3, השכבה או התמונה הבאה תהיה “חסרה” פיקסל אחד מכל צד. וכדי שזה לא יקרה, נהוג לעשות גם zero padding, כלומר להוסיף מסביב לעבות את התמונה מסביב עם אפסים, כמה שצריך. כאן למשל צריך לעבות את התמונה עם שכבה אחת של אפסים.</p>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section class="slide level2">
 
@@ -568,6 +688,25 @@
 <span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  ]</span>
 <span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<aside class="notes">
+<div style="direction:rtl; font-size:16px">
+<p>אבל מה זה כל נוירון “מסתכל”, מה הוא עושה עם השדה הרצפטיבי הזה?</p>
+<p>כל הנוירונים בשכבה לומדים איזשהו פילטר, או פיצ’ר, או קרנל, בגודל השדה הרצפטיבי שלהם. אם השדה הרצפטיבי שלהם למשל הוא 3 על 3 כמו שאמרנו אז בסוף הם ילמדו איזה פילטר W בגודל 3 על 3.</p>
+<p>לדוגמא הפילטר הזה שכאן, W, שיש לו עמודה של אחדות באמצע ואפסים משני צדדיה.</p>
+<p>למה אנחנו מסמנים את הפילטר בW? הW הזה הוא בעצם משקולות הרשת, זהו סט הפרמטרים שהיא לומדת, שהיא מעדכנת באמצעות גרדינט דיסנט לאור איזושהי פונקצית לוס.</p>
+<p>הנוירונים בשכבת קונבולוציה יכפילו כל פאץ’ שהם מסתכלים עליו עם הפילטר הזה ויסכמו למספר אחד - זה בדיוק לעשות קונבולוציה. בואו נראה דוגמא פשוטה.</p>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section class="slide level2">
 
@@ -585,6 +724,22 @@
 </div>
 <p>Each nuron in the new layer <span class="math inline">\(Z\)</span> would be the sum of elementwise multiplication of all 3x3 pixels/neurons in its receptive field with <span class="math inline">\(W_{3x3}\)</span>:</p>
 <p><span class="math inline">\(Z_{i,j} = b + \sum_{u=0}^{f_h-1}\sum_{v=0}^{f_w-1}X_{i+u,j+v}W_{u,v}\)</span></p>
+<aside class="notes">
+<div style="direction:rtl; font-size:16px">
+<p>כאן יש לנו תמונה בגודל 5 על 5, מעין סמיילי. בשכבה הבאה Z, כל נוירון i, j, יהיה שווה להכפלה וסיכום של הפאץ’ 3 על 3 שהוא מסתכל עליו עם הפילטר W.</p>
+<p>וחוץ מהפילטר W, שנדגיש שוב כל הנוירונים בשכבה אחת משתמשים באותו אחד, נלמד גם חותך, או בשפה של רשתות נוירונים bias, מסומן כאן כb.</p>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section class="slide level2">
 
@@ -635,6 +790,23 @@
 <div class="fragment">
 <p>What low-level feature did this layer learn to look for? What pattern will make its neurons most positive (i.e.&nbsp;will “turn it on”)?</p>
 </div>
+<aside class="notes">
+<div style="direction:rtl; font-size:16px">
+<p>אז הנה התמונה, הסמיילי. ונניח שאנחנו עושים לה zero padding (להדגים).</p>
+<p>והנה הפילטר W בנקודה הזאת. איך תיראה השכבה Z שמעל? לדוגמא הנוירון בקצה השמאלי העליון הוא תוצאה של מכפלה של W בפאץ’ הכי שמאלי עליון (להדגים) ומתקבל אפס. וככה הפילטר שלנו או הקרנל הזה סורק את כל התמונה ומאחסן את ה”מסקנה” שלו בכל נוירון ונוירון בשכבה Z החדשה.</p>
+<p>אם נסתכל על Z, התמונה החדשה שנוצרה, מתי היא הכי חיובית? מה הכי הדליק את הנוירון? אנחנו רואים שהערכים הכי גבוהים הם איפה שהיו העיניים של הסמיילי. כלומר הפילטר שלנו, שיש בו בעצם קו אנכי באמצע, “מגיב” הכי הרבה לקווים אנכיים, הוא סורק את התמונה ומחזיר ערכים גבוהים איפה שהוא מוצא מתאם עם הפרט המאוד מאוד עדין הזה.</p>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section class="slide level2">
 
@@ -685,6 +857,22 @@
 <div class="fragment">
 <p>What low-level feature did this layer learn to look for? What pattern will make its neurons most positive (i.e.&nbsp;will “turn it on”)?</p>
 </div>
+<aside class="notes">
+<div style="direction:rtl; font-size:16px">
+<p>והנה אותה תמונה של סמיילי עם פילטר W אחר, נסו להבין מה הפילטר הזה מחפש, למה הוא מגיב?</p>
+<p>הפילטר הזה מגיב הכי הרבה לקווים אופקיים בתחתית הפאץ’, כאן הוא נדלק ונותן ערך הכי גבוה 3, כשיש הוא מוצא מתאם מלא עם הפה של הסמיילי בתחתית התמונה.</p>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section class="slide level2">
 
@@ -698,6 +886,23 @@
 <span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>ny_convolved <span class="op">=</span> tf.nn.conv2d(ny4D, W4d, strides<span class="op">=</span><span class="dv">1</span>, padding<span class="op">=</span><span class="st">'SAME'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<aside class="notes">
+<div style="direction:rtl; font-size:16px">
+<p>כעת כהרגלנו בקודש יכולנו לממש שכבת קונבולוציה בעצמנו. אבל הפעולה הזאת כל כך נפוצה שאפשר פשוט להשתמש בפונקציה conv2d ממודול tf.nn של טנסורפלואו.</p>
+<p>אנחנו קוראים תמונה של שמי ניו יורק, הופכים אותה לשכבה אחת של שחור ולבן, ומוסיפים לה מימד אחד כי זה מה שהפונקציה רוצה לקבל. אנחנו לוקחים את הW האחרון שלנו שמחפש קווים אופקיים בתחתית הפאץ’, מוסיפים לו 2 מימדים כי זה מה שהפונקציה רוצה לקבל.</p>
+<p>ואז אנחנו מבקשים לעשות קונבולוציה עם הW שלנו על התמונה של ניו-יורק. אנחנו מזינים padding=same מה שאומר לטנסורפלואו להוסיף אפסים כדי לשמור על גודל התמונה, ומבקשים strides=1, שהפילטר שלנו ילך פיקסל פיקסל. האוביקט הסופי ny_convolved הוא בעצם שכבת הZ, התמונה החדשה אחרי קונבולוציה.</p>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section class="slide level2">
 
@@ -724,9 +929,39 @@
 </div>
 </div>
 </div>
+<aside class="notes">
+<div style="direction:rtl; font-size:16px">
+<p>כאן אני מציג את התמונה המקורית בצד שמאל מול התמונה לאחר קונבולוציה מצד ימין. אני לא יודע אם רואים את זה דרך הוידאו, מוטב לעבור למצגת המקורית ולהשוות בין תמונות כמה שיותר גדולות. בבניין במרכז התמונה ניתן להראות את ההבדל בצורה הברורה ביותר, הפילטר שלנו עם הקו האנכי אכן מטשטש כלומר לא שם לב לקווים האנכיים של הבניין, והרבה יותר מדגיש את הקווים האנכיים.</p>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="making-cnn-work" class="slide level2 title-slide center">
 <h2>Making CNN Work</h2>
+<aside class="notes">
+<div style="direction:rtl; font-size:16px">
+
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section class="slide level2">
 
@@ -736,6 +971,21 @@
 <img data-src="images/conv05.png" class="r-stretch"><ul>
 <li>The <span class="math inline">\([i,j]\)</span> neuron looks at the rectangle at rows <span class="math inline">\(i \cdot s_h\)</span> to <span class="math inline">\(i \cdot s_h + f_h - 1\)</span>, columns <span class="math inline">\(j \cdot s_w\)</span> to <span class="math inline">\(j \cdot s_w + f_w - 1\)</span></li>
 </ul>
+<aside class="notes">
+<div style="direction:rtl; font-size:16px">
+
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section class="slide level2">
 
@@ -743,6 +993,21 @@
 <p>A convolutional layer is actually a 3D stack of a few of the 2D layers we described (a.k.a <em>Feature Maps</em>), each learns a single filter.</p>
 
 <img data-src="images/conv06.png" class="r-stretch"><p>Source: <a href="https://www.oreilly.com/library/view/hands-on-machine-learning/9781492032632/">Geron 2019</a></p>
+<aside class="notes">
+<div style="direction:rtl; font-size:16px">
+
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section class="slide level2">
 
@@ -760,10 +1025,40 @@
 <li>Feature map 2 with <span class="math inline">\(f_h \cdot f_w\)</span> filter <span class="math inline">\(\cdot f_n\)</span> color channels + 1 bias term</li>
 <li>Etc.</li>
 </ul>
+<aside class="notes">
+<div style="direction:rtl; font-size:16px">
+
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section class="slide level2">
 
 <h3 id="and-how-does-the-network-learn-these-filters">And how does the network <em>learn</em> these filters?</h3>
+<aside class="notes">
+<div style="direction:rtl; font-size:16px">
+
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section class="slide level2">
 
@@ -776,6 +1071,21 @@
 <li>But 100 x 100 numbers in each feature map (x 100) = 1M numbers, each say takes 4B, that’s 4MB for 1 image for 1 layer</li>
 <li>Each number is a weighted sum of 3 x 3 x 3 = 27 numbers, so that’s 1M x 27 = 27M multiplications for 1 layer…</li>
 </ul>
+<aside class="notes">
+<div style="direction:rtl; font-size:16px">
+
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section class="slide level2">
 
@@ -784,6 +1094,21 @@
 <p>No params!</p>
 
 <img data-src="images/conv07.png" class="r-stretch"><p>Source: <a href="https://www.oreilly.com/library/view/hands-on-machine-learning/9781492032632/">Geron 2019</a></p>
+<aside class="notes">
+<div style="direction:rtl; font-size:16px">
+
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section class="slide level2">
 
@@ -834,6 +1159,21 @@
 </div>
 </div>
 </div>
+<aside class="notes">
+<div style="direction:rtl; font-size:16px">
+
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section class="slide level2">
 
@@ -845,6 +1185,41 @@
 <li class="fragment"><p>Is CNN a linear operator?</p></li>
 </ul>
 </div>
+<aside class="notes">
+<div style="direction:rtl; font-size:16px">
+
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section class="slide level2">
+
+<h3 id="typical-cnn">Typical CNN</h3>
+
+<img data-src="images/Typical_cnn.png" class="r-stretch"><aside class="notes">
+<div style="direction:rtl; font-size:16px">
+
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section class="slide level2">
 
@@ -863,6 +1238,21 @@
 <div class="fragment">
 <p>Are there some images or applications you wouldn’t want augmentations or at least should go about it very carefully?</p>
 </div>
+<aside class="notes">
+<div style="direction:rtl; font-size:16px">
+
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section class="slide level2">
 
@@ -885,6 +1275,21 @@
 <span id="cb29-15"><a href="#cb29-15" aria-hidden="true" tabindex="-1"></a>nys <span class="op">=</span> [ny_generator.<span class="bu">next</span>() <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">10</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>See the <a href="https://keras.io/api/preprocessing/image/">ImageDataGenerator</a> for more.</p>
+<aside class="notes">
+<div style="direction:rtl; font-size:16px">
+
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section class="slide level2">
 
@@ -893,6 +1298,21 @@
 <p><img data-src="c13_cnn_files/figure-revealjs/cell-27-output-1.png" width="1512" height="610"></p>
 </div>
 </div>
+<aside class="notes">
+<div style="direction:rtl; font-size:16px">
+
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section class="slide level2">
 
@@ -906,9 +1326,39 @@
 <li>Invariance by Max Pooling</li>
 <li>Hardware/Software advancements enable processing of huge amounts of images</li>
 </ul>
+<aside class="notes">
+<div style="direction:rtl; font-size:16px">
+
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="back-to-malaria" class="slide level2 title-slide center">
 <h2>Back to Malaria!</h2>
+<aside class="notes">
+<div style="direction:rtl; font-size:16px">
+
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section class="slide level2">
 
@@ -940,6 +1390,21 @@
 (500, 100, 100, 3)</code></pre>
 </div>
 </div>
+<aside class="notes">
+<div style="direction:rtl; font-size:16px">
+
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section class="slide level2">
 
@@ -960,6 +1425,21 @@
 <span id="cb32-14"><a href="#cb32-14"></a>model.<span class="bu">compile</span>(loss<span class="op">=</span><span class="st">'binary_crossentropy'</span>,</span>
 <span id="cb32-15"><a href="#cb32-15"></a>  optimizer<span class="op">=</span><span class="st">'adam'</span>, metrics<span class="op">=</span>[<span class="st">'accuracy'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<aside class="notes">
+<div style="direction:rtl; font-size:16px">
+
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section class="slide level2">
 
@@ -993,6 +1473,21 @@ Non-trainable params: 0
 _________________________________________________________________</code></pre>
 </div>
 </div>
+<aside class="notes">
+<div style="direction:rtl; font-size:16px">
+
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section class="slide level2">
 
@@ -1001,6 +1496,21 @@ _________________________________________________________________</code></pre>
 <span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>history <span class="op">=</span> model.fit(X_train, y_train, batch_size<span class="op">=</span><span class="dv">100</span>, epochs<span class="op">=</span><span class="dv">50</span>,</span>
 <span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>  validation_split<span class="op">=</span><span class="fl">0.1</span>, callbacks<span class="op">=</span>callbacks)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<aside class="notes">
+<div style="direction:rtl; font-size:16px">
+
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section class="slide level2">
 
@@ -1016,6 +1526,21 @@ _________________________________________________________________</code></pre>
 <p><img data-src="c13_cnn_files/figure-revealjs/cell-34-output-1.png" width="794" height="485"></p>
 </div>
 </div>
+<aside class="notes">
+<div style="direction:rtl; font-size:16px">
+
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section class="slide level2">
 
@@ -1078,6 +1603,21 @@ _________________________________________________________________</code></pre>
 </div>
 </div>
 </div>
+<aside class="notes">
+<div style="direction:rtl; font-size:16px">
+
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section class="slide level2">
 
@@ -1089,9 +1629,39 @@ _________________________________________________________________</code></pre>
 <div class="fragment">
 <p>Think about the researchers seeing this for the first time in 2012…</p>
 </div>
+<aside class="notes">
+<div style="direction:rtl; font-size:16px">
+
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="visualizing-cnn" class="slide level2 title-slide center">
 <h2>Visualizing CNN</h2>
+<aside class="notes">
+<div style="direction:rtl; font-size:16px">
+
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section class="slide level2">
 
@@ -1113,6 +1683,21 @@ _________________________________________________________________</code></pre>
        [ 0.08545554,  0.10305361,  0.14380825]], dtype=float32)</code></pre>
 </div>
 </div>
+<aside class="notes">
+<div style="direction:rtl; font-size:16px">
+
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section class="slide level2">
 
@@ -1129,6 +1714,21 @@ _________________________________________________________________</code></pre>
 <p><img data-src="c13_cnn_files/figure-revealjs/cell-43-output-1.png" width="483" height="173"></p>
 </div>
 </div>
+<aside class="notes">
+<div style="direction:rtl; font-size:16px">
+
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section class="slide level2">
 
@@ -1142,6 +1742,21 @@ _________________________________________________________________</code></pre>
 <p><img data-src="c13_cnn_files/figure-revealjs/cell-44-output-1.png" width="415" height="414"></p>
 </div>
 </div>
+<aside class="notes">
+<div style="direction:rtl; font-size:16px">
+
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section class="slide level2">
 
@@ -1174,6 +1789,21 @@ _________________________________________________________________</code></pre>
 <span id="cb50-11"><a href="#cb50-11" aria-hidden="true" tabindex="-1"></a>        ix <span class="op">+=</span> <span class="dv">1</span></span>
 <span id="cb50-12"><a href="#cb50-12" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<aside class="notes">
+<div style="direction:rtl; font-size:16px">
+
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section class="slide level2">
 
@@ -1182,15 +1812,60 @@ _________________________________________________________________</code></pre>
 <p><img data-src="c13_cnn_files/figure-revealjs/cell-48-output-1.png" width="768" height="682"></p>
 </div>
 </div>
+<aside class="notes">
+<div style="direction:rtl; font-size:16px">
+
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="cnn-architectures" class="slide level2 title-slide center">
 <h2>CNN Architectures</h2>
+<aside class="notes">
+<div style="direction:rtl; font-size:16px">
+
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section class="slide level2">
 
 <h3 id="imagenet">ImageNet</h3>
 
 <img data-src="images/ImageNet.png" class="r-stretch"><p>Source: <a href="https://paperswithcode.com/sota/image-classification-on-imagenet">paperswithcode.com</a></p>
+<aside class="notes">
+<div style="direction:rtl; font-size:16px">
+
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section class="slide level2">
 
@@ -1198,6 +1873,21 @@ _________________________________________________________________</code></pre>
 
 <img data-src="images/lenet-5.png" class="r-stretch"><p>Source: <a href="http://www.dengfanxin.cn/wp-content/uploads/2016/03/1998Lecun.pdf">LeCun et. al.&nbsp;1998</a></p>
 <p>You know you can implement this in just a few lines of Keras…</p>
+<aside class="notes">
+<div style="direction:rtl; font-size:16px">
+
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section class="slide level2">
 
@@ -1218,6 +1908,21 @@ _________________________________________________________________</code></pre>
 <span id="cb51-14"><a href="#cb51-14" aria-hidden="true" tabindex="-1"></a>model.add(Dense(<span class="dv">84</span>, activation<span class="op">=</span><span class="st">'relu'</span>))</span>
 <span id="cb51-15"><a href="#cb51-15" aria-hidden="true" tabindex="-1"></a>model.add(Dense(<span class="dv">10</span>, activation <span class="op">=</span> <span class="st">'softmax'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<aside class="notes">
+<div style="direction:rtl; font-size:16px">
+
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section class="slide level2">
 
@@ -1225,6 +1930,21 @@ _________________________________________________________________</code></pre>
 
 <img data-src="images/alexnet.png" class="r-stretch"><p>Source: <a href="https://papers.nips.cc/paper/4824-imagenet-classification-with-deep-convolutional-neural-networks.pdf">Krizhevsky et. al.&nbsp;2012</a></p>
 <p>See a Keras implementation e.g.&nbsp;<a href="https://medium.datadriveninvestor.com/alexnet-implementation-using-keras-7c10d1bb6715">here</a></p>
+<aside class="notes">
+<div style="direction:rtl; font-size:16px">
+
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section class="slide level2">
 
@@ -1240,6 +1960,21 @@ _________________________________________________________________</code></pre>
 </ul>
 </div>
 </div>
+<aside class="notes">
+<div style="direction:rtl; font-size:16px">
+
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section class="slide level2">
 
@@ -1256,15 +1991,60 @@ _________________________________________________________________</code></pre>
 <li>The model learning <span class="math inline">\(H(X)\)</span> will be forced to learn <span class="math inline">\(H(X) - X\)</span>, hence <em>residual</em> learning.</li>
 </ul>
 </div>
+<aside class="notes">
+<div style="direction:rtl; font-size:16px">
+
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="using-pre-trained-models" class="slide level2 title-slide center">
 <h2>Using Pre-trained Models</h2>
+<aside class="notes">
+<div style="direction:rtl; font-size:16px">
+
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section class="slide level2">
 
 <h3 id="what-is-a-trained-cnn">What <em>is</em> a trained CNN?</h3>
 
 <img data-src="images/keras_applications.png" class="r-stretch"><p>Look up <a href="https://keras.io/api/applications/">keras.io/api/applications/</a></p>
+<aside class="notes">
+<div style="direction:rtl; font-size:16px">
+
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section class="slide level2">
 
@@ -1283,6 +2063,21 @@ _________________________________________________________________</code></pre>
 <p><img data-src="c13_cnn_files/figure-revealjs/cell-50-output-1.png" width="276" height="342"></p>
 </div>
 </div>
+<aside class="notes">
+<div style="direction:rtl; font-size:16px">
+
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section class="slide level2">
 
@@ -1316,6 +2111,21 @@ malamute: 0.06</code></pre>
 <div class="fragment">
 <p>Look mom, no training!</p>
 </div>
+<aside class="notes">
+<div style="direction:rtl; font-size:16px">
+
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section class="slide level2">
 
@@ -1333,6 +2143,21 @@ malamute: 0.06</code></pre>
 <li>Doing it all on Video</li>
 <li>And doing it all in real time, on your phone or in your car 😀</li>
 </ul>
+<aside class="notes">
+<div style="direction:rtl; font-size:16px">
+
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 
 <img src="../Intro2DS_logo_white.jpg" class="slide-logo r-stretch"><div class="footer footer-default">
 <p><a href="https://intro2ds2023.github.io/mooc/" target="_blank">Intro to Data Science</a></p>
