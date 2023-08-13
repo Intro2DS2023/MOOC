@@ -496,9 +496,9 @@
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
 <p>אם נצליח לבנות מודל איכותי, זה ימלא שתי מטרות:</p>
-<p>מטרת החיזוי, אם תגיע תצפית חדשה X נוכל לחזות לה את הY המתאים לה אף על פי שהמודל לא ראה אותה, נקרא לה y_hat.</p>
+<p>מטרת החיזוי, אם תגיע תצפית חדשה X נוכל לחזות לה את ערך הY המתאים לה אף על פי שהמודל לא ראה אותה, נקרא לו y_hat.</p>
 <p>ומטרת ההסקה או ההבנה: מודל טוב יאפשר לנו להבין את הקשר בין X לY. אילו משתנים בX הם חשובים כדי להסביר או לחזות את Y, ואופי התלות של Y בX, האם הקשר הוא ליניארי? האם הוא מורכב יותר?</p>
-<p>אנחנו נדבר על שני סוגים מודלים לחיזוי על פי הY: כשY הוא כמותי, ממשי, כמו גובה של תינוק שעומד להיוולד, זה ייקרא רגרסיה.</p>
+<p>אנחנו נדבר על שני סוגים של מודלים לחיזוי על פי הY: כשY הוא כמותי, ממשי, כמו גובה של תינוק שעומד להיוולד, זה ייקרא רגרסיה.</p>
 <p>כשY הוא קטגוריאלי, הוא קטגוריה מתוך איזושהי קבוצה G, ואנחנו רוצים לסווג X חדש לאיזו קטגוריה הוא שייך, נקרא לזה קלסיפיקציה.</p>
 </div>
 <style type="text/css">
@@ -528,7 +528,7 @@
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-<p>בדוגמא של הציורים מאתר wikiart, הבעיה שלנו תהיה בעית קלסיפיקציה. X יהיה הפיקסלים של התמונה של הציור, וראינו שאם התמונה היא בגודל K על K יש K כפול K כפול 3 פיקסלים או משתנים. וY יהיה אחת משתי קטגוריות, ציור ריאליסטי או אימפרסיוניסטי.</p>
+<p>בדוגמא של הציורים מאתר wikiart, הבעיה שלנו תהיה בעית קלסיפיקציה. X יהיה הפיקסלים של התמונה של הציור, וראינו שאם התמונה היא בגודל K על K יש K כפול K כפול 3 שכבות פיקסלים או משתנים. וY יהיה אחת משתי קטגוריות, ציור ריאליסטי או אימפרסיוניסטי.</p>
 <p>דוגמא מורכבת יותר: סיפאר-טן, סט של 60 אלף תמונות עם 10 קלאסים שונים, כמו תמונות של מטוסים, מכוניות וציפורים.</p>
 <p>מודל טוב במקרה של הציורים יינתן ערך קרוב ל-1 לציורים אימפרסיוניסטים למשל, וערך קרוב ל-0 לציורים ריאליסטיים.</p>
 <p>למשל מודל שבודק מה הרמה הממוצעת של פיקסל אדום בתמונה ומסתכל על איזשהו סף, עד ערך מסוים יחזה 0 ומעליו יחזה 1.</p>
@@ -560,9 +560,9 @@
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
 <p>בעית רגרסיה אפשר לראות בדוגמא של נטפליקס: X הוא וקטור ממימד 99 סרטים, וY הסקלר הוא הציון של הסרט איזו מין שוטרת.</p>
-<p>הערכים של X במקרה הזה לא באמת נמצאים על כל הישר הממשי, הם דירוגים במין סולם אורינלי כזה של 1 עד 5 וראינו שיש בהם גם ערכים חסרים.</p>
+<p>הערכים של X במקרה הזה לא באמת נמצאים על כל הישר הממשי, הם דירוגים במין סולם אורדינלי כזה של 1 עד 5 וראינו שיש בהם גם ערכים חסרים.</p>
 <p>גם Y הנתון לנו לא מקבל כל ערך, רק מספרים בין 1 ל5.</p>
-<p>בכל זאת מודל טוב יקבל את הציונים הקיימים של משתמש קיים, כולל הסרטים שהוא לא ראה, ונותן חיזוי לדירוג של איזו מין שוטרת הכי קירוב לדירוג Y של אותו משתמש.</p>
+<p>בכל זאת מודל טוב יקבל את הציונים הקיימים של משתמש קיים, כולל הסרטים שהוא לא ראה, וייתן חיזוי לדירוג של איזו מין שוטרת הכי קירוב לדירוג Y של אותו משתמש.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -599,9 +599,9 @@
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-<p>עוד דוגמאות מעניינות:</p>
+<p>בואו נחשוב על עוד דוגמאות מעניינות:</p>
 <p>Genome Wide Association Studies או GWAS, בהם אנחנו מנסים לבודד גנים שאחראים על מחלות למשל.</p>
-<p>Y כאן הוא האם האדם בריא או חולה, Xהוא כל הגנום שלו. זה יכול להגיע למיליון מיקומים על הכרומוזום, שבהם יכול להיות לאדם 0, 1 או 2 עותקים של מוטציות בגן. וזו דוגמא טובה למצב שמעניין אותנו חיזוי על אדם חדש בהתאום לגנום שלו, האם הוא בסיכון למחלה, אבל גם מעניין אותנו לראות אילו גנים אחראים למחלה, כלומר אילו משתנים בX משפיעים על Y.</p>
+<p>Y כאן הוא האם האדם בריא או חולה, X הוא כל הגנום שלו. זה יכול להגיע למיליון מיקומים על הכרומוזום, שבהם יכול להיות לאדם 0, 1 או 2 עותקים של מוטציות בגן. וזו דוגמא טובה למצב שמעניין אותנו חיזוי על אדם חדש בהתאם לגנום שלו, האם הוא בסיכון למחלה, אבל גם מעניין אותנו לראות אילו גנים אחראים למחלה, כלומר אילו משתנים בX משפיעים על Y.</p>
 <p>דוגמא קלאסית נוספת היא חיזוי האם מייל הוא ספאם או לא. X יכול להיות הרבה סוגים של משתנים: מי השולח, מי הנמען, מתי נשלח המייל וכמובן תוכן המייל, המילים השונות שמרכיבות אותו. שימו לב שוקטור שמתאר מילים הוא וקטור ממימד עצום, של כל אוצר המילים בשפה אחת או יותר, בעצם. בכל אופן המטרה היא לחזות האם מייל הוא ספאם וישר להעביר אותו לתיקיית הספאם.</p>
 </div>
 <style type="text/css">
@@ -656,7 +656,7 @@
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-<p>נחזור לדוגמא של נטפליקס ונחשוב על מודל פשוט: נחזה את הדירוג של צופה באיזו מין שוטרת באמצעות סרט שדומה לו, למשל ראינו שהציונים של סוויט הום אלבמה מאוד דומים לציונים של איזו מין שוטרת, שני הסרטים הם קומדיות רומנטיות.</p>
+<p>נחזור לדוגמא של נטפליקס ונחשוב על מודל פשוט: נחזה את הדירוג של צופה באיזו מין שוטרת באמצעות סרט שדומה לו, למשל ראינו שהציונים של סוויט הום אלבמה מאוד דומים לציונים של איזו מין שוטרת, שני הסרטים הם קומדיות רומנטיות. כאן אנחנו רואים את גרף הפיזור שממחיש את הקשר החזק יחסית בין שני הסרטים, מי שמדרג גבוה את סוויט הום אלבמה יש לו נטייה לדרג גבוה את איזו מין שוטרת, והמתאם ביניהם חיובי ורחוק יחסית מאפס.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -819,7 +819,7 @@
 
 <h3 id="data-splitting">Data Splitting</h3>
 <p>Let’s divide our Netflix data 80-20:</p>
-<div class="cell" data-execution_count="4">
+<div class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb3" data-code-line-numbers="|1-2|3-6|7-10|"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a>X <span class="op">=</span> ratings.values</span>
 <span id="cb3-2"><a href="#cb3-2"></a>Y <span class="op">=</span> miss_cong.values[:, <span class="dv">0</span>]</span>
 <span id="cb3-3"><a href="#cb3-3"></a>n <span class="op">=</span> X.shape[<span class="dv">0</span>]</span>
@@ -835,6 +835,8 @@
 <span id="cb3-13"><a href="#cb3-13"></a><span class="bu">print</span>(<span class="ss">f'No. of test rows: </span><span class="sc">{</span>Xte<span class="sc">.</span>shape[<span class="dv">0</span>]<span class="sc">}</span><span class="ss">, no. test of cols: </span><span class="sc">{</span>Xte<span class="sc">.</span>shape[<span class="dv">1</span>]<span class="sc">}</span><span class="ss">'</span>)</span>
 <span id="cb3-14"><a href="#cb3-14"></a><span class="bu">print</span>(<span class="ss">f'no. of obs in train y: </span><span class="sc">{</span>Ytr<span class="sc">.</span>shape[<span class="dv">0</span>]<span class="sc">}</span><span class="ss">'</span>)</span>
 <span id="cb3-15"><a href="#cb3-15"></a><span class="bu">print</span>(<span class="ss">f'no. of obs in test y: </span><span class="sc">{</span>Yte<span class="sc">.</span>shape[<span class="dv">0</span>]<span class="sc">}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell fragment" data-execution_count="5">
 <div class="cell-output cell-output-stdout">
 <pre><code>No. of train rows: 8000, no. train of cols: 99
 No. of test rows: 2000, no. test of cols: 99
@@ -867,7 +869,7 @@ no. of obs in test y: 2000</code></pre>
 <h2>Linear Regression</h2>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-<p>נתחיל ברגרסיה ליניארית. רגרסיה ליניארית הוא נושא שנכתבו עליו אינספור ספרים עבי כרס החל מאמצע המאה העשרים, ובחוגים מסוימים מקדישים למודל היחיד הזה סמסטר שלם, כמו למשל אקונומטריקה בחוג לכלכלה. כאן ננסה לתת מבט על המודל כמו על מודלים אחרים, ונפנה את מי שמעוניין לקורסים מתקדמים יותר.</p>
+<p>נתחיל ברגרסיה ליניארית. רגרסיה ליניארית היא נושא שנכתבו עליו אינספור ספרים עבי כרס החל מאמצע המאה העשרים, ובחוגים מסוימים מקדישים למודל היחיד הזה סמסטר שלם, כמו למשל אקונומטריקה בחוג לכלכלה. כאן ננסה לתת מבט-על על המודל כמו על מודלים אחרים, ונפנה את מי שמעוניין לקורסים מתקדמים יותר.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -919,7 +921,7 @@ no. of obs in test y: 2000</code></pre>
 <h3 id="simple-demo-p1-on-netflix-data">Simple Demo: <span class="math inline">\(p=1\)</span> on Netflix Data</h3>
 <p>Let’s go back to <span class="math inline">\(y\)</span> = Miss Congeniality vs.&nbsp;<span class="math inline">\(x_1\)</span> = Sweet Home Alabama:</p>
 <p>The <code>statsmodels</code> approach:</p>
-<div class="cell" data-execution_count="5">
+<div class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb5" data-code-line-numbers="|1-2|4|6|7|8|"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1"></a>sweet_home_idx <span class="op">=</span> <span class="dv">9</span></span>
 <span id="cb5-2"><a href="#cb5-2"></a>X_sweet_tr <span class="op">=</span> Xtr[:, [sweet_home_idx]]</span>
 <span id="cb5-3"><a href="#cb5-3"></a></span>
@@ -930,29 +932,29 @@ no. of obs in test y: 2000</code></pre>
 <span id="cb5-8"><a href="#cb5-8"></a>model <span class="op">=</span> model.fit()</span>
 <span id="cb5-9"><a href="#cb5-9"></a><span class="bu">print</span>(<span class="ss">f'y = </span><span class="sc">{</span>model<span class="sc">.</span>params[<span class="dv">0</span>]<span class="sc">:.2f}</span><span class="ss"> + </span><span class="sc">{</span>model<span class="sc">.</span>params[<span class="dv">1</span>]<span class="sc">:.2f}</span><span class="ss">*x1'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell fragment" data-execution_count="5">
+<div class="cell fragment" data-execution_count="6">
 <div class="cell-output cell-output-stdout">
-<pre><code>y = 2.12 + 0.40*x1</code></pre>
+<pre><code>y = 2.13 + 0.40*x1</code></pre>
 </div>
 </div>
 <div class="fragment">
 <p>The <code>SKlearn</code> approach:</p>
-<div class="cell" data-execution_count="6">
+<div class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb7" data-code-line-numbers="|1|3|4|"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression</span>
 <span id="cb7-2"><a href="#cb7-2"></a></span>
 <span id="cb7-3"><a href="#cb7-3"></a>model <span class="op">=</span> LinearRegression()</span>
 <span id="cb7-4"><a href="#cb7-4"></a>model.fit(X_sweet_tr, Ytr)</span>
 <span id="cb7-5"><a href="#cb7-5"></a><span class="bu">print</span>(<span class="ss">f'y = </span><span class="sc">{</span>model<span class="sc">.</span>intercept_<span class="sc">:.2f}</span><span class="ss"> + </span><span class="sc">{</span>model<span class="sc">.</span>coef_[<span class="dv">0</span>]<span class="sc">:.2f}</span><span class="ss">*x1'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell fragment" data-execution_count="6">
+<div class="cell fragment" data-execution_count="7">
 <div class="cell-output cell-output-stdout">
-<pre><code>y = 2.12 + 0.40*x1</code></pre>
+<pre><code>y = 2.13 + 0.40*x1</code></pre>
 </div>
 </div>
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-<p>נראה איך מתאימים את מודל הרגרסיה הליניארית דווקא בפייתון קודם, כדי לראות את השורה התחתונה. אחר כך נחזור לאיך זה מתבצע בפועל.</p>
+<p>נראה איך מתאימים את מודל הרגרסיה הליניארית דווקא בפייתון קודם, כדי לראות את השורה התחתונה. אחר כך נחזור למתמטיקה של הפקוצדורה.</p>
 <p>כאן נתחיל עם משתנה יחיד בX וחותך. ניקח סרט אחד והוא יהיה sweet home alabama.</p>
 <p>נראה מימוש בשתי ספריות, נתחיל בספריה שהמחברים שלה יותר דאגו למשתמשים עם אורינטציה סטטיסטית, ובאמת הפלט שהיא נותנת עשיר יותר כמו פלטים של תוכנות סטטיסטיות כמו SPSS או R.</p>
 <p>אני קורא את הסרט sweet home alabama לתוך מטריצת X_sweet_tr, שתהיה לה עמודה אחת בשלב זה. נשים לב שאני מקפיד להשתמש במדגם הלמידה שלי, ומדגם הטסט כלל לא מופיע!</p>
@@ -962,8 +964,8 @@ no. of obs in test y: 2000</code></pre>
 <p>ורק כשמבקשים את המתודה fit קורית בעצם הרגרסיה הליניארית, ובאוביקט הmodel שלנו יש את כל מה שאנחנו צריכים.</p>
 <p>בפרט יש לאוביקט שלנו שדה שנקרא params ובתוכו נמצאות הבטאות. במקרה שלנו יש שתי בטאות, בטא-אפס לחותך, ובטא-אחת לשיפוע של המשתנה היחיד, ואני מדפיס את המודל הסופי בצורה כזאת:</p>
 <p>מסתבר שהמודל חיזוי הליניארי הכי פשוט עם סוויט הום אלבמה כסרט מנבא למיס קונג’יניאליטי, הוא לתת לכולם את ציון הבסיס 2.14, ואז על כל עליה בדירוג של סוויט הום אלבמה להוסיף 0.40.</p>
-<p>ספרייה אחרת שכבר ראינו היא sklearn, והיא ספריה שאין לה אוריינטציה סטטיסטית אבל הרבה יתרונות אחרים כמו הממשק האחוד שלה לכל מודל מאשין לרנינג.</p>
-<p>כאן אני מייבא את הקלאס לינאר רגרשן, מאתחל אותו לתוך אוביקט ששוב נקרא model. רק כשאני מבקש על model את המתודה פיט, לתוכה אני מכניס את X וY מתבצעת הרגרסיה הליניארית. נשים לב שכאן כאן ברירת המחדל היא להוסיף חותך למודל והX שמכניסים למתודה פיט לא כולל את העמודה של אחדות, sklearn יעשה את זה בשבילכם.</p>
+<p>ספרייה אחרת שכבר ראינו היא sklearn, והיא ספריה שאין לה אוריינטציה סטטיסטית אבל יש לה הרבה יתרונות אחרים כמו הממשק האחוד שלה לכל מודל מאשין לרנינג.</p>
+<p>כאן אני מייבא את הקלאס לינאר רגרשן, מאתחל אותו לתוך אוביקט ששוב נקרא model. רק כשאני מבקש על model את המתודה פיט, לתוכה אני מכניס את X וY מתבצעת הרגרסיה הליניארית. נשים לב שכאן ברירת המחדל היא להוסיף חותך למודל והX שמכניסים למתודה פיט לא כולל את העמודה של אחדות, sklearn יעשה את זה בשבילכם.</p>
 <p>כאן לחותך יש שדה משלו, אינטרספט, ושאר הבטאות יופיעו בשדה coef מהמילה coefficients. נקבל כמובן את אותו מודל.</p>
 </div>
 <style type="text/css">
@@ -981,7 +983,7 @@ no. of obs in test y: 2000</code></pre>
 <section class="slide level2">
 
 <p>The model is a simple straight line:</p>
-<div class="cell" data-execution_count="7">
+<div class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb9" data-code-line-numbers="|1-2|4-5|"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1"></a>pred_x <span class="op">=</span> np.arange(<span class="dv">1</span>, <span class="dv">6</span>).reshape((<span class="dv">5</span>, <span class="dv">1</span>))</span>
 <span id="cb9-2"><a href="#cb9-2"></a>y_hat <span class="op">=</span> model.predict(pred_x)</span>
 <span id="cb9-3"><a href="#cb9-3"></a></span>
@@ -989,16 +991,16 @@ no. of obs in test y: 2000</code></pre>
 <span id="cb9-5"><a href="#cb9-5"></a>plt.plot(pred_x, y_hat, color <span class="op">=</span> <span class="st">'r'</span>)</span>
 <span id="cb9-6"><a href="#cb9-6"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell fragment" data-execution_count="7">
+<div class="cell fragment" data-execution_count="8">
 <div class="cell-output cell-output-display">
-<p><img data-src="c09_regression_files/figure-revealjs/cell-8-output-1.png" width="441" height="461"></p>
+<p><img data-src="c09_regression_files/figure-revealjs/cell-9-output-1.png" width="441" height="461"></p>
 </div>
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
 <p>למקרה שזה לא היה ברור, המודל שקיבלנו הוא משוות קו ישר פשוט. בואו נראה את זה:</p>
-<p>אני בונה X מלאכותי שיש בו פשוט את הדירוגים 1 עד 5. ואני מבקש מהמודל לחזות את הציון של sklearn לחזות הדירוג של Y על הדירוגים האלה.</p>
-<p>עכשיו אני מציירת שוב את הסקאטרפלוט שלנו של דירוגי מיס קונג’יניאליטי מול סוויט הום אלבמה, ומוסיף עליהם את הקו הישר שחוזה המודל. הקו נראה די מתאים לנתונים גם אם הוא פשטני.</p>
+<p>אני בונה X מלאכותי שיש בו פשוט את הדירוגים 1 עד 5. ואני מבקש מהמודל לחזות את הדירוג של Y בהתאם לדירוגים האלה של 1 עד 5.</p>
+<p>עכשיו אני מצייר שוב את הסקאטרפלוט שלנו של דירוגי מיס קונג’יניאליטי מול סוויט הום אלבמה, ומוסיף עליהם את הקו הישר שחוזה המודל. הקו נראה די מתאים לנתונים גם אם הוא פשטני.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1015,7 +1017,7 @@ no. of obs in test y: 2000</code></pre>
 <section class="slide level2">
 
 <h3 id="evaluating-on-the-test-data">Evaluating on the test data</h3>
-<div class="cell" data-execution_count="8">
+<div class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb10" data-code-line-numbers="|2-3|5|6|"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1"></a><span class="co"># this is the sklearn approach, no need to add constant</span></span>
 <span id="cb10-2"><a href="#cb10-2"></a>X_sweet_te <span class="op">=</span> Xte[:, [sweet_home_idx]]</span>
 <span id="cb10-3"><a href="#cb10-3"></a>y_hat_te <span class="op">=</span> model.predict(X_sweet_te)</span>
@@ -1026,10 +1028,10 @@ no. of obs in test y: 2000</code></pre>
 <span id="cb10-8"><a href="#cb10-8"></a><span class="bu">print</span>(<span class="ss">f'Test RMSE predicting the mean: </span><span class="sc">{</span>test_RMSE_null<span class="sc">: .2f}</span><span class="ss">'</span>)</span>
 <span id="cb10-9"><a href="#cb10-9"></a><span class="bu">print</span>(<span class="ss">f'Test RMSE with Sweet Home Alabama: </span><span class="sc">{</span>test_RMSE_1movie<span class="sc">: .2f}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell fragment" data-execution_count="8">
+<div class="cell fragment" data-execution_count="9">
 <div class="cell-output cell-output-stdout">
-<pre><code>Test RMSE predicting the mean:  0.96
-Test RMSE with Sweet Home Alabama:  0.86</code></pre>
+<pre><code>Test RMSE predicting the mean:  0.97
+Test RMSE with Sweet Home Alabama:  0.88</code></pre>
 </div>
 </div>
 <aside class="notes">
@@ -1037,8 +1039,8 @@ Test RMSE with Sweet Home Alabama:  0.86</code></pre>
 <p>אז המודל מובן. קו ישר. אמרנו שכדי להעריך עד כמה המודל טוב, צריך לראות את הביצועים שלו על נתונים שהמודל לא ראה, הטסט סט, ומקובל לעשות את זה עם מדד הRMSE. שורש השגיאה הריבועית הממוצעת.</p>
 <p>כאן אני מחלץ את סוויט הום אלבמה גם מהטסט סט, והוואי-הט שלי מתקבל באמצעות קריאה לmodel.predict.</p>
 <p>כעת אני מדווח על שני RMSE. RMSE נאל, הוא RMSE שיתקבל אם אני פשוט אחזה את הממוצע של Y שראיתי במדגם הלמידה. זה ייתן לנו איזשהו בייסליין של האם המודל שלנו שיפר במשהו, ואני מאוד מאוד ממליץ לעבוד עם בייסליינים פשוטים במיוחד ברגרסיה, כי הRMSE עצמו לא אומר הרבה כפי שנראה.</p>
-<p>RMSE נוסף שאני מחשב הוא הRMSE של המודל שלנו עם סרט אחד בלבד, נשים לה שאני מממש כאן את הנוסחה בדיוק כפי שהיא כתובה, ברור שלsklearn יש פקודות גם בשביל זה.</p>
-<p>והתוצאה, במודל הכי פשטני שהוא בעצם קו ישר של הממוצע, נקבל RMSE של 0.96, ועם סוויט הום אלבמה כבר נקבל הפחתה בכעשרה אחוזים ל0.86.</p>
+<p>RMSE נוסף שאני מחשב הוא הRMSE של המודל שלנו עם סרט אחד בלבד, נשים לב שאני מממש כאן את הנוסחה בדיוק כפי שהיא כתובה, ברור שלsklearn יש פונקציות גם בשביל זה.</p>
+<p>והתוצאה, במודל הכי פשטני שהוא בעצם קו ישר של הממוצע, נקבל RMSE של כמעט 1, ועם סוויט הום אלבמה כבר נקבל הפחתה בכעשרה אחוזים לקצת פחות מ0.9.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1055,7 +1057,7 @@ Test RMSE with Sweet Home Alabama:  0.86</code></pre>
 <section class="slide level2">
 
 <h3 id="simple-demo-p-14-on-netflix-data">Simple Demo: <span class="math inline">\(p = 14\)</span> on Netflix Data</h3>
-<div class="cell" data-execution_count="9">
+<div class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>Xtr_df <span class="op">=</span> pd.DataFrame(Xtr[:, :<span class="dv">14</span>], columns<span class="op">=</span>movies[<span class="st">'title'</span>][:<span class="dv">14</span>])</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>Xtr_df1 <span class="op">=</span> sm.add_constant(Xtr_df)</span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1063,42 +1065,42 @@ Test RMSE with Sweet Home Alabama:  0.86</code></pre>
 <span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> model.fit()</span>
 <span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(model.summary())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell fragment" data-execution_count="9">
+<div class="cell fragment" data-execution_count="10">
 <div class="cell-output cell-output-stdout">
 <pre><code>                            OLS Regression Results                            
 ==============================================================================
 Dep. Variable:                      y   R-squared:                       0.276
-Model:                            OLS   Adj. R-squared:                  0.275
-Method:                 Least Squares   F-statistic:                     217.8
-Date:                Sat, 05 Aug 2023   Prob (F-statistic):               0.00
-Time:                        11:07:04   Log-Likelihood:                -9715.2
-No. Observations:                8000   AIC:                         1.946e+04
-Df Residuals:                    7985   BIC:                         1.957e+04
+Model:                            OLS   Adj. R-squared:                  0.274
+Method:                 Least Squares   F-statistic:                     217.0
+Date:                Sun, 13 Aug 2023   Prob (F-statistic):               0.00
+Time:                        10:06:53   Log-Likelihood:                -9694.0
+No. Observations:                8000   AIC:                         1.942e+04
+Df Residuals:                    7985   BIC:                         1.952e+04
 Df Model:                          14                                         
 Covariance Type:            nonrobust                                         
 ============================================================================================
                                coef    std err          t      P&gt;|t|      [0.025      0.975]
 --------------------------------------------------------------------------------------------
-const                        0.3707      0.090      4.115      0.000       0.194       0.547
-Independence Day             0.0636      0.013      4.780      0.000       0.038       0.090
-The Patriot                 -0.0226      0.012     -1.920      0.055      -0.046       0.000
-The Day After Tomorrow       0.0445      0.011      4.081      0.000       0.023       0.066
-Pirates of the Caribbean     0.0765      0.012      6.380      0.000       0.053       0.100
-Pretty Woman                 0.1616      0.012     13.861      0.000       0.139       0.184
-Forrest Gump                -0.0663      0.013     -4.944      0.000      -0.093      -0.040
-The Green Mile               0.0294      0.014      2.154      0.031       0.003       0.056
-Con Air                      0.0835      0.012      6.767      0.000       0.059       0.108
-Twister                      0.0908      0.012      7.680      0.000       0.068       0.114
-Sweet Home Alabama           0.2195      0.011     19.974      0.000       0.198       0.241
-Pearl Harbor                 0.0352      0.011      3.323      0.001       0.014       0.056
-Armageddon                  -0.0010      0.013     -0.078      0.938      -0.026       0.024
-The Rock                    -0.0160      0.013     -1.241      0.215      -0.041       0.009
-What Women Want              0.1493      0.011     13.029      0.000       0.127       0.172
+const                        0.4074      0.090      4.509      0.000       0.230       0.584
+Independence Day             0.0668      0.013      4.996      0.000       0.041       0.093
+The Patriot                 -0.0161      0.012     -1.382      0.167      -0.039       0.007
+The Day After Tomorrow       0.0503      0.011      4.612      0.000       0.029       0.072
+Pirates of the Caribbean     0.0642      0.012      5.375      0.000       0.041       0.088
+Pretty Woman                 0.1522      0.012     13.135      0.000       0.129       0.175
+Forrest Gump                -0.0673      0.014     -4.953      0.000      -0.094      -0.041
+The Green Mile               0.0116      0.013      0.858      0.391      -0.015       0.038
+Con Air                      0.0727      0.012      5.962      0.000       0.049       0.097
+Twister                      0.0866      0.012      7.408      0.000       0.064       0.109
+Sweet Home Alabama           0.2272      0.011     20.918      0.000       0.206       0.248
+Pearl Harbor                 0.0316      0.010      3.029      0.002       0.011       0.052
+Armageddon                   0.0149      0.013      1.173      0.241      -0.010       0.040
+The Rock                     0.0006      0.013      0.049      0.961      -0.025       0.026
+What Women Want              0.1502      0.011     13.108      0.000       0.128       0.173
 ==============================================================================
-Omnibus:                      145.057   Durbin-Watson:                   1.984
-Prob(Omnibus):                  0.000   Jarque-Bera (JB):              154.185
-Skew:                          -0.321   Prob(JB):                     3.31e-34
-Kurtosis:                       3.225   Cond. No.                         150.
+Omnibus:                      123.459   Durbin-Watson:                   2.022
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):              129.350
+Skew:                          -0.300   Prob(JB):                     8.17e-29
+Kurtosis:                       3.165   Cond. No.                         151.
 ==============================================================================
 
 Notes:
@@ -1124,7 +1126,7 @@ Notes:
 </section>
 <section class="slide level2">
 
-<div class="cell" data-execution_count="10">
+<div class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># this is the statsmodels approach, need to add constant</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>Xte1 <span class="op">=</span> sm.add_constant(Xte[:, :<span class="dv">14</span>])</span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>y_hat_te <span class="op">=</span> model.predict(Xte1)</span>
@@ -1135,10 +1137,10 @@ Notes:
 <span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Test RMSE with Sweet Home Alabama: </span><span class="sc">{</span>test_RMSE_1movie<span class="sc">: .2f}</span><span class="ss">'</span>)</span>
 <span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Test RMSE with 14 movies: </span><span class="sc">{</span>test_RMSE_14movies<span class="sc">: .2f}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell fragment" data-execution_count="10">
+<div class="cell fragment" data-execution_count="11">
 <div class="cell-output cell-output-stdout">
-<pre><code>Test RMSE with the mean:  0.96
-Test RMSE with Sweet Home Alabama:  0.86
+<pre><code>Test RMSE with the mean:  0.97
+Test RMSE with Sweet Home Alabama:  0.88
 Test RMSE with 14 movies:  0.81</code></pre>
 </div>
 </div>
@@ -1148,6 +1150,7 @@ Test RMSE with 14 movies:  0.81</code></pre>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
 <p>ושוב, נרצה לבדוק את הRMSE של המודל על מדגם הטסט שהוא לא ראה. אנחנו מחשבים אותו בדיוק כמו קודם, ומקבלים עוד הפחתה משמעותית, אנחנו כבר ב0.81.</p>
+<p>ועוד נקודה חשובה.</p>
 <p>כשהמודל היה עם סרט אחד היה ברור שהמודל הוא בעצם קו ישר. איך נראה המודל שלנו עכשיו? אם תכלילו לשני משתנים המודל יהיה בעצם מישור (להדגים), ויותר משני משתנים נקרא לזה מישור פי-מימדי.</p>
 </div>
 <style type="text/css">
@@ -1167,7 +1170,7 @@ Test RMSE with 14 movies:  0.81</code></pre>
 <h3 id="even-more-adventurous-use-all-99-movies">Even more adventurous: use all 99 movies</h3>
 <p>What to do about missing? Let’s keep as 0 for now (did not rate = hate…)</p>
 <p><strong>Dealing with missing values is an important topic, that we won’t cover here</strong></p>
-<div class="cell" data-execution_count="11">
+<div class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb16" data-code-line-numbers="|1,6|"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1"></a>Xtr[np.isnan(Xtr)] <span class="op">=</span> <span class="dv">0</span></span>
 <span id="cb16-2"><a href="#cb16-2"></a>Xtr1 <span class="op">=</span> sm.add_constant(Xtr)</span>
 <span id="cb16-3"><a href="#cb16-3"></a>model <span class="op">=</span> sm.OLS(Ytr, Xtr1)</span>
@@ -1184,12 +1187,12 @@ Test RMSE with 14 movies:  0.81</code></pre>
 <span id="cb16-14"><a href="#cb16-14"></a><span class="bu">print</span>(<span class="ss">f'Test RMSE with 14 movies: </span><span class="sc">{</span>test_RMSE_14movies<span class="sc">: .2f}</span><span class="ss">'</span>)</span>
 <span id="cb16-15"><a href="#cb16-15"></a><span class="bu">print</span>(<span class="ss">f'Test RMSE with 99 movies: </span><span class="sc">{</span>test_RMSE_99movies<span class="sc">: .2f}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell fragment" data-execution_count="11">
+<div class="cell fragment" data-execution_count="12">
 <div class="cell-output cell-output-stdout">
-<pre><code>Test RMSE with the mean:  0.96
-Test RMSE with Sweet Home Alabama:  0.86
+<pre><code>Test RMSE with the mean:  0.97
+Test RMSE with Sweet Home Alabama:  0.88
 Test RMSE with 14 movies:  0.81
-Test RMSE with 99 movies:  0.77</code></pre>
+Test RMSE with 99 movies:  0.78</code></pre>
 </div>
 </div>
 <aside class="notes">
@@ -1339,10 +1342,10 @@ Test RMSE with 99 movies:  0.77</code></pre>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
 <p>חשוב להכיר גם את הפרשנות הגיאומטרית של הפתרון שלנו: הרי כרגע במרחב הלמידה העמודות של X פורסות איזשהו מרחב, וY הוא גם וקטור, נוסף.</p>
-<p>אנחנו רוצים למצוא צירוף ליניארי של העמודות האלה של X, זו המשמעות של הביטוי X</p>
+<p>אנחנו רוצים למצוא צירוף ליניארי של העמודות האלה של X, זו המשמעות של הביטוי Xbeta</p>
 <p>לכן כשאנחנו עושים מינימיזציה לRSS, לכמות הזאת, אנחנו בעצם מחפשים את הצירוף הליניארי של עמודות X שהוא הקירוב הטוב ביותר לY. הפתרון שלנו הוא הוקטור הכי קרוב במרחב הנפרש על-ידי עמודות X, לוקטור Y שכנראה לא נמצא במרחב הזה. נדגים זאת על שני משתנים:</p>
 <p>(הדגמה על הלוח)</p>
-<p>מה זה הוקטור הזה? הוקטור הזה הוא ההטלה האורתוגונלית של הוקטור Y אל המרחב הנפרש על-ידי עמודות X!</p>
+<p>איך קוראים לוקטור y_hat הזה? הוקטור הזה הוא ההטלה האורתוגונלית של הוקטור Y אל המרחב הנפרש על-ידי עמודות X!</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1396,9 +1399,9 @@ Test RMSE with 99 movies:  0.77</code></pre>
 <div style="direction:rtl; font-size:16px">
 <p>נשים לב עד עכשיו שלא הנחנו שום מודל שהוא הקשר האמיתי בין X לY. לא היתה שום התפלגות, לא היו כמעט שום תנאים על פתרון הרגרסיה הOLS, ואכן רבים שאין להם נגיעה לסטטיסטיקה בכלל לומדים על רגרסיה ליניארית במסגרת קורסים באלגברה ליניארית.</p>
 <p>כעת כן נניח שיש מודל, הנחה די מחמירה: שY הוא צירוף ליניארי של האיקסים, ועוד איזשהו רעש שנסמן באפסילון, משתנה מקרי, ועל הרעש הזה נניח התפלגות נורמלית. נניח שהתוספת הזאת ממורכזת באפס, ויש לה שונות, כמובן לא ידועה, של סיגמא בריבוע.</p>
-<p>תיכף ניתן הערה שלא נוכיח, על מדוע התייחסות כזאת לא תשנה את פתרון הריבועים הפחותים, בטא-האט עדיין יהיה (X’X)-1X’beta. אבל בואו נגיד מה התווסף לנו:</p>
+<p>תיכף ניתן הערה שלא נוכיח, על מדוע התייחסות כזאת לא תשנה את פתרון הריבועים הפחותים, בטא-האט עדיין יהיה (X’X)-1X’y. אבל בואו נגיד מה התווסף לנו:</p>
 <p>כעת Y הוא משתנה מקרי. ויש לו התפלגות ותוחלת, בהינתן האיקסים. התוחלת המותנית של Y בהינתן שהאיקסים קבועים על ערך מסוים, היא x’beta, היא פונקציה ליניארית של X.</p>
-<p>הטעות שמתקבלת אם אחסר מY את התוחלת המותנית שלו היא גם משתנה מקרי, זה בעצם האפסילון, אז היא מתפלגת נורמלית, עם תוחלת אפס, ובאון בלתי תלוי בטעויות האחרות.</p>
+<p>הטעות שמתקבלת אם אחסר מY את התוחלת המותנית שלו היא גם משתנה מקרי, זה בעצם האפסילון, אז היא מתפלגת נורמלית, עם תוחלת אפס, ובאופן בלתי תלוי בטעויות האחרות.</p>
 <p>ותחת הנחת המודל הסטטיסטי גם בטא-האט יהיה וקטור של משתנים מקריים, עם התפלגות! אנחנו כבר יכולים לא רק להגיד מהו הבטא-האט אלא גם לבצע עליו הסקה סטטיסטית. נוכל להגיד האם בטא מסוים שונה בצורה מובהקת סטטיסטית מאפס, כלומר האם הוא באמת חשוב במידול של Y או לא.</p>
 </div>
 <style type="text/css">
@@ -1459,7 +1462,7 @@ Test RMSE with 99 movies:  0.77</code></pre>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
 <p>אז איך מבצעים הסקה סטטיסטית על הבטאות?</p>
-<p>באופן שולי ניתן לראות שכל בטא-האט-ג’י בוקטור מתפלג נורמלית עם תוחלת בטא-ג’יי ושונות שהיא סיגמא בריבוע, כפול האיבר האלכסון במטריצת X’X.</p>
+<p>באופן שולי ניתן לראות שכל בטא-האט-ג’י בוקטור מתפלג נורמלית עם תוחלת בטא-ג’יי ושונות שהיא סיגמא בריבוע, כפול האיבר האלכסון במטריצה ההופכית של X’X.</p>
 <p>זה אומר שעכשיו אנחנו יכולים לבצע בדיקת השערות על כל בטא-ג’יי: השערת האפס תהיה שבטא-ג’יי שווה לאפס. ההשערה האלטרנטיבית, תהיה כמעט תמיד דו-צדדית, שבטא-ג’יי שונה מאפס, כלומר המשתנה הזה חשוב במודל.</p>
 <p>תחת השערת האפס ההתפלגות של בטא-האט-ג’יי היא נורמלית עם אותה שונות אבל עם תוחלת אפס,</p>
 <p>אם היינו יודעים את השונות סיגמא בריבוע זה כל מה שאנחנו צריכים בשביל מבחן Z. אנחנו לא יודעים את השונות סיגמא בריבוע ולכן אנחנו עושים מבחן T.</p>
@@ -1479,43 +1482,43 @@ Test RMSE with 99 movies:  0.77</code></pre>
 <section class="slide level2">
 
 <h4 id="back-to-the-14-movies-model-now-with-the-inference">Back to the 14-movies model, now with the inference:</h4>
-<div class="cell" data-execution_count="13">
+<div class="cell" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(model.summary())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                            OLS Regression Results                            
 ==============================================================================
 Dep. Variable:                      y   R-squared:                       0.276
-Model:                            OLS   Adj. R-squared:                  0.275
-Method:                 Least Squares   F-statistic:                     217.8
-Date:                Sat, 05 Aug 2023   Prob (F-statistic):               0.00
-Time:                        11:07:05   Log-Likelihood:                -9715.2
-No. Observations:                8000   AIC:                         1.946e+04
-Df Residuals:                    7985   BIC:                         1.957e+04
+Model:                            OLS   Adj. R-squared:                  0.274
+Method:                 Least Squares   F-statistic:                     217.0
+Date:                Sun, 13 Aug 2023   Prob (F-statistic):               0.00
+Time:                        10:06:54   Log-Likelihood:                -9694.0
+No. Observations:                8000   AIC:                         1.942e+04
+Df Residuals:                    7985   BIC:                         1.952e+04
 Df Model:                          14                                         
 Covariance Type:            nonrobust                                         
 ============================================================================================
                                coef    std err          t      P&gt;|t|      [0.025      0.975]
 --------------------------------------------------------------------------------------------
-const                        0.3707      0.090      4.115      0.000       0.194       0.547
-Independence Day             0.0636      0.013      4.780      0.000       0.038       0.090
-The Patriot                 -0.0226      0.012     -1.920      0.055      -0.046       0.000
-The Day After Tomorrow       0.0445      0.011      4.081      0.000       0.023       0.066
-Pirates of the Caribbean     0.0765      0.012      6.380      0.000       0.053       0.100
-Pretty Woman                 0.1616      0.012     13.861      0.000       0.139       0.184
-Forrest Gump                -0.0663      0.013     -4.944      0.000      -0.093      -0.040
-The Green Mile               0.0294      0.014      2.154      0.031       0.003       0.056
-Con Air                      0.0835      0.012      6.767      0.000       0.059       0.108
-Twister                      0.0908      0.012      7.680      0.000       0.068       0.114
-Sweet Home Alabama           0.2195      0.011     19.974      0.000       0.198       0.241
-Pearl Harbor                 0.0352      0.011      3.323      0.001       0.014       0.056
-Armageddon                  -0.0010      0.013     -0.078      0.938      -0.026       0.024
-The Rock                    -0.0160      0.013     -1.241      0.215      -0.041       0.009
-What Women Want              0.1493      0.011     13.029      0.000       0.127       0.172
+const                        0.4074      0.090      4.509      0.000       0.230       0.584
+Independence Day             0.0668      0.013      4.996      0.000       0.041       0.093
+The Patriot                 -0.0161      0.012     -1.382      0.167      -0.039       0.007
+The Day After Tomorrow       0.0503      0.011      4.612      0.000       0.029       0.072
+Pirates of the Caribbean     0.0642      0.012      5.375      0.000       0.041       0.088
+Pretty Woman                 0.1522      0.012     13.135      0.000       0.129       0.175
+Forrest Gump                -0.0673      0.014     -4.953      0.000      -0.094      -0.041
+The Green Mile               0.0116      0.013      0.858      0.391      -0.015       0.038
+Con Air                      0.0727      0.012      5.962      0.000       0.049       0.097
+Twister                      0.0866      0.012      7.408      0.000       0.064       0.109
+Sweet Home Alabama           0.2272      0.011     20.918      0.000       0.206       0.248
+Pearl Harbor                 0.0316      0.010      3.029      0.002       0.011       0.052
+Armageddon                   0.0149      0.013      1.173      0.241      -0.010       0.040
+The Rock                     0.0006      0.013      0.049      0.961      -0.025       0.026
+What Women Want              0.1502      0.011     13.108      0.000       0.128       0.173
 ==============================================================================
-Omnibus:                      145.057   Durbin-Watson:                   1.984
-Prob(Omnibus):                  0.000   Jarque-Bera (JB):              154.185
-Skew:                          -0.321   Prob(JB):                     3.31e-34
-Kurtosis:                       3.225   Cond. No.                         150.
+Omnibus:                      123.459   Durbin-Watson:                   2.022
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):              129.350
+Skew:                          -0.300   Prob(JB):                     8.17e-29
+Kurtosis:                       3.165   Cond. No.                         151.
 ==============================================================================
 
 Notes:
@@ -1786,8 +1789,8 @@ Notes:
 <div style="direction:rtl; font-size:16px">
 <p>אז אנחנו מוצאים את המקדמים במקרה של רגרסיה לוגיסטית?</p>
 <p>כאן אנחנו חייבים לעבור דרך פונקצית הנראות, הlikelihood ולבצע אמידת נראות מקסימלית. פונקצית הנראות שלנו היא פונקציה של בטא בהינתן הדאטא בטריינינג ומסומנת בדרך כלל בL. במקרה הבדיד כמו לפנינו שY הוא בעצם משתנה ברנולי, מדובר במכפלת ההסתברויות במדגם תחת המודל.</p>
-<p>מאחר שY מקבל ערכים אפס או אחת, ניתן לרשום את הביטוי בצורה כזאת. נציב את הביטויים של מודל הרגרסיה הלוגיסטית עבור ההסתברות שוואי שווה אחת ועבור ההסתברות שוואי שווה אפס. ונגיע לא ביטוי לא סימפטי אבל מפורש, שצריך למקסם כדי לקבל את בטא-האט.</p>
-<p>כשנקבל את בטא-האט, ותגיע תצפית חדשה ממדגם הטסט, נוכל לחזות את ההסתברות שהיא אחת באמצעות הצבה בנוסחה של הפונקציה ההופכית. ואם אנחנו רוצים סופי, האם Y הוא 1 או 0, אפשר להשוות את ההסתברות הנחזית לאיזשהו קאטאוף, לדוגמא חצי. אם היא גדולה מחצי נחזה 1, ואם לא נחזה 0.</p>
+<p>מאחר שY מקבל ערכים אפס או אחת, ניתן לרשום את הביטוי בצורה כזאת. נציב את הביטויים של מודל הרגרסיה הלוגיסטית עבור ההסתברות שוואי שווה אחת ועבור ההסתברות שוואי שווה אפס. ונגיע לביטוי לא סימפטי אבל מפורש, שצריך למקסם כדי לקבל את בטא-האט.</p>
+<p>כשנקבל את בטא-האט, ותגיע תצפית חדשה ממדגם הטסט, נוכל לחזות את ההסתברות שהיא אחת באמצעות הצבה בנוסחה של הפונקציה ההופכית. ואם אנחנו רוצים חיזוי סופי, האם Y הוא 1 או 0, אפשר להשוות את ההסתברות הנחזית לאיזשהו קאטאוף, לדוגמא חצי. אם היא גדולה מחצי נחזה 1, ואם לא נחזה 0.</p>
 <p>הערה לפני שממשיכים: זה לא סתם שלא רשמנו כאן ביטוי מפורש לבטא-האט, הסיבה שאין כזה. פונקצית הנראות אמנם מפורשת וקמורה אבל אין לה פתרון סגור, לכן משתמשים בשיטות אופטימיזציה כמו ניוטון רפסון למי שמכיר, כדי למצוא את המקדמים.</p>
 </div>
 <style type="text/css">
@@ -1817,8 +1820,8 @@ Notes:
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-<p>הפרשנות של מקדמי הבטא ברגרסיה לוגיסטית הרבה פחות פשוטה לעומת רגרסיה ליניארית, ועלולה לבלבל, אז נשים לב:</p>
 <p>ועוד מילה על המודל שלנו. יחס הסיכויים שאנחנו ממדלים הוא בעצם הodds. בשפה יומיומיות, אם מאורע יכול לקרות בסיכוי שליש, או לא לקרות בסיכוי שני שליש, אנחנו אומרים “הוא יקרה בסיכוי של 1 ל-2”. כלומר מה שאנחנו ממדלים כצירוף ליניארי הוא הלוג-אודז, לוג יחס הסיכויים.</p>
+<p>הפרשנות של מקדמי הבטא ברגרסיה לוגיסטית הרבה פחות פשוטה לעומת רגרסיה ליניארית, ועלולה לבלבל, אז נשים לב:</p>
 <p>אז מה המשמעות של מקדם בטא-ג’יי? עלייה של יחידה אחת בXj, פירושה עלייה של בטא-ג’יי בלוג אודז.</p>
 <p>ואם זה לא אומר הרבה, קחו את האקספוננט של בטא-ג’יי ותראו מה הוא עושה לאודז עצמו. עלייה של בטא-ג’יי בגודל 1 היא עלייה פי e של האודז עצמו.</p>
 </div>
@@ -1855,7 +1858,7 @@ Notes:
 <section class="slide level2">
 
 <h3 id="example-south-african-hearth-disease-data">Example: South African Hearth Disease Data</h3>
-<div class="cell" data-execution_count="14">
+<div class="cell" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>saheart <span class="op">=</span> pd.read_table(<span class="st">"../datasets/SAheart.data"</span>, header <span class="op">=</span> <span class="dv">0</span>, sep<span class="op">=</span><span class="st">','</span>, index_col<span class="op">=</span><span class="dv">0</span>)</span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(saheart.describe())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1883,7 +1886,7 @@ max    147.190000   64.000000    1.000000  </code></pre>
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-<p>בנתונים שלפנינו יש 462 גברים מדרום אפריקה. יש לנו מידע רפואי עליהם כמו לחץ דם, מידת העישון, צריכת אלכוהול וגיל, והמשתנה שיעניין אותנו הוא הchd, coronary heart disease, האם הם לקו בהתקף לב או לא.</p>
+<p>בנתונים שלפנינו יש 462 גברים מדרום אפריקה. יש לנו מידע רפואי עליהם כמו לחץ דם, מידת העישון, צריכת אלכוהול וגיל, והמשתנה שיעניין אותנו הוא הchd, coronary heart disease, האם הם לקו במחלת לב או לא.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1900,7 +1903,7 @@ max    147.190000   64.000000    1.000000  </code></pre>
 <section class="slide level2">
 
 <h3 id="saheart-data-splitting-with-sklearn">SAHeart: Data Splitting with <code>SKlearn</code></h3>
-<div class="cell" data-execution_count="15">
+<div class="cell" data-execution_count="16">
 <div class="sourceCode cell-code" id="cb22" data-code-line-numbers="|4-6|"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1"></a>saheart_X<span class="op">=</span>pd.get_dummies(saheart.iloc[:, :<span class="dv">9</span>]).iloc[:, :<span class="dv">9</span>]</span>
 <span id="cb22-2"><a href="#cb22-2"></a>saheart_y<span class="op">=</span>saheart.iloc[:, <span class="dv">9</span>]</span>
 <span id="cb22-3"><a href="#cb22-3"></a></span>
@@ -1940,7 +1943,7 @@ no. of obs in test y: 93</code></pre>
 <section class="slide level2">
 
 <h3 id="saheart-lr-with-statsomdels">SAHeart: LR with <code>statsomdels</code></h3>
-<div class="cell" data-execution_count="16">
+<div class="cell" data-execution_count="17">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.api <span class="im">as</span> sm</span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> sm.Logit(Ytr, sm.add_constant(Xtr))</span>
@@ -1948,7 +1951,7 @@ no. of obs in test y: 93</code></pre>
 <span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(model.summary())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell fragment" data-execution_count="16">
+<div class="cell fragment" data-execution_count="17">
 <div class="cell-output cell-output-stdout">
 <pre><code>Optimization terminated successfully.
          Current function value: 0.513971
@@ -1958,8 +1961,8 @@ no. of obs in test y: 93</code></pre>
 Dep. Variable:                    chd   No. Observations:                  369
 Model:                          Logit   Df Residuals:                      359
 Method:                           MLE   Df Model:                            9
-Date:                Sat, 05 Aug 2023   Pseudo R-squ.:                  0.1994
-Time:                        11:07:05   Log-Likelihood:                -189.66
+Date:                Sun, 13 Aug 2023   Pseudo R-squ.:                  0.1994
+Time:                        10:06:54   Log-Likelihood:                -189.66
 converged:                       True   LL-Null:                       -236.90
 Covariance Type:            nonrobust   LLR p-value:                 2.041e-16
 ==================================================================================
@@ -1980,10 +1983,10 @@ famhist_Absent    -0.8135      0.255     -3.191      0.001      -1.313      -0.3
 </div>
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
-<p>ברגע שיודעים לבצע רגרסיה ליניארית בstatsmodels או בsklearn רגרסיה לוגיסטית זה קל.</p>
+<p>ברגע שיודעים לבצע רגרסיה ליניארית בstatsmodels או בsklearn, רגרסיה לוגיסטית זה קל.</p>
 <p>פשוט מאתחלים את הקלאס Logit, מזינים לתוכו את Y טריין ואז את X טריין בתוספת חותך, וקוראים לmodel.fit.</p>
 <p>אם נבקש summary נקבל פלט סטטיסטי עשיר ומסודר של המקדמים ומבחנים סטטיסטיים עליהם.</p>
-<p>נשים לב שהמבחנים כאן הם מבחני Z אבל לא ניכנס בקורס הזה לסיבה לכך. מכל מקום לכל מקדם יש טעות תקן שונה, אז כדי להשוות ביניהם נסתכל על הציוני תקן, על ערכי הZ. משתנים עם ערכים גבוהים הםage למשל, הגיל. לכל שנת חיים נוספת, המודל מוסיף איזושהי כמות ללוג-אודז שהפציינט יחלה בהתקף לב. מקדם שלילי גדול הוא הfamhist_Absent, שמשמעותו האם אין לך היסטוריה משפחתית של התקף לב. אם אין, יורדת לך כמות של 0.8 מהלוג-אודז.</p>
+<p>נשים לב שהמבחנים כאן הם מבחני Z אבל לא ניכנס בקורס הזה לסיבה לכך. מכל מקום לכל מקדם יש טעות תקן שונה, אז כדי להשוות ביניהם נסתכל על הציוני תקן, על ערכי הZ. משתנים עם ערכים גבוהים הם age למשל, הגיל. לכל שנת חיים נוספת, המודל מוסיף איזושהי כמות ללוג-אודז שהפציינט יחלה במחלת לב. מקדם שלילי גדול הוא הfamhist_Absent, שמשמעותו האם אין לך היסטוריה משפחתית של מחלת לב. אם אין, יורדת לך כמות של 0.8 מהלוג-אודז.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -2000,10 +2003,10 @@ famhist_Absent    -0.8135      0.255     -3.191      0.001      -1.313      -0.3
 <section class="slide level2">
 
 <h3 id="saheart-lr-with-sklearn">SAHeart: LR with <code>SKlearn</code></h3>
-<div class="cell" data-execution_count="17">
+<div class="cell" data-execution_count="18">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LogisticRegression</span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> LogisticRegression(solver<span class="op">=</span><span class="st">'lbfgs'</span>,max_iter<span class="op">=</span><span class="dv">10000</span>)</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> LogisticRegression(solver<span class="op">=</span><span class="st">'lbfgs'</span>, max_iter<span class="op">=</span><span class="dv">10000</span>)</span>
 <span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>model.fit(Xtr, Ytr)</span>
 <span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'intercept:'</span>, model.intercept_)</span>
@@ -2035,7 +2038,7 @@ coef: [[ 0.0080158   0.0557117   0.16737956  0.0271416   0.0410251  -0.08127558
 <section class="slide level2">
 
 <h3 id="saheart-lr-test-performance">SAHeart: LR Test Performance</h3>
-<div class="cell" data-execution_count="18">
+<div class="cell" data-execution_count="19">
 <div class="sourceCode cell-code" id="cb28" data-code-line-numbers="|3|4|5|"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> confusion_matrix</span>
 <span id="cb28-2"><a href="#cb28-2"></a></span>
 <span id="cb28-3"><a href="#cb28-3"></a>p_hat_te <span class="op">=</span> model.predict_proba(Xte)[:, <span class="dv">1</span>]</span>
@@ -2047,7 +2050,7 @@ coef: [[ 0.0080158   0.0557117   0.16737956  0.0271416   0.0410251  -0.08127558
 <span id="cb28-9"><a href="#cb28-9"></a>  index<span class="op">=</span>[<span class="st">'true:no'</span>, <span class="st">'true:yes'</span>], </span>
 <span id="cb28-10"><a href="#cb28-10"></a>  columns<span class="op">=</span>[<span class="st">'pred:no'</span>, <span class="st">'pred:yes'</span>]</span>
 <span id="cb28-11"><a href="#cb28-11"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="18">
+<div class="cell-output cell-output-display" data-execution_count="19">
 <div>
 <style scoped="">
     .dataframe tbody tr th:only-of-type {
@@ -2089,7 +2092,7 @@ coef: [[ 0.0080158   0.0557117   0.16737956  0.0271416   0.0410251  -0.08127558
 </div>
 </div>
 <div class="fragment">
-<div class="cell" data-execution_count="19">
+<div class="cell" data-execution_count="20">
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>acc <span class="op">=</span> np.mean(Yte <span class="op">==</span> y_hat_te)</span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>err <span class="op">=</span> np.mean(Yte <span class="op">!=</span> y_hat_te)</span>
 <span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Accuracy: </span><span class="sc">{</span>acc<span class="sc">: .2f}</span><span class="ss">, Misclassification loss: </span><span class="sc">{</span>err<span class="sc">: .2f}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -2102,11 +2105,11 @@ coef: [[ 0.0080158   0.0557117   0.16737956  0.0271416   0.0410251  -0.08127558
 <div style="direction:rtl; font-size:16px">
 <p>אבל איך אנחנו מכמתים את הביצועים של המודל על מדגם הטסט, על זה לא דיברנו. אפשר לדווח את הנראות שאותה מיקסמנו, אבל זה לא יגיד הרבה.</p>
 <p>מקובל יותר למשל לחזות את ההסתברויות p_hat על מדגם הטסט, באמצעות הנוסחה שראינו. בsklearn זה נעשה עם הפונקציה predict_proba.</p>
-<p>ואז להשוות את ההתסברויות החזויות לאיזשהו קאטאוף דיפולטי של חצי. ואם אתם מודאגים מזה אתם צודקים, ותיכף נדבר על זה. זה יביא אותנו לחיזוי סופי של Y, האם הוא 0 או 1.</p>
+<p>ואז להשוות את ההסתברויות החזויות לאיזשהו קאטאוף דיפולטי של חצי. ואם אתם מודאגים מזה אתם צודקים, ותיכף נדבר על זה. זה יביא אותנו לחיזוי סופי של Y, האם הוא 0 או 1.</p>
 <p>את החיזוי הזה אפשר להכניס לתוך קונפיוז’ן מטריקס או “מטריצת בלבול”, מטריצה 2 על 2 שתראה לנו, מתוך הפציינטים שהם לא חולים, כמה המודל חזה שהם כן חולים, וכמה לא. ומתוך הפציינטים שהם כן חולים, כמה המודל חזה שהם חולים וכמה לא.</p>
 <p>אפשר גם לחשב מדדים אינטואיטיביים של אחוז דיוק, accuracy, ואחוז שגיאה, error. מדובר באופן כללי באחוז התצפיות מהטסט סט שהמודל צדק לגביהן, והאחוז שהוא טעה. כאן על נתונים שהמודל לא ראה הוא צודק ב76 אחוז וטועה ב24 אחוז.</p>
 <p>בחלק האחרון של השיעור נרחיב על אווליואציה של מודלים לקלסיפיקציה, מסתבר שהמדדים שהסתכלנו עליהם כרגע יכולים להיות בעייתיים.</p>
-<p>לדוגמא (להדגים), נניח ש99 אחוז מהפציינטים היו בריאים ורק אחוז אחד היו חולים. מה אם אתן לכם מודל שחוזה שכל הפציינטים הם בריאים? זה מודל נהדר, הוא יקבל אקיורסי של 99 אחוז! חייב להיות אם כן מדד טוב יותר שיעיד על כך שזה מודל גרוע.</p>
+<p>לדוגמא (להדגים), נניח ש99 אחוז מהפציינטים היו בריאים ורק אחוז אחד היו חולים. מה אם אתן לכם מודל שחוזה שכל הפציינטים הם בריאים? זה מודל נהדר, הוא יקבל אקיורסי של 99 אחוז! חייב להיות אם כן מדד טוב יותר שיעיד על כך שזה לא מודל נהדר ואפילו די גרוע.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -2265,7 +2268,7 @@ coef: [[ 0.0080158   0.0557117   0.16737956  0.0271416   0.0410251  -0.08127558
 <p>הפרסיז’ן הוא הסיכוי להיות חולה בהינתן שחזיתי חולה. נקרא גם positive predictive value או PPV. באופן דומה אפשר להגדיר את הפרסיז’ן לקלאס האחר, הסיכוי להיות לא-חולה אם חזיתי לא-חולה, או הnegative predictive value. בכל מקרה נרצה שהפרסיז’ן יהיה כמה שיותר גדול.</p>
 <p>מדד אחר הוא הריקול, או sensitivity או true positive rate, TPR. זה הסיכוי שבהינתן חולה המודל אכן חוזה חולה, או שיעור החולים שהמודל אכן מחלץ. גם כאן ניתן לחשוב על הריקול של הקלאס האחר, אחוז הבריאים שהמודל מחלץ נכון. וגם כאן ברור שנרצה שהמדד הזה יהיה גדול ככל שניתן.</p>
 <p>מדד שנרצה שיהיה קטן ככל האפשר הוא הfalse positive rate, הFPR, בהינתן לא-חולה הסיכוי לחזות חולה.</p>
-<p>ומאחר שהמדדים פרסיז’ן וריקול מודדים דברים שונים והיינו רוצים ששניהם יהיו גבוהים מתסכלים לפעמים על הממוצע ההרמוני שלהם, 2 כפול המכפלה שלהם חלקי הסכום שלהם.</p>
+<p>ומאחר שהמדדים פרסיז’ן וריקול מודדים דברים שונים והיינו רוצים ששניהם יהיו גבוהים מסתכלים לפעמים על הממוצע ההרמוני שלהם, 2 כפול המכפלה שלהם חלקי הסכום שלהם.</p>
 <p>למה צריך את כל זה? בדיוק בגלל מה שאמרנו, יכול להיות לקוח של המודל שלנו, שפשוט לא מסוגל לפספס אף חולה, לקוח כזה ירצה ריקול כמה שיותר גבוה. ויכולה להיות לקוחה שאין לה בעיה לפספס חולים, אבל כשהמודל מסמן לה חולים הוא חייב להיות צודק, היא לא יכולה להעניק טיפול קשה כזה לבריאים – בשביל לקוחה כזאת נרצה אולי למקסם את הפרסיז’ן. וברור שיהיה כאן טריידאוף בין השניים במודל לא מושלם.</p>
 </div>
 <style type="text/css">
@@ -2282,13 +2285,13 @@ coef: [[ 0.0080158   0.0557117   0.16737956  0.0271416   0.0410251  -0.08127558
 </section>
 <section class="slide level2">
 
-<div class="cell" data-execution_count="20">
+<div class="cell" data-execution_count="21">
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>pd.DataFrame(</span>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  confusion_matrix(Yte, y_hat_te),</span>
 <span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>  index<span class="op">=</span>[<span class="st">'true:no'</span>, <span class="st">'true:yes'</span>], </span>
 <span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>  columns<span class="op">=</span>[<span class="st">'pred:no'</span>, <span class="st">'pred:yes'</span>]</span>
 <span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="20">
+<div class="cell-output cell-output-display" data-execution_count="21">
 <div>
 <style scoped="">
     .dataframe tbody tr th:only-of-type {
@@ -2330,7 +2333,7 @@ coef: [[ 0.0080158   0.0557117   0.16737956  0.0271416   0.0410251  -0.08127558
 </div>
 </div>
 <div class="fragment">
-<div class="cell" data-execution_count="21">
+<div class="cell" data-execution_count="22">
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> classification_report</span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(classification_report(Yte, y_hat_te))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -2356,7 +2359,7 @@ weighted avg       0.76      0.76      0.76        93
 <p>כדי לקבל את כל המדדים שדיברנו עליהם אפשר לבקש classification_report מsklearn. נדגים לראות שהבנו.</p>
 <p>למשל, הפרסיז’ן של החולים: אם חזיתי חולה או 1, מה הסיכוי שהפציינט באמת חולה: מתוך 26 חזויים כחולים, 19 אכן חולים, דיוק של 73 אחוז.</p>
 <p>או, הריקול של החולים, אם אתה חולה מה הסיכוי שהמודל יחזה נכון. מתוך 34 חולים המודל צדק רק לגבי 19, שזה 56 אחוז, לא גבוה מאוד.</p>
-<p>נשים לב אגב שהכל מבוסס על ערך הסף הזה שהשווינו אליו את ההסתברויות החזויות, הקאטאוף של חצי – יכול להיות שעם קאטאוף אחר היינו מקבלים מדדים טובים יותר?</p>
+<p>נשים לב אגב שהכל מבוסס על ערך הסף הזה שהשווינו אליו את ההסתברויות החזויות כדי לקבל את y_hat_te, הקאטאוף של חצי – יכול להיות שעם קאטאוף אחר היינו מקבלים מדדים טובים יותר?</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -2396,7 +2399,7 @@ weighted avg       0.76      0.76      0.76        93
 <p>המטרה שלי משפיעה על המדד שלי לטיב המודל:</p>
 <p>אם המטרה שלי היא פשוט לחזות נכון אני מסתכל על מדדים כמו אלה שראינו: אחוז דיוק, פרסיז’ן, ריקול.</p>
 <p>אם המטרה שלי היא הסתברויות מכוילת כמה שיותר, אני באמת אדווח אולי על הלוס שהשתמשנו בו, הנראות.</p>
-<p>אבל אם, כמו שקורה פעמים רבות, המדד שמעניין אותי זה הראקינג, רק הדירוג של התצפיות, איך כדאי להסתכל על הביצועים של המודל?</p>
+<p>אבל אם, כמו שקורה פעמים רבות, המדד שמעניין אותי זה הראנקינג, רק הדירוג של התצפיות, איך כדאי להסתכל על הביצועים של המודל?</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -2432,7 +2435,7 @@ weighted avg       0.76      0.76      0.76        93
 <div style="direction:rtl; font-size:16px">
 <p>אם מה שמעניין אותנו הוא ראנקינג, נהוג להסתכל בעקומה שנקראת receiver operating characteristic או ROC בקיצור.</p>
 <p>הרעיון הוא לא להסתפק בקאטאוף דיפולטי של חצי כפי שעשינו, כי יכול להיות שהסקור שהוצאנו איננו בדיוק הסתברות. נשנה את הקאטאוף בצעדים קבועים, ובכל צעד נמדוד את ה: טרו פוזיטיב רייט, זה בעצם הריקול, ואת הפולס פוזיטיב רייט, אחוז הדוגמאות השליליות שעוברות את הקאטאוף הנוכחי ונחזות כחיוביות.</p>
-<p>עקומת הROC תצייר את הTPR לעומת הFPR לכל קאטאוף אפשרי. מודל מושלם ימצא קאטאוף שעבורו הTPR קרוב ל1 והFPR קרוב ל0.</p>
+<p>עקומת הROC תצייר את הTPR לעומת הFPR לכל קאטאוף אפשרי. מודל מושלם ימצא קאטאוף שעבורו הFPR קרוב ל0 והTPR קרוב ל1.</p>
 <p>ושוב נדגיש שגם אם ההסתברות הנחזית מגיעה ממודל שבכלל לא אמור להוציא הסתברויות והיא לא מכוילת או אפילו היא לא הסתברות, היא איזשהו סקור, הדירוג עצמו עדיין יכול להיות מצוין. וזה היתרון הגדול של גישה כזאת. התחשבות בקאטאופים שונים והעובדה שהיא פרקטית לכל סקור.</p>
 </div>
 <style type="text/css">
@@ -2449,7 +2452,7 @@ weighted avg       0.76      0.76      0.76        93
 </section>
 <section class="slide level2">
 
-<div class="cell" data-execution_count="22">
+<div class="cell" data-execution_count="23">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> roc_curve, auc</span>
@@ -2469,7 +2472,7 @@ weighted avg       0.76      0.76      0.76        93
 <span id="cb34-15"><a href="#cb34-15" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
-<p><img data-src="c09_regression_files/figure-revealjs/cell-23-output-1.png" width="525" height="449"></p>
+<p><img data-src="c09_regression_files/figure-revealjs/cell-24-output-1.png" width="525" height="449"></p>
 </div>
 </div>
 <aside class="notes">
@@ -2477,9 +2480,9 @@ weighted avg       0.76      0.76      0.76        93
 <p>כך נראית עקומת הROC על מדגם הטסט שלנו, עבור מודל הרגרסיה הלוגיסטית שמנסה לחזות אם פציינט יחלה במחלת לב או לא.</p>
 <p>הקוד בפייתון לבצע את זה נמצא כאן למי שרוצה.</p>
 <p>אנחנו לא רואים את הספים עצמם שהקוד משנה, אבל כן נוצרת עקומה יפה של TPR מול FPR, ואנחנו רואים שעבור ספים נמוכים מתקבל TPR גבוה, ועבור ספים גבוהים מתקבל FPR נמוך. אפשר גם לראות את הטריידאוף בין שני המדדים בצורה יפה.</p>
-<p>ואם רוצים לחזור לניבוי סופי, אפשר לבחור את הקאטאוף שיביא אותנו לנקודה האופטימלית מבחינתנו. אם אין לנו העדפה מסוימת, כמו שהדגמנו קודם, הנקודה האופטימלית שומרת כל TPR כמו שיותר גבוה וFPR כמה שיותר נמוך אז זו תהיה הנקודה הכי קרובה לקצה השמאלי העליון של הגרף, נאמר זאת.</p>
+<p>ואם רוצים לחזור לניבוי סופי, אפשר לבחור את הקאטאוף שיביא אותנו לנקודה האופטימלית מבחינתנו. אם אין לנו העדפה מסוימת, כמו שהדגמנו קודם, הנקודה האופטימלית שומרת על TPR כמו שיותר גבוה וFPR כמה שיותר נמוך אז זו תהיה הנקודה הכי קרובה לקצה השמאלי העליון של הגרף, נאמר זאת.</p>
 <p>וברור שבמודל מושלם יימצא סף שמגיע עד הנקודה בקצה השמאלי עליון של הגרף.</p>
-<p>במודל כזה השטח תחת העקומה יהיה השטח של כל הריבוע, 1 כפול 1, זאת אומרת 1, וכאן כפי שמודפס השטח הוא רק 0.8, או 80 אחוז.</p>
+<p>עכשיו, היינו רוצים לתמצת את העקומה הזאת לאיזשהו מדד יחיד, שיבטא את טיב המודל שלנו. עקומה זה מרשים אבל צריך לסכם אותה איכשהו. נראה שבמודל מושלם השטח תחת העקומה יהיה השטח של כל הריבוע, 1 כפול 1, זאת אומרת 1, וכאן כפי שמודפס השטח הוא רק 0.8, או 80 אחוז.</p>
 </div>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -2508,9 +2511,9 @@ weighted avg       0.76      0.76      0.76        93
 <aside class="notes">
 <div style="direction:rtl; font-size:16px">
 <p>השטח תחת עקומת הROC , הarea under curve או AUC, הוא מדד מקובל מאוד, והוא מצוין כי הוא לא תלוי בקאטאוף ספציפי, הוא מתחשב בכולם, מעין ממוצע או אינטגרציה של טיב המודל על פני ספים שונים.</p>
-<p>מודל אקראי לחלוטין, שככל שאנחנו מעלים את הסף כך יורד הTPR ועולה הFPR באופן שווה, העקומה תהיה בעצם הקו האלכסוני בריבוע, והשטח תחתיה, הAUC יהיה חצי.</p>
+<p>מודל אקראי לחלוטין, שככל שאנחנו מעלים את הסף כך יורד הTPR ועולה הFPR באופן שווה, העקומה תהיה בעצם הקו האלכסוני בתוף הריבוע, והשטח תחתיה, הAUC יהיה חצי.</p>
 <p>מודל מושלם כאמור, יגיע לAUC של 1, כל שטח הריבוע.</p>
-<p>פרשנות יפה של AUC היא, מתוך כל זוגות התצפיות האפשריות, אחת חיובית ואחת שלילית, כמה מדורגות “נכון”. ומה זה נכון? אם הסקור הנאמד לתצפית החיובית, גדול מהסקור לתצפית השלילית.</p>
+<p>פרשנות יפה של AUC היא, מתוך כל זוגות התצפיות האפשריות כך שאחת חיובית ואחת שלילית, כמה מדורגות “נכון”. ומה זה נכון? אם הסקור הנאמד לתצפית החיובית בזוג, גדול מהסקור לתצפית השלילית. אז אחוז הזוגות שמדורגים נכון, במודל אקראי יהיה – חמישים אחוז, חצי. כמו שאמרנו שAUC למודל אקראי יהיה. ואחוז הזוגות שמדורגים נכון במודל מושלם יהיה – מאה אחוז.</p>
 <p>בצורה פורמלית אפשר לסמן זאת כך, אם יש לנו m0 תצפיות שליליות וm1 תצפיות חיוביות, אז הAUC שווה לאחוז הזוגות שעבורם p_hat לתצפית החיובית גבוה מp_hat לתצפית השלילית. ונשים לב שהמדד הזה גם לא סובל במרכאות אם יש לנו הרבה יותר תצפיות חיוביות משליליות במדגם, או להיפך, כמו שראינו עבור מדד הaccuracy. זו פרופורציה שבכל מקרה נרצה שתהיה כמה שיותר קרובה לאחת.</p>
 </div>
 <style type="text/css">
