@@ -1,74 +1,14 @@
----
-format:
-  revealjs:
-    slide-number: true
-    chalkboard: true
-    fig-width: 6
-    fig-asp: 0.618
-    template-partials:
-      - "../title-slide.html"
-css: "../slides_quarto.css"
-standalone: false
-include-in-header: "../header_quarto.html"
-logo: "../Intro2DS_logo_white.jpg"
-pagetitle: "Linear and Logistic Regression"
-callout-appearance: simple
-smaller: true
-execute:
-  eval: true
-  echo: true
-code-line-numbers: false
-code-block-border-left: true
-highlight-style: github
-footer: "[Intro to Data Science](https://intro2ds2023.github.io/mooc/){target='_blank'}"
----
+=== 1. מבוא למודלים לחיזוי ===
 
-## {.logo-slide}
-
-## Introduction to Data Science {.title-slide}
-
-### Linear and Logistic Regression - Class 9
-
-### Giora Simchoni
-
-#### `gsimchoni@gmail.com` and add `#intro2ds` in subject
-
-### Stat. and OR Department, TAU
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 אנחנו מתחילים ביחידה היום בעצם את החלק השני של הקורס. אחרי שעסקנו בהבנת נתונים, אקספלורטורי דאטא אנליסיס ובדיקת השערות, אנחנו רוצים להשתמש בנתונים האלה, לבניית מודלים לחיזוי. נתחיל היום במודלים ליניאריים שיש מאחוריהם לא מעט הנחות, נמשיך למודלים של מאשין לרנינג מודרניים יותר שמאפשרים גם מידול של יחסים לא ליניאריים בכלל, ונגיע למודלים של רשתות נוירונים או למידה עמוקה, מהשנים האחרונות ממש.
 
 חשוב לי להדגיש שוב שאנחנו מסתכלים על כל שיטה ושיטה בהיי לבל, על מנת לתת מבט רחב על התחום. ברור שמי שרוצה ממש לעסוק בתחום, אני ממליץ לו לקרוא עוד הרבה יותר ולקחת עוד קורסים בנושא.
 :::
-:::
 
----
-
-## Intro. to Predictive Modeling {.title-slide}
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 נתחיל במבט על על מה אנחנו מנסים לעשות כאן - מה זה מודלים לחיזוי או predictive modeling?
-:::
-:::
 
----
-
-### Predictive modeling and Supervised learning
-
-- Basic idea: each observation is made of a vector $x \in \mathcal{X}$ (for example $x \in \mathbb{R}^p$) and a scalar $y$
-
-- Our goal is to build a model of the relationship between $x$ and $y$:
-$$y \approx f(x)$$
-
-::: {.fragment}
-- $x$: predictors, regressors, features, exogenous variables
-- $y$: response, dependent variable, endogenous variable
 :::
 
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 הרעיון הבסיסי: יש לנו תצפית לחיזוי שנסמן אותה בX, וX הוא וקטור ממימד p, כלומר יש לנו p משתנים על התצפית שלנו. וY הוא סקלאר.
 
 אנחנו מניחים שY הוא פונקציה של X והמטרה שלנו היא לבנות מודל שיעשה קירוב ליחס הזה.
@@ -76,30 +16,9 @@ $$y \approx f(x)$$
 נזכיר שמות שונות לX כדי שנראה שאנחנו מדברים על אותו דבר: X יכול להיות משתנים, מנבאים, פיצ'רים, משתנים אקסוגניים.
 
 באופן דומה Y נקרא לפעמים משתנה התגובה, המשתנה התלוי, המשתנה האנדוגני -- בקורס שלנו, זה בסדר שיהיו שמות שונים.
-:::
-:::
 
----
-
-### Predictive modeling and Supervised learning
-
-Two distinct goals for this:
-
-1. Prediction: in the future we will get $x$ and have to *predict* $\hat{y} = f(x)$
-
-2. Inference/understanding/model selection: Understanding the nature of the dependence between $x$ and $y$:
-
-    - Which variables in $x$ are important for explaining or predicting $y$?
-    - What type of dependence does $y$ have on $x$: linear? more complex?
-
-::: {.fragment}
-- Regression: $y \in \mathbb{R}$ numeric
-
-- Classification: $y \in \mathcal{G}$ an unordered set
 :::
 
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 אם נצליח לבנות מודל איכותי, זה ימלא שתי מטרות:
 
 מטרת החיזוי, אם תגיע תצפית חדשה X נוכל לחזות לה את ערך הY המתאים לה אף על פי שהמודל לא ראה אותה, נקרא לו y_hat.
@@ -109,28 +28,9 @@ Two distinct goals for this:
 אנחנו נדבר על שני סוגים של מודלים לחיזוי על פי הY: כשY הוא כמותי, ממשי, כמו גובה של תינוק שעומד להיוולד, זה ייקרא רגרסיה.
 
 כשY הוא קטגוריאלי, הוא קטגוריה מתוך איזושהי קבוצה G, ואנחנו רוצים לסווג X חדש לאיזו קטגוריה הוא שייך, נקרא לזה קלסיפיקציה.
-:::
-:::
 
----
-
-### Wikiart paintings: a classification problem
-
-$x \in \mathbb{R}^{K \times K \times 3}$: the image itself
-
-$y \in \{\text{impressionist}, \text{realist}\}$
-
-::: {.incremental}
-- More involved example: [Cifar-10](https://www.cs.toronto.edu/~kriz/cifar.html) with 10 classes
-
-- A good model: $f(x)$ such that $f(x) \approx 1$ for impressionist and $f(x)\approx 0$ for realist
-
-- Possible $f$: threshold the average red value for all pixels
-- Does not do a very good job in separating impressionist from realist paintings...
 :::
 
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 בדוגמא של הציורים מאתר wikiart, הבעיה שלנו תהיה בעית קלסיפיקציה. X יהיה הפיקסלים של התמונה של הציור, וראינו שאם התמונה היא בגודל K על K
  יש K כפול K כפול 3 שכבות פיקסלים או משתנים. וY יהיה אחת משתי קטגוריות, ציור ריאליסטי או אימפרסיוניסטי.
 
@@ -141,22 +41,9 @@ $y \in \{\text{impressionist}, \text{realist}\}$
  למשל מודל שבודק מה הרמה הממוצעת של פיקסל אדום בתמונה ומסתכל על איזשהו סף, עד ערך מסוים יחזה 0 ומעליו יחזה 1.
 
  סביר להניח שזה מודל לא טוב, הוא לא יפריד היטב בין ציורים אימפרסיוניסטים לציורים ריאליסטיים.
+
 :::
-:::
 
----
-
-### Netflix movies: a regression problem (sort of)
-
-- Recall we had $x \in \mathbb{R}^{99}$ movies, plus one special (Miss Congeniality) that we will call $y$
-
-    - All $x$ values are not really in $\mathbb{R}$ but in $\{0 = \text{None},1,2,3,4,5\}$
-    - $y$ is in $\{1,2,3,4,5\}$ (no missing)
-
-- A good model $f(x)$ sees the scores a user gave to the 99 movies (including which are missing) and gives a value that is close to $y$ for the same user
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 בעית רגרסיה אפשר לראות בדוגמא של נטפליקס: X הוא וקטור ממימד 99 סרטים, וY הסקלר הוא הציון של הסרט איזו מין שוטרת.
 
 הערכים של X במקרה הזה לא באמת נמצאים על כל הישר הממשי, הם דירוגים במין סולם אורדינלי כזה של 1 עד 5 וראינו שיש בהם גם ערכים חסרים.
@@ -164,31 +51,9 @@ $y \in \{\text{impressionist}, \text{realist}\}$
 גם Y הנתון לנו לא מקבל כל ערך, רק מספרים בין 1 ל5.
 
 בכל זאת מודל טוב יקבל את הציונים הקיימים של משתמש קיים, כולל הסרטים שהוא לא ראה, וייתן חיזוי לדירוג של איזו מין שוטרת הכי קירוב לדירוג Y של אותו משתמש.
-:::
-:::
 
----
-
-### Some more examples from real life
-
-::: {.fragment}
-#### Genome-Wide Association Studies (GWAS): find genetic causes of disease
-
-- $y \in \{\text{sick}, \text{healthy}\}$ for specific disease
-- $x \in \{0,1,2\}^{1M}$ ($p=10^6$) number of copies of "risk" variant in each location in the genome
-- The goal is to understand which coordinates in $x$ are related to $y$, and predict risk of $y$ for new people
 :::
 
-::: {.fragment}
-#### Email spam detection:
-
-- $y \in \{\text{OK}, \text{spam}\}$ for each email
-- $x$ can include sender identity, words and terms ("prize!", "sex", ...)
-- The model should identify and remove spam
-:::
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 בואו נחשוב על עוד דוגמאות מעניינות:
 
 Genome Wide Association Studies
@@ -199,121 +64,23 @@ Y כאן הוא האם האדם בריא או חולה, X הוא כל הגנום
 דוגמא קלאסית נוספת היא חיזוי האם מייל הוא ספאם או לא. X יכול להיות הרבה סוגים של משתנים: מי השולח, מי הנמען, מתי נשלח המייל וכמובן תוכן המייל, המילים השונות שמרכיבות אותו. שימו לב שוקטור שמתאר מילים הוא וקטור ממימד עצום, של כל אוצר המילים בשפה אחת או יותר, בעצם. בכל אופן המטרה היא לחזות האם מייל הוא ספאם וישר להעביר אותו לתיקיית הספאם.
 
 :::
-:::
 
----
-
-### Some more examples from real life
-
-::: {.fragment}
-#### Online advertising:
-
-- Surfer arrives on website, need to decide if and what ad to show them
-- $y$ can be the amount she will spend if shown advertising for shirt/shoes/car/home 
-- $x$: surfing history, location, time of day/week/year, information from other databases, ...
-:::
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 דוגמא אחרונה היא מעולם הפרסום: גולשת מגיעה לאתר וצריך להחליט האם להראות לה פרסומת, באנר, ואיזו פרסומת להראות לה.
 Y יהיה השורה התחתונה, כמה כסף היא תבזבז על המוצר בפרסומת.
 X כאן יכול להיות מגוון ככל שיד הדמיון טובה עליכם: היסטורית הגלישה של הגולשת, המיקום שלה, מתי היא גולשת, ואפילו דאטא מקוקיז וממסדי נתונים חיצוניים.
+
 :::
-:::
 
----
-
-### Some simple models for Netflix
-
-The same score as a similar movie, say Sweet Home Alabama:
-
-```{python}
-#| echo: false
-
-import pandas as pd
-import numpy as np
-import matplotlib.pyplot as plt
-import seaborn as sns
-from scipy.stats import pearsonr
-import warnings
-
-ratings = pd.read_csv('../datasets/netflix/train_ratings_all.csv', header = None)
-miss_cong = pd.read_csv('../datasets/netflix/train_y_rating.csv', header = None, names = ['score'])
-movies = pd.read_csv('../datasets/netflix/movie_titles.csv', header = None, names = ['year', 'title'])
-
-def scatter_cong(mov1):
-    mov1_id = movies.index[movies['title'] == mov1][0]
-    mov1_scores = ratings.values[:, mov1_id]
-    mov2_scores = miss_cong.values[:, 0]
-    nas = np.isnan(mov1_scores)
-    agg_data = pd.DataFrame({'mov1': mov1_scores[~nas], 'mov2': mov2_scores[~nas]}).groupby(['mov1', 'mov2']).size().reset_index()
-    agg_data.columns = [mov1, 'Miss Congeniality', 'count']
-    cc = agg_data['count']
-    sns.lmplot(x=mov1, y='Miss Congeniality', scatter_kws={'s' : cc}, data = agg_data, legend = False, fit_reg=False, ci=None, height=4.5)
-    plt.title(f'Corr {np.corrcoef(ratings.values[:, mov1_id],miss_cong.values[:,0])[0, 1] : .2f}')
-```
-
-
-```{python}
-scatter_cong('Sweet Home Alabama')
-```
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 נחזור לדוגמא של נטפליקס ונחשוב על מודל פשוט: נחזה את הדירוג של צופה באיזו מין שוטרת באמצעות סרט שדומה לו, למשל ראינו שהציונים של סוויט הום אלבמה מאוד דומים לציונים של איזו מין שוטרת, שני הסרטים הם קומדיות רומנטיות. כאן אנחנו רואים את גרף הפיזור שממחיש את הקשר החזק יחסית בין שני הסרטים, מי שמדרג גבוה את סוויט הום אלבמה יש לו נטייה לדרג גבוה את איזו מין שוטרת, והמתאם ביניהם חיובי ורחוק יחסית מאפס.
+
 :::
-:::
 
----
-
-### Some simple models for Netflix
-
-The first PC score (those who love everything, love Miss Congeniality?):
-
-
-```{python}
-#| code-fold: true
-
-from sklearn.decomposition import PCA
-
-X = ratings.values[:,:14]
-X_centered = X - X.mean(axis = 0)
-pca = PCA()
-pca.fit(X_centered)
-W = pca.components_.T
-T = X_centered @ W
-
-add_data_1=pd.DataFrame({'PC1': T[:,0], 'Miss Congeniality':miss_cong.values[:,0]})
-sns.lmplot(x='PC1', y='Miss Congeniality', data=add_data_1, legend = False, fit_reg=False, ci=None)
-plt.title(f'Corr {np.corrcoef(T[:,0],miss_cong.values[:,0])[0,1] :.2f}')
-plt.show()
-```
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 מודל פשוט אחר שכבר רמזנו עליו כשדיברנו על PCA: אולי הscore של צופה בPC הראשון, הPC שמסביר הכי הרבה שונות, הוא מנבא טוב לציון של הסרט איזו מין שוטרת.
 
 ניזכר שבPC הזה הציון של כל צופה גבוה יותר ככל שהוא פחות מסכים עם הדירוג הממוצע של הסרטים. והדירוגים בממוצע הם די גבוהים, לכן נצפה שככל שהציון של צופה גבוה בPC הראשון ככה הוא "שונא" יותר סרטים וגם ייתן ציון נמוך לאיזו מין שוטרת. וזה אכן מה שמתקבל, יחס יורד ומתאם שלילי לא מבוטל.
-:::
-:::
 
----
-
-### Predictive modeling paradigm
-
-- We typically assume that we have a *training* dataset of size $n$: $Tr = \{(x_1,y_1),\dots,(x_n,y_n)\} = (X_{n\times p},Y_{n\times 1})$
-
-- IID assumption: each pair $(x_i, y_i)$ is drawn indepednently from some distribution $P_{x,y}$
-
-::: {.incremental}
-- A modeling approach takes $Tr$ as input and outputs a *prediction model* $\hat{f}(x)$ based on the training data
-    - In prediction: we get a new value $x_0$ and predict $\hat{y}_0 = \hat{f}(x_0)$. 
-
-- How good is our prediction? We typically define a loss function $L(y,\hat{y})$ and the quality of the model is $\mathbb{E}_{x_0,y_0}(L(y_0, \hat{y}_0))$
 :::
 
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 בכל בעיה של מודל לחיזוי יהיה לנו מדגם למידה או training, שנסמן בTR, המדגם יהיה בגודל N, כלומר N זוגות של X ו-Y. אפשר לכתוב אותם גם כמטריצה X עם N שורות וP עמודות, וY כוקטור באורך N.
 
 ואנחנו נניח את הנחת הIID בקורס שלנו, זוגות התצפיות הם בלתי תלויים, הם נדגמים בצורה בלתי תלויה מאיזושהי התפלגות משותפת PXY. אם התצפיות לא בלתי תלויות אגב זה מצב מעניין מאוד שמביא לפיתוחים מרתקים אבל לא נעסוק בזה בקורס שלנו.
@@ -321,32 +88,9 @@ plt.show()
 בסופו של דבר הפלט שלנו יהיה מודל לחיזוי, f_hat שמבוסס על מדגם הלמידה, והמטרה האולטימטיבית היא, כשתגיע תצפית חדשה X_0, נחזה לזה y_hat_0 באמצעות המודל שלמדנו f_hat.
 
 איך נמדוד את הביצועים של המודל שלנו? במצב אידאלי נגדיר איזושהי פונקצית הפסד L, שמקבלת ממדגם הלמידה תצפית Y אמיתית ותצפית חזויה y_hat. תוחלת הכמות הזאת, תחת תצפיות שהמודל לא ראה, היא היא הכמות שהיינו רוצים לעשות לה מינימיזציה.
-:::
-:::
 
----
-
-### The loss function $L$
-
-::: {.incremental}
-- It measures the quality of the prediction: we can think of $L(y,\hat{y})$ as a measure of how much we lose when we predict $\hat{y}$ but the truth is $y$.
-
-- Simple example for classification: *misclassification error loss*
-$$L(y,\hat{y}) = \left\{\begin{array}{ll} 0 & \mbox{if } y=\hat{y}\\ 
-1 & \mbox{if } y\neq\hat{y}\end{array} \right.$$
-
-- More complex approach: penalize different types of error differently, e.g.: 
-$$L(y,\hat{y}) = \left\{\begin{array}{ll} 0 & \mbox{if } y=\hat{y}\\ 
-1 & \mbox{if } y=0,\hat{y}=1\\
-10 & \mbox{if } y=1,\hat{y}=0 \end{array} \right.$$
-
-
-- Simple example for regression: *squared error loss*
-$$L(y,\hat{y}) = (y-\hat{y})^2.$$
 :::
 
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 מה יכולה להיות פונקצית ההפסד L?
 
 זה תלוי בנתונים. היינו רוצים שהיא תבטא כמה אנחנו "מפסידים" כשהתצפית האמיתית היא Y ואנחנו חוזים y_hat.
@@ -356,29 +100,9 @@ $$L(y,\hat{y}) = (y-\hat{y})^2.$$
 אפשר לחשוב גם על משקול הטעויות שלנו, הרי לא כל טעות "עולה לנו" באותה מידה. אז על טעות בכיוון אחד ההפסד יוגדר כ1, וטעות בכיוון אחר ההפסד יהיה פי 10. נסו לחשוב על דוגמאות בהן הטעות היא לא סימטרית. למשל באבחון מחלה בה הטיפול אינו בעל תופעות לוואי חמורות, ניתן להגיד שאם נאבחן אדם בריא כחולה אולי לא נסב הרבה נזק. אבל אם נאבחן אדם חולה כבריא נפספס אותו והוא עלול לא לקבל טיפול ותחול הידרדרות במצבו עד כדי סכנה ממשית.
 
 בבעיות רגרסיה, מדד מקובל הוא הטעות הריבועית כפונקצית הפסד. ואפשר גם לדבר על שגיאה בערך מוחלט ועוד המון פונקציות הפסד אחרות שמדגישות מה שחשוב לבעיה הספציפית שלפנינו.
-:::
-:::
-
----
-
-### Evaluating predictive models
-
-::: {.incremental}
-- We are interested in $\mathbb{E}_{x_0,y_0}(L(y_0, \hat{y}_0))$, but we don't know it
-
-- Solution: in addition to the training data $Tr$, have a *test* data $Te= \{(x_{n+1},y_{n+1}),...,(x_{n+m},y_{n+m})\}$ of size $m$ and evaluate the model on it: $\;\;\hat{Err} = \frac{1}{m} \sum_{i=n+1}^{n+m} L(y_i, \hat{f}(x_i)).$
-
-- For squared error loss, it is typical to report the *Root* mean squared error: 
-$$RMSE = \sqrt{\frac{1}{m} \sum_{i=n+1}^{n+m} (y_i-\hat{f}(x_i))^2}$$
-
-- Since we typically only have one dataset (as in Netflix, wikiart examples), we split it *randomly* in two parts:
-    - Training set (typically $80\%$ of the data)
-    - Test set (typically $20\%$ of the data)
 
 :::
 
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 מכל מקום, היינו רוצים כאמור את התוחלת של ההפסד תחת התפלגות תצפיות שהמודל לא ראה, אבל אנחנו לא מסוגלים באמת לחשב את זה בלי הערכה טובה של ההתפלגות של הדאטה.
 
 לכן מה שנהוג לעשות זה לחשב את ההפסד האמפירי, על סט נתונים נפרד, בגודל M נאמר, זהו סט המבחן או הטסטינג סט, ונסמן אותו כTE. ואז, הטעות שנרצה למזער היא ממוצע ההפסד על פני הטסט סט הזה, שהמודל לא ראה. אנחנו מקרבים תוחלת על-ידי ממוצע.
@@ -386,44 +110,9 @@ $$RMSE = \sqrt{\frac{1}{m} \sum_{i=n+1}^{n+m} (y_i-\hat{f}(x_i))^2}$$
 למשל ברגרסיה כך יראה הממוצע של פונקצית ההפסד הריבועי, זה נקרא mean squared error או MSE, ונהוג לקחת שורש ולקבל את הroot mean squared error או הRMSE.
 
 בדרך כלל נקבל סט אחד של נתונים, בשאיפה עם מספיק תצפיות, כדי לחלק אותם בצורה אקראית, למדגם למידה (למשל 80 אחוז), ומדגם טסט (20 אחוז).
+
 :::
-:::
 
----
-
-### Data Splitting
-
-Let's divide our Netflix data 80-20:
-
-```{python}
-#| echo: false
-
-np.random.seed(0)
-```
-
-```{python}
-#| output-location: fragment
-#| code-line-numbers: "|1-2|3-6|7-10|"
-
-X = ratings.values
-Y = miss_cong.values[:, 0]
-n = X.shape[0]
-tr_size = int(0.8 * n)
-te_size = n - tr_size
-tr_ind = np.random.choice(range(n), tr_size, replace=False)
-Xtr = X[tr_ind,]
-Xte = np.delete(X, tr_ind, axis=0)
-Ytr = Y[tr_ind]
-Yte = np.delete(Y, tr_ind)
-
-print(f'No. of train rows: {Xtr.shape[0]}, no. train of cols: {Xtr.shape[1]}')
-print(f'No. of test rows: {Xte.shape[0]}, no. test of cols: {Xte.shape[1]}')
-print(f'no. of obs in train y: {Ytr.shape[0]}')
-print(f'no. of obs in test y: {Yte.shape[0]}')
-```
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 נעשה את החלוקה הזאת בדאטא של נטפליקס בצורה ידנית, מאוחר יותר נראה שיש לנו פונקציה שתבצע לנו את העבודה בצורה אוטומטית.
 
 X הוא הדירוגים על 99 סרטים בדאטאפריים של הרייטינגז, Y הוא הציונים של miss congeniality.
@@ -435,39 +124,13 @@ X הוא הדירוגים על 99 סרטים בדאטאפריים של הריי�
 בסופו של דבר בהתאם לציפיות יש לנו 8000 תצפיות על 99 סרטים במדגם הלמידה, ו-2000 תצפיות על 99 סרטים במדגם הטסט.
 
 עכשיו אפשר להתחיל לדבר על מודלים לחיזוי ספציפיים לנתונים של נטפליקס.
-:::
-:::
 
----
+=== 2. רגרסיה ליניארית ===
 
-## Linear Regression {.title-slide}
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 נתחיל ברגרסיה ליניארית. רגרסיה ליניארית היא נושא שנכתבו עליו אינספור ספרים עבי כרס החל מאמצע המאה העשרים, ובחוגים מסוימים מקדישים למודל היחיד הזה סמסטר שלם, כמו למשל אקונומטריקה בחוג לכלכלה. כאן ננסה לתת מבט-על על המודל כמו על מודלים אחרים, ונפנה את מי שמעוניין לקורסים מתקדמים יותר.
-:::
-:::
 
----
-
-### Linear Regression
-
-::: {.incremental}
-- Assume now $x \in \mathbb{R}^p, y\in \mathbb{R}$, and we want to build a model of the form:
-$$\hat{f}(x) = \hat{\beta}_0 + \hat{\beta}_1 x_1 + \ldots + \hat{\beta}_p x_p.$$
-
-- We have $Tr$, how can we estimate the coefficients?
-
-- Find coefficients that ''fit" $Tr$ well, that is $\hat{f}(x_i) \approx y_i,\;i=1,\ldots,n.$
-
-- Possible approach: Minmize *residual sum of squares* (RSS):
-$$RSS(\beta_0, \beta_1, \dots, \beta_p) = \sum_{i=1}^n (y_i - (\hat{\beta}_0 + \hat{\beta}_1 x_{i1} + \ldots + \hat{\beta}_p x_{ip}))^2 = \|Y - X_{n \times (p+1)} \beta\|^2.$$
-
-- This is the *ordinary least squares (OLS) linear regression* problem
 :::
 
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 המודל f_hat שקושר בין וקטור תצפיות X לסקלאר הוא מודל ליניארי: הכמות הנחזית תהיה צירוף ליניארי של המשתנים בX כשהמשקולות מסומנות בבטא, ויש מעליהן סימן האט כי זאת המשימה שלנו לשערך את משקולות הרגרסיה.
 
 איך נמצא את מקדמי הרגרסיה ממדגם הלמידה?
@@ -479,50 +142,9 @@ $$RSS(\beta_0, \beta_1, \dots, \beta_p) = \sum_{i=1}^n (y_i - (\hat{\beta}_0 + \
 נשים לב שנוספה עמודה למטריצת הדאטא X כאן, ויש לה כבר p + 1 עמודות, וזאת על מנת לאפשר את החותך בטא-אפס שיש לנו במודל. העמודה שתתווסף לX תהיה בעצם וקטור שכולו אחד בצורה הזאת (להדגים).
 
 המודל הזה הוא מודל הרגרסיה הליניארית הקלאסית הרגיל, OLS או ordinary least squares, כי אנחנו רוצים להביא למינימום את השגיאות הריבועיות.
-:::
-:::
 
----
-
-### Simple Demo: $p=1$ on Netflix Data
-
-Let's go back to $y$ = Miss Congeniality vs. $x_1$ = Sweet Home Alabama:
-
-The `statsmodels` approach:
-
-```{python}
-#| code-line-numbers: "|1-2|4|6|7|8|"
-#| output-location: fragment
-
-sweet_home_idx = 9
-X_sweet_tr = Xtr[:, [sweet_home_idx]]
-
-import statsmodels.api as sm
-
-X_sweet_tr1 = sm.add_constant(X_sweet_tr)
-model = sm.OLS(Ytr, X_sweet_tr1)
-model = model.fit()
-print(f'y = {model.params[0]:.2f} + {model.params[1]:.2f}*x1')
-```
-
-::: {.fragment}
-
-The `SKlearn` approach:
-
-```{python}
-#| code-line-numbers: "|1|3|4|"
-#| output-location: fragment
-
-from sklearn.linear_model import LinearRegression
-
-model = LinearRegression()
-model.fit(X_sweet_tr, Ytr)
-print(f'y = {model.intercept_:.2f} + {model.coef_[0]:.2f}*x1')
-```
 :::
 
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 נראה איך מתאימים את מודל הרגרסיה הליניארית דווקא בפייתון קודם, כדי לראות את השורה התחתונה. אחר כך נחזור למתמטיקה של הפרוצדורה.
 
 כאן נתחיל עם משתנה יחיד בX וחותך. ניקח סרט אחד והוא יהיה sweet home alabama.
@@ -548,56 +170,17 @@ print(f'y = {model.intercept_:.2f} + {model.coef_[0]:.2f}*x1')
 כאן אני מייבא את הקלאס לינאר רגרשן, מאתחל אותו לתוך אוביקט ששוב נקרא model. רק כשאני מבקש על model את המתודה פיט, לתוכה אני מכניס את X וY מתבצעת הרגרסיה הליניארית. נשים לב שכאן ברירת המחדל היא להוסיף חותך למודל והX שמכניסים למתודה פיט לא כולל את העמודה של אחדות, sklearn יעשה את זה בשבילכם.
 
 כאן לחותך יש שדה משלו, אינטרספט, ושאר הבטאות יופיעו בשדה coef מהמילה coefficients. נקבל כמובן את אותו מודל.
+
 :::
-:::
 
----
-
-The model is a simple straight line:
-
-```{python}
-#| code-line-numbers: "|1-2|4-5|"
-#| output-location: fragment
-
-pred_x = np.arange(1, 6).reshape((5, 1))
-y_hat = model.predict(pred_x)
-
-scatter_cong('Sweet Home Alabama')
-plt.plot(pred_x, y_hat, color = 'r')
-plt.show()
-```
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 למקרה שזה לא היה ברור, המודל שקיבלנו הוא משוות קו ישר פשוט. בואו נראה את זה:
 
 אני בונה X מלאכותי שיש בו פשוט את הדירוגים 1 עד 5. ואני מבקש מהמודל לחזות את הדירוג של Y בהתאם לדירוגים האלה של 1 עד 5.
 
 עכשיו אני מצייר שוב את הסקאטרפלוט שלנו של דירוגי מיס קונג'יניאליטי מול סוויט הום אלבמה, ומוסיף עליהם את הקו הישר שחוזה המודל. הקו נראה די מתאים לנתונים גם אם הוא פשטני.
+
 :::
-:::
 
----
-
-### Evaluating on the test data
-
-```{python}
-#| code-line-numbers: "|2-3|5|6|"
-#| output-location: fragment
-
-# this is the sklearn approach, no need to add constant
-X_sweet_te = Xte[:, [sweet_home_idx]]
-y_hat_te = model.predict(X_sweet_te)
-
-test_RMSE_null = np.sqrt(np.mean((Yte-np.mean(Ytr))**2))
-test_RMSE_1movie = np.sqrt(np.mean((Yte-y_hat_te)**2))
-
-print(f'Test RMSE predicting the mean: {test_RMSE_null: .2f}')
-print(f'Test RMSE with Sweet Home Alabama: {test_RMSE_1movie: .2f}')
-```
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 אז המודל מובן. קו ישר. אמרנו שכדי להעריך עד כמה המודל טוב, צריך לראות את הביצועים שלו על נתונים שהמודל לא ראה, הטסט סט, ומקובל לעשות את זה עם מדד הRMSE. שורש השגיאה הריבועית הממוצעת.
 
 כאן אני מחלץ את סוויט הום אלבמה גם מהטסט סט, והוואי-הט שלי מתקבל באמצעות קריאה לmodel.predict.
@@ -607,94 +190,23 @@ print(f'Test RMSE with Sweet Home Alabama: {test_RMSE_1movie: .2f}')
 RMSE נוסף שאני מחשב הוא הRMSE של המודל שלנו עם סרט אחד בלבד, נשים לב שאני מממש כאן את הנוסחה בדיוק כפי שהיא כתובה, ברור שלsklearn יש פונקציות גם בשביל זה.
 
 והתוצאה, במודל הכי פשטני שהוא בעצם קו ישר של הממוצע, נקבל RMSE של כמעט 1, ועם סוויט הום אלבמה כבר נקבל הפחתה בכעשרה אחוזים לקצת פחות מ0.9.
+
 :::
-:::
 
----
-
-### Simple Demo: $p = 14$ on Netflix Data
-
-```{python}
-#| output-location: fragment
-
-Xtr_df = pd.DataFrame(Xtr[:, :14], columns=movies['title'][:14])
-Xtr_df1 = sm.add_constant(Xtr_df)
-
-model = sm.OLS(Ytr, Xtr_df1)
-model = model.fit()
-print(model.summary())
-```
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 בואו נתקדם להשתמש בכל 14 הסרטים שלגביהם אין לנו תצפיות חסרות. כלומר p יהיה 14. כאן אני עוטף אותם כדאטאפריים של פנדאז בשביל פלט נוח יותר. ואז חוזר על הצעדים שלי, מוסיף חותך, קורא לOLS, ומבקש fit לריצת הרגרסיה.
 
 עכשיו אני מבקש model.summary כדי לקבל פלט מקצועי של רגרסיה ליניארית. ברור שאין בסקופ של הקורס שלנו פנאי לעבור על כל מדד ומדד שמודפס כאן. כרגע אני רק רוצה שתשימו לב לעמודה של coef, אנחנו מקבלים על החותך ועל כל סרט את המקדם בטא שלו. המודל הזה כבר נותן ציון בסיס נמוך של 0.4 למיס קונג'יניאליטי, ואז מעניין לראות את המקדמים של הסרטים השונים. אפשר לראות שסרטים כמו אישה יפה, סוויט הום אלבמה ומה נשים רוצות מקבלים מקדמים חיוביים ודי גדולים, פורסט גאמפ למשל מקבל מקדם שלילי.
-:::
-:::
 
----
-
-
-```{python}
-#| output-location: fragment
-
-# this is the statsmodels approach, need to add constant
-Xte1 = sm.add_constant(Xte[:, :14])
-y_hat_te = model.predict(Xte1)
-
-test_RMSE_14movies = np.sqrt(np.mean((Yte - y_hat_te)**2))
-
-print(f'Test RMSE with the mean: {test_RMSE_null: .2f}')
-print(f'Test RMSE with Sweet Home Alabama: {test_RMSE_1movie: .2f}')
-print(f'Test RMSE with 14 movies: {test_RMSE_14movies: .2f}')
-```
-
-:::{.fragment}
-What is the model now?
 :::
 
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 ושוב, נרצה לבדוק את הRMSE של המודל על מדגם הטסט שהוא לא ראה.  אנחנו מחשבים אותו בדיוק כמו קודם, ומקבלים עוד הפחתה משמעותית, אנחנו כבר ב0.81.
 
 ועוד נקודה חשובה.
 
 כשהמודל היה עם סרט אחד היה ברור שהמודל הוא בעצם קו ישר. איך נראה המודל שלנו עכשיו? אם תכלילו לשני משתנים המודל יהיה בעצם מישור (להדגים), ויותר משני משתנים נקרא לזה מישור פי-מימדי. 
+
 :::
-:::
 
----
-
-### Even more adventurous: use all 99 movies
-
-What to do about missing? Let's keep as 0 for now (did not rate = hate...)
-
-**Dealing with missing values is an important topic, that we won't cover here**
-
-```{python}
-#| code-line-numbers: "|1,6|"
-#| output-location: fragment
-
-Xtr[np.isnan(Xtr)] = 0
-Xtr1 = sm.add_constant(Xtr)
-model = sm.OLS(Ytr, Xtr1)
-model = model.fit()
-
-Xte[np.isnan(Xte)]=0
-Xte1 = sm.add_constant(Xte)
-y_hat_te = model.predict(Xte1)
-
-test_RMSE_99movies = np.sqrt(np.mean((Yte - y_hat_te)**2))
-
-print(f'Test RMSE with the mean: {test_RMSE_null: .2f}')
-print(f'Test RMSE with Sweet Home Alabama: {test_RMSE_1movie: .2f}')
-print(f'Test RMSE with 14 movies: {test_RMSE_14movies: .2f}')
-print(f'Test RMSE with 99 movies: {test_RMSE_99movies: .2f}')
-```
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 אבל יש לנו 99 סרטים. בחלקם יש פשוט ערכים חסרים.
 
 בואו נציב לצורך התרגיל במקום ערכים חסרים אפס. כאילו מי שלא דרג סרט מסוים ממש לא אהב אותו. ברור שזה לא הדבר הכי חכם שניתן לעשות כאן ועל טיפול בערכים חסרים גם כן ניתן לבלות סמסטר שלם. ובכל זאת, אולי זה יועיל לנו כפי שמתבטא מהtest RMSE.
@@ -702,112 +214,35 @@ print(f'Test RMSE with 99 movies: {test_RMSE_99movies: .2f}')
 ומסתבר שכן, בדוגמא הזאת, אם אנחנו משתמשים בכל 99 הסרטים בהצבת אפס במקום ערכים חסרים הRMSE כבר יורד מתחת ל0.8.
 
 כעת כשראיתם כבר את השורה התחתונה נדבר על איך בעצם מוצאים את המקדמים של הרגרסיה ליניארית, את הבטאות.
-:::
-:::
 
----
+=== 3. רגרסיה ליניארית - התאמת המודל ===
 
-## Linear Regression - Fitting the Model {.title-slide}
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 אז איך מתאימים מודל רגרסיה ליניארית. נראה את זה קודם מההיבט האלגברי, טכני. ניתן גם פירוש גיאומטרי. לבסוף נדבר על רגרסיה ליניארית מההיבט הסטטיסטי.
-:::
-:::
 
----
-
-### Least squares regression: fitting the model
-
-- Let's start from the simple case $p=1$: one feature (Sweet Home Alabama) + constant/intercept
-
-- Finding the coefficients: 
-$$\min_{\beta_0,\beta_1} \sum_{i=1}^n (y_i - (\beta_0+\beta_1 x_i))^2$$
-
-::: {.fragment}
-- Solution (we won't prove here): 
-$$\hat{\beta}_1 = \frac{\sum_i (x_i - \bar{x})(y_i - \bar{y})}{\sum_i (x_i - \bar{x})^2} = \frac{\widehat{Cov(X,Y)}}{\widehat{Var(X)}},\;\;\;\;\hat{\beta}_0 = \bar{y} - \hat{\beta}_1 \bar{x}$$
 :::
 
-::: {.fragment}
-Does $\hat{\beta}_1$ look familiar?
-:::
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 נתחיל במקרה הפשוט של משתנה אחד בX, למשל הסרט סוויט הום אלבמה, ועוד חותך. כך נראה הקריטריון למינימיזציה, הRSS, ואנחנו רוצים לעשות לו מינימום לפי המקדמים בטא-אפס, ובטא-אחת.
 
 זאת בעיה יחסית פשוטה מחשבון דיפרנציאלי ואינטגרלי, אתם יכולים לגזור את הכמות הזאת לפי בטא אחת, להשוות לאפס, ולמצוא את הפתרון שלפנינו. לאחר מכן תגזרו לפי בטא-אפס, תשוו לאפס ותמצאו את הביטוי שיש לנו כאן: ממוצע הY פחות ממוצע הX כפול האומד לבטא-אחת. לבסוף כדי לוודא שזאת אכן נקודת מינימום תצטרכו כמובן להביט על כל מטריצת הנגזרות השניות ולוודא שהיא חיובית, פוזיטיב דפיניט.
 
 ואם האומד לבטא-אחת נראה לכם מוכר, אתם לא טועים, מדובר בנוסחה קרובה מאוד למקדם המתאם של פירסון המוכר. בתרגול תראו את הקשר בין השניים ובאילו מקרים הם יהיו זהים, כלומר שיפוע המודל הליניארי יהיה ממש מקדם המתאם בין X לY.
-:::
-:::
 
----
-
-### General algebric solution for any $p$
-
-- Write our problem in matrix-vector notation (now $\beta \in \mathbb{R}^{p+1}$ is vector of coefficients): 
-$$\min_{\beta} RSS(\beta) = \min_{\beta} \|Y- X\beta\|^2$$
-
-::: {.incremental}
-- This is a quardratic function of $\beta$, find minimizer by differentiating and equating to zero. Normal equations:
-$$-2X^T (Y-X\beta) = 0$$
-
-- This looks scary, but it simply means:
-$$\frac{\partial RSS(\beta)}{\partial \beta_j}=\sum_{i=1}^n x_{ij} \left(y_i- (\beta_0 + \sum_{k=1}^p x_{ik} \beta_k)\right) = 0,\;\;j=0,\ldots,p$$
 :::
 
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 אם אנחנו רוצים להכליל לp משתנים מומלץ לכתוב את הRSS בכתיב וקטורי.
 
 אם נגזור ונשווה לאפס נקבל את מה שמכונה המשוואות הנורמליות.
 
 ושוב, לאלו שפחות מתחברים לכתיבה של סט משוואות בכתיב וקטורי, אפשר להראות שבסופו של דבר מדובר בסט של משוואות מהצורה הזאת, גזירה של כמות לפי אחד המקדמים בוקטור בטא, והשוואה לאפס. p + 1 משוואות כאלה.
-:::
-:::
 
----
-
-- The problem: 
-$$-2X^T (Y-X\beta) = 0$$
-
-- The solution: 
-$$X^TX\beta = X^T Y \;\;\Rightarrow\;\; \hat{\beta} = (X^TX)^{-1} X^T Y.$$ 
-(the second derivative matrix is positive definite $\Rightarrow$ minimum)
-
-::: {.fragment}
-- For $p=1$ we would recover back exactly the formulas from before
 :::
 
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 אנחנו פותחים את הסוגריים, מחלקים פי 2, ומגיעים לפתרון הריבועים הפחותים, נוסחה שכדאי להכיר בעל-פה. ושוב, מטריצת הנגזרות השניות היא פוזיטיב דפיניט, לכן אנחנו יודעים שזוהי נקודת מינימום.
 
 תרגיל פשוט למי שרוצה אתגר: עבור p = 1, הראו שפתרון הריבועים הפחותים הוא בדיוק הנוסחאות הספציפיות לבטא-אפס ולבטא-אחת שראינו.
-:::
-:::
 
----
-
-### A geometric view
-
-- The columns of the matrix $X_{n\times (p+1)}$ are vectors $X^c_0, \dots, X^c_p \in \mathbb{R}^n.$<br>Each feature in $Tr$ is such a vector.
-
-- The response vector in $Tr$ is $Y_{n \times 1}$, which is also a vector in  $\mathbb{R}^n$.
-
-::: {.incremental}
-- $X\beta = X^c_0 \beta_0 + \dots +X^c_p \beta_p$ is a linear combination of the columns.
-
-- Hence, in $\min_\beta \| Y-X\beta\|^2$ we are seeking a linear combination of the columns which is closest to $Y$ in $\text{Span}(X^c_0, \dots ,X^c_p)$.
-:::
-::: {.fragment}
-$\Rightarrow$ OLS is an *orthogonal projection* of $Y$ on the column space of $X$
 :::
 
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 חשוב להכיר גם את הפרשנות הגיאומטרית של הפתרון שלנו: הרי כרגע במרחב הלמידה העמודות של X פורסות איזשהו מרחב, וY הוא גם וקטור, נוסף.
 
 אנחנו רוצים למצוא צירוף ליניארי של העמודות האלה של X, זו המשמעות של הביטוי Xbeta
@@ -817,37 +252,13 @@ $\Rightarrow$ OLS is an *orthogonal projection* of $Y$ on the column space of $X
 (הדגמה על הלוח)
 
 איך קוראים לוקטור y_hat הזה? הוקטור הזה הוא ההטלה האורתוגונלית של הוקטור Y אל המרחב הנפרש על-ידי עמודות X!
-:::
-:::
 
----
+=== 4. רגרסיה ליניארית - ההיבט הסטטיסטי ===
 
-## Linear Regression - Statistical Perspective {.title-slide}
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 איפה סטטיסטיקה נכנסת לפעולה? עד כאן היתה לנו רק אלגברה ליניארית וחשבון דיפרנציאלי. ומאיפה באים ערכי הטי והpvalue שראינו בפלט הרגרסיה?
-:::
-:::
 
----
-
-### A statistical model for inference 
-
-- So far we did not assume any specific *true* relationship between $y$ and $x$
-
-::: {.incremental}
-- Let us now *assume* the following model: 
-$$y = \beta_0 + \beta_1 x_1 + \ldots + \beta_p x_p + \epsilon,\;\;\epsilon \sim N(0,\sigma^2)$$
-    
-1. $E(y|x) = x^T\beta$ is a linear function of $x$
-2. The error $(y-E(y|x))$ has a normal distribution and is independent for each observation
-
-- If this assumption holds, we can investigate the distribution of $\hat{\beta}$ and use that to do inference on the model
 :::
 
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 נשים לב עד עכשיו שלא הנחנו שום מודל שהוא הקשר האמיתי בין X לY. לא היתה שום התפלגות, לא היו כמעט שום תנאים על פתרון הרגרסיה הOLS, ואכן רבים שאין להם נגיעה לסטטיסטיקה בכלל לומדים על רגרסיה ליניארית במסגרת קורסים באלגברה ליניארית.
 
 כעת כן נניח שיש מודל, הנחה די מחמירה: שY הוא צירוף ליניארי של האיקסים, ועוד איזשהו רעש שנסמן באפסילון, משתנה מקרי, ועל הרעש הזה נניח התפלגות נורמלית. נניח שהתוספת הזאת ממורכזת באפס, ויש לה שונות, כמובן לא ידועה, של סיגמא בריבוע.
@@ -859,26 +270,9 @@ $$y = \beta_0 + \beta_1 x_1 + \ldots + \beta_p x_p + \epsilon,\;\;\epsilon \sim 
 הטעות שמתקבלת אם אחסר מY את התוחלת המותנית שלו היא גם משתנה מקרי, זה בעצם האפסילון, אז היא מתפלגת נורמלית, עם תוחלת אפס, ובאופן בלתי תלוי בטעויות האחרות.
 
 ותחת הנחת המודל הסטטיסטי גם בטא-האט יהיה וקטור של משתנים מקריים, עם התפלגות! אנחנו כבר יכולים לא רק להגיד מהו הבטא-האט אלא גם לבצע עליו הסקה סטטיסטית. נוכל להגיד האם בטא מסוים שונה בצורה מובהקת סטטיסטית מאפס, כלומר האם הוא באמת חשוב במידול של Y או לא.
-:::
-:::
 
----
-
-#### Distribution of the OLS solution under the model assumptions
-
-::: {.incremental}
-- What we know: 
-$$(a)\; E(Y) = X\beta,\;\;\;\; (b)\; Cov(Y) = \sigma^2 I_n ,\;\;\;\;(c)\; \hat{\beta} = (X^TX)^{-1} X^T Y$$
-
-- Mean: 
-$$E(\hat{\beta}) \stackrel{(c)}{=} (X^TX)^{-1} X^T E(Y) \stackrel{(a)}{=} (X^TX)^{-1} X^T X\beta = \beta.$$
-
-- Covariance matrix: 
-$$Cov(\hat{\beta}) \stackrel{(c)}{=} (X^TX)^{-1} X^T Cov(Y) X (X^TX)^{-1} \stackrel{(b)}{=} \sigma^2 (X^TX)^{-1} (X^T X) (X^TX)^{-1} = \sigma^2 (X^TX)^{-1}.$$
 :::
 
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 אנחנו רוצים למצוא את ההתפלגות של האומד בטא האט. בטא-האט הוא צירוף לינארי של משתנים נורמליים ולכן גם הוא, מתפלג נורמלית, עם איזשהו וקטור תוחלות ומטריצת שונויות (להדגים). השאלה היחידה היא מהו וקטור התוחלות ומטריצת השונויות האלה. 
 
 מה ידוע לנו עד כה? התוחלת המותנית של Y היא X בטא. הYים בלתי תלויים, מטריצת השונויות שלהם היא אלכסונית עם סיגמא בריבוע על האלכסון, ניתן לסמן זאת כך. והאומד לבטא-האט נראה כך, הוא לא משתנה כאמור בעקבות ההנחה הסטטיסטית.
@@ -888,29 +282,9 @@ $$Cov(\hat{\beta}) \stackrel{(c)}{=} (X^TX)^{-1} X^T Cov(Y) X (X^TX)^{-1} \stack
 ומטריצת השונות או הקווריאנס של וקטור בטא-האט: כשמחשבים שונות של סקלאר כפול משתנה הסקלאר יוצא בריבוע. כשמחשבים מטריצת שונות של מטריצת קבועים כפול הוקטור שלנו, היא יוצאת בהכפלה משמאל ומימין. אבל מטריצת השונות של Y היא כאמור אלכסונית, וכל מה שנשאר זה הכפלה של הביטוי הזה בסיגמא בריבוע. דברים מצטמצמים ומגיעים לביטוי סופי, סיגמא בריבוע כפול המטריצה ההופכית של X'X.
 
 נסכם: בטא-האט מתפלג נורמלית עם תוחלת בטא האמיתית, ושונות סיגמא בריבוע כפול מטריצת X'X.
-:::
-:::
 
----
-
-### Statistical inference
-
-::: {.incremental}
-- From the previous formulas we conclude: $\hat{\beta}_j \sim N(\beta_j, \sigma^2 (X^TX)^{-1}_{j,j}).$
-
-- Recall that our second goal (beyond prediction) was *inference*: which variables are important?  
-
-- Now we can formalize this as a hypothesis test: for each variable $j$, test the null $H_{0j}: \beta_j = 0.$
-
-- If $H_{0j}$ holds, then $\hat{\beta}_j \sim N(0, \sigma^2 (X^TX)^{-1}_{j,j}).$
-
-- Assuming $\sigma^2$ is known, this leads to a simple $Z$-test as we studied
-
-- Since $\sigma^2$ is not known, we need to estimate it and get a T-test instead (details omitted). 
 :::
 
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 אז איך מבצעים הסקה סטטיסטית על הבטאות?
 
 באופן שולי ניתן לראות שכל בטא-האט-ג'י בוקטור מתפלג נורמלית עם תוחלת בטא-ג'יי ושונות שהיא סיגמא בריבוע, כפול האיבר האלכסון במטריצה ההופכית של X'X.
@@ -920,49 +294,15 @@ $$Cov(\hat{\beta}) \stackrel{(c)}{=} (X^TX)^{-1} X^T Cov(Y) X (X^TX)^{-1} \stack
 תחת השערת האפס ההתפלגות של בטא-האט-ג'יי היא נורמלית עם אותה שונות אבל עם תוחלת אפס,
 
 אם היינו יודעים את השונות סיגמא בריבוע זה כל מה שאנחנו צריכים בשביל מבחן Z. אנחנו לא יודעים את השונות סיגמא בריבוע ולכן אנחנו עושים מבחן T.
+
 :::
-:::
 
----
-
-#### Back to the 14-movies model, now with the inference:
-
-```{python}
-#| echo: false
-Xtr_df = pd.DataFrame(Xtr[:, :14], columns=movies['title'][:14])
-Xtr_df1 = sm.add_constant(Xtr_df)
-
-model = sm.OLS(Ytr, Xtr_df1)
-model = model.fit()
-```
-```{python}
-print(model.summary())
-```
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 לא ניכנס לפרטים, בקורס לנו לא תצטרכו לעשות מבחן טי ידני על הבטאות, אבל אתם כן מבינים כעת הרבה יותר מהפלט רגרסיה של statsmodels שראינו קודם.
 
 (הדגמה על הפלט)
+
 :::
-:::
 
----
-
-### OLS regression summary
-
-- Minimize RSS on $Tr$ to find the "best" linear fit for $Y$ as a function of $X$
-
-- Algebraic solution, geometric interpretation: projection
-
-- Under the assumed statistical model (strong assumptions!) can do inference on which variables are important
-
-- The most important tool in the statistical/predictive modeling toolbox!
-
-- Learn more: Statistical Models course in Statistics
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 נסכם, ואז ניתן שתי הערות:
 
 כדי לקבל את אומד הריבועים הפחותים אנחנו עושים מינימיזציה של הRSS, סכום השגיאות הריבועיות על מדגם הטריין, וזה יביא לנו את הצירוף הליניארי הטוב ביותר של X כדי להתקרב לוקטור Y.
@@ -974,29 +314,9 @@ print(model.summary())
 זה הכלי אולי החשוב ביותר מבחינה מסורתית שיש למדען נתונים, כי המון מודלים מתחילים מהנקודה שבה הוא נגמר והוא תמיד ישמש בייסליין פשוט שבאופן מפתיע לא תמיד קל לנצח.
 
 ומי שרוצה להעמיק עוד, מוזמן לקחת קורס כמו מודלים סטטיסטיים בחוג לסטטיסטיקה, ו/או לקרוא מגוון עצום של ספרים שנכתבו בנושא.
-:::
-:::
 
----
-
-### Comment I: OLS Interpretation
-
-- As we just saw, under the statistical model, $E\hat{\beta} = \beta \;\Rightarrow\; E(\hat{y}|x) = x^T E (\hat{\beta}) =  x^T \beta = E(y|x).$  
-
-::: {.fragment}
-- Even when the model doesn't hold, the use of RSS / squared error loss implies estimation of conditional expectation (details omitted)
-
-- Hence an interpretation of the OLS prediction is an *attempt* to estimate the conditional expectation $E(y|x)$
 :::
 
-::: {.fragment}
-- This conditional expectation is clearly interesting: it summarizes what we learned about $y$ from seeing $x$
-
-- The attempt may not be successful, if the model is not so good (more on that later), but at least we know what we are trying to predict!
-:::
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 שתי הערות חשובות:
 
 כפי שראינו, תחת המודל הסטטיסטי, האומד בטא-האט, הוא בעצם אומד חסר הטיה לבטא האמיתי. אבל זה אומר, שגם y_hat בהינתן X, התחזיות שלנו הסופיות, הן אומד חסר הטיה למודל הליניארי, לx'beta, כלומר לתוחלת של Y בהינתן X.
@@ -1006,66 +326,21 @@ print(model.summary())
 זו פרשנות נורא יפה של מה שאנחנו מנסים לעשות בבניית מודלים לחיזוי, להעריך את מה שאנחנו יודעים על Y, הסיכום שלו, בהינתן שראינו את כל המשתנים באיקס.
 
 אנחנו ניקח את התוחלת המותנית של Y בהינתן X איתנו הלאה, זה מה שננסה לחזות גם במודלים אחרים, אנחנו פשוט לא נהיה מחויבים ליחס הליניארי הנוקשה הזה.
+
 :::
-:::
 
----
-
-### Comment II: OLS via Likelihood
-
-- Recall the assumed model:
-$$y = \beta_0 + \beta_1 x_1 + \ldots + \beta_p x_p + \epsilon,\;\;\epsilon \sim N(0,\sigma^2)$$
-
-- An alternative criterion to *maximize* in order to get $\hat{\beta}$: the Likelihood of the data
-$$L(\beta|X, y) = \prod_{i = 1}^n{f(y_i|X;\beta)}$$
-
-- The $f$ being the Normal distribution density
-
-- This can be shown to give the exact same solution to $\hat{\beta}$!
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 ועוד הערה ששווה לתת:
 
 אפשר היה להגיע לפתרון הריבועים הפחותים גם בדרך אחרת. להתחיל בכלל במודל הסטטיסטי כפי שרשמנו אותו: Y הוא צירוף ליניארי של המשתנים ועוד רעש נורמלי בלתי תלוי. תחת ההנחה הזאת Y הוא כאמור משתנה מקרי נורמלי, ויש לו פונקצית צפיפות מוכרת. אפשר היה לנסות למקסם כמות אחרת מהRSS, שנקראת נראות או likelihood, והיא מכפלת הצפיפויות.
 
 הדבר המדהים הוא, שזה היה מביא אותנו לאותו פתרון ריבועים פחותים לבטא-האט! אנחנו נראה שוב את הנראות בקרוב, ובאופן כללי אמידת נראות מקסימלית היא שיטה סטטיסטית מקובלת ומצוינת לקבל אומדים כשמניחים התפלגות מסוימת, לאו דווקא נורמלית, כמו כאן.
-:::
-:::
 
----
+=== 5. רגרסיה לוגיסטית ===
 
-## Logistic Regression {.title-slide}
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 התחלנו ברגרסיה, כשY הוא ממשי, ונעבור עכשיו לקלאסיפיקציה, כשY קטגוריאלי.
-:::
-:::
 
----
-
-### What about classification?
-
-- We will focus on the simplest (and most important) case of two-class classification: 
-    - Impressionist vs. realist
-    - Sick vs healthy
-    - Buy vs don't buy
-
-- As before, we have $Tr = (X,Y)$ of size $n$, $Te$ of size $m$. 
-
-- For now, keep assuming $x \in \mathbb{R}^p$ is numeric as in the wikiart paintings example
-
-::: {.fragment}
-- Can we use the OLS mechanism we have built to build a classification model? 
 :::
 
-::: {.fragment}
-- For sure we can, if we encode $y=\text{impressionist} \Rightarrow y=1,\;\;y=\text{realist} \Rightarrow y=0$, we have numeric $y$
-:::
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 נתמקד בבעיה הפשוטה שY הוא אחת משתי קטגוריות אפשריות, כלומר הוא בינארי, ובתרגול תדברו קצת יותר על Y שיש לו יותר משתי קטגוריות.
 
 דוגמאות לY בינארי יכולות להיות כאמור למדל האם יש לנו ציור אימפרסיוניסטי או ריאליסטי, האם האדם נשא של נגיף או לא, האם צרכנית תקנה או לא תקנה מוצר כלשהו.
@@ -1075,27 +350,9 @@ $$L(\beta|X, y) = \prod_{i = 1}^n{f(y_i|X;\beta)}$$
 אז נשאלת השאלה: האם ניתן להשתמש בכל התוצאות שלנו מרגרסיה ליניארית עבור Y שהוא קטגוריאלי עם שתי קטגוריות?
 
 התשובה היא שברור שכן, פשוט צריך להפוך אותו לנומרי, נגדיר שאימפרסיוניסטי זה 1, וריאליסטי זה 0, והנה יש לנו Y ממשי וכל הפונקציות הרלוונטיות בפייתון יעבדו. לא נקבל שגיאה.
-:::
-:::
 
----
-
-### What is wrong with using OLS for classification? 
-
-- If we encode $y$ as above what is $E(y|x)$? It is $P(y=\text{impressionist}|\;\text{image})$ --- a clearly interesting quantity
-
-::: {.fragment}
-- Problem: as a probability, $0\leq P(y=\text{impressionist}|\;\text{image}) \leq 1.$ But model predictions $x^T\hat{\beta}$ can fall outside the legal range!
-
-- Another problem: can we make the model assumptions of normal $\epsilon$? No --- because $y$ can only be $0$ or $1$
 :::
 
-::: {.fragment}
-- The idea: try to create an approach that is similar to OLS, but more fitting for classification, taking into account the limited range of values and the need for a sensible statistical model
-:::
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 אז איפה פה בכל זאת השגיאה, למה זה לא פתרון טבעי לבעיה?
 
 נזכור שמה אנחנו ממדלים בעצם ברגרסיה ליניארית? את התוחלת המותנית של Y בהינתן X, את מה שלמדנו על Y בממוצע בעקבות המידע על המשתנים האחרים. ומה זו התוחלת של משתנה שיש לו שתי תוצאות, אפס או 1? כמו משתנה ברנולי, זו ההסתברות שהוא יקבל 1 או ההסתברות שהציור הוא ריאליסטי בדוגמא שלנו בהינתן שראינו את הפיקסלים בתמונה.
@@ -1107,27 +364,7 @@ $$L(\beta|X, y) = \prod_{i = 1}^n{f(y_i|X;\beta)}$$
 אז אנחנו צריכים גישה אחרת. גישה שכן תתחשב בערכים האפשריים שY יכול לקבל ושתתאים מודל סטטיסטי הולם לבעיה.
 
 :::
-:::
 
----
-
-### Logistic regression
-
-- Deals with the two problems above
-
-- We start from assuming a model: 
-$$\log\frac{P(y=1|x)}{P(y=0|x)} = \log\frac{P(y=1|x)}{1 - P(y=1|x)} = \text{logit}(P(y=1|x)) = x^T\beta$$
-
-- Notice that now all values are legal: 
-$$ 0\leq P(y=1|x) \leq 1 \;\; \Leftrightarrow\;\; -\infty \leq \log\frac{P(y=1|x)}{P(y=0|x)} \leq \infty.$$
-
-::: {.fragment}
-- Another way of writing this: 
-$$P(y=1|x) = \frac{\exp(x^T\beta)}{1+\exp(x^T\beta)} \quad\quad P(y=0|x) = 1- P(y=1|x) = \frac{1}{1+\exp(x^T\beta)}$$
-:::
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 גישה כזאת היא רגרסיה לוגיסטית.
 
 אנחנו לא ממדלים את Y עצמו כמודל ליניארי. אלא את הכמות הבאה: לוג, של ההסתברות שY שווה 1, חלקי ההסתברות שY שווה אפס. הכמות הזאת היא תהיה צירוף ליניארי של המשתנים באיקס. ניתן גם לרשום את זה כלוג של ההסתברות p חלקי 1 פחות p, כך שאנחנו רואים שבמקום למדל את התוחלת של Y בהינתן X אנחנו ממדלים איזושהי פונקציה G שלה. הפונקציה הזאת די מפורסמת וקוראים לה גם לוג'יט.
@@ -1135,31 +372,9 @@ $$P(y=1|x) = \frac{\exp(x^T\beta)}{1+\exp(x^T\beta)} \quad\quad P(y=0|x) = 1- P(
 מכל מקום כעת הכמות שאנחנו ממדלים היא בין מינוס אינסוף לאינסוף ולכן כל חיזוי שלנו יהיה כמות לגיטימית.
 
 אם יש לנו את המקדמים ואנחנו רוצים לקבל בחזרה את ההסתברות החזויה, את הכמות בין אפס לאחת, אפשר לראות שהפונקציה ההופכית נראית כך: e בחזקת הצירוף הליניארי, חלקי 1 ועוד e בחזקת הצירוף הליניארי. או ההסתברות המשלימה עם נוסחה קצת יותר נעימה שמופיעה כאן.
-:::
-:::
 
----
-
-### Fitting a logistic regression
-
-- Given training data $Tr$, we want to find the best coefficients $\hat{\beta}$
-
-- This is done by maximum likelihood, finding $\beta$ to maximize:
-$$L(\beta|X, y) = \prod_{i = 1}^n{P(y_i|x_i;\beta)} = \prod_{i = 1}^n{P(y_i = 1|x_i;\beta)^{y_i}P(y_i = 0|x_i;\beta)^{1-y_i}}$$
-
-::: {.fragment}
-$$\max_\beta \prod_{i=1}^n  \left(\frac{\exp(x_i^T\beta)}{1+\exp(x_i^T\beta)}\right)^{y_i} \left(\frac{1}{1+\exp(x_i^T\beta)}\right)^{1-y_i}$$
-:::
-::: {.incremental}
-- The solution is $\hat{\beta}$, the logistic regression coefficients estimates
-
-- Predicting on $x \in Te$:
-$$\widehat{P(y=1|x)} = \frac{\exp(x^T\hat{\beta})}{1+\exp(x^T\hat{\beta})}\;\; \Rightarrow\;\; \hat{y} = \begin{cases} 1 & \mbox{if } \widehat{P(y=1|x)}> 0.5 \\
-0 & \mbox{otherwise}\end{cases}$$
 :::
 
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 אז אנחנו מוצאים את המקדמים במקרה של רגרסיה לוגיסטית?
 
 כאן אנחנו חייבים לעבור דרך פונקצית הנראות, הlikelihood ולבצע אמידת נראות מקסימלית. פונקצית הנראות שלנו היא פונקציה של בטא בהינתן הדאטא בטריינינג ומסומנת בדרך כלל בL. במקרה הבדיד כמו לפנינו שY הוא בעצם משתנה ברנולי, מדובר במכפלת ההסתברויות במדגם תחת המודל.
@@ -1169,26 +384,9 @@ $$\widehat{P(y=1|x)} = \frac{\exp(x^T\hat{\beta})}{1+\exp(x^T\hat{\beta})}\;\; \
 כשנקבל את בטא-האט, ותגיע תצפית חדשה ממדגם הטסט, נוכל לחזות את ההסתברות שהיא אחת באמצעות הצבה בנוסחה של הפונקציה ההופכית. ואם אנחנו רוצים חיזוי סופי, האם Y הוא 1 או 0, אפשר להשוות את ההסתברות הנחזית לאיזשהו קאטאוף, לדוגמא חצי. אם היא גדולה מחצי נחזה 1, ואם לא נחזה 0.
 
 הערה לפני שממשיכים: זה לא סתם שלא רשמנו כאן ביטוי מפורש לבטא-האט, הסיבה שאין כזה. פונקצית הנראות אמנם מפורשת וקמורה אבל אין לה פתרון סגור, לכן משתמשים בשיטות אופטימיזציה כמו ניוטון רפסון למי שמכיר, כדי למצוא את המקדמים.
-:::
-:::
 
----
-
-### Interpretation of coefficients
-
-- We can write our model as: 
-$$\log\frac{P(y=1|x)}{P(y=0|x)} = x^T\beta$$
-
-- The expression on the left is called the *log odds*: log of the ratio of positive vs negative probability
-
-- Interpretation: ${\beta}_j$ is the change in the log odds from a change of 1 unit in $x_j$. 
-
-::: {.fragment}
-- For example, if ${\beta}_j=1$ then when $x_j=1$ vs $x_j=0$ the log odds increase by $1$, so the odds increase times $e=2.72$, which is roughly the increase in ${P(y=1|x)}$ when it is close to $0$. 
 :::
 
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 ועוד מילה על המודל שלנו. יחס הסיכויים שאנחנו ממדלים הוא בעצם הodds. בשפה יומיומיות, אם מאורע יכול לקרות בסיכוי שליש, או לא לקרות בסיכוי שני שליש, אנחנו אומרים "הוא יקרה בסיכוי של 1 ל-2". כלומר מה שאנחנו ממדלים כצירוף ליניארי הוא הלוג-אודז, לוג יחס הסיכויים.
 
 הפרשנות של מקדמי הבטא ברגרסיה לוגיסטית הרבה פחות פשוטה לעומת רגרסיה ליניארית, ועלולה לבלבל, אז נשים לב:
@@ -1196,81 +394,25 @@ $$\log\frac{P(y=1|x)}{P(y=0|x)} = x^T\beta$$
 אז מה המשמעות של מקדם בטא-ג'יי? עלייה של יחידה אחת בXj, פירושה עלייה של בטא-ג'יי בלוג אודז.
 
 ואם זה לא אומר הרבה, קחו את האקספוננט של בטא-ג'יי ותראו מה הוא עושה לאודז עצמו. עלייה של בטא-ג'יי בגודל 1 היא עלייה פי e של האודז עצמו.
-:::
-:::
 
----
+=== 6. רגרסיה לוגיסטית לדוגמא: דאטא על חולי לב ===
 
-## Example: SAHeart {.title-slide}
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 נראה כעת דוגמא של רגרסיה לוגיסטית על דאטא קטן שמתאים לבעיה.
+
 :::
-:::
 
----
-
-### Example: South African Hearth Disease Data
-
-```{python}
-saheart = pd.read_table("../datasets/SAheart.data", header = 0, sep=',', index_col=0)
-
-print(saheart.describe())
-```
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 בנתונים שלפנינו יש 462 גברים מדרום אפריקה. יש לנו מידע רפואי עליהם כמו לחץ דם, מידת העישון, צריכת אלכוהול וגיל, והמשתנה שיעניין אותנו הוא הchd, coronary heart disease, האם הם לקו במחלת לב או לא.
+
 :::
-:::
 
----
-
-### SAHeart: Data Splitting with `SKlearn`
-
-```{python}
-#| code-line-numbers: "|4-6|"
-saheart_X=pd.get_dummies(saheart.iloc[:, :9]).iloc[:, :9]
-saheart_y=saheart.iloc[:, 9]
-
-from sklearn.model_selection import train_test_split
-
-Xtr, Xte, Ytr, Yte = train_test_split(saheart_X, saheart_y, test_size=0.2, random_state=42)
-
-print(f'No. of train rows: {Xtr.shape[0]}, no. train of cols: {Xtr.shape[1]}')
-print(f'No. of test rows: {Xte.shape[0]}, no. test of cols: {Xte.shape[1]}')
-print(f'no. of obs in train y: {Ytr.shape[0]}')
-print(f'no. of obs in test y: {Yte.shape[0]}')
-```
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 נגדיר את מטריצת הX שלנו ואת הY. יש לנו כאן משתנה קטגוריאלי שמצריך טיפול מיוחד עם הפונקציה get_dummies, ולא ניכנס לזה כרגע.
 
 מכל מקום אנחנו רוצים לחלק את הדאטאט לטריין וטסט. עשינו את זה ידנית עם הדאטא של נטפליקס, בואו נשתמש כאן בפונקציה מקובלת מספריית sklearn, הפונקציה train_test_split, שמקבלת את מטריצת הX, את הוקטור Y, את גודל מדגם הטסט כמספר עשרוני, כאן עשרים אחוז, וגם איזשהו סיד כדי שההקצאה האקראית תישמר בריצות חוזרות. מה שמתקבל הוא X טריין, X טסט, Y טריין, Y טסט.
 
 והנה אנחנו מדפיסים את גודל הדאטא, בשורה התחתונה יש לנו p = 9 משתנים.
+
 :::
-:::
 
----
-
-### SAHeart: LR with `statsomdels`
-
-```{python}
-#| output-location: fragment
-
-import statsmodels.api as sm
-
-model = sm.Logit(Ytr, sm.add_constant(Xtr))
-model = model.fit()
-
-print(model.summary())
-```
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 ברגע שיודעים לבצע רגרסיה ליניארית בstatsmodels או בsklearn, רגרסיה לוגיסטית זה קל.
 
 פשוט מאתחלים את הקלאס Logit, מזינים לתוכו את Y טריין ואז את X טריין בתוספת חותך, וקוראים לmodel.fit.
@@ -1278,62 +420,17 @@ print(model.summary())
 אם נבקש summary נקבל פלט סטטיסטי עשיר ומסודר של המקדמים ומבחנים סטטיסטיים עליהם.
 
 נשים לב שהמבחנים כאן הם מבחני Z אבל לא ניכנס בקורס הזה לסיבה לכך. מכל מקום לכל מקדם יש טעות תקן שונה, אז כדי להשוות ביניהם נסתכל על הציוני תקן, על ערכי הZ. משתנים עם ערכים גבוהים הם age למשל, הגיל. לכל שנת חיים נוספת, המודל מוסיף איזושהי כמות ללוג-אודז שהפציינט יחלה במחלת לב. מקדם שלילי גדול הוא הfamhist_Absent, שמשמעותו האם אין לך היסטוריה משפחתית של מחלת לב. אם אין, יורדת לך כמות של 0.8 מהלוג-אודז.
+
 :::
-:::
 
----
-
-### SAHeart: LR with `SKlearn`
-
-
-```{python}
-from sklearn.linear_model import LogisticRegression
-
-model = LogisticRegression(solver='lbfgs', max_iter=10000)
-model.fit(Xtr, Ytr)
-
-print('intercept:', model.intercept_)
-print('coef:', model.coef_)
-```
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 בsklearn הקלאס שאנחנו רוצים נקרא LogisticRegression. כאן אנחנו יכולים לפרט איזשהו סולבר ומספר איטרציות, כי כאמור רגרסיה לוגיסטית מצריכה שיטות נומריות לאופטימיזציה.
 
 אחרי שהגדרנו את המודל נקרא לfit, ונדפיס את המקדמים שהתקבלו. כמו ברגרסיה ליניארית, sklearn הרבה יותר מוכוון מאשין-לרנינג ולא סטטיסטיקה, אז הפלט שלו מוגבל.
 
 נשים לב גם שקיבלנו מקדמים דומים ל-statsmodels אך לא זהים, כי לא מדובר בנוסחאות סגורות.
-:::
-:::
 
----
-
-### SAHeart: LR Test Performance
-
-```{python}
-#| code-line-numbers: "|3|4|5|"
-from sklearn.metrics import confusion_matrix
-
-p_hat_te = model.predict_proba(Xte)[:, 1]
-y_hat_te = p_hat_te > 0.5
-conf = confusion_matrix(Yte, y_hat_te)
-
-pd.DataFrame(
-  confusion_matrix(Yte, y_hat_te),
-  index=['true:no', 'true:yes'], 
-  columns=['pred:no', 'pred:yes']
-)
-```
-::: {.fragment}
-```{python}
-acc = np.mean(Yte == y_hat_te)
-err = np.mean(Yte != y_hat_te)
-print(f'Accuracy: {acc: .2f}, Misclassification loss: {err: .2f}')
-```
 :::
 
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 אבל איך אנחנו מכמתים את הביצועים של המודל על מדגם הטסט, על זה לא דיברנו. אפשר לדווח את הנראות שאותה מיקסמנו, אבל זה לא יגיד הרבה.
 
 מקובל יותר למשל לחזות את ההסתברויות p_hat על מדגם הטסט, באמצעות הנוסחה שראינו. בsklearn זה נעשה עם הפונקציה predict_proba.
@@ -1347,48 +444,13 @@ print(f'Accuracy: {acc: .2f}, Misclassification loss: {err: .2f}')
 בחלק האחרון של השיעור נרחיב על אווליואציה של מודלים לקלסיפיקציה, מסתבר שהמדדים שהסתכלנו עליהם כרגע יכולים להיות בעייתיים.
 
 לדוגמא (להדגים), נניח ש99 אחוז מהפציינטים היו בריאים ורק אחוז אחד היו חולים. מה אם אתן לכם מודל שחוזה שכל הפציינטים הם בריאים? זה מודל נהדר, הוא יקבל אקיורסי של 99 אחוז! חייב להיות אם כן מדד טוב יותר שיעיד על כך שזה לא מודל נהדר ואפילו די גרוע.
-:::
-:::
 
----
+=== 7. אווליואציה של מודל קלסיפיקציה ===
 
-## Classification Model Evaluation {.title-slide}
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 אז אני טוען שאחוז הaccuracy לא תמיד משקף נכון את הביצועים של המודל, וראינו שהתופעה חמורה במיוחד כשהנתונים הם מה שקרוי imbalanced, אין באוכלוסיה מספר שווה של דוגמאות חיוביות ושליליות. ואנחנו זקוקים למדדים טובים יותר.
-:::
-:::
 
----
-
-### Measuring Classification Performance
-
-- Different errors have different costs/value. 
-
-- Summarize performance in different ways that capture different types of errors:
-
-::: {.fragment}
-|        |   Pred   |          |     |
-|--------|----------|----------|-----|
-|**Real**| Pos      | Neg      |Total|
-|Pos     | $TP$     | $FN$     | $P$ |
-|Neg     | $FP$     | $TN$     | $N$ |
-|Total   | $\hat{P}$| $\hat{N}$|     |
 :::
 
-::: {.fragment}
-$P = \sum_{i=n+1}^{n+m} y_i$ number of positive examples, similarly $N$.
-
-$\hat{P} = \sum_{i=n+1}^{n+m} \hat{y}_i$ number of positive predictions, similarly $\hat{N}$.
-
-$TP = \sum_{i=n+1}^{n+m} y_i \hat{y}_i$ number of true positives, $FP = \hat{P}-TP$
-
-$TN = \sum_{i=n+1}^{n+m} (1-y_i) (1-\hat{y}_i)$ number of true negatives, $FN = \hat{N}-TN$
-:::
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 רמזנו בתחילת היחידה, שלטעויות שונות יכול להיות משקל שונה. לפספס חולה ולהגיד לו שהוא בריא, יכולה להיות לזה משמעות אחרת לגמרי מלהגיד לאדם בריא שהוא חולה.
 
 נסמן את הכמויות בטבלת הקונפיוז'ן מטריקס בצורה כזו:
@@ -1402,35 +464,7 @@ $TN = \sum_{i=n+1}^{n+m} (1-y_i) (1-\hat{y}_i)$ number of true negatives, $FN = 
 ומי שצריך להגדיר את זה עם נוסחאות יותר פורמליות, אפשר להגדיר את כל הכמויות האלה עם y וy_hat בצורה כזאת.
 
 :::
-:::
 
----
-
-|        |   Pred   |          |     |
-|--------|----------|----------|-----|
-|**Real**| Pos      | Neg      |Total|
-|Pos     | $TP$     | $FN$     | $P$ |
-|Neg     | $FP$     | $TN$     | $N$ |
-|Total   | $\hat{P}$| $\hat{N}$| $m$ |
-
-<hr>
-
-::: {.fragment}
-Accuracy: $P(Correct) = \;(TN+TP)/m$
-
-Prediction error: $P(Error) = \;(FN+FP)/m$
-
-Precision+ (positive predictive value): $P(True + | Pred +) = \;TP/\hat{P}$
-
-Recall+ (sensitivity, true positive rate):  $P(Pred + | True +) = \;TP/P$
-
-False positive rate: $P(Pred + | True -) = \;FP/N$
-
-Harmonic mean of precision and recall: $\;F_1 = 2 \times \frac{Precision \times Recall}{Precision + Recall}$
-:::
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 הטבלה הזאת מאפשרת לנו להסתכל על מדדים הרבה יותר ספציפיים למה שמעניין אותנו בבעיה הנתונה. נפרט אותם כעת:
 
 האקיורסי כעת היא סכום התאים על האלכסון של הקונפיוז'ן מטריקס, הTP והTN, חלקי m גודל מדגם הטסט.
@@ -1446,33 +480,9 @@ Harmonic mean of precision and recall: $\;F_1 = 2 \times \frac{Precision \times 
 ומאחר שהמדדים פרסיז'ן וריקול מודדים דברים שונים והיינו רוצים ששניהם יהיו גבוהים מסתכלים לפעמים על הממוצע ההרמוני שלהם, 2 כפול המכפלה שלהם חלקי הסכום שלהם.
 
 למה צריך את כל זה? בדיוק בגלל מה שאמרנו, יכול להיות לקוח של המודל שלנו, שפשוט לא מסוגל לפספס אף חולה, לקוח כזה ירצה ריקול כמה שיותר גבוה. ויכולה להיות לקוחה שאין לה בעיה לפספס חולים, אבל כשהמודל מסמן לה חולים הוא חייב להיות צודק, היא לא יכולה להעניק טיפול קשה כזה לבריאים -- בשביל לקוחה כזאת נרצה אולי למקסם את הפרסיז'ן. וברור שיהיה כאן טריידאוף בין השניים במודל לא מושלם.
-:::
-:::
 
----
-
-```{python}
-pd.DataFrame(
-  confusion_matrix(Yte, y_hat_te),
-  index=['true:no', 'true:yes'], 
-  columns=['pred:no', 'pred:yes']
-)
-```
-
-::: {.fragment}
-```{python}
-from sklearn.metrics import classification_report
-
-print(classification_report(Yte, y_hat_te))
-```
 :::
 
-::: {.fragment}
-All is still based on that cutoff, 0.5!
-:::
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 בנתונים שלנו כך נראית הקונפיוז'ן מטריקס:
 
 כדי לקבל את כל המדדים שדיברנו עליהם אפשר לבקש classification_report מsklearn. נדגים לראות שהבנו.
@@ -1482,30 +492,9 @@ All is still based on that cutoff, 0.5!
 או, הריקול של החולים, אם אתה חולה מה הסיכוי שהמודל יחזה נכון. מתוך 34 חולים המודל צדק רק לגבי 19, שזה 56 אחוז, לא גבוה מאוד.
 
 נשים לב אגב שהכל מבוסס על ערך הסף הזה שהשווינו אליו את ההסתברויות החזויות כדי לקבל את y_hat_te, הקאטאוף של חצי -- יכול להיות שעם קאטאוף אחר היינו מקבלים מדדים טובים יותר?
-:::
-:::
 
----
-
-### Classification evaluation: different goals
-
-We can think of several different prediction goals, all potentially important: 
-
-1. Classify correctly --- make few (weighted) errors on test set or new prediction points
-2. Predict probabilities well: $\widehat{P(y=1|x)} \approx P(y=1|x)$ for new points
-3. Rank well: given multiple prediction points, predict which one is *more likely* to have $y = 1$.
-
-::: {.fragment}
-These different tasks can reflect in the loss function / model evaluation task:
-
-1. Correct classification: misclassification loss as above, also precision, recall etc.
-2. Good probability prediction: using Bernoulli loss / cross entropy: 
-$$L(y,\hat{p}) = \hat{p}^y (1-\hat{p})^{(1-y)}$$
-3. How do we measure ranking perofrmance of a model on a test set?
 :::
 
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 באופן כללי יכולות להיות לדאטא סיינטיסט מטרות שונות במודל קלסיפיקציה:
 
 האם אני רוצה פשוט לחזות נכון.
@@ -1521,28 +510,9 @@ $$L(y,\hat{p}) = \hat{p}^y (1-\hat{p})^{(1-y)}$$
 אם המטרה שלי היא הסתברויות מכוילת כמה שיותר, אני באמת אדווח אולי על הלוס שהשתמשנו בו, הנראות.
 
 אבל אם, כמו שקורה פעמים רבות, המדד שמעניין אותי זה הראנקינג, רק הדירוג של התצפיות, איך כדאי להסתכל על הביצועים של המודל?
-:::
-:::
 
----
-
-### The ROC Curve
-
-The idea: to evaluate ranking performance, do not set the threshold $0.5$ but check what happens at all possible thresholds: 
-
-1. True positive rate: what % of the positive observations pass the threshold?
-2. False positive rate: what % of the negative observations pass the threshold?
-
-::: {.fragment}
-- The ROC curve plots TPR vs FPR for all possible threholds: if the model ranks well, for high thresholds we will have $FPR\approx 0$, while for low thresholds we will have $TPR \approx 1$
 :::
 
-::: {.fragment}
-- Note that even if $\widehat{P(y=1|x)}$ predicts probabilities badly, or even if the predictions are not in the range $[0,1]$, the ranking can still be good
-:::
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 אם מה שמעניין אותנו הוא ראנקינג, נהוג להסתכל בעקומה שנקראת receiver operating characteristic או ROC בקיצור.
 
 הרעיון הוא לא להסתפק בקאטאוף דיפולטי של חצי כפי שעשינו, כי יכול להיות שהסקור שהוצאנו איננו בדיוק הסתברות. נשנה את הקאטאוף בצעדים קבועים, ובכל צעד נמדוד את ה: טרו פוזיטיב רייט, זה בעצם הריקול, ואת הפולס פוזיטיב רייט, אחוז הדוגמאות השליליות שעוברות את הקאטאוף הנוכחי ונחזות כחיוביות.
@@ -1550,34 +520,9 @@ The idea: to evaluate ranking performance, do not set the threshold $0.5$ but ch
 עקומת הROC תצייר את הTPR לעומת הFPR לכל קאטאוף אפשרי. מודל מושלם ימצא קאטאוף שעבורו הFPR קרוב ל0 והTPR קרוב ל1.
 
 ושוב נדגיש שגם אם ההסתברות הנחזית מגיעה ממודל שבכלל לא אמור להוציא הסתברויות והיא לא מכוילת או אפילו היא לא הסתברות, היא איזשהו סקור, הדירוג עצמו עדיין יכול להיות מצוין. וזה היתרון הגדול של גישה כזאת. התחשבות בקאטאופים שונים והעובדה שהיא פרקטית לכל סקור.
+
 :::
-:::
 
----
-
-
-```{python}
-#| code-fold: true
-
-from sklearn.metrics import roc_curve, auc
-
-fpr, tpr, thresholds = roc_curve(Yte, p_hat_te)
-auc1 = auc(fpr, tpr)
-
-plt.plot(fpr, tpr, color='darkorange',
-         lw=2, label='ROC curve (area = %0.2f)' % auc1)
-plt.plot([0, 1], [0, 1], color='navy', lw=2, linestyle='--')
-plt.xlim([0.0, 1.0])
-plt.ylim([0.0, 1.05])
-plt.xlabel('False Positive Rate')
-plt.ylabel('True Positive Rate')
-plt.title('ROC curve for our logistic model')
-plt.legend(loc="lower right")
-plt.show()
-```
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 כך נראית עקומת הROC על מדגם הטסט שלנו, עבור מודל הרגרסיה הלוגיסטית שמנסה לחזות אם פציינט יחלה במחלת לב או לא.
 
 הקוד בפייתון לבצע את זה נמצא כאן למי שרוצה.
@@ -1589,24 +534,9 @@ plt.show()
 וברור שבמודל מושלם יימצא סף שמגיע עד הנקודה בקצה השמאלי עליון של הגרף.
 
 עכשיו, היינו רוצים לתמצת את העקומה הזאת לאיזשהו מדד יחיד, שיבטא את טיב המודל שלנו. עקומה זה מרשים אבל צריך לסכם אותה איכשהו. נראה שבמודל מושלם השטח תחת העקומה יהיה השטח של כל הריבוע, 1 כפול 1, זאת אומרת 1, וכאן כפי שמודפס השטח הוא רק 0.8, או 80 אחוז.
-:::
-:::
 
----
-
-### The Area Under the Curve (AUC)
-
-- *For a random ranking:* $FPR \approx TPR$ at every threshold, so we are around the diagonal $x=y$: $$AUC\approx 0.5$$
-
-- *For a perfect ranking model:* at high thresholds, $FPR=0$, at low thresholds $TPR=1$, hence: $$AUC=1.$$
-
-::: {.fragment}
-- Very nice interpretation of AUC: Assume the test set has $m_1$ ones ($y=1$) and $m_0$ zeros, then AUC is the % of correctly ranked pairs with different response: 
-$$AUC = \frac{ \#\left\{(i,j): y_i = 0, y_j=1 \mbox{ and } \hat{p}_i < \hat{p}_j\right\}}{m_1\times m_0}$$
 :::
 
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 השטח תחת עקומת הROC , הarea under curve או AUC, הוא מדד מקובל מאוד, והוא מצוין כי הוא לא תלוי בקאטאוף ספציפי, הוא מתחשב בכולם, מעין ממוצע או אינטגרציה של טיב המודל על פני ספים שונים.
 
 מודל אקראי לחלוטין, שככל שאנחנו מעלים את הסף כך יורד הTPR ועולה הFPR באופן שווה, העקומה תהיה בעצם הקו האלכסוני בתוף הריבוע, והשטח תחתיה, הAUC יהיה חצי.
@@ -1616,23 +546,13 @@ $$AUC = \frac{ \#\left\{(i,j): y_i = 0, y_j=1 \mbox{ and } \hat{p}_i < \hat{p}_j
 פרשנות יפה של AUC היא, מתוך כל זוגות התצפיות האפשריות כך שאחת חיובית ואחת שלילית, כמה מדורגות "נכון". ומה זה נכון? אם הסקור הנאמד לתצפית החיובית בזוג, גדול מהסקור לתצפית השלילית. אז אחוז הזוגות שמדורגים נכון, במודל אקראי יהיה -- חמישים אחוז, חצי. כמו שאמרנו שAUC למודל אקראי יהיה. ואחוז הזוגות שמדורגים נכון במודל מושלם יהיה -- מאה אחוז.
 
 בצורה פורמלית אפשר לסמן זאת כך, אם יש לנו m0 תצפיות שליליות וm1 תצפיות חיוביות, אז הAUC שווה לאחוז הזוגות שעבורם p_hat לתצפית החיובית גבוה מp_hat לתצפית השלילית. ונשים לב שהמדד הזה גם לא סובל במרכאות אם יש לנו הרבה יותר תצפיות חיוביות משליליות במדגם, או להיפך, כמו שראינו עבור מדד הaccuracy. זו פרופורציה שבכל מקרה נרצה שתהיה כמה שיותר קרובה לאחת.
+
 :::
-:::
 
----
-
-### But think.
-
-- Where did our paintings go?
-
-- Is logistic regression a suitable model for our paintings images?
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 נקודה אחרונה למחשבה: למה לא הזכרנו בשיעור הזה את הציורים שלנו הריאליסטיים והאימפרסיוניסטיים? למה לא השתמשנו ברגרסיה לוגיסטית כדי לבנות מודל שיחזה האם ציור הוא אימפרסיוניסטי?
 
 ברור שאפשר, ואתם תבנו מודל כזה בשיעורי הבית. ואז אתם תגלו שמודל כזה לא יהיה מאוד איכותי. נסו לחשוב למה!
 
 ביחידות הבאות נמשיך עם בניית מודלים לחיזוי, אבל נוותר על המודל הליניארי הנוקשה. יחד עם זאת, כל המושגים שלמדנו היום ישמשו אותנו היטב.
-:::
+
 :::
