@@ -827,7 +827,7 @@ X'X\mathbf{v}_1 = \lambda_1\mathbf{v}_1$$
 
 - So we're looking for the set of $W_{p \times p}$ eigenvectors of $X'X$ with their corresponding eigenvalues $\lambda_1, \dots, \lambda_p$ ordered from largest to smallest.
 
-- One can also show the $\lambda_j$ themselves are the variances of the PCs
+- One can also show the $\lambda_j$ themselves are the norms of the PCs
 
 ::: {.incremental}
 - What is the relation to SVD?
@@ -836,7 +836,7 @@ X'X\mathbf{v}_1 = \lambda_1\mathbf{v}_1$$
     - $D^2$ is $p \times p$ diagonal with **squared** singular values on diagonal
     - Which means $V$ are eigenvectors of and they're also the required $W$ for PCA
     - Eigenvalues $\lambda_1, \dots, \lambda_p$ are squared singular values $d_1^2, \dots, d_p^2$
-    - Either look at $\lambda_1, \dots, \lambda_p$ or $d_1^2, \dots, d_p^2$ for the PCs variance
+    - Either look at $\lambda_1, \dots, \lambda_p$ or $d_1^2, \dots, d_p^2$ for the PCs norms
 :::
 
 ::: {.notes}
