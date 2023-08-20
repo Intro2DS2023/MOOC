@@ -48,7 +48,7 @@ footer: "[Intro to Data Science](https://intro2ds2023.github.io/mooc/){target='_
 - In 2006 Netflix was still a DVD-rental business
 - Users would rate the movies from 1 to 5
 - Netflix training data: 100,480,507 ratings that 480,189 users gave to 17,770 movies
-- Metric on predicted scores $\hat{y}$ vs. true scores $y$: $RMSE = \sqrt{\sum_i (\hat{y}_i - y_i)^2}$
+- Metric on predicted scores $\hat{y}$ vs. true scores $y$: $RMSE = \sqrt{\frac{1}{n}\sum_i (\hat{y}_i - y_i)^2}$
 - Netflix algorithm acheived an RMSE of 0.95
 - "Beat our algorithm by over 10% and win \$1 million dollars!"
 - Over 20,000 teams, over 150 countries, over 13,000 submissions
