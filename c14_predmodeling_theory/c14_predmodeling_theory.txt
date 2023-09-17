@@ -1,75 +1,9 @@
----
-format:
-  revealjs:
-    slide-number: true
-    chalkboard: true
-    fig-width: 6
-    fig-asp: 0.618
-    template-partials:
-      - "../title-slide.html"
-css: "../slides_quarto.css"
-standalone: false
-include-in-header: "../header_quarto.html"
-logo: "../Intro2DS_logo_white.jpg"
-pagetitle: "Predictive Modeling Theory"
-callout-appearance: simple
-smaller: true
-execute:
-  eval: true
-  echo: true
-code-line-numbers: false
-code-block-border-left: true
-highlight-style: github
-footer: "[Intro to Data Science](https://intro2ds2023.github.io/mooc/){target='_blank'}"
----
+=== 1. חזרה על מודלים לחיזוי ===
 
-## {.logo-slide}
-
-## Introduction to Data Science {.title-slide}
-
-### Predictive Modeling Theory - Class 14
-
-### Giora Simchoni
-
-#### `gsimchoni@gmail.com` and add `#intro2ds` in subject
-
-### Stat. and OR Department, TAU
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
-:::
-:::
-
----
-
-## Predictive Modeling So Far {.title-slide}
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 ביחידה הזאת לא נלמד אף מודל חיזוי חדש, אלא נעסוק בתיאוריה של מודלים לחיזוי מעט יותר לעומק. הרציונל מאחורי הבחירה ללמוד תיאוריה לאחר מעשה, הוא שכעת יש לנו הרבה דוגמאות להמחשת התיאוריה.
-:::
-:::
 
----
-
-### What we have learned
-
-- Want to model and predict $y$ as function of $x$: regression or classification
-
-- Using training data $Tr$ to learn model, test data $Te$ to evaluate model and emulate actual prediction
-
-::: {.fragment}
-- Traditional parametric models: OLS regression, logistic regression
-
-- Non-parametric models based on neighborhoods: Nearest neighbors, trees
-
-- Modern methods based on trees: Random Forest and Boosting
-
-- Neural nets and DL (specifically CNN)
 :::
 
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 אז מה עשינו בחצי השני של הקורס?
 
 דיברנו על הסטאפ הבסיסי שבו X הוא וקטור משתנים וY סקלאר שאנחנו מנסים למדל ולחזות, אם Y ממשי קראנו לזה רגרסיה ואם קטגוריאלי קלסיפיקציה.
@@ -81,23 +15,9 @@ footer: "[Intro to Data Science](https://intro2ds2023.github.io/mooc/){target='_
 למדנו גם על שיטות אנסמבל מבוססות עצים - רנדום פורסט ובוסטינג. ולמדנו על רשתות נוירונים מהבסיס, והנציג של למידה עמוקה או דיפ לרנינג שהצגנו היה רשתות קונבולוציה.
 
 ננסה לחשוב על כל השיטות שלמדנו בצורה אחודה, באמצעות חשיבה רוחבית על כמה תכונות של מודל לחיזוי.
+
 :::
-:::
 
----
-
-### Model complexity or flexibility
-
-- Many of the models we have learned have a *complexity* parameter
-    - OLS/logistic: $p$, number of variables in $x$
-    - k-NN: number of neighbors $k$
-    - Trees: depth of tree $d$
-    - Neural nets: number of edges in $W$
-
-- More complex models are more flexible and "rich"
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 תכונה אחת מעניינת היא המסובכות או הקומפלקסיטי של השיטות. אני בכוונה לא אומר סיבוכיות כי זה מושג אחר לחלוטין.
 
 ראינו שלכל השיטות שלנו יש פרמטר אחד או יותר, כמו כפתור כזה, שניתן לסובב כדי לנוע בין מודל פשטני מאוד למודל מורכב מאוד אולי מורכב מדי.
@@ -109,56 +29,19 @@ footer: "[Intro to Data Science](https://intro2ds2023.github.io/mooc/){target='_
 וברשתות יש הרבה היפרמטרים שצריך לכוונן ויכולים לעשות את הרשת גמישה יותר ויותר, לדוגמא מספר הנוירונים ברשת.
 
 המשותף כאמור לכל אלה, ככל שאני מסובב את הכפתור אני מקבל מודל מורכב ועשיר יותר לתיאור היחס בין המשתנים המסבירים למשתנה התלוי.
+
 :::
-:::
 
----
-
-### Model complexity or flexibility
-
-- Typical behavior we have seen: as complexity increases, training error decreases, test/prediction error has U-shape:
-
-![](images/u_shape.png)
-
-- Optimal complexity: flexible enough to capture relevant information, not too flexible to cause overfitting
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 הדפוס הדומה לכל השיטות שראינו: על ציר הY טעות החיזוי, למשל RMSE, על ציר הX רמת המורכבות של המודל. וככל שהמודל מורכב וגמיש יותר שגיאת הטריין בכחול יורדת, לפעמים עד לאפס, ואילו לשגיאת הטסט יש איזשהו אופטימום.
 
 לא הוכחנו תיאורטית למה זה קורה אלא רק נתנו אינטואיציה, המודל עם הקומפלקסיטי האופטימלי גמיש מספיק כדי לבטא יחסים מורכבים אמיתיים בין X לY אבל לא גמיש עד כדי כך שהוא מתאים את עצמו לכל רעש קטן במדגם הלמידה ומביא לאוברפיטינג.
-:::
-:::
 
----
+=== 2. טעות קירוב וחיזוי ===
 
-## Estimation and Approximation Errors {.title-slide}
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 ננסה כעת לשיים את שתי התופעות שאנחנו רואים. נתחיל בעוד קצת אינטואיציה ונגיע אל המושגים המתמטיים פרופר: ביאס, וריאנס, והטריידאוף ביניהן.
-:::
-:::
 
----
-
-### Intuition: Estimation and approximation errors
-
-- **Approximation error**: how well our model can capture the "true" dependence of $y$ on $x$
-
-- **Estimation error**: how well can we estimate our model from our training data $Tr$
-
-::: {.fragment}
-- Simple (low-complexity) model: high approximation error, low estimation error
-
-- Complex model: low approximation error, high estimation error 
-
-![](images/bias_variance_tradeoff.png){width="40%"}
 :::
 
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 אנחנו נקרא אפרוקיסמיישן ארור, לטעות שמבטאת עד כמה המודל שלנו מסוגל באמת לתפוס את הקשר האמיתי בין X לY. לדוגמא, בדוגמא עם הסיכוי לחלות במחלת לב, אם הוא מושפע משלושה משתנים, גיל, היסטוריה משפחתית ומשקל, אבל אני מכניס למודל רק שני משתנים, גיל ומשקל, הטעות של המודל -- האפרוקסימיישן ארור -- תנבע מזה שהוא בכלל לא רואה את משתנה ההיסטוריה המשפחתית, הוא לא מדבר בשפה הנכונה לקלוט את התלות האמיתית של Y בX, חסרים לו משתנים, הוא לא מורכב מספיק, הוא דל. כלומר מודל שתהיה לו אפרוקסימיישן ארור גבוהה הוא מודל עם קומפלקסיטי נמוך -- מעט מדי משתנים או עץ לא עמוק מספיק.
 
 אסטימיישן ארור, מבטא עד כמה יש לנו מספיק אינפורמציה ממדגם הלמידה כדי לחזות על נתונים חדשים, כדי להתאים את המודל שלנו. בדוגמא של מחלות לב, נניח ואנחנו כוללים במודל בדיוק את שלושת המשתנים שאנחנו צריכים, המודל שלנו עשיר בדיוק כדי לבטא את התלות של Y בX, ולא תהיה לו אפרוקסימיישן ארור. אבל מה אם אגיד לכם שאני לומד משתי תצפיות בלבד? ברור שאין לי שום יכולת לאמן את המודל הזה, והטעות שתהיה לי לא תהיה מפני שהמודל לא נכון, המודל מצוין, פשוט אין לי מספיק תצפיות לקבל הערכה מדויקת של הפרמטרים, אם מדברים על רגרסיה. ואם אני אשתמש בדאטא אחר סביר שאגיע לפרמטרים אחרים, ההחלטה שלי רועשת.
@@ -170,37 +53,13 @@ footer: "[Intro to Data Science](https://intro2ds2023.github.io/mooc/){target='_
 מה מעניין אותנו? הטסט ארור, שגיאת החיזוי על נתונים שהמודל לא ראה. הציור שלפנינו מפרק אותה לשני מרכיבים (תיכף נראה שזה עוד לא מדויק): האפרוקסימיישן והאסטימיישן ארורז. אנחנו רואים את הצורת U המוכרת לנו ומבינים סוף סוף, אם כי בנפנוף ידיים, איך היא נוצרת. ככל שהמודל מורכב יותר טעות אפרוקסימיישן יורדת. אבל טעות האסטימיישן עולה, אנחנו מחפשים במרחב גדול הרבה יותר של מודלים וצריכים הרבה יותר דאטא כדי לשערך אותם. והצורת U קורית כי יש בחיבור של הטעויות האלו איזו נקודה אופטימלית של מורכבות המודל, שבה שתיהן כמה שיותר נמוכות.
 
 ושאלה אחרונה לראות שהבנו: אם אגדיל עוד ועוד את הדאטא שיש לי לצורך למידה, על איזו מסוג הטעויות אשפיע, אוריד אותה, אפרוקסימיישן או אסטימיישן? אסטימיישן כמובן. ככל שיש לי יותר דאטא אני יכול ללמוד מודלים מורכבים יותר מדויק יותר. אין לזה השפעה על האפרוקסימיישן ארור, שהרי גם עם שתי תצפיות בלבד ניתן לתאר מודל מורכב עם המון משתנים. הבעיה תהיה באסטימיישן שלו.
-:::
-:::
 
----
+=== 3. הטריידאוף של ביאס וריאנס ===
 
-## The Bias Variance Tradeoff {.title-slide}
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 ננסה לפרמל את המושגים שאנחנו מבינים אינטואיטיבית, ניתן להם את השמות ביאס ווריאנס, ולאחר מכן נדגים עם סימולציה.
-:::
-:::
 
----
-
-### Squared error decomposition
-
-- For regression, take the standard model: $y = f(x) + \epsilon\;,\;\epsilon \sim (0,\sigma^2)$
-
-- Modeling approach (e.g. OLS), given training data $Tr$, gives model $\hat{f}(x)$
-
-::: {.fragment}
-- Assume want to predict at new point $x_0$, and understand our expected (squared) prediction error: 
-
-$\mathbb{E}(y_0 - \hat{f}(x_0))^2 = \mathbb{E} \left( \underbrace{\left(y_0 - f(x_0)\right)}_{A} + \underbrace{\left(f(x_0) - \mathbb{E} (\hat{f}(x_0))\right)}_{B} + \underbrace{\left(\mathbb{E} (\hat{f}(x_0)) - \hat{f}(x_0)\right)}_{C}\right)^2$
-
-- Note we treat both the training data $Tr$ (and hence $\hat{f}$) and the response $y_0$ as random variables in our expectations
 :::
 
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 נתמקד ברגרסיה, שם אנחנו מניחים שY הוא איזושהי פונקציה f של X ועוד רעש עם תוחלת אפס ושונות סיגמא בריבוע, לאו דוקא מהתפלגות נורמלית. מהו f אם ככה, אם התוחלת של אפסילון היא אפס? f הוא התוחלת המותנית של Y בהינתן הנתונים בX. הערך הנמדד של Y הוא לא בדיוק הערך הצפוי שלו, התוחלת, אלא התוחלת ועוד איזשהו רעש.
 
 כעת אנחנו לוקחים טריינינג דאטא TR וממנו לומדים את f. אנחנו יכולים עכשיו לבדוק את הביצועים של המודל על מדגם הטסט, אבל אני רוצה שנחשוב על כל התהליך הזה של דגימת נתונים, בניית מודל f, למידה שלו מהנתונים - כעל תהליך אקראי. ולהסתכל על התוחלת של הלוס שלנו, לדוגמא ברגרסיה השגיאה הריבועית, על פני ביצוע התהליך הזה הרבה פעמים, אם היה לי טריינינג דאטא קצת שונה כל פעם. רוצה לומר גם f_hat המודל שבנינו הוא משתנה מקרי שמבוסס על מקריות מדגם הלמידה שלנו!
@@ -210,23 +69,9 @@ $\mathbb{E}(y_0 - \hat{f}(x_0))^2 = \mathbb{E} \left( \underbrace{\left(y_0 - f(
 כעת אני רושם את ההפרש כסכום של כמה אלמנטים. כל מה שאני עושה זה לחסר ולהוסיף את f של X0, שהוא התלות האמיתית של Y0 בX0, התוחלת המותנית. וגם מחסר ומוסיף את התוחלת של f_hat. שוב, למה זה דבר שקיים לנו? כי f_hat הוא בעצמו מעין משתנה מקרי שכאילו נדגם מתוך הרבה מודלים סופיים שנובעים ממדגמי למידה שונים.
 
 כעת אנחנו פשוט שמים סוגריים ומסמנים אלמנט A, אלמנט B ואלמנט C. נרצה לפתח את הריבוע ולראות אכן ששגיאת החיזוי שלנו בתוחלת מתפרקת לביטויים מעניינים ולתת להם את השם המתמטי שלהם.
+
 :::
-:::
 
----
-
-Which factors are random variables, dependent on $Tr$
-
-$\mathbb{E}(y_0 - \hat{f}(x_0))^2 = \mathbb{E} \left( \underbrace{\left(y_0 - f(x_0)\right)}_{A} + \underbrace{\left(f(x_0) - \mathbb{E} (\hat{f}(x_0))\right)}_{B} + \underbrace{\left(\mathbb{E} (\hat{f}(x_0)) - \hat{f}(x_0)\right)}_{C}\right)^2$
-
-$$A = y_0 - f(x_0)$$
-
-$$B = f(x_0) - \mathbb{E} (\hat{f}(x_0))$$
-
-$$C = \mathbb{E} (\hat{f}(x_0)) - \hat{f}(x_0)$$
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 אילו מהגורמים תלויים באקראיות מדגם הלמידה?
 
 הגורם A - לא תלוי כלל במדגם הלמידה. הוא מבטא איזושהי אמת, רעש טבעי שקיים ולא נוכל להקטין, זהו בעצם האפסילון אפס כלומר כן משתנה מקרי אבל לא תלוי במדגם הלמידה.
@@ -236,28 +81,9 @@ $$C = \mathbb{E} (\hat{f}(x_0)) - \hat{f}(x_0)$$
 הגורם C - כאן בעצם יש את הגורם שתלוי במדגם הלמידה - המרחק של f_hat המודל שלמדנו מהתוחלת שלו. אם אני מעלה את זה בריבוע ולוקח תוחלת מה זה? שונות! שונות המודל f_hat.
 
 כך שעוד לפני שהוכחנו, אתם כבר יכולים להבין שגורם A הוא איזושהי טעות שאין לי הרבה מה לעשות לגביה. גורם B הוא בעצם האפרוקסימיישן ארור, כמה המודל שלנו בתוחלת עשיר מספיק כדי לבטא את הקשר האמיתי בין X לY. וגורם C הוא האסטימיישן ארור, האם יש לי מספיק דאטא כדי שאם אחזור על התהליך הזה עם דאטא קצת אחר אקבל מודל דומה, כלומר כמה קטנה השונות של המודל עצמו.
-:::
-:::
 
----
-
-### The bias-variance decomposition
-
-$\mathbb{E} \left( \underbrace{\left(y_0 - f(x_0)\right)}_{A} + \underbrace{\left(f(x_0) - \mathbb{E} (\hat{f}(x_0))\right)}_{B} + \underbrace{\left(\mathbb{E} (\hat{f}(x_0)) - \hat{f}(x_0)\right)}_{C}\right)^2 =$<br><br>
-$\;\;\;\;\;\;\;\;\;\;\;= \mathbb{E} A^2 + B^2 + \mathbb{E} C^2 + 2 B \cdot \mathbb{E} A + 2 \mathbb{E} (AC) + 2B \cdot\mathbb{E} C$<br><br>
-
-::: {.fragment}
-$\mathbb{E}(A^2) = \sigma^2$ the **Irreducible error** of a perfect model which knows the true $f$ 
-
-$B^2 = \left(f(x_0) - \mathbb{E} (\hat{f}(x_0))\right)^2$ is the **squared bias** --- a measure of approximation error (note $B$ is not a random variable)
-
-$\mathbb{E}(C^2) = \mathbb{E} \left(\mathbb{E} (\hat{f}(x_0)) - \hat{f}(x_0) \right)^2$ is the **variance** of the prediction --- a measure of estimation error
-
-$B \cdot\mathbb{E} A = \mathbb{E} (AC) = B \cdot \mathbb{E} C = 0$ due to independence and mean-0 relations
 :::
 
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 כעת כשאני מעלה את סכום שלושת הגורמים בריבוע אני מקבל את כל אחד מהם בריבוע ועוד 2 כפול מכפלה של כל זוג. כשאני לוקח תוחלת, אני טוען שאנחנו נשארים עם הביטוי שלפנינו. מדוע? נסתכל שוב על הגורמים שקיבלנו, בריבוע:
 
 התוחלת של A בריבוע היא התוחלת של אפסילון בריבוע, כלומר היא השונות של אפסילון, שהיא סיגמא בריבוע. אנחנו קוראים לזה irreducible error, זה הרעש הקיים בטבע, שגם תחת מודל מדויק לא נצליח להפחית. אפסילון לא תלוי בדאטא שלנו, בהגדרה אין לנו דאטא לחזות אותו.
@@ -275,120 +101,31 @@ $B \cdot\mathbb{E} A = \mathbb{E} (AC) = B \cdot \mathbb{E} C = 0$ due to indepe
 התוחלת של מכפלת A ו-C היא גם כן אפס. כי A ו-C הם משתנים מקריים בלתי תלויים לכן התוחלת של המכפלה שלהם היא מכפלת התוחלות והתוחלת של כל אחד מהם היא אפס.
 
 :::
-:::
 
----
-
-### The bias-variance decomposition
-
-$$\mathbb{E}(y_0 - \hat{f}(x_0))^2 = \text{irreducible error} + \text{squared bias} + \text{variance}$$
-
-::: {.fragment}
-And what was wrong with this pattern?
-
-![](images/bias_variance_tradeoff.png){width="40%"}
-:::
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 כך שאנחנו רואים ששגיאת החיזוי שלנו בשורה התחתונה, על דאטא שהמודל לא ראה, היא סכום הגורמים הריבועיים: שגיאת רעש טבעי שאינה תלויה בדאטא או במודל. שגיאת הטייה ריבועית, שתלויה במודל אבל לא בדאטא. ושגיאת שונות המודל שתלויה גם במודל וגם בדאטא.
 
 ואם נחזור לתמונה שציירנו, מה לא מדויק בה?
 
 הקו הירוק צריך להיות סכום של שלושה קווים, שגיאת ההטייה הריבועית (אפרוקסימיישן), שגיאת השונות של המודל (אסטימיישן) ושגיאת הirreducible error, שלא תלויה במורכבות המודל, כלומר איך היא תראה? קו ישר.
-:::
-:::
 
----
-
-### Using the bias-variance decomposition
-
-- Our general intuition: as complexity increases, approximation error decreases and estimation error increases 
-
-- For many models we can calculate and show these effects on the bias and variance of the model 
-
-::: {.fragment}
-- For example, for OLS regression, we can prove:
-
-1. That the squared bias decreases when we add more variables into the model
-2. That the variance of prediction increases when we add more variables (and calculate it, under some assumptions)
 :::
 
-::: {.fragment}
-- Similarly for k-NN regression the squared bias decreases and the variance increases as we decrease $k$ (fewer neighbors, more flexibility/complexity)
-:::
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 באופן כללי אנחנו רואים שהמתמטיקה מסתדרת עם האינטואיציה שלנו, ואפשר ממש לחשב את הטעויות האלה ולהראות שככל שהמודל מורכב יותר הביאס או אפרוקסימיישן יורד, והוריאנס או האסטימיישן עולה.
 
 לדוגמא ברגרסיה ליניארית, ככל שנוסיף עוד משתנים המודל יהיה מורכב ומדויק יותר, ההטיה תרד ותרד. ומצד שני השונות תגדל ותגדל, האומדים שלנו ייהפכו יותר ויותר לא מדויקים ונצטרך יותר ויותר דאטא כדי שזה לא יתדרדר.
 
 באופן דומה אפשר לחשוב על KNN רק ששם הכפתור הזה של מספר שכנים עובד הפוך -- ככל שיש פחות שכנים המודל נורא מורכב וספציפי והביאס ירד, אבל גם השונות תעלה, אנחנו תולים את מבטחנו במעט מאוד שכנים שזאת החלטה מאוד רועשת, ספציפית מאוד.
+
 :::
-:::
 
----
-
-### Simulation example: bias, variance and prediction error
-
-- Let's generate data according to the following model: $x \in \mathbb R^{20}$ has multivariate normal distribution, $y = \sum_{j=1}^{20} \sqrt{(21-j)/2} \times x_j + \epsilon\;,\;\epsilon \sim N(0, 1000)$ 
-
-- So the true model is in fact linear with $\beta = (\sqrt{10},\sqrt{9.5},\dots,\sqrt{0.5})^t$
-
-- We have $n=50$ training observations, and want to predict at $x_0 = (1,1,\dots,1)^t\; \Rightarrow\; y_0 = 43.6 + \epsilon$
-
-- By generating many training sets and $\hat{f}$'s we can evaluate bias, variance and prediction error
-
-- Complexity parameter: number of variables included in the model (only the first coordinate, first two, ...)
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 נראה כעת סימולציה שממחישה את  הדפוס הזה יפה עם מודל ליניארי. יש לנו וקטור משתנים מסבירים X בגודל P = 20. והמקדמים שלו לפי הנוסחה הזאת, שורש 10, שורש 9.5 וכולי, כלומר הם הולכים וקטנים עד שורש חצי. המקדמים הראשונים הם הכי "חשובים, משפיעים" על Y והאחרונים פחות. זאת הf האמיתית שלנו, מודל ליניארי, אלה הם הבטאות.
 
 כעת תעניין אותנו תצפית חדשה לחיזוי X0 שהיא בעצם 1 בכל המשתנים, אם נחשב את Y0 נראה שהוא צריך להיות 43.6 ועוד איזשהו רעש אפסילון שנדגם מהתפלגות הרעש, כאן היא נורמלית. ויהיה לנו תקציב של 50 תצפיות בלבד.
 
 נייצר הרבה מדגמים עם היחס האמיתי הזה וכל פעם נבנה מודל f_hat אחר, על מדגמים שונים ועם מספר משתנים הולך וגדל, כלומר מורכב יותר ויותר. בצורה הזאת אנחנו יכולים לאמוד ממש אמפירית את שלושת הגדלים שחישבנו ולראות שהם מסתכמים בשגיאת החיזוי. מובן שאת הreducible error לא צריך לאמוד, היא ידועה בסימולציה.
+
 :::
-:::
 
----
-
-```{python}
-#| echo: false
-
-import pandas as pd
-import numpy as np
-import matplotlib.pyplot as plt
-```
-
-```{python}
-#| code-line-numbers: "|1-7|9|10-12|13|14|15-16|18-20|"
-
-ntr = 50
-p = 20
-sigma_sq = 1000
-n_iter = 1000
-beta = np.sqrt(np.array(range(20, 0, -1)) / 2)
-yhat_0 = np.zeros((20, n_iter))
-err = np.zeros((20, n_iter))
-
-for iteration in range(n_iter):
-    X = np.random.normal(loc=0.0, scale=1.0, size=(ntr, p))
-    Y = X @ beta + np.random.normal(loc=0.0, scale=np.sqrt(sigma_sq), size=ntr)
-    y0 = np.sum(beta) + np.random.normal(loc=0.0, scale=np.sqrt(sigma_sq), size=1)
-    for pnow in range(1, p + 1):
-        betahat = np.linalg.inv(X[:, :pnow].T @ X[:, :pnow]) @ X[:, :pnow].T @ Y
-        yhat_0[pnow - 1, iteration] = np.sum(betahat)
-        err[pnow - 1, iteration] = y0 - np.sum(betahat)
-        
-pred_err = np.mean(err**2, axis=1) # pred-error
-pred_bias = (np.mean(yhat_0, axis=1) - np.sum(beta))**2 # E(B^2)
-pred_var = np.var(yhat_0, axis=1) # E(C^2)
-```
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 כאן אני מאתחל את מספר התצפיות, את סיגמא בריבוע, מספר האיטרציות והבטאות לפי הנוסחא. אני מאתחל גם מערך של החיזויים ל-Y0 לכל אחד מ-20 המודלים לכל 1000 האיטרציות. ואותו גודל של מערך לשגיאת החיזוי הסופית.
 
 כעת נחזור על 20 המודלים 1000 פעם כדי שנוכל לחשב ממוצע עליהם, כמו תוחלת.
@@ -402,25 +139,9 @@ pred_var = np.var(yhat_0, axis=1) # E(C^2)
 ואז מחשב את החיזוי לתצפית החדשה X0, זה כאמור סכום האומדנים לבטאות, הבטא-האט. ואת טעות החיזוי, Y0 האמיתית פחות Y0 החזוי.
 
 עכשיו אני מחשב את תוחלת טעות החיזוי הריבועית. זה בעצם מיצוע של השגיאות בריבוע, לכל אחד מ20 המודלים על פני 1000 איטרציות. נחשב גם את ההטיה בריבוע, זה ממוצע החיזויים על פני 1000 איטרציות, פחות f0, התצפית האמיתית ללא רעש, וכל זה בריבוע. ולבסוף, התוחלת של C בריבוע זה בעצם שונות החיזוי כמו שראינו. איפה הגורם A בריבוע? אמרנו שלא צריך לאמוד אותו, זה סיגמא בריבוע שידועה בסימולציה, היא 1000.
+
 :::
-:::
 
----
-
-```{python}
-plt.plot(range(1, p + 1), pred_err, color='green', lw=2, label='prediction error' )
-plt.plot([1, p + 1], [sigma_sq, sigma_sq], color='black', lw=1, label='$E(A^2)$:irreducible error')
-plt.plot(range(1, p + 1), pred_bias, color='red', lw=2, label='$E(B^2)$:prediction bias squared')
-plt.plot(range(1, p + 1), pred_var, color='blue', lw=2, label='$E(C^2)$:prediction variance')
-plt.xlabel('dimension')
-plt.ylabel('squared error')
-plt.title('Error decomposition simulation')
-plt.legend(loc="upper right")
-plt.show()
-```
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 ובאמת, כשאנחנו מסרטטים את טעות החיזוי, הirreducible error, ההטיה הריבועית והשונות מתקבל הדפוס הצפוי.
 
 הirreducible error היא כמובן קבוע, 1000, קו ישר. ההטיה בריבוע, הקו האדום, מתחיל מאוד גבוה ממודל פשטני מדי שכולל רק משתנה אחד ועד המודל הנכון עם 20 משתנים שיש לו הטיה אפס. אם אגב במודל רק 15 משתנים היו רלוונטיים, היינו מגיעים לאפס הזה מהר יותר, ב-15 משתנים. לבסוף שונות החיזוי, מתחילה מכמעט אפס עבור מודל פשטני עם משתנה אחד, 50 תצפיות מספיקות כדי להעריך את הפרמטר שלו במדויק. אבל השונות עולה ועולה ככל שהמודל מורכב יותר, 50 תצפיות פשוט לא מספיקות לשערך מודל עם 20 משתנים גם אם הוא נכון. שימו-לב שהיא עולה בצורה ליניארית, אפשר להוכיח למה זה תמיד קורה ברגרסיה ליניארית.
@@ -428,22 +149,9 @@ plt.show()
 ומה עם שגיאת החיזוי הריבועית, בשורה התחתונה? היא אכן בעלת צורת U שראינו, רק שעכשיו אנחנו מבינים ממש מתמטית איך הU נוצר. ואפשר לראות שבקירוב היא שווה לסכום שלוש השגיאות הריבועיות האחרות.
 
 שימו-לב שוב, זה נכון שהמודל עם 20 משתנים הוא הוא הנכון ביותר. אבל עם תקציב של 50 תצפיות, המסר הוא שניתן לשערך היטב מודל של כ12, משתנים בלבד.
+
 :::
-:::
 
----
-
-### Complexity parameters in our models
-
-| **Method**                 | **Complexity param(s)**           | **Low Complexity**       | **High Complexity**     |
-|----------------------------|-----------------------------------|--------------------------|-------------------------|
-| Linear/logistic regression | Number of variables               | Few variables            | Many variables          |
-| k-NN                       | Number of neighbors               | Many neighbors           | Few neighbors           |
-| Tree                       | Depth                             | Shallow                  | Deep                    |
-| Neural Nets                | Number of hidden nodes and layers | Few                      | Many                    |
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 אפשר לסכם עם הטבלה הזאת:
 
 מודל עם קומפלקסיטי נמוך -- בא עם אסטימיישן ארור נמוך אבל אפרוקיסמיישן ארור גבוה.
@@ -451,51 +159,19 @@ plt.show()
 מודל עם קומפלקסיטי גבוה -- בא עם אסטימיישן ארור גבוה אבל אפרוקסימיישן ארור נמוך.
 
 ומהו הכפתור העיקרי שנותן לנו קומפלקסיטי נמוך וגבוה? ברגרסיה מספר המשתנים, מעט זה לואו קומפלקסיטי, הרבה זה היי קומפלקסיטי. בKNN הרבה שכנים זה לואו קומפלקסיטי ומעט זה היי קומפלקסיטי. בעצים עץ שטוח כלומר מעט שכונות זה לואו, עץ עמוק עם הרבה שכונות זה היי. וברשתות מעט שכבות עם מעט נוירונים זה לואו, והרבה פרמטרים זה היי.
-:::
-:::
 
----
+=== 4. קרוס-ולידציה ===
 
-## Cross validation {.title-slide}
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 לנושא הבא ודאי נחשפתם כבר בתרגול אבל הגיע הזמן להציג אותו באופן רשמי - cross validation.
+
 :::
-:::
 
----
-
-### Cross validation: beyond the test set
-
-- So far we simply divided our data to 80% training and 20% test
-
-- We mentioned that if we also have to choose a model parameter (like number of variables or $k$ in $k$-NN), we should have training-validation-test (usually 60-20-20), where we use validation to select model, and test for final evaluation
-
-- But there are more efficient ways to use the data
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 עד כה בהרצאה לפחות חילקנו את הדאטה שלנו לשניים, 80 אחוז למדגם למידה ו20 אחוז למדגם טסט. בתחילת השיעור רמזנו שאם יש כפתור כזה של מודל קומפלקסיטי שצריך לבחור, כמו K בKNN, לא סביר להשתמש במדגם הטסט גם לבחור אותו וגם לדווח על שגיאת החיזוי הצפויה מהמודל. נכון יותר סטטיסטית לחלק את הדאטה לשלושה חלקים: מדגם למידה, נאמר 60 אחוז מהדאטא, מדגם ולידציה, נאמר 20 אחוז מהדאטא והוא ישמש לסיבוב הכפתור, בחירת ההיפרפרמטרים הרלוונטיים, ומדגם הטסט שישמש אותנו לאווליואציה סופית, מה הRMSE או הprecision הצפוי מהמודל, למשל.
 
 אבל יש דרך יעילה יותר להשתמש בנתונים אם חושבים על זה.
+
 :::
-:::
 
----
-
-### 10-fold cross validation
-
-1. Divide the data into 10 equal size parts (folds)
-2. Repeat 10 times: 
-    a. Fit the model on 90% of the data 
-    b. Apply the model to the holdout fold
-3. Evaluate the modeling approach on 100% of the data by combining the holdout folds
-
-Once the complexity parameter has been chosen, train the model one last time on the entire data before testing it in production on *actual* unseen data.
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 לדוגמא 10-פולד קרוס ולידיישן. נחלק את הדאטא לעשרה חלקים שווים באופן אקראי, אלה הם הfolds או "קפלים". ונחזור על הפרוצדורה הבאה 10 פעמים. נאמן את המודל על 90 אחוז מהדאטא, כלומר תשעה פולדים. ונעשה לו אבליואציה על 10 אחוז מהדאטא, כלומר על הפולד שלא השתמשנו בו לאימון. מובן שכל פולד ישמש בתורו כמדגם ההולדאאוט או טסט סט, כשהתשעה האחרים משמשים כמדגם הלמידה.
 
 לבסוף כדי לדווח על הביצועים של המודל או כדי לבחור בקומפלקסיטי הראוי למודל, נסתכל על ממוצע טעות החיזוי שעל 100 אחוז מהדאטא, על פני כל הפולדים.
@@ -503,24 +179,9 @@ Once the complexity parameter has been chosen, train the model one last time on 
 באופן זה אימנתי לא על 60 או 80 אחוז מהדאטא, אימנתי כל פעם על 90 אחוז מהדאטא, ומיצעתי את עקומת טעות החיזוי המוכרת לנו על פני מספר עותקים של הדאטא, כל פעם ראיתי מדגם אקראי אחר. וכמו בכל מיצוע שראינו עד כה, המשמעות היא שגם החלק הזה של בחירת הקומפלקסיטי עצמו, יהיה רועש פחות, השונות של התהליך הזה תקטן.
 
 דבר אחרון שחשוב למדעני נתונים שעוסקים בפרקטיקה, אם הדגש של המודל הוא באמת על חיזוי, למשל בסביבת פרודקשן של אתר כלשהו, יש לאמן אותו פעם אחת אחרונה על 100 אחוז מהתצפיות עם רמת הקומפלקסיטי שנבחרה, הכפתור שסובבנו. כך שמודל סופי שאנחנו באמת עושים לו דיפלוימנט יאומן על כל הדאטא שהיה ברשותנו ולפיכך אמור רק להשתפר.
+
 :::
-:::
 
----
-
-### Leave-one-out cross validation (LOOCV)
-
-- Can go beyond 10-fold, to n-fold: each time fit the model on $n - 1$ observations, and hold-out $1$
-
-- In mathematical notation: $L_{n-fold} = \sum_{i=1}^n L\left(y_i, \hat{f}^{(-i)}(x_i)\right)$
-
-- Where: 
-    - $L$ is the loss function we use for evaluation
-    - $\hat{f}^{(-i)}$ is the model we build on $n-1$ observations, removing observation $i$
-    - We then apply this model to the left out observation and see how well we do
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 נשאלת השאלה למה לחלק לעשרה פולדים? אפשר לחלק גם ל-n פולדים, כשn הוא גודל הדאטא. בדרך זו המודל יתאמן בכל פולד על 99.99 אחוז מהנתונים, כמעט 100 אחוז.
 
 זה באמת מה שעומד מאחורי leave-one-out cross validation. כל מודל נבנה על n - 1 תצפיות ונבדק על התצפית האחת שנותרה.
@@ -528,27 +189,9 @@ Once the complexity parameter has been chosen, train the model one last time on 
 אפשר לרשום את זה בצורה כזאת: L היא איזושהי פונקצית הפסד שלפיה אנחנו שופטים את ביצועי המודל, לדוגמא הפסד ריבועי, f_hat פחות i זה המודל של שאומן על כל התצפיות חוץ מi והחיזוי שלו על תצפית i. וטעות החיזוי הכללית שלנו תהיה סכום ההפסדים על פני n המודלים.
 
 אם רוצים לכוונן גם איזשהו כפתור קומפלקסיטי, לדוגמא להחליט בין חמישה לעשרה שכנים, נצטרך להוסיף פה גם איזה אינדקס K, כלומר לעשות את זה לכל בחירה של K או פרמטר קומפלקסיטי כלשהו באופן כללי.
+
 :::
-:::
 
----
-
-### Cross validation: advantages and issues
-
-Advantages:
-
-1. Training set is bigger ($0.9n$ or $n-1$ instead of $0.8n$) --- better models and more realistic
-2. Test set is bigger (essentially of size $n$) --- more stable model evaluation and selection
-
-Disadvantages: 
-
-1. Have to build 10 (or $n$) models --- much more computing
-2. What exactly are we evaluating --- we don't have a single model
-
-Lots of interesting perspectives and results
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 מהם היתרונות של קרוס ולידיישן?
 
 יתרון אחד הוא שימוש יעיל יותר בנתונים, אפשר לאמן מודל על 90 אחוז מהדאטא או n פחות 1, במקום 80 אחוז, כלומר מודלים טובים יותר.
@@ -560,53 +203,19 @@ Lots of interesting perspectives and results
 קודם כל חיסרון חישובי. אם מדובר במודל שלוקח זמן לאמן, נצטרך הרבה יותר זמן לאימון, הרבה יותר חישוב. אם אנחנו רוצים לכוונן את מספר המשתנים בין 1 ל100 למשל, זה גם מכפיל את הכמות הזאת פי 100. כאן כמובן אפשר לחשוב על מימוש חכם שימקבל את האימון, ובסיטואציות מסוימות אפשר בכלל להימנע מאימון של כל המודלים או אימון שלהם בצורה הדרגתית ויעילה יותר, אבל זה מחוץ לסקופ שלנו כאן.
 
 החיסרון האחר הוא שבסופו של דבר המודל ייבחן פעם אחת, בפרודקשן, והטעות הממוצעת הזאת אמנם על כל הנתונים אבל על פני כמה פולדים, אולי לא משקפת בדיוק את המבחן האמיתי של המודל. גם כאן אם הדאטא גדול מאוד אפשר לחשוב על שילוב הגישות, בכל זאת להשאיר קצת דאטא בצד לטסט סט סופי סופי שבאמת לא ניגע בו ונבחן את ביצועי המודל עליו כאילו היה באמת דאטא שמגיע בסביבת הפרודקשן.
-:::
-:::
 
----
+=== 5. רגולריזציה ===
 
-## Regularization {.title-slide}
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 הנושא האחרון בו ניגע ביחידה הזאת שהיא יותר תיאורטית, הוא רגולריזציה. ניקח למשל את המודל של רגרסיה ליניארית. כדי להפוך את המודל יותר ויותר מורכב אנחנו דיברנו על האפשרות של הוספת עוד ועוד משתנים למודל. רגולריזציה מאפשרת לשלוט בקומפלקסיטי של המודל בגישה אחרת.
+
 :::
-:::
 
----
-
-### Regularization: controlling the bias-variance tradeoff
-
-- As we saw, in OLS, the more variables in the model, the bigger the prediction variance
-
-- This is because we have to estimate many parameters, high model complexity
-
-- Regularization controls model complexity not by reducing the number of parameters, but in other ways
-
-- Most common: restrict the norm of $\hat{\beta}$, instead of allowing it to take any value in $\mathbb R^p$
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 אז איך נשלוט בשונות המודל בדרך קצת יותר מחוכמת, בלי לשנות את מספר המשתנים במודל?
 
 הרי מה אנחנו עושים כשאנחנו משנים את מספר המשתנים? אנחנו מרחיבים או מצמצמים את מרחב החיפוש של הפרמטרים שלנו. אם אנחנו משתמשים בשני משתמשים המרחב נורא קטן, אם אנחנו משתמשים במאה משתנים הוא כבר עצום. רגולריזציה, שולטת בגודל הזה של מרחב החיפוש בדרך אחרת -- על ידי הגבלת הנורמה של וקטור המקדמים. במקום לרדת מR^p לR ממימד קטן יותר, נישאר בR^p, אבל לא נרשה לוקטור בטא להיות בכל R^p. ספציפית נגדיר איזשהו כדור בR^p שרק שם מותר לוקטור בטא, למודל להיות, כך שלא ישתולל.
+
 :::
-:::
 
----
-
-### Norm penalties and ridge regression
-
-- The common norms to penalize: 
-    - Euclidean ($\ell_2$) norm: $\|\beta\|_2^2 = \sum_{j=1}^p \beta_j^2\;\;$ $\;\Rightarrow\;\;$ **Ridge regression**
-    - $\ell_1$ norm: $\|\beta\|_1 = \sum_{j=1}^p |\beta_j|\;\;$ $\;\Rightarrow\;\;$ Lasso
-
-- For ridge regression, $\hat{\beta}$ is the solution of: $\min_{\|\beta\|^2\leq c} RSS (\beta)$ 
-
-- Alternative Largrange form: $\min_\beta RSS(\beta) + \lambda \|\beta\|^2$ 
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 מתמטית, אנחנו צריכים קודם כל לבחור נורמה. הנורמות המקובלות הן או L2, שמשמעותה סכום הבטאות בריבוע. או L1, שמשמעותה סכום הבטאות בערך מוחלט.
 
 כשמדובר בנורמת L2 הפרוצדורה נקראת רידג' ריגרשן ועליה נרחיב, כשמדובר על נורמת L1 זה נקרא לאסו ריגרשן, עליה לא נרחיב.
@@ -616,25 +225,9 @@ Lots of interesting perspectives and results
 בעיה שקולה היא לקחת את הקריטריון למינימום ולהוסיף לאילוץ כופל לגראנז' למדא. וכשאנחנו כותבים את הקריטריון הסופי בצורה כזו זה אומר מציאת מינימום לRSS תוך ענישת הנורמה של וקטור המקדמים בטא. אם נשים למדא גדול מאוד, העונש יהיה כבד והמקדמים שלנו ייאלצו להיות קטנים, כלומר להתקרב לראשית. אם למדא יהיה קטן העונש יהיה קל יותר ונאפשר למקדמים להיות גדולים יותר. זאת בעיה קלה יותר לפתרון אבל הן שקולות.
 
 ומה כל זה יועיל לנו? אפשר להוכיח שבדרך זו אנחנו מקטינים את השונות של וקטור המקדמים אבל לא נעשה את זה כאן. אני מעדיף שנחשוב על זה לפי המוטיבציה שהביאה אותנו לענישה הזאת של הנורמה -- אנחנו מקטינים את מרחב החיפוש של המקדמים ומגדילים אותו ובאופן הזה שולטים בקומפלקסיטי של המודל, עם פרמטר למדא במקום p.
+
 :::
-:::
 
----
-
-### Solving ridge regression
-
-- We want to minimize penalized RSS: $PRSS(\beta) = \|Y-X\beta\|^2 + \lambda \|\beta\|^2.$
-
-- Differentiating relative to $\beta$ and equating to $0$ : $\nabla_\beta PRSS(\beta) = -2X^TY + 2X^TX\beta + 2\lambda \beta = 0.$
-
-- Solution: $\hat{\beta}(\lambda) = (X^TX + \lambda I_p)^{-1} X^T Y.$
-
-- This is a minimum because the function is quadratic in $\beta$ (or can check Hessian)
-
-- Similar to OLS solution, with additional term in the inverse
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 מכל מקום, אם בחרנו במטריקת L2 מסתבר שעדיין יש פתרון סגור לרגרסית רידג'. הקריטריון שלנו הוא כעת penalized RSS או PRSS, השאריות בריבוע ועוד עונש על הנורמה הריבועית. נשים לב שזו עדיין פונקציה קוואדרטית של וקטור בטא לכן יהיה לנו פתרון. כמו שעשינו ברגרסיה אפשר לגזור את הPRSS לפי בטא, לקבל את הביטוי שמופיע לנו כאן (בעצם אותו ביטוי שקיבלנו ברגרסיה ליניארית ועוד נגזרת הענישה), להשוות לאפס, ולחלץ לבטא.
 
 יתקבל הביטוי שלפנינו, X'X ועוד מטריצה אלכסון עם למדא על האלכסון, כל זה בהופכי כפול X טרנספוז Y.
@@ -642,131 +235,29 @@ Lots of interesting perspectives and results
 מה ההבדל בין פתרון רידג' לבטא לפתרון OLS שאנחנו מכירים לבטא? כאן נוסף עוד איזשהו קבוע קטן לאלכסון של המטריצה X'X, עיבינו קצת את האלכסון, ואפשר לחשוב שהוא נראה עכשיו בולט יותר כמו רכס, לכן השם ridge regression.
 
 מלבד זאת אפשר כאמור להראות שאנחנו מקטינים או מייצבים את השונות של וקטור המקדמים של בטא באמצעות הוספת קבוע קטן למטריצה הזאת לפני ההפיכה שלה, פרוצדורה מקובלת מאוד באלגברה לטיפול במטריצות לא יציבות שאנחנו רוצים להפוך. מי שרוצה עוד פיתוחים מתמטיים על פתרון רידג' מוזמן לקחת קורסים מתקדמים יותר בנושא. כרגע כהרגלנו בקודש נסתפק בסימולציה שמראה את התועלת.
+
 :::
-:::
 
----
-
-```{python}
-#| code-line-numbers: "|13-14|"
-ntr = 50
-p = 20
-sigma_sq = 1000
-n_iter = 1000
-beta = np.sqrt(np.array(range(20, 0, -1))/2)
-yhat_0 = np.zeros((30, n_iter))
-err = np.zeros((30, n_iter))
-
-for iteration in range(n_iter):
-    X = np.random.normal(loc=0.0, scale=1.0, size=(ntr, p))
-    Y = X @ beta + np.random.normal(loc=0.0, scale=np.sqrt(sigma_sq), size=ntr)
-    y0 = np.sum(beta) + np.random.normal(loc=0.0, scale=np.sqrt(sigma_sq), size=1)
-    for lamb in range(29, -1, -1):
-        betahat = np.linalg.inv(X.T @ X + lamb * np.identity(p)) @ X.T @ Y
-        yhat_0[lamb, iteration] = np.sum(betahat)
-        err[lamb, iteration] = y0 - np.sum(betahat)
-        
-pred_err = np.mean(err**2, axis=1)
-pred_var = np.var(yhat_0, axis=1)
-pred_bias = (np.mean(yhat_0, axis=1) - np.sum(beta))**2
-```
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 אז הסימולציה שלנו כמעט זהה לסימולציה עם הרגרסיה ליניארית רגילה שעשינו, שם טיפלנו בקומפלקסיטי של המודל באמצעות הוספת עוד ועוד משתנים. ההבדל היחיד הוא בשתי השורות האלה:
 
 ראשית, אנחנו לא משנים את p מספר המשתנים במודל, אלא את למדא, להיות בין כ30 כלומר ענישה חמורה כל כך שבגללה מקדמים רבים בוקטור יהיו קרובים מאוד לאפס והמודל יהיה מאוד לא מורכב, ובין 0 כלומר בלי ענישה בכלל, מה שיאפשר לוקטור בטא להשתולל ולתת מודל מורכב מאוד.
 
 שנית, האומד שלנו לבטא הוא לפי הנוסחה של האומד רידג', לא האומד של OLS, כשאנחנו מוסיפים למדא לאלכסון המטריצה X'X. וp מספר המשתנים נשאר קבוע 20, אנחנו משתמשים תמיד בכל המשתנים.
+
 :::
-:::
 
----
-
-```{python}
-#| eval: false
-#| echo: false
-
-plt.rcParams["figure.figsize"] = (4, 4)
-```
-
-```{python}
-#| eval: false
-
-plt.plot(range(29, -1, -1), pred_err, color='green', lw=2, label='prediction error' )
-plt.plot([29, 0], [sigma_sq, sigma_sq], color='black', lw=1, label='$E(A^2)$:irreducible error')
-plt.plot(range(29, -1, -1), pred_bias, color='red', lw=2, label='$E(B^2)$:prediction bias squared')
-plt.plot(range(29, -1, -1), pred_var, color='blue', lw=2, label='$E(C^2)$:prediction variance')
-plt.xlabel('regularization level ($\lambda$)')
-plt.ylabel('squared error')
-plt.title('Error decomposition simulation')
-plt.legend(loc="upper right")
-plt.show()
-```
-
-```{python}
-#| echo: false
-
-plt.plot(range(29, -1, -1), pred_err, color='green', lw=2, label='prediction error' )
-plt.plot([29, 0], [sigma_sq, sigma_sq], color='black', lw=1, label='$E(A^2)$:irreducible error')
-plt.plot(range(29, -1, -1), pred_bias, color='red', lw=2, label='$E(B^2)$:prediction bias squared')
-plt.plot(range(29, -1, -1), pred_var, color='blue', lw=2, label='$E(C^2)$:prediction variance')
-plt.ylim((0, 2500))
-plt.xticks(range(0, 30)[::3], range(0, 30)[::-3])
-plt.xlabel('regularization level ($\lambda$)')
-plt.ylabel('squared error')
-plt.title('Error decomposition simulation')
-plt.legend(loc="upper right")
-plt.show()
-```
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 כפי שאפשר לראות קיבלנו דפוס דומה. ככל שהענישה חמורה יותר המודל פשטני מדי והטעות חיזוי גבוהה, איפשהו באמצע נראה טעות חיזוי אופטימלית, ועם ענישה לא חמורה בכלל הביאס קטן מאוד אבל הוריאנס גם גדול מאוד ושוב טעות החיזוי עולה.
 
 הדבר המדהים הוא, שאם תשוו את טעות החיזוי הכי טובה ברגרסיית רידג' לטעות החיזוי הכי טובה ברגרסיית OLS בסימולציה הקודמת, תראו שברגרסיית רידג' היא טובה יותר, היא מתחת ל-1500! יש הרבה דרכים להסביר את זה, ואני מקווה שזה יגרה אתכם להמשיך ללמוד, בשורה התחתונה הרבה פעמים הוספת פנאלטי קטן של רידג' במיוחד בבעיות ממימד גבוה או בבעיות בהם p בכלל גדול מn, טעות החיזוי משתפרת מאוד.
-:::
-:::
 
----
-
-### Summary
-
-::: {.fragment}
-We have discussed several types of modeling families:
-
-1. Parametric traditional approaches like OLS and logistic regression
-2. Local non-parametric approaches like k-NN and trees
-3. Modern high dimensional approaches: RF, boosting, CNN
 :::
 
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 נסכם את החלק של מודלים לחיזוי. למדנו משפחות שונות של מודלים:
 
 מודלים פרמטריים כמו רגרסיה ליניארית ולוגיסטית, מודלים ישנים יותר עמוסים בהנחות. מודלים א-פרמטריים לוקאליים שמתבססים על שכונות, כמו KNN ועצי החלטה. ומודלים חזקים במיוחד שמבוססים על איסוף של הרבה מודלים חלשים כמו רנדום ופורסט או על ארכיטקטורה חדשנית ומימוש יעיל, כמו רשתות נוירונים.
-:::
-:::
 
----
-
-### Summary (II)
-
-::: {.fragment}
-When designing a specific predictive model we should consider the apsects we have discussed:
-
-1. What probabilistic or parametric assumptions make sense? 
-2. What is the right model complexity given the amount of data we have? 
-3. We can control complexity and hence approximation-estimation tradeoff through number of parameters or regularization
-4. Evaluation on independent data: What is the loss function to evaluate model performance? Use test set or cross validation?
 :::
 
-::: {.fragment}
-**These universal considerations are largely common to all approaches**
-:::
-
-::: {.notes}
-::: {style="direction:rtl; font-size:16px"}
 והיום דיברנו באופן כללי יותר על אילו אספקטים כדאי לקחת בחשבון כשאנחנו רוצים לבחור בין מודלים.
 
 אילו הנחות יש למודל, הסתברותיות או פרמטריות והאם נראה לנו שזה מתאים לבעיה שלנו.
@@ -776,5 +267,5 @@ When designing a specific predictive model we should consider the apsects we hav
 ודיברנו הרבה על איווליואציה של מודל: מה הלוס פאנקשן שמתאימה לנו, ואיזו אסטרטגיה להעריך אותה נבחר, טסט סט יחיד או קרוס ולידיישן.
 
 כמו הרבה עקרונות בקורס שלנו, הדברים שלמדנו היום ילוו אתכם בכל מודל שתלמדו בהמשך, ואני מקווה שתמיד תקחו אותם בחשבון כשאתם מגיעים למדל נתונים במיוחד אם המטרה שלכם היא חיזוי איכותי ככל הניתן.
-:::
+
 :::
